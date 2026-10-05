@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Progress dietowy</title>
+<style>
+  :root {
+    --bg: #eef2f0;
+    --card: #ffffff;
+    --ink: #17231f;
+    --muted: #5d6b65;
+    --line: #d8e0dc;
+    --accent: #1f6f5b;
+    --accent-ink: #ffffff;
+    --good: #1f7a4d;
+    --warn: #b7791f;
+    --bad: #b03a2e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.45;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 1.7rem; margin: 8px 0 18px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.1rem; margin: 0 0 12px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .tab {
+    flex: 1 1 0;
+    min-width: 90px;
+    padding: 12px 10px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    border-radius: 12px;
+    font: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .tab[aria-selected="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .tab:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid #7cc4b0; outline-offset: 2px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .stat { background: var(--bg); border-radius: 10px; padding: 12px; }
+  .stat .v { font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+  .stat .l { font-size: 0.82rem; color: var(--muted); }
+  .cat { font-size: 0.9rem; margin-top: 10px; color: var(--muted); }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+  label { display: flex; flex-direction: column; font-size: 0.85rem; color: var(--muted); gap: 4px; flex: 1 1 130px; }
+  input {
+    font: inherit;
+    padding: 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--ink);
+    width: 100%;
+  }
+  button.primary {
+    font: inherit;
+    font-weight: 600;
+    padding: 11px 18px;
+    border-radius: 8px;
+    border: 0;
+    background: var(--accent);
+    color: var(--accent-ink);
+    cursor: pointer;
+  }
+  button.ghost {
+    font: inherit;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button.del { border: 0; background: none; color: var(--bad); cursor: pointer; font: inherit; padding: 4px 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 9px 6px; border-bottom: 1px solid var(--line); }
+  th { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .scroll { overflow-x: auto; }
+  .place { font-weight: 700; width: 2.2em; }
+  tr.first td { background: #e6f3ee; }
+  .msg { font-size: 0.85rem; color: var(--muted); margin-top: 8px; }
+  .empty { color: var(--muted); font-size: 0.95rem; padding: 6px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  .chart { width: 100%; height: auto; display: block; }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .coach { margin: 0; padding-left: 18px; }
+  .coach li { margin: 4px 0; }
+  .quote { margin-top: 12px; padding: 10px 12px; background: var(--bg); border-radius: 10px; font-style: italic; }
+  .chatbox { max-height: 300px; overflow-y: auto; background: var(--bg); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+  .cm { margin: 0 0 8px; }
+  .cm .who { font-weight: 700; font-size: 0.9rem; }
+  .cm .when { font-size: 0.75rem; color: var(--muted); margin-left: 6px; }
+  .cm .txt { word-wrap: break-word; overflow-wrap: anywhere; }
+  select { font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); width: 100%; }
+  @media (max-width: 420px) { .stat .v { font-size: 1.3rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Progress dietowy</h1>
+  <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
+
+  <div class="tabs" id="tabs" role="tablist"></div>
+
+  <section class="card" id="summary"></section>
+
+  <section class="card">
+    <h2>Dodaj pomiar</h2>
+    <div class="row">
+      <label>Data<input type="date" id="date"></label>
+      <label>Waga (kg)<input type="number" id="weight" step="0.1" min="20" max="400" inputmode="decimal" placeholder="np. 84.5"></label>
+      <button class="primary" id="add">Dodaj</button>
+    </div>
+    <div class="msg" id="addMsg"></div>
+  </section>
+
+  <section class="card">
+    <h2>Wykres wagi</h2>
+    <div id="chart"></div>
+  </section>
+
+  <section class="card">
+    <h2>Ranking wg BMI</h2>
+    <div class="scroll" id="board"></div>
+    <div class="msg">Wygrywa osoba z BMI najbliżej 22 (środek normy 18,5–24,9). Liczy się ostatni pomiar.</div>
+  </section>
+
+  <section class="card">
+    <h2>Trener</h2>
+    <ul class="coach" id="coach"></ul>
+    <div class="quote" id="quote"></div>
+  </section>
+
+  <section class="card">
+    <h2>Czat</h2>
+    <div class="chatbox" id="chatBox" aria-live="polite"></div>
+    <div class="row">
+      <label style="flex:0 1 140px">Piszesz jako<select id="who"></select></label>
+      <label style="flex:2 1 200px">Wiadomość<input type="text" id="chatText" maxlength="300" placeholder="Napisz coś…"></label>
+      <button class="primary" id="chatSend">Wyślij</button>
+    </div>
+    <div class="msg" id="chatMsg"></div>
+  </section>
+
+  <section class="card">
+    <h2>Historia pomiarów</h2>
+    <div class="scroll" id="history"></div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>Edytuj użytkownika</summary>
+      <div class="row" style="margin-top:12px">
+        <label>Wzrost (cm)<input type="number" id="height" min="100" max="250" step="1" inputmode="numeric"></label>
+        <label>Cel wagi (kg)<input type="number" id="goal" min="20" max="400" step="0.1" inputmode="decimal"></label>
+        <button class="primary" id="saveUser">Zapisz</button>
+      </div>
+      <div class="msg" id="userMsg"></div>
+    </details>
+  </section>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, doc, onSnapshot, runTransaction, addDoc, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBPPdXhBZl3auMR_2B2Gcxr4w7XyygsX84",
+  authDomain: "progress-dietowy-1799e.firebaseapp.com",
+  projectId: "progress-dietowy-1799e",
+  storageBucket: "progress-dietowy-1799e.firebasestorage.app",
+  messagingSenderId: "1045889496723",
+  appId: "1:1045889496723:web:21c2cb855b4d716b1bff66"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const NAMES = ["Dawid P", "Dawid K", "Wojtek"];
+const IDS = { "Dawid P": "dawid-p", "Dawid K": "dawid-k", "Wojtek": "wojtek" };
+
+const state = { users: {}, current: NAMES[0] };
+NAMES.forEach(n => { state.users[n] = { height: null, goal: null, entries: [] }; });
+try { const c = localStorage.getItem("pd-current"); if (c && IDS[c]) state.current = c; } catch (e) {}
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+const fmt = (n, d) => n == null ? "—" : Number(n).toFixed(d == null ? 1 : d).replace(".", ",");
+
+function sorted(u) { return u.entries.slice().sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0); }
+function latest(u) { const s = sorted(u); return s.length ? s[s.length - 1] : null; }
+function bmi(w, h) { if (!w || !h) return null; const m = h / 100; return w / (m * m); }
+function category(b) {
+  if (b == null) return "—";
+  if (b < 18.5) return "niedowaga";
+  if (b < 25) return "norma";
+  if (b < 30) return "nadwaga";
+  return "otyłość";
+}
+function catColor(b) {
+  if (b == null) return "var(--muted)";
+  if (b < 18.5) return "var(--warn)";
+  if (b < 25) return "var(--good)";
+  if (b < 30) return "var(--warn)";
+  return "var(--bad)";
+}
+function today() {
+  const d = new Date(), p = n => (n < 10 ? "0" : "") + n;
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+}
+
+/* ---------- baza danych ---------- */
+function setStatus(text, bad) {
+  const el = $("status");
+  el.textContent = text;
+  el.style.color = bad ? "var(--bad)" : "var(--muted)";
+}
+
+async function mutate(name, fn) {
+  const ref = doc(db, "progress", IDS[name]);
+  await runTransaction(db, async tx => {
+    const snap = await tx.get(ref);
+    const d = snap.exists() ? snap.data() : {};
+    const next = fn({
+      name: name,
+      height: d.height == null ? null : d.height,
+      goal: d.goal == null ? null : d.goal,
+      entries: (d.entries || []).slice()
+    });
+    tx.set(ref, next);
+  });
+}
+
+let firstLoad = true;
+onSnapshot(collection(db, "progress"), snap => {
+  snap.forEach(d => {
+    const name = NAMES.find(n => IDS[n] === d.id);
+    if (!name) return;
+    const data = d.data();
+    state.users[name] = {
+      height: data.height == null ? null : data.height,
+      goal: data.goal == null ? null : data.goal,
+      entries: data.entries || []
+    };
+  });
+  setStatus("Połączono. Dane są wspólne dla wszystkich.");
+  render(firstLoad);
+  firstLoad = false;
+}, err => {
+  console.error(err);
+  setStatus("Brak połączenia z bazą (" + (err && err.code ? err.code : "błąd") + "). Sprawdź reguły Firestore i internet.", true);
+});
+
+/* ---------- widok ---------- */
+function renderTabs() {
+  $("tabs").innerHTML = NAMES.map(n =>
+    '<button class="tab" role="tab" data-name="' + esc(n) + '" aria-selected="' + (n === state.current) + '">' + esc(n) + "</button>"
+  ).join("");
+  Array.prototype.forEach.call($("tabs").children, b => {
+    b.addEventListener("click", () => {
+      state.current = b.getAttribute("data-name");
+      try { localStorage.setItem("pd-current", state.current); } catch (e) {}
+      render(true);
+    });
+  });
+}
+
+function renderSummary() {
+  const u = state.users[state.current];
+  const l = latest(u);
+  const b = l ? bmi(l.weight, u.height) : null;
+  let html = "<h2>" + esc(state.current) + "</h2>";
+  html += '<div class="stats">' +
+    '<div class="stat"><div class="v">' + (l ? fmt(l.weight) + " kg" : "—") + '</div><div class="l">Waga</div></div>' +
+    '<div class="stat"><div class="v">' + fmt(b) + '</div><div class="l">BMI</div></div>' +
+    '<div class="stat"><div class="v">' + (u.goal ? fmt(u.goal) + " kg" : "—") + '</div><div class="l">Cel</div></div></div>';
+  const lines = [];
+  if (b != null) lines.push('<span style="color:' + catColor(b) + '">' + category(b) + "</span>");
+  if (l && u.goal) {
+    const diff = l.weight - u.goal;
+    if (Math.abs(diff) < 0.05) lines.push("cel osiągnięty");
+    else lines.push("do celu: " + fmt(Math.abs(diff)) + " kg " + (diff > 0 ? "w dół" : "w górę"));
+  }
+  const s = sorted(u);
+  if (s.length > 1) {
+    const ch = s[s.length - 1].weight - s[0].weight;
+    lines.push("od pierwszego pomiaru: " + (ch > 0 ? "+" : "") + fmt(ch) + " kg");
+  }
+  if (!u.height) lines.push("uzupełnij wzrost w edycji użytkownika, żeby liczyć BMI");
+  if (lines.length) html += '<div class="cat">' + lines.join(" · ") + "</div>";
+  $("summary").innerHTML = html;
+}
+
+function renderChart() {
+  const u = state.users[state.current];
+  const s = sorted(u);
+  if (s.length < 2) {
+    $("chart").innerHTML = '<div class="empty">Dodaj co najmniej dwa pomiary, żeby zobaczyć wykres.</div>';
+    return;
+  }
+  const W = 700, H = 240, pl = 44, pr = 14, pt = 14, pb = 28;
+  const ws = s.map(e => e.weight);
+  if (u.goal) ws.push(u.goal);
+  let min = Math.min.apply(null, ws), max = Math.max.apply(null, ws);
+  if (max - min < 1) { max += 0.5; min -= 0.5; }
+  const pad = (max - min) * 0.1; min -= pad; max += pad;
+  const t0 = new Date(s[0].date).getTime(), t1 = new Date(s[s.length - 1].date).getTime();
+  const span = t1 - t0 || 1;
+  const x = d => pl + (new Date(d).getTime() - t0) / span * (W - pl - pr);
+  const y = w => pt + (max - w) / (max - min) * (H - pt - pb);
+  const path = s.map((e, i) => (i ? "L" : "M") + x(e.date).toFixed(1) + " " + y(e.weight).toFixed(1)).join(" ");
+  let svg = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="Wykres wagi">';
+  for (let i = 0; i <= 3; i++) {
+    const val = min + (max - min) * i / 3;
+    svg += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(val) + '" y2="' + y(val) + '" stroke="#d8e0dc"/>';
+    svg += '<text x="' + (pl - 6) + '" y="' + (y(val) + 4) + '" text-anchor="end" font-size="12" fill="#5d6b65">' + fmt(val) + "</text>";
+  }
+  if (u.goal) {
+    svg += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + y(u.goal) + '" y2="' + y(u.goal) + '" stroke="#b7791f" stroke-dasharray="6 5"/>';
+    svg += '<text x="' + (W - pr) + '" y="' + (y(u.goal) - 5) + '" text-anchor="end" font-size="12" fill="#b7791f">cel ' + fmt(u.goal) + "</text>";
+  }
+  svg += '<path d="' + path + '" fill="none" stroke="#1f6f5b" stroke-width="2.5" stroke-linejoin="round"/>';
+  s.forEach(e => { svg += '<circle cx="' + x(e.date) + '" cy="' + y(e.weight) + '" r="4" fill="#1f6f5b"/>'; });
+  svg += '<text x="' + pl + '" y="' + (H - 6) + '" font-size="12" fill="#5d6b65">' + esc(s[0].date) + "</text>";
+  svg += '<text x="' + (W - pr) + '" y="' + (H - 6) + '" text-anchor="end" font-size="12" fill="#5d6b65">' + esc(s[s.length - 1].date) + "</text></svg>";
+  $("chart").innerHTML = svg;
+}
+
+function renderBoard() {
+  const rows = NAMES.map(n => {
+    const u = state.users[n], l = latest(u);
+    return { name: n, weight: l ? l.weight : null, bmi: l ? bmi(l.weight, u.height) : null };
+  });
+  const ranked = rows.filter(r => r.bmi != null).sort((a, b) => Math.abs(a.bmi - 22) - Math.abs(b.bmi - 22));
+  const unranked = rows.filter(r => r.bmi == null);
+  let html = '<table><thead><tr><th>#</th><th>Kto</th><th class="num">Waga</th><th class="num">BMI</th><th>Ocena</th></tr></thead><tbody>';
+  ranked.forEach((r, i) => {
+    html += '<tr class="' + (i === 0 ? "first" : "") + '"><td class="place">' + (i + 1) + "</td><td>" + esc(r.name) +
+      '</td><td class="num">' + fmt(r.weight) + ' kg</td><td class="num">' + fmt(r.bmi) + '</td><td style="color:' + catColor(r.bmi) + '">' + category(r.bmi) + "</td></tr>";
+  });
+  unranked.forEach(r => {
+    html += '<tr><td class="place">—</td><td>' + esc(r.name) + '</td><td class="num">' + (r.weight ? fmt(r.weight) + " kg" : "—") +
+      '</td><td class="num">—</td><td class="empty">brak wzrostu lub pomiaru</td></tr>';
+  });
+  $("board").innerHTML = html + "</tbody></table>";
+}
+
+function renderHistory() {
+  const u = state.users[state.current];
+  const s = sorted(u).reverse();
+  if (!s.length) { $("history").innerHTML = '<div class="empty">Brak pomiarów. Dodaj pierwszy powyżej.</div>'; return; }
+  let html = '<table><thead><tr><th>Data</th><th class="num">Waga</th><th class="num">BMI</th><th></th></tr></thead><tbody>';
+  s.forEach(e => {
+    html += "<tr><td>" + esc(e.date) + '</td><td class="num">' + fmt(e.weight) + ' kg</td><td class="num">' + fmt(bmi(e.weight, u.height)) +
+      '</td><td class="num"><button class="del" data-id="' + esc(e.id) + '" aria-label="Usuń pomiar z ' + esc(e.date) + '">Usuń</button></td></tr>';
+  });
+  $("history").innerHTML = html + "</tbody></table>";
+  Array.prototype.forEach.call($("history").querySelectorAll(".del"), b => {
+    b.addEventListener("click", async () => {
+      const id = b.getAttribute("data-id");
+      try { await mutate(state.current, d => { d.entries = d.entries.filter(e => e.id !== id); return d; }); }
+      catch (e) { setStatus("Nie udało się usunąć pomiaru.", true); }
+    });
+  });
+}
+
+function renderUserForm() {
+  const u = state.users[state.current];
+  $("height").value = u.height || "";
+  $("goal").value = u.goal || "";
+  $("userMsg").textContent = "";
+}
+
+function render(withForm) {
+  renderTabs(); renderSummary(); renderChart(); renderBoard(); renderTrainer(); renderHistory();
+  if (withForm) renderUserForm();
+}
+
+/* ---------- akcje ---------- */
+$("add").addEventListener("click", async () => {
+  const name = state.current;
+  const date = $("date").value;
+  const w = parseFloat(String($("weight").value).replace(",", "."));
+  if (!date) { $("addMsg").textContent = "Wybierz datę."; return; }
+  if (!(w >= 20 && w <= 400)) { $("addMsg").textContent = "Podaj wagę w kilogramach (20–400)."; return; }
+  $("addMsg").textContent = "Zapisuję…";
+  try {
+    let updated = false;
+    await mutate(name, d => {
+      const ex = d.entries.find(e => e.date === date);
+      if (ex) { ex.weight = w; updated = true; }
+      else d.entries.push({ id: String(Date.now()) + Math.random().toString(36).slice(2, 6), date: date, weight: w });
+      return d;
+    });
+    $("weight").value = "";
+    $("addMsg").textContent = updated ? "Zaktualizowano pomiar z tego dnia." : "Dodano pomiar.";
+  } catch (e) {
+    console.error(e);
+    $("addMsg").textContent = "Nie udało się zapisać. Sprawdź internet i reguły Firestore.";
+  }
+});
+
+$("saveUser").addEventListener("click", async () => {
+  const name = state.current;
+  const h = parseFloat(String($("height").value).replace(",", "."));
+  const g = parseFloat(String($("goal").value).replace(",", "."));
+  if ($("height").value && !(h >= 100 && h <= 250)) { $("userMsg").textContent = "Wzrost podaj w cm (100–250)."; return; }
+  if ($("goal").value && !(g >= 20 && g <= 400)) { $("userMsg").textContent = "Cel podaj w kg (20–400)."; return; }
+  $("userMsg").textContent = "Zapisuję…";
+  try {
+    await mutate(name, d => { d.height = $("height").value ? h : null; d.goal = $("goal").value ? g : null; return d; });
+    $("userMsg").textContent = "Zapisano.";
+  } catch (e) {
+    console.error(e);
+    $("userMsg").textContent = "Nie udało się zapisać. Sprawdź internet i reguły Firestore.";
+  }
+});
+
+/* ---------- trener ---------- */
+const QUOTES = [
+  "Mały krok dziś jest lepszy niż wielki plan na jutro.",
+  "Regularność wygrywa z intensywnością.",
+  "Nie musisz być idealny, wystarczy, że nie odpuszczasz.",
+  "Waga się waha, trend jest ważniejszy niż jeden pomiar.",
+  "Najtrudniej zacząć, potem już idzie z górki.",
+  "Każdy zdrowy wybór się liczy.",
+  "Razem łatwiej, pilnujcie się nawzajem.",
+  "Sen, woda i ruch robią połowę roboty."
+];
+
+function renderTrainer() {
+  const lines = [];
+  NAMES.forEach(n => {
+    const u = state.users[n], s = sorted(u);
+    if (!s.length) { lines.push(n + ": brak pomiarów, czas na pierwszy wpis."); return; }
+    const l = s[s.length - 1];
+    const b = bmi(l.weight, u.height);
+    const days = Math.floor((Date.now() - new Date(l.date + "T00:00:00").getTime()) / 86400000);
+    if (days >= 5) lines.push(n + ": ostatni pomiar " + days + " dni temu, dodaj nowy wpis.");
+    if (s.length > 1) {
+      const prev = s[s.length - 2], ch = l.weight - prev.weight;
+      if (Math.abs(ch) >= 0.1) {
+        if (b != null && b < 18.5 && ch < 0) {
+          lines.push(n + ": BMI jest poniżej normy, nie schodź niżej z wagą.");
+        } else {
+          let t = n + ": " + (ch < 0 ? "−" : "+") + fmt(Math.abs(ch)) + " kg od poprzedniego pomiaru.";
+          if (u.goal && (u.goal - prev.weight) * ch > 0) t += " Dobry kierunek!";
+          lines.push(t);
+        }
+      }
+    }
+    if (u.goal) {
+      const diff = Math.abs(l.weight - u.goal);
+      lines.push(diff < 0.05 ? n + ": cel osiągnięty, gratulacje!" : n + ": do celu zostało " + fmt(diff) + " kg.");
+    }
+  });
+  const ranked = NAMES.map(n => { const l = latest(state.users[n]); return { n: n, b: l ? bmi(l.weight, state.users[n].height) : null }; })
+    .filter(r => r.b != null).sort((a, b) => Math.abs(a.b - 22) - Math.abs(b.b - 22));
+  if (ranked.length > 1) lines.unshift("Na prowadzeniu wg BMI: " + ranked[0].n + ".");
+  if (!lines.length) lines.push("Dodajcie pierwsze pomiary, a trener zacznie komentować.");
+  $("coach").innerHTML = lines.map(t => "<li>" + esc(t) + "</li>").join("");
+  const day = Math.floor(Date.now() / 86400000);
+  $("quote").textContent = QUOTES[day % QUOTES.length];
+}
+
+/* ---------- czat ---------- */
+let chat = [];
+function fmtTime(ts) {
+  if (!ts || !ts.toDate) return "teraz";
+  return ts.toDate().toLocaleString("pl-PL", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+}
+function renderChat() {
+  const box = $("chatBox");
+  if (!chat.length) { box.innerHTML = '<div class="empty">Brak wiadomości. Napisz pierwszą.</div>'; return; }
+  box.innerHTML = chat.map(m =>
+    '<p class="cm"><span class="who">' + esc(m.name) + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt">' + esc(m.text) + "</span></p>"
+  ).join("");
+  box.scrollTop = box.scrollHeight;
+}
+
+$("who").innerHTML = NAMES.map(n => '<option value="' + esc(n) + '">' + esc(n) + "</option>").join("");
+try { const w = localStorage.getItem("pd-who"); $("who").value = (w && IDS[w]) ? w : state.current; } catch (e) { $("who").value = state.current; }
+$("who").addEventListener("change", () => { try { localStorage.setItem("pd-who", $("who").value); } catch (e) {} });
+
+onSnapshot(query(collection(db, "chat"), orderBy("ts", "desc"), limit(50)), snap => {
+  chat = snap.docs.map(d => d.data()).reverse();
+  renderChat();
+}, err => {
+  console.error(err);
+  $("chatBox").innerHTML = '<div class="empty">Czat niedostępny. Sprawdź reguły Firestore dla kolekcji chat.</div>';
+});
+
+async function sendChat() {
+  const text = $("chatText").value.trim();
+  if (!text) return;
+  $("chatMsg").textContent = "";
+  try {
+    await addDoc(collection(db, "chat"), { name: $("who").value, text: text.slice(0, 300), ts: serverTimestamp() });
+    $("chatText").value = "";
+  } catch (e) {
+    console.error(e);
+    $("chatMsg").textContent = "Nie udało się wysłać. Sprawdź internet i reguły Firestore.";
+  }
+}
+$("chatSend").addEventListener("click", sendChat);
+$("chatText").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); sendChat(); } });
+
+$("date").value = today();
+render(true);
+</script>
+</body>
+</html>

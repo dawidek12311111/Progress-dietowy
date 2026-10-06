@@ -2087,7 +2087,6 @@ async function maybeGreeting() {
     if (idle.length) { const n = idle[0]; msgs.push(pick("idle", { n: n, days: daysBetween(latest(state.users[n]).date, today()) })); }
     else {
       const ch = weeklyChallenge();
-      if (ch.length && ch[0].pct > 0) msgs.push(pick("leader", { n: ch[0].name, pct: fmt(ch[0].pct, 0) }));
     }
   }
   await coachSay(msgs);
@@ -2151,7 +2150,6 @@ function renderMascot() {
     const ch = weeklyChallenge();
     const idle = withData.filter(n => daysBetween(latest(state.users[n]).date, today()) >= 5);
     if (reached.length) { face = "🎉"; text = "Cel osiągnięty: " + reached.join(", ") + ". Brawo!"; }
-    else if (ch.length && ch[0].pct > 0) { face = "🏆"; text = "W tym tygodniu prowadzi " + ch[0].name + " (" + fmt(ch[0].pct, 0) + "% drogi do celu)."; }
     else if (idle.length) { face = "🤔"; text = idle[0] + ", dawno Cię nie było. Zważ się i dodaj wpis."; }
   }
   $("mascot").innerHTML = '<button class="face" id="face" aria-label="Konfetti">' + face + '</button><div class="bubble">' + esc(text) + "</div>";

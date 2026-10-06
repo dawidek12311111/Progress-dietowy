@@ -346,16 +346,6 @@
   .daybar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 12px; }
   .daybar i { display: block; height: 100%; background: var(--accent); width: 0; transition: width .8s ease; }
 
-  /* pojedynki */
-  .duel { background: var(--bg); border-radius: 12px; padding: 12px; margin-top: 10px; }
-  .duel .vs { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 700; }
-  .duel .side { display: flex; align-items: center; gap: 8px; min-width: 0; }
-  .duel .score { font-size: 1.4rem; font-weight: 800; }
-  .duel .dbar { display: flex; height: 10px; border-radius: 99px; overflow: hidden; background: var(--line); margin: 10px 0 6px; }
-  .duel .dbar i { display: block; height: 100%; transition: width .8s ease; }
-  .duel .dmeta { font-size: .8rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; align-items: center; }
-  .duel.won { outline: 2px solid var(--good); }
-
   /* PIN */
   .overlay.pinov { z-index: 58; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px 16px; }
   .pcard { width: 100%; max-width: 320px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -500,6 +490,33 @@
   .gpick .gpl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; max-height: 55vh; overflow-y: auto; }
   .gsum { text-align: center; } .gstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; } .gstats div { background: #13201c; border-radius: 12px; padding: 12px 4px; } .gstats b { font-size: 1.4rem; display: block; } .gstats small { color: #8fa79d; font-size: .7rem; }
   .gpr { background: #2a2410; color: #ffd966; border-radius: 12px; padding: 12px; margin-bottom: 8px; font-weight: 700; }
+
+  /* ===== v3.3 ===== */
+  .nav { position: sticky; top: 0; z-index: 30; display: flex; gap: 6px; overflow-x: auto; padding: 8px 2px; margin: 0 -2px 14px; background: var(--bg); scrollbar-width: none; -webkit-overflow-scrolling: touch; border-bottom: 1px solid var(--line); }
+  .nav::-webkit-scrollbar { display: none; }
+  .navbtn { flex: none; position: relative; font: inherit; font-size: .88rem; font-weight: 600; padding: 9px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; white-space: nowrap; touch-action: manipulation; transition: background .15s, transform .1s; }
+  .navbtn .ni { margin-right: 6px; }
+  .navbtn:active { transform: scale(.95); }
+  .navbtn.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .navdot { position: absolute; top: -4px; right: -2px; min-width: 18px; height: 18px; line-height: 18px; text-align: center; font-size: .72rem; border-radius: 99px; background: var(--bad); color: #fff; padding: 0 4px; }
+  .pg[hidden] { display: none !important; }
+  html[data-anim="on"] .pg.pgin { animation: pgin .32s ease both; }
+  @keyframes pgin { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .seg { display: flex; gap: 6px; margin: 8px 0; flex-wrap: wrap; }
+  .segb { font: inherit; font-size: .85rem; padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .segb.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .frrow, .wfrow, .gsrow { display: flex; align-items: center; gap: 10px; background: var(--bg); border-radius: 12px; padding: 8px 10px; margin-top: 8px; }
+  .frn, .wfn { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .frn small, .wfn small, .wfv small, .gsrow small { color: var(--muted); font-size: .78rem; }
+  .frbtn { padding: 8px 12px; font-size: .85rem; }
+  .wfday { font-weight: 700; margin: 12px 0 2px; font-size: .9rem; }
+  .wfv { text-align: right; font-weight: 700; white-space: nowrap; display: flex; flex-direction: column; }
+  .gsrow > div:first-child { display: flex; flex-direction: column; min-width: 84px; }
+  .gsx { flex: 1; min-width: 0; font-size: .82rem; color: var(--muted); }
+  .grhi { margin: 10px 0 0 18px; padding: 0; font-size: .92rem; }
+  .grhi li { margin-top: 4px; }
+  .aiout .mvp { margin: 6px 0; }
+  .aiout .plan p { margin: 6px 0; }
 </style>
 </head>
 <body>
@@ -555,7 +572,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.2</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.3</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
@@ -714,20 +731,21 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.2</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.3</summary>
         <ul>
+          <li>Menu na górze: Główna, Siłownia, Jedzenie i kalorie, Kalkulator, Pomocne narzędzia, Trener, Przyjaciele</li>
+          <li>Przyjaciele: widzisz tylko swoją grupę (ranking, czat, treningi, trener)</li>
+          <li>Podgląd treningów innych osób (dziś, wczoraj, 7 dni)</li>
+          <li>Trener: podsumowanie grupy i dogłębna analiza AI</li>
+          <li>Siłownia jako osobna strona z historią i rekordami</li>
+          <li>Usunięte pojedynki 1 na 1</li>
           <li>Logowanie PIN-em i kod awaryjny</li>
           <li>Trener AI z pamięcią (Porady trenera)</li>
-          <li>Narzędzia AI: plan treningu, posiłki, zdjęcie jedzenia, wpis tekstem, analiza tygodnia</li>
           <li>Pogoda, pierścienie „Dziś” i seria dni</li>
-          <li>Pojedynki 1 na 1</li>
-          <li>Kalkulator kalorii (TDEE) i makroskładniki</li>
-          <li>Dziennik jedzenia: szukanie produktów, skaner kodów, opis AI</li>
+          <li>Kalkulator kalorii (TDEE) i dziennik jedzenia</li>
           <li>Tryb siłowni: timery, interwały, rekordy, doping AI</li>
-          <li>Reakcje pod wiadomościami</li>
+          <li>Reakcje pod wiadomościami, czat ze zdjęciami</li>
           <li>Instalacja skrótu na pulpicie</li>
-          <li>Czat: większe okno, linki i zdjęcia</li>
-          <li>Nowi użytkownicy z ekranu logowania</li>
         </ul>
       </details>
     </section>
@@ -741,17 +759,20 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.2</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.3</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.2</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.3</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
 
+  <nav class="nav" id="nav" aria-label="Menu" data-notr></nav>
+
+<div class="pg" id="pg-home">
   <section class="card wx" id="weather" data-notr></section>
 
   <section class="card mascot" id="mascot"></section>
@@ -763,7 +784,7 @@
 
   <section class="card" id="today" data-notr></section>
 
-  <section class="card"><button class="primary gymbtn" id="gymOpen">🏋️ Tryb siłowni</button><div class="msg" style="margin-top:8px">Pełnoekranowy tryb treningu: serie, przerwy z pikaniem, stoper, interwały i doping AI.</div></section>
+  
 
   <section class="card">
     <h2 id="tAdd">Dodaj pomiar</h2>
@@ -820,6 +841,93 @@
     </details>
   </section>
 
+  
+
+  
+
+  
+
+  <section class="card">
+    <h2 id="tWork">Trening i kalorie</h2>
+    <div class="row">
+      <label>Dzień<input type="date" id="wDate"></label>
+      <label>Rodzaj<select id="wType"></select></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label>Czas (min)<input type="number" id="wMin" min="1" max="600" inputmode="numeric" placeholder="np. 45"></label>
+      <label>Kalorie (opcjonalnie)<input type="number" id="wKcal" min="1" max="5000" inputmode="numeric" placeholder="z zegarka"></label>
+      <button class="primary" id="wAdd">Dodaj trening</button>
+    </div>
+    <div class="msg" id="wPreview"></div>
+    <div class="msg" id="wMsg"></div>
+    <h3 id="wStatsTitle">Ten tydzień</h3>
+    <div id="wStats"></div>
+    <h3>Ranking aktywności (ten tydzień)</h3>
+    <div class="scroll" id="wBoard"></div>
+    <h3>Treningi innych</h3>
+    <div class="seg" id="wFeedSeg" data-notr></div>
+    <div id="wFeed" data-notr></div>
+    <h3 id="wHistTitle">Ostatnie treningi</h3>
+    <div class="scroll" id="wHistory"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="tDaily">Punkty dnia</h2>
+    <div class="row">
+      <label>Dzień<input type="date" id="dailyDate"></label>
+    </div>
+    <div class="checks" id="checks">
+      <label><input type="checkbox" id="ckWater"> 💧 Woda</label>
+      <label><input type="checkbox" id="ckWorkout"> 🏃 Trening</label>
+      <label><input type="checkbox" id="ckSteps"> 👟 Kroki</label>
+    </div>
+    <div class="msg" id="dailyMsg">Punkty zapisują się dla Twojego profilu.</div>
+    <div class="scroll" id="points" style="margin-top:10px"></div>
+  </section>
+
+  <section class="card">
+    <h2 id="tCal">Kalendarz i osiągnięcia</h2>
+    <div id="calendar"></div>
+    <div class="daydetail" id="calDetail"></div>
+    <h3>Odznaki</h3>
+    <div id="achList"></div>
+  </section>
+
+  
+
+  
+
+  <section class="card" id="chatCard">
+    <div class="chathead"><h2>Czat</h2><button class="ghost" id="chatExpand" aria-label="Powiększ czat">⤢</button></div>
+    <div class="chatbox" id="chatBox" aria-live="polite"></div>
+    <div class="chatprev" id="chatPrev" hidden></div>
+    <div class="row chatrow">
+      <button class="ghost" id="chatAttach" aria-label="Dodaj zdjęcie" type="button">📎</button>
+      <input type="file" id="chatFile" accept="image/*" hidden>
+      <label style="flex:2 1 160px">Wiadomość<input type="text" id="chatText" maxlength="600" placeholder="Napisz coś, wklej link lub zdjęcie…"></label>
+      <button class="primary" id="chatSend">Wyślij</button>
+    </div>
+    <div class="react" id="react"></div>
+    <div class="msg" id="chatMsg"></div>
+  </section>
+
+  <section class="card">
+    <h2>Historia pomiarów</h2>
+    <div class="scroll" id="history"></div>
+  </section>
+</div>
+
+<div class="pg" id="pg-gym" hidden>
+  <section class="card">
+    <h2>Tryb siłowni</h2>
+    <button class="primary gymbtn" id="gymOpen">🏋️ Tryb siłowni</button>
+    <div class="msg" style="margin-top:8px">Pełnoekranowy tryb treningu: serie, przerwy z pikaniem, stoper, interwały i doping AI.</div>
+  </section>
+  <section class="card"><h2>Ostatnie treningi na siłowni</h2><div id="gymHist" data-notr></div></section>
+  <section class="card"><h2>Rekordy</h2><div id="gymPR" data-notr></div></section>
+</div>
+
+<div class="pg" id="pg-food" hidden>
   <section class="card" id="foodCard">
     <h2>Jedzenie i kalorie</h2>
     <div class="row">
@@ -858,7 +966,9 @@
     <div class="fdportion" id="fdPortion" hidden data-notr></div>
     <div class="msg" id="fdMsg" data-notr></div>
   </section>
+</div>
 
+<div class="pg" id="pg-tdee" hidden>
   <section class="card" id="tdCard">
     <h2>Kalkulator zapotrzebowania kalorycznego</h2>
     <div class="row">
@@ -875,73 +985,11 @@
     <div class="tools"><button class="primary" id="tdSave">Zapisz jako mój cel</button></div>
     <div class="msg" id="tdMsg" data-notr></div>
   </section>
+</div>
 
+<div class="pg" id="pg-tools" hidden>
   <section class="card">
-    <h2>Pojedynki 1 na 1</h2>
-    <div id="duels" data-notr></div>
-    <div id="duelForm" hidden>
-      <h3>Rzuć wyzwanie</h3>
-      <div class="row">
-        <label>Przeciwnik<select id="duelOpp"></select></label>
-        <label>O co<select id="duelMetric"></select></label>
-        <label>Czas<select id="duelDays"><option value="3">3 dni</option><option value="7" selected>7 dni</option><option value="14">14 dni</option></select></label>
-      </div>
-      <div class="tools"><button class="primary" id="duelGo">Wyzwij ⚔️</button></div>
-      <div class="msg" id="duelMsg" data-notr></div>
-    </div>
-  </section>
-
-  <section class="card">
-    <h2 id="tWork">Trening i kalorie</h2>
-    <div class="row">
-      <label>Dzień<input type="date" id="wDate"></label>
-      <label>Rodzaj<select id="wType"></select></label>
-    </div>
-    <div class="row" style="margin-top:10px">
-      <label>Czas (min)<input type="number" id="wMin" min="1" max="600" inputmode="numeric" placeholder="np. 45"></label>
-      <label>Kalorie (opcjonalnie)<input type="number" id="wKcal" min="1" max="5000" inputmode="numeric" placeholder="z zegarka"></label>
-      <button class="primary" id="wAdd">Dodaj trening</button>
-    </div>
-    <div class="msg" id="wPreview"></div>
-    <div class="msg" id="wMsg"></div>
-    <h3 id="wStatsTitle">Ten tydzień</h3>
-    <div id="wStats"></div>
-    <h3>Ranking aktywności (ten tydzień)</h3>
-    <div class="scroll" id="wBoard"></div>
-    <h3 id="wHistTitle">Ostatnie treningi</h3>
-    <div class="scroll" id="wHistory"></div>
-  </section>
-
-  <section class="card">
-    <h2 id="tDaily">Punkty dnia</h2>
-    <div class="row">
-      <label>Dzień<input type="date" id="dailyDate"></label>
-    </div>
-    <div class="checks" id="checks">
-      <label><input type="checkbox" id="ckWater"> 💧 Woda</label>
-      <label><input type="checkbox" id="ckWorkout"> 🏃 Trening</label>
-      <label><input type="checkbox" id="ckSteps"> 👟 Kroki</label>
-    </div>
-    <div class="msg" id="dailyMsg">Punkty zapisują się dla Twojego profilu.</div>
-    <div class="scroll" id="points" style="margin-top:10px"></div>
-  </section>
-
-  <section class="card">
-    <h2 id="tCal">Kalendarz i osiągnięcia</h2>
-    <div id="calendar"></div>
-    <div class="daydetail" id="calDetail"></div>
-    <h3>Odznaki</h3>
-    <div id="achList"></div>
-  </section>
-
-  <section class="card">
-    <h2>Trener</h2>
-    <ul class="coach" id="coach"></ul>
-    <div class="quote" id="quote"></div>
-  </section>
-
-  <section class="card">
-    <h2>Narzędzia AI ✨</h2>
+    <h2>Pomocne narzędzia 🛠</h2>
     <div class="msg" id="aiToolsInfo" data-notr style="margin-top:0"></div>
 
     <details class="aitool"><summary>🏋️ Plan treningu na dziś</summary>
@@ -989,25 +1037,33 @@
       <div class="aiout" id="aiRepOut" data-notr></div>
     </details>
   </section>
+</div>
 
-  <section class="card" id="chatCard">
-    <div class="chathead"><h2>Czat</h2><button class="ghost" id="chatExpand" aria-label="Powiększ czat">⤢</button></div>
-    <div class="chatbox" id="chatBox" aria-live="polite"></div>
-    <div class="chatprev" id="chatPrev" hidden></div>
-    <div class="row chatrow">
-      <button class="ghost" id="chatAttach" aria-label="Dodaj zdjęcie" type="button">📎</button>
-      <input type="file" id="chatFile" accept="image/*" hidden>
-      <label style="flex:2 1 160px">Wiadomość<input type="text" id="chatText" maxlength="600" placeholder="Napisz coś, wklej link lub zdjęcie…"></label>
-      <button class="primary" id="chatSend">Wyślij</button>
-    </div>
-    <div class="react" id="react"></div>
-    <div class="msg" id="chatMsg"></div>
-  </section>
-
+<div class="pg" id="pg-coach" hidden>
   <section class="card">
-    <h2>Historia pomiarów</h2>
-    <div class="scroll" id="history"></div>
+    <h2>Trener</h2>
+    <ul class="coach" id="coach"></ul>
+    <div class="quote" id="quote"></div>
   </section>
+  <section class="card" id="grCard">
+    <h2>Podsumowanie grupy</h2>
+    <div class="seg" id="grSeg" data-notr></div>
+    <div id="grTable" data-notr></div>
+    <div id="grHigh" data-notr></div>
+    <h3>Dogłębna analiza trenera AI</h3>
+    <div class="msg" style="margin-top:0">Trener porówna trendy, oceni każdą osobę i da zadania na kolejny okres.</div>
+    <div class="tools"><button class="primary" id="grAiGo">Przygotuj analizę</button></div>
+    <div class="aiout" id="grAiOut" data-notr></div>
+  </section>
+</div>
+
+<div class="pg" id="pg-friends" hidden>
+  <section class="card">
+    <h2>Przyjaciele</h2>
+    <div class="msg" style="margin-top:0">Widzisz tylko siebie i swoich przyjaciół: ranking, wykresy, czat, treningi i analizy trenera dotyczą tej grupy. Przyjaźń działa, gdy obie osoby się zaakceptują.</div>
+    <div id="frBox" data-notr></div>
+  </section>
+</div>
 
 </div>
 
@@ -1037,7 +1093,8 @@ const app = initializeApp(firebaseConfig);
 let db;
 try { db = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) }); } catch (e) { db = getFirestore(app); }
 
-const NAMES = ["Dawid P", "Dawid K", "Wojtek"];
+const ALLN = ["Dawid P", "Dawid K", "Wojtek"];
+const NAMES = ALLN.slice();
 const IDS = { "Dawid P": "dawid-p", "Dawid K": "dawid-k", "Wojtek": "wojtek" };
 const COLORS = ["#1f9e7a", "#e0782a", "#5b6fe0", "#c2418c", "#8a6d1f", "#2a8fbf", "#7a4fd0", "#c0392b"];
 const DEFAULT_AV = { "Dawid P": "🦁", "Dawid K": "🐻", "Wojtek": "🦊" };
@@ -1049,9 +1106,9 @@ let LANG = "pl";
 try { LANG = localStorage.getItem("pd-lang") === "en" ? "en" : "pl"; } catch (e) {}
 const L = (pl, en) => LANG === "en" ? en : pl;
 const LOC = () => LANG === "en" ? "en-GB" : "pl-PL";
-const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {} });
+const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [] });
 NAMES.forEach(n => { state.users[n] = blankUser(); });
-function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
+function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; ALLN.push(n); NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
 function syncUsers() { ((state.group && state.group.extra) || []).forEach(x => { if (x && typeof x.n === "string" && typeof x.id === "string") registerUser(x.n, x.id); }); }
 let pendingMe = null;
 try { const m = localStorage.getItem("pd-me"); if (m && IDS[m]) { state.me = m; state.current = m; } else if (m) pendingMe = m; } catch (e) {}
@@ -1201,7 +1258,7 @@ function av(name, size) {
   const a = u.avatar;
   const st = "width:" + size + "px;height:" + size + "px;";
   if (a && String(a).indexOf("data:image") === 0) return '<img class="av" alt="" src="' + esc(a) + '" style="' + st + '">';
-  return '<span class="av" style="' + st + "font-size:" + Math.round(size * 0.62) + 'px">' + esc(a || DEFAULT_AV[name] || EMOJIS[Math.max(0, NAMES.indexOf(name)) % EMOJIS.length] || "🙂") + "</span>";
+  return '<span class="av" style="' + st + "font-size:" + Math.round(size * 0.62) + 'px">' + esc(a || DEFAULT_AV[name] || EMOJIS[Math.max(0, ALLN.indexOf(name)) % EMOJIS.length] || "🙂") + "</span>";
 }
 
 /* ---------- motyw, toast, konfetti ---------- */
@@ -1290,7 +1347,7 @@ onSnapshot(collection(db, "progress"), snap => {
   snap.forEach(d => {
     const data = d.data();
     if (d.id === "group") { state.group = data || {}; return; }
-    const name = NAMES.find(n => IDS[n] === d.id);
+    const name = ALLN.find(n => IDS[n] === d.id);
     if (!name) return;
     state.users[name] = {
       height: data.height == null ? null : data.height,
@@ -1308,7 +1365,9 @@ onSnapshot(collection(db, "progress"), snap => {
       food: data.food || {},
       favs: data.favs || [],
       recent: data.recent || [],
-      gym: data.gym || {}
+      gym: data.gym || {},
+      fr: Array.isArray(data.fr) ? data.fr : null,
+      rj: Array.isArray(data.rj) ? data.rj : []
     };
   });
   setStatus("Połączono. Dane są wspólne dla wszystkich.");
@@ -1740,7 +1799,7 @@ async function coachSay(list) {
     const t = String(list[i] || "").trim();
     if (!t) continue;
     await typingDelay(t);
-    try { await addDoc(collection(db, "chat"), { name: COACH, text: t.slice(0, 300), ts: serverTimestamp() }); }
+    try { const cd = { name: COACH, text: t.slice(0, 300), ts: serverTimestamp() }; if (state.me) cd.for = IDS[state.me]; await addDoc(collection(db, "chat"), cd); }
     catch (e) { console.error(e); return; }
     if (i < list.length - 1) await sleep(700);
   }
@@ -2077,6 +2136,7 @@ function renderWorkouts() {
       });
     });
   }
+  renderWorkFeed();
   updateKcalPreview();
 }
 
@@ -2518,16 +2578,22 @@ function linkify(t) {
   return out + esc(t.slice(last));
 }
 let chatSig = "";
+function vchat() {
+  return chat.filter(m => m.name === COACH
+    ? (!m.for || ALLN.some(n => IDS[n] === m.for && NAMES.indexOf(n) >= 0))
+    : NAMES.indexOf(m.name) >= 0);
+}
 function renderChat() {
   const box = $("chatBox");
-  const last = chat[chat.length - 1];
-  const sig = chat.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + rxSig() + "|" + LANG + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
+  const vc = vchat();
+  const last = vc[vc.length - 1];
+  const sig = vc.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + rxSig() + "|" + LANG + "|" + NAMES.join(",") + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
   if (sig === chatSig && gotChat) return;
   chatSig = sig;
-  if (!chat.length && !typingFlag) { box.innerHTML = '<div class="empty">Brak wiadomości. Napisz pierwszą.</div>'; return; }
+  if (!vc.length && !typingFlag) { box.innerHTML = '<div class="empty">Brak wiadomości. Napisz pierwszą.</div>'; return; }
   const count = {};
   const prime = !chatPrimed && gotChat;
-  let html = chat.map(m => {
+  let html = vc.map(m => {
     const coach = m.name === COACH;
     const base = m.name + "|" + (m.text || "") + "|" + (m.img ? m.img.length : 0);
     count[base] = (count[base] || 0) + 1;
@@ -2590,9 +2656,10 @@ async function saveAvatar(value) {
 }
 
 function render(withForm) {
+  applyFriends();
   renderLogin(); renderHeader(); renderBanner(); applyAccent(); renderMascot(); renderTabs(); renderSummary(); renderChart(); renderChartAll(); renderBoard();
   renderAi(); renderChallenge(); renderGroup(); renderBet(); renderDaily(); renderWorkouts(); renderCalendar(); renderTrainer(); renderHistory();
-  renderToday(); renderDuels(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn();
+  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); applyPageVis(false);
   if (withForm) renderUserForm();
   if (!$("menu").hidden) { renderAvatarEditor(); renderSwatches(); renderMem(); }
   renderWelcomeAv(); afterRender();
@@ -2876,7 +2943,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.2";
+const VER = "3.3";
 const langNote = () => LANG === "en" ? "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON." : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -3022,110 +3089,303 @@ $("today").addEventListener("click", async e => {
   } catch (err) { console.error(err); toast(L("Nie udało się zapisać.", "Could not save.")); }
 });
 
-/* ---------- pojedynki 1 na 1 ---------- */
-const DMET = { workouts: ["Treningi", "Workouts"], minutes: ["Minuty ruchu", "Active minutes"], kcal: ["Spalone kcal", "Calories burned"], points: ["Punkty dnia", "Daily points"] };
-const dmetLabel = m => L((DMET[m] || DMET.points)[0], (DMET[m] || DMET.points)[1]);
-function duelScore(u, m, s, e) {
-  const inR = d => d >= s && d <= e;
-  if (m === "workouts") return (u.workouts || []).filter(w => inR(w.date)).length;
-  if (m === "minutes") return (u.workouts || []).filter(w => inR(w.date)).reduce((a, w) => a + (w.min || 0), 0);
-  if (m === "kcal") return (u.workouts || []).filter(w => inR(w.date)).reduce((a, w) => a + (w.kcal || 0), 0);
-  return Object.keys(u.daily || {}).filter(inR).reduce((a, k) => a + dailyPts(u.daily[k]), 0);
+/* ================= v3.3: menu, strony, przyjaciele, trener grupy ================= */
+const PAGES = [
+  ["home", "🏠", "Główna", "Home"], ["gym", "🏋️", "Siłownia", "Gym"], ["food", "🍽", "Jedzenie i kalorie", "Food & calories"],
+  ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["friends", "👥", "Przyjaciele", "Friends"]
+];
+let curPage = "home";
+try { const p0 = sessionStorage.getItem("pd-page"); if (p0 && PAGES.some(x => x[0] === p0)) curPage = p0; } catch (e) {}
+function showPage(p, keepScroll) {
+  if (!PAGES.some(x => x[0] === p)) p = "home";
+  const changed = p !== curPage;
+  curPage = p;
+  try { sessionStorage.setItem("pd-page", p); } catch (e) {}
+  applyPageVis(changed);
+  if (!keepScroll) window.scrollTo(0, 0);
 }
-const duelColors = n => COLORS[NAMES.indexOf(n)] || "#888";
-let duelSig = "";
-const duelBusy = new Set();
-function seenDuels() { try { return JSON.parse(localStorage.getItem("pd-duel-seen") || "[]"); } catch (e) { return []; } }
-function renderDuels() {
-  const el = $("duels");
-  if (!el) return;
-  const list = (state.group && state.group.duels) || [];
-  const t = today();
-  let html = "";
-  if (!list.length) html = '<div class="empty">' + L("Brak pojedynków. Wyzwij kogoś poniżej!", "No duels yet. Challenge someone below!") + "</div>";
-  list.slice().reverse().forEach(d => {
-    const A = state.users[d.a], B = state.users[d.b];
-    if (!A || !B) return;
-    const sa = duelScore(A, d.m, d.s, d.e), sb = duelScore(B, d.m, d.s, d.e);
-    const ended = t > d.e, total = sa + sb;
-    const pa = total ? Math.round(sa / total * 100) : 50;
-    const win = ended ? (sa === sb ? null : sa > sb ? d.a : d.b) : null;
-    const left = daysBetween(t, d.e) + 1;
-    const mine = state.me && (state.me === d.a || state.me === d.b);
-    html += '<div class="duel' + (ended && win ? " won" : "") + '"><div class="vs"><div class="side">' + av(d.a, 32) + "<span>" + esc(d.a) + '</span></div><div class="score">' + sa + " : " + sb + '</div><div class="side"><span>' + esc(d.b) + "</span>" + av(d.b, 32) + "</div></div>" +
-      '<div class="dbar"><i style="width:' + pa + "%;background:" + duelColors(d.a) + '"></i><i style="width:' + (100 - pa) + "%;background:" + duelColors(d.b) + '"></i></div>' +
-      '<div class="dmeta"><span>⚔️ ' + esc(dmetLabel(d.m)) + " · " + (ended ? (win ? "🏆 " + esc(win) : L("Remis", "Draw")) : L("zostało dni: ", "days left: ") + left) + "</span>" +
-      (mine ? '<button class="linkbtn" data-delduel="' + esc(d.id) + '" style="padding:2px 6px">' + L("Usuń", "Delete") + "</button>" : "") + "</div></div>";
+function applyPageVis(anim) {
+  Array.prototype.forEach.call(document.querySelectorAll(".pg"), el => {
+    const on = el.id === "pg-" + curPage;
+    el.hidden = !on;
+    if (on && anim && animOn()) { el.classList.remove("pgin"); void el.offsetWidth; el.classList.add("pgin"); }
   });
-  el.innerHTML = html;
+  renderNav();
+}
+function renderNav() {
+  const nav = $("nav");
+  if (!nav) return;
+  const inc = incomingReqs().length;
+  nav.innerHTML = PAGES.map(x => '<button class="navbtn' + (x[0] === curPage ? " on" : "") + '" data-pg="' + x[0] + '"><span class="ni">' + x[1] + "</span>" + esc(L(x[2], x[3])) +
+    (x[0] === "friends" && inc ? '<b class="navdot">' + inc + "</b>" : "") + "</button>").join("");
+  const on = nav.querySelector(".on");
+  if (on) nav.scrollLeft = Math.max(0, on.offsetLeft - (nav.clientWidth - on.offsetWidth) / 2);
+}
+$("nav").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-pg]") : null;
+  if (b) showPage(b.getAttribute("data-pg"));
+});
+
+/* ---------- przyjaciele ---------- */
+const LEGACY = ["dawid-p", "dawid-k", "wojtek"];
+function frList(n) {
+  const u = state.users[n];
+  if (u && Array.isArray(u.fr)) return u.fr;
+  return LEGACY.indexOf(IDS[n]) >= 0 ? LEGACY.filter(x => x !== IDS[n]) : [];
+}
+const isMutual = (a, b) => a !== b && frList(a).indexOf(IDS[b]) >= 0 && frList(b).indexOf(IDS[a]) >= 0;
+function applyFriends() {
   const me = state.me;
-  const sig = me ? me : "";
-  if (sig !== duelSig) {
-    duelSig = sig;
-    $("duelOpp").innerHTML = NAMES.filter(n => n !== me).map(n => '<option value="' + esc(n) + '" data-notr>' + esc(n) + "</option>").join("");
-    $("duelMetric").innerHTML = Object.keys(DMET).map(k => '<option value="' + k + '">' + esc(dmetLabel(k)) + "</option>").join("");
-  }
-  $("duelForm").hidden = !me;
-  list.forEach(d => { if (t > d.e && !d.done && state.me) finishDuel(d.id); });
-  const seen = seenDuels();
-  list.forEach(d => {
-    if (!d.done || !d.w || d.w !== state.me || seen.indexOf(d.id) >= 0) return;
-    seen.push(d.id);
-    try { localStorage.setItem("pd-duel-seen", JSON.stringify(seen.slice(-30))); } catch (e) {}
-    confetti(); toast(L("🏆 Wygrałeś pojedynek!", "🏆 You won the duel!"));
-  });
+  const vis = me ? ALLN.filter(n => n === me || isMutual(me, n)) : ALLN.slice();
+  const same = vis.length === NAMES.length && vis.every((n, i) => n === NAMES[i]);
+  if (!same) { NAMES.length = 0; vis.forEach(n => NAMES.push(n)); }
+  if (NAMES.indexOf(state.current) < 0) state.current = me && NAMES.indexOf(me) >= 0 ? me : NAMES[0];
 }
-async function finishDuel(id) {
-  if (duelBusy.has(id)) return;
-  duelBusy.add(id);
-  let claimed = false, info = null;
-  try {
-    await mutateDoc("group", d => {
-      claimed = false; info = null;
-      const arr = (d.duels || []).map(x => Object.assign({}, x));
-      const x = arr.find(y => y.id === id);
-      if (x && !x.done) {
-        const sa = duelScore(state.users[x.a], x.m, x.s, x.e), sb = duelScore(state.users[x.b], x.m, x.s, x.e);
-        x.done = true; x.w = sa === sb ? null : sa > sb ? x.a : x.b; x.sa = sa; x.sb = sb;
-        claimed = true; info = Object.assign({}, x);
-      }
-      d.duels = arr;
-      return d;
-    });
-  } catch (e) { console.error(e); duelBusy.delete(id); return; }
-  if (claimed && info) {
-    const msg = info.w
-      ? L("🏆 Pojedynek zakończony! " + info.w + " wygrywa (" + info.sa + " : " + info.sb + ", " + dmetLabel(info.m).toLowerCase() + "). Gratulacje, a przegrany niech się nie smuci: rewanż?", "🏆 Duel over! " + info.w + " wins (" + info.sa + " : " + info.sb + ", " + dmetLabel(info.m).toLowerCase() + "). Congrats, and the loser: rematch?")
-      : L("🤝 Pojedynek " + info.a + " vs " + info.b + " zakończył się remisem (" + info.sa + " : " + info.sb + "). Dogrywka?", "🤝 The duel " + info.a + " vs " + info.b + " ended in a draw (" + info.sa + " : " + info.sb + "). Overtime?");
-    coachSay(msg);
-  }
+function incomingReqs() {
+  const me = state.me;
+  if (!me || !state.users[me]) return [];
+  const rj = state.users[me].rj || [];
+  return ALLN.filter(n => n !== me && frList(n).indexOf(IDS[me]) >= 0 && frList(me).indexOf(IDS[n]) < 0 && rj.indexOf(IDS[n]) < 0);
 }
-$("duelGo").addEventListener("click", async () => {
+function outgoingReqs() {
+  const me = state.me;
+  if (!me) return [];
+  return ALLN.filter(n => n !== me && frList(me).indexOf(IDS[n]) >= 0 && frList(n).indexOf(IDS[me]) < 0);
+}
+async function setFriends(fn) {
   const me = state.me;
   if (!me) return;
-  const opp = $("duelOpp").value, m = $("duelMetric").value, days = parseInt($("duelDays").value, 10) || 7;
-  if (!opp || opp === me) return;
-  const act = ((state.group && state.group.duels) || []).filter(d => !d.done && today() <= d.e);
-  if (act.length >= 4) { $("duelMsg").textContent = L("Maksymalnie 4 aktywne pojedynki naraz.", "Max 4 active duels at once."); return; }
-  if (act.some(d => (d.a === me && d.b === opp) || (d.a === opp && d.b === me))) { $("duelMsg").textContent = L("Macie już aktywny pojedynek.", "You already have an active duel."); return; }
-  const duel = { id: String(Date.now()) + Math.random().toString(36).slice(2, 5), a: me, b: opp, m: m, s: today(), e: addDays(today(), days - 1), done: false, w: null };
-  $("duelMsg").textContent = L("Zapisuję…", "Saving…");
   try {
-    await mutateDoc("group", d => {
-      let arr = (d.duels || []).slice();
-      arr.push(duel);
-      while (arr.length > 12) { const i = arr.findIndex(x => x.done); arr.splice(i >= 0 ? i : 0, 1); }
-      d.duels = arr; return d;
+    await mutate(me, d => {
+      const cur = Array.isArray(d.fr) ? d.fr.slice() : frList(me).slice();
+      const rj = (d.rj || []).slice();
+      const r = fn(cur, rj);
+      d.fr = r.fr; d.rj = r.rj;
+      return d;
     });
-    $("duelMsg").textContent = L("Wyzwanie rzucone!", "Challenge sent!");
-    coachSay(L("⚔️ Nowy pojedynek! " + me + " kontra " + opp + " (" + dmetLabel(m).toLowerCase() + ", " + days + " dni). Kto wygra?", "⚔️ New duel! " + me + " vs " + opp + " (" + dmetLabel(m).toLowerCase() + ", " + days + " days). Who wins?"));
-  } catch (e) { console.error(e); $("duelMsg").textContent = L("Nie udało się zapisać.", "Could not save."); }
+  } catch (e) { console.error(e); toast(L("Nie udało się zapisać.", "Could not save.")); }
+}
+function renderFriends() {
+  const el = $("frBox");
+  if (!el) return;
+  const me = state.me;
+  if (!me) { el.innerHTML = ""; return; }
+  const row = (n, btns, sub) => '<div class="frrow">' + av(n, 38) + '<div class="frn"><b>' + esc(n) + "</b>" + (sub ? "<small>" + esc(sub) + "</small>" : "") + "</div>" + btns + "</div>";
+  const btn = (act, n, label, cls) => '<button class="' + (cls || "ghost") + ' frbtn" data-fr="' + act + '" data-n="' + esc(n) + '">' + esc(label) + "</button>";
+  const inc = incomingReqs(), out = outgoingReqs();
+  const mut = ALLN.filter(n => isMutual(me, n));
+  const others = ALLN.filter(n => n !== me && inc.indexOf(n) < 0 && out.indexOf(n) < 0 && mut.indexOf(n) < 0);
+  let h = "";
+  if (inc.length) {
+    h += "<h3>" + L("Zaproszenia do Ciebie", "Invitations for you") + "</h3>";
+    inc.forEach(n => { h += row(n, btn("ok", n, L("Przyjmij", "Accept"), "primary") + btn("no", n, L("Odrzuć", "Decline")), L("chce dzielić się danymi", "wants to share data")); });
+  }
+  h += "<h3>" + L("Moi przyjaciele", "My friends") + " (" + mut.length + ")</h3>";
+  h += mut.length ? mut.map(n => row(n, btn("rm", n, L("Usuń", "Remove")), "")).join("") : '<div class="empty">' + L("Na razie nikogo. Zaproś kogoś poniżej.", "Nobody yet. Invite someone below.") + "</div>";
+  if (out.length) {
+    h += "<h3>" + L("Wysłane zaproszenia", "Sent invitations") + "</h3>";
+    h += out.map(n => row(n, btn("rm", n, L("Cofnij", "Cancel")), L("czeka na akceptację", "waiting for acceptance"))).join("");
+  }
+  h += "<h3>" + L("Inne osoby w aplikacji", "Other people in the app") + "</h3>";
+  h += others.length ? others.map(n => row(n, btn("add", n, L("Zaproś", "Invite"), "primary"), "")).join("") : '<div class="empty">' + L("Nie ma więcej osób.", "No more people.") + "</div>";
+  el.innerHTML = h;
+}
+$("frBox").addEventListener("click", async e => {
+  const b = e.target.closest ? e.target.closest("[data-fr]") : null;
+  if (!b || !state.me) return;
+  const act = b.getAttribute("data-fr"), n = b.getAttribute("data-n"), id = IDS[n];
+  if (!id) return;
+  b.disabled = true;
+  await setFriends((fr, rj) => {
+    if (act === "add" || act === "ok") { if (fr.indexOf(id) < 0) fr.push(id); rj = rj.filter(x => x !== id); }
+    else if (act === "rm") fr = fr.filter(x => x !== id);
+    else if (act === "no") { if (rj.indexOf(id) < 0) rj.push(id); }
+    return { fr: fr, rj: rj };
+  });
+  if (act === "ok") toast(L("Dodano do przyjaciół 🎉", "Added to friends 🎉"));
 });
-$("duels").addEventListener("click", async e => {
-  const b = e.target.closest ? e.target.closest("[data-delduel]") : null;
+
+/* ---------- treningi innych ---------- */
+let wfRange = "today";
+const WTEN = { run: "Running", bike: "Cycling", walk: "Walk / hike", gym: "Gym", swim: "Swimming", ball: "Ball / team sports", hiit: "HIIT / CrossFit", yoga: "Yoga / stretching", dance: "Dance", other: "Other" };
+const wtLabel = id => LANG === "en" ? (WTEN[id] || "Other") : wtype(id).label;
+function dayLabel(d) {
+  if (d === today()) return L("Dziś", "Today");
+  if (d === addDays(today(), -1)) return L("Wczoraj", "Yesterday");
+  return parseD(d).toLocaleDateString(LOC(), { weekday: "short", day: "numeric", month: "numeric" });
+}
+function segHtml(items, cur, attr) {
+  return items.map(x => '<button class="segb' + (x[0] === cur ? " on" : "") + '" ' + attr + '="' + x[0] + '">' + esc(x[1]) + "</button>").join("");
+}
+function renderWorkFeed() {
+  const seg = $("wFeedSeg"), box = $("wFeed");
+  if (!seg || !box) return;
+  seg.innerHTML = segHtml([["today", L("Dziś", "Today")], ["yday", L("Wczoraj", "Yesterday")], ["week", L("7 dni", "7 days")]], wfRange, "data-wf");
+  const me = ME(), others = NAMES.filter(n => n !== me);
+  if (!others.length) { box.innerHTML = '<div class="empty">' + L("Nikogo tu jeszcze nie ma. Dodaj przyjaciół w zakładce „Przyjaciele”.", "Nobody here yet. Add friends in the “Friends” tab.") + "</div>"; return; }
+  const t = today();
+  const from = wfRange === "week" ? addDays(t, -6) : wfRange === "yday" ? addDays(t, -1) : t;
+  const to = wfRange === "yday" ? addDays(t, -1) : t;
+  const items = [];
+  others.forEach(n => {
+    const u = state.users[n];
+    (u.workouts || []).forEach(w => {
+      if (w.date < from || w.date > to) return;
+      let extra = "";
+      if (w.type === "gym") {
+        const s = ((u.gym || {}).sessions || []).find(x => x.date === w.date && x.dur === w.min);
+        if (s) extra = (s.ex || []).length + " " + L("ćwiczeń", "exercises") + (s.vol ? ", " + s.vol + " kg" : "");
+      }
+      items.push({ n: n, d: w.date, type: w.type, min: w.min, kcal: w.kcal, extra: extra });
+    });
+  });
+  items.sort((a, b) => a.d < b.d ? 1 : a.d > b.d ? -1 : a.n < b.n ? -1 : 1);
+  let h = "", lastD = null;
+  items.forEach(x => {
+    if (x.d !== lastD) { lastD = x.d; h += '<div class="wfday">' + esc(dayLabel(x.d)) + "</div>"; }
+    h += '<div class="wfrow">' + av(x.n, 30) + '<div class="wfn"><b>' + esc(x.n) + "</b><small>" + esc(wtLabel(x.type)) + (x.extra ? " · " + esc(x.extra) : "") + '</small></div><div class="wfv">' + x.min + " min<small>" + x.kcal + " kcal</small></div></div>";
+  });
+  if (!items.length) h = '<div class="empty">' + (wfRange === "week" ? L("Nikt nic nie dodał w ostatnich 7 dniach.", "Nobody logged a workout in the last 7 days.") : L("Nikt jeszcze nic nie dodał.", "Nobody has logged anything yet.")) + "</div>";
+  else if (wfRange !== "week") {
+    const none = others.filter(n => !items.some(x => x.n === n));
+    if (none.length) h += '<div class="msg">' + L("Bez treningu: ", "No workout: ") + esc(none.join(", ")) + "</div>";
+  }
+  box.innerHTML = h;
+}
+$("wFeedSeg").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-wf]") : null;
   if (!b) return;
-  const id = b.getAttribute("data-delduel");
-  try { await mutateDoc("group", d => { d.duels = (d.duels || []).filter(x => x.id !== id); return d; }); } catch (err) { console.error(err); }
+  wfRange = b.getAttribute("data-wf");
+  renderWorkFeed();
+});
+
+/* ---------- strona siłowni ---------- */
+function renderGymPage() {
+  const h = $("gymHist"), p = $("gymPR");
+  if (!h || !p || !state.me) return;
+  const ss = gSessions().slice().sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : 0).slice(0, 8);
+  h.innerHTML = ss.length ? ss.map(s => '<div class="gsrow"><div><b>' + esc(dayLabel(s.date)) + "</b><small>" + esc(s.date) + '</small></div><div class="gsx">' +
+    (s.ex || []).map(e => esc(e.n) + " ×" + (e.s || []).length).join(", ") + '</div><div class="wfv">' + (s.dur || 0) + " min<small>" + (s.vol || 0) + " kg</small></div></div>").join("")
+    : '<div class="empty">' + L("Jeszcze brak treningów na siłowni. Zacznij pierwszy!", "No gym workouts yet. Start your first one!") + "</div>";
+  const names = {};
+  gSessions().forEach(s => (s.ex || []).forEach(e => { names[norm(e.n)] = e.n; }));
+  const prs = Object.keys(names).map(k => ({ n: names[k], b: exBest(names[k]) })).filter(x => x.b).sort((a, b) => b.b.v - a.b.v).slice(0, 12);
+  p.innerHTML = prs.length ? '<table><thead><tr><th>' + L("Ćwiczenie", "Exercise") + '</th><th class="num">' + L("Najlepsza seria", "Best set") + '</th><th class="num">≈1RM</th></tr></thead><tbody>' +
+    prs.map(x => "<tr><td>" + esc(x.n) + '</td><td class="num">' + x.b.w + " kg × " + x.b.r + '</td><td class="num">' + Math.round(x.b.v) + " kg</td></tr>").join("") + "</tbody></table>"
+    : '<div class="empty">' + L("Rekordy pojawią się po pierwszym treningu.", "Records will show up after your first workout.") + "</div>";
+}
+
+/* ---------- trener: podsumowanie grupy ---------- */
+let grRange = 7;
+function periodStats(n, from, to) {
+  const u = state.users[n], inR = d => d >= from && d <= to;
+  const es = sorted(u), before = es.filter(e => e.date < from).pop(), inside = es.filter(e => inR(e.date));
+  const startW = before ? before.weight : (inside[0] ? inside[0].weight : null);
+  const endW = inside.length ? inside[inside.length - 1].weight : (before ? before.weight : null);
+  const dW = inside.length && startW != null && endW != null ? endW - startW : null;
+  const ws = (u.workouts || []).filter(w => inR(w.date)), w = sumWork(ws);
+  const fd = Object.keys(u.food || {}).filter(inR).map(d => sumF(foodDay(u, d))).filter(x => x.k > 0);
+  const kAvg = fd.length ? fd.reduce((a, x) => a + x.k, 0) / fd.length : null;
+  const pAvg = fd.length ? fd.reduce((a, x) => a + x.p, 0) / fd.length : null;
+  const dk = Object.keys(u.daily || {}).filter(inR);
+  const days = {};
+  ws.forEach(x => { days[x.date] = 1; });
+  dk.forEach(d => { if (dayActive(u, d)) days[d] = 1; });
+  inside.forEach(e => { days[e.date] = 1; });
+  return {
+    n: n, startW: startW, endW: endW, dW: dW, meas: inside.length, wn: w.n, wmin: w.min, wkcal: w.kcal, foodDays: fd.length, kAvg: kAvg, pAvg: pAvg,
+    tgt: u.tgt && u.tgt.k || null, water: dk.filter(d => u.daily[d].water).length, steps: dk.filter(d => u.daily[d].steps).length,
+    active: Object.keys(days).length, streak: streakDays(u).n,
+    gym: (((u.gym || {}).sessions) || []).filter(s => inR(s.date)).length, goal: goalOk(u) ? u.goal : null
+  };
+}
+function grPeriod() { const to = today(); return { from: addDays(to, -(grRange - 1)), to: to, days: grRange }; }
+function groupHighlights(rows) {
+  const out = [], best = (arr, f) => arr.slice().sort((a, b) => f(b) - f(a))[0];
+  const act = rows.filter(r => r.wn > 0);
+  if (act.length) { const r = best(act, x => x.wmin); out.push(L("💪 Najwięcej ruchu: ", "💪 Most activity: ") + r.n + " (" + r.wn + " " + L("treningów", "workouts") + ", " + r.wmin + " min)"); }
+  else out.push(L("😴 Nikt nie dodał treningu w tym okresie. Czas ruszyć!", "😴 Nobody logged a workout in this period. Time to move!"));
+  const toward = rows.filter(r => r.dW != null && r.goal != null && r.startW != null && (r.goal - r.startW) * r.dW > 0 && Math.abs(r.dW) >= 0.1);
+  if (toward.length) { const r = best(toward, x => Math.abs(x.dW)); out.push(L("🎯 Największy ruch w stronę celu: ", "🎯 Biggest move toward the goal: ") + r.n + " (" + (r.dW > 0 ? "+" : "−") + fmt(Math.abs(r.dW)) + " kg)"); }
+  const st = rows.filter(r => r.streak >= 2);
+  if (st.length) { const r = best(st, x => x.streak); out.push(L("🔥 Najdłuższa seria: ", "🔥 Longest streak: ") + r.n + " (" + r.streak + " " + L("dni", "days") + ")"); }
+  const fo = rows.filter(r => r.foodDays > 0);
+  if (!fo.length) out.push(L("🍽 Nikt nie prowadzi dziennika jedzenia. Wystarczy wpisywać główne posiłki.", "🍽 Nobody keeps a food log. Logging main meals is enough."));
+  const idle = rows.filter(r => r.active === 0).map(r => r.n);
+  if (idle.length) out.push(L("🤔 Bez aktywności: ", "🤔 No activity: ") + idle.join(", "));
+  return out;
+}
+function renderGroupSummary() {
+  const seg = $("grSeg"), tb = $("grTable"), hi = $("grHigh");
+  if (!seg || !state.me) return;
+  seg.innerHTML = segHtml([["7", L("7 dni", "7 days")], ["30", L("30 dni", "30 days")]], String(grRange), "data-gr");
+  const P = grPeriod(), rows = NAMES.map(n => periodStats(n, P.from, P.to));
+  let h = '<div class="scroll"><table><thead><tr><th>' + L("Kto", "Who") + '</th><th class="num">' + L("Waga Δ", "Weight Δ") + '</th><th class="num">' + L("Treningi", "Workouts") + '</th><th class="num">' + L("Min", "Min") +
+    '</th><th class="num">' + L("kcal spal.", "kcal burned") + '</th><th class="num">' + L("kcal/dzień", "kcal/day") + '</th><th class="num">' + L("Aktywne dni", "Active days") + "</th></tr></thead><tbody>";
+  rows.forEach(r => {
+    h += '<tr><td><span class="who">' + av(r.n, 24) + esc(r.n) + '</span></td><td class="num">' + (r.dW == null ? "—" : (r.dW > 0 ? "+" : r.dW < 0 ? "−" : "") + fmt(Math.abs(r.dW))) + '</td><td class="num">' + r.wn +
+      '</td><td class="num">' + r.wmin + '</td><td class="num">' + r.wkcal + '</td><td class="num">' + (r.kAvg == null ? "—" : Math.round(r.kAvg)) + '</td><td class="num">' + r.active + "/" + P.days + "</td></tr>";
+  });
+  tb.innerHTML = h + "</tbody></table></div>";
+  hi.innerHTML = '<ul class="grhi">' + groupHighlights(rows).map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>";
+}
+$("grSeg").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-gr]") : null;
+  if (!b) return;
+  grRange = parseInt(b.getAttribute("data-gr"), 10) || 7;
+  $("grAiOut").innerHTML = "";
+  renderGroupSummary();
+});
+function periodLine(r, P) {
+  const b = [r.n + " (" + P.days + " dni od " + P.from + ")"];
+  if (r.dW != null) b.push("zmiana wagi " + (r.dW > 0 ? "+" : "") + fmt(r.dW) + " kg (z " + fmt(r.startW) + " do " + fmt(r.endW) + ")");
+  if (r.goal != null) b.push("cel " + fmt(r.goal) + " kg");
+  b.push("treningi " + r.wn + " (" + r.wmin + " min, ok. " + r.wkcal + " kcal spalone)" + (r.gym ? ", w tym siłownia " + r.gym : ""));
+  b.push("dni aktywne " + r.active + "/" + P.days + ", seria " + r.streak + " dni");
+  if (r.foodDays) b.push("dziennik jedzenia " + r.foodDays + " dni, średnio " + Math.round(r.kAvg) + " kcal/dzień" + (r.tgt ? " (cel " + r.tgt + ")" : "") + ", białko " + Math.round(r.pAvg) + " g");
+  else b.push("brak dziennika jedzenia");
+  b.push("woda " + r.water + " dni, kroki " + r.steps + " dni");
+  return b.join("; ");
+}
+async function groupAnalysis(P, rows) {
+  const per = rows.map(r => userCtx(r.n) + "\nOkres: " + periodLine(r, P)).join("\n\n");
+  const names = rows.map(r => r.n).join(", ");
+  const p = parseJson(await aiAsk("Dane grupy znajomych, którzy razem dbają o formę (" + names + "):\n\n" + per +
+    "\n\nJesteś Trenerem grupy. Zrób DOGŁĘBOKĄ analizę okresu (" + P.days + " dni): porównaj osoby, wskaż trendy (waga, ruch, jedzenie, regularność), nazwij mocne strony i braki, bądź konkretny i życzliwy, opieraj się tylko na danych powyżej. Nie zalecaj odchudzania przy BMI poniżej 18,5. Nie dawaj porad medycznych." +
+    "\nZwróć wyłącznie JSON: {\"summary\":\"3-5 zdań o grupie\",\"highlights\":[\"3-4 krótkie wnioski\"],\"people\":[{\"n\":\"imię dokładnie jak w danych\",\"good\":\"co wychodzi\",\"improve\":\"co poprawić\",\"task\":\"jedno konkretne zadanie na kolejny okres\"}],\"group_tasks\":[\"2-3 wspólne zadania\"],\"mvp\":\"imię osoby okresu\"}. Bez markdownu." + langNote(),
+    { json: true, max: 2200, temp: 0.7 }));
+  const s = x => String(x == null ? "" : x).replace(/[*_#`]+/g, "").trim().slice(0, 500);
+  const o = { summary: s(p.summary), highlights: (Array.isArray(p.highlights) ? p.highlights : []).map(s).filter(Boolean).slice(0, 5), people: [], tasks: (Array.isArray(p.group_tasks) ? p.group_tasks : []).map(s).filter(Boolean).slice(0, 4), mvp: s(p.mvp) };
+  (Array.isArray(p.people) ? p.people : []).forEach(x => { if (x && NAMES.indexOf(x.n) >= 0) o.people.push({ n: x.n, good: s(x.good), improve: s(x.improve), task: s(x.task) }); });
+  if (!o.summary && !o.people.length) throw new Error(L("Brak odpowiedzi AI.", "No AI reply."));
+  return o;
+}
+$("grAiGo").addEventListener("click", function () {
+  const P = grPeriod(), rows = NAMES.map(n => periodStats(n, P.from, P.to));
+  runTool(this, "grAiOut", async () => {
+    const o = await groupAnalysis(P, rows);
+    let h = '<div class="plan"><h4>' + L("Podsumowanie", "Summary") + "</h4><p>" + esc(o.summary) + "</p>";
+    if (o.mvp && NAMES.indexOf(o.mvp) >= 0) h += '<p class="mvp">🏆 ' + L("Osoba okresu: ", "Person of the period: ") + "<b>" + esc(o.mvp) + "</b></p>";
+    if (o.highlights.length) h += "<ul>" + o.highlights.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul>";
+    h += "</div>";
+    o.people.forEach(x => {
+      h += '<div class="plan" style="margin-top:8px"><h4 class="who">' + av(x.n, 26) + esc(x.n) + "</h4>" +
+        (x.good ? "<p>👍 " + esc(x.good) + "</p>" : "") + (x.improve ? "<p>🔧 " + esc(x.improve) + "</p>" : "") + (x.task ? "<p>🎯 <b>" + esc(x.task) + "</b></p>" : "") + "</div>";
+    });
+    if (o.tasks.length) h += '<div class="plan" style="margin-top:8px"><h4>' + L("Zadania dla grupy", "Group tasks") + "</h4><ul>" + o.tasks.map(x => "<li>" + esc(x) + "</li>").join("") + "</ul></div>";
+    h += '<div class="tools"><button class="ghost" id="grPost">' + L("Wyślij skrót na czat", "Post a short version to chat") + "</button></div>";
+    return {
+      html: h, wire: out => {
+        $("grPost").addEventListener("click", async function () {
+          this.disabled = true;
+          const msgs = [L("📊 Analiza grupy (" + P.days + " dni): ", "📊 Group analysis (" + P.days + " days): ") + o.summary.slice(0, 230)];
+          if (o.tasks[0]) msgs.push(L("🎯 Zadanie dla ekipy: ", "🎯 Task for the crew: ") + o.tasks[0].slice(0, 250));
+          await coachSay(msgs);
+          this.textContent = L("Wysłane ✅", "Posted ✅");
+        });
+      }
+    };
+  });
 });
 
 /* ---------- PIN ---------- */
@@ -3616,10 +3876,11 @@ async function maybeV3Tasks() {
   /* tygodniowy raport (niedziela po 18:00 lub poniedziałek rano) */
   try {
     const dow = now.getDay();
-    if (!aiKey() || !((dow === 0 && now.getHours() >= 18) || (dow === 1 && now.getHours() < 12))) return;
+    if (!aiKey() || NAMES.length < 2 || !((dow === 0 && now.getHours() >= 18) || (dow === 1 && now.getHours() < 12))) return;
     const wk = mondayOf(dow === 1 ? addDays(today(), -1) : today());
+    const rk = NAMES.map(n => IDS[n]).sort().join("+");
     let claimed = false;
-    await mutateDoc("group", d => { claimed = false; if (d.report !== wk) { d.report = wk; claimed = true; } return d; });
+    await mutateDoc("group", d => { claimed = false; const r = Object.assign({}, d.reps || {}); if (r[rk] !== wk) { r[rk] = wk; d.reps = r; claimed = true; } return d; });
     if (!claimed) return;
     try {
       const msgs = await weeklyMessages();
@@ -3627,7 +3888,7 @@ async function maybeV3Tasks() {
       else throw new Error("empty");
     } catch (e) {
       console.error(e);
-      await mutateDoc("group", d => { if (d.report === wk) d.report = null; return d; });
+      await mutateDoc("group", d => { const r = Object.assign({}, d.reps || {}); if (r[rk] === wk) { r[rk] = null; d.reps = r; } return d; });
     }
   } catch (e) { console.error(e); }
 }
@@ -3682,8 +3943,8 @@ async function addUser() {
   if (!gotProgress) { msg.textContent = L("Poczekaj chwilę, łączę z bazą…", "One moment, connecting…"); return; }
   if (raw.length < 2) { msg.textContent = L("Wpisz imię (min. 2 znaki).", "Enter a name (at least 2 characters)."); return; }
   if (!/^[\p{L}\p{N} ._-]{2,20}$/u.test(raw)) { msg.textContent = L("Użyj liter, cyfr, spacji lub - . _", "Use letters, digits, spaces or - . _"); return; }
-  if (norm(raw) === norm(COACH) || NAMES.some(n => norm(n) === norm(raw)) || raw in IDS) { msg.textContent = L("Takie imię już jest.", "That name is taken."); return; }
-  if (NAMES.length >= 8) { msg.textContent = L("Maksymalnie 8 osób.", "Maximum 8 people."); return; }
+  if (norm(raw) === norm(COACH) || ALLN.some(n => norm(n) === norm(raw)) || raw in IDS) { msg.textContent = L("Takie imię już jest.", "That name is taken."); return; }
+  if (ALLN.length >= 8) { msg.textContent = L("Maksymalnie 8 osób.", "Maximum 8 people."); return; }
   const id = "u-" + (norm(raw).replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "x") + "-" + Math.random().toString(36).slice(2, 5);
   msg.textContent = L("Zapisuję…", "Saving…");
   let dup = false;
@@ -4551,6 +4812,25 @@ Object.assign(EN, {
   "Kalkulator kalorii (TDEE) i makroskładniki": "Calorie calculator (TDEE) and macros", "Dziennik jedzenia: szukanie produktów, skaner kodów, opis AI": "Food log: product search, barcode scanner, AI description",
   "Tryb siłowni: timery, interwały, rekordy, doping AI": "Gym mode: timers, intervals, records, AI boost", "Reakcje pod wiadomościami": "Reactions under messages", "Dodaj reakcję": "Add reaction"
 });
+
+Object.assign(EN, {
+  "Co nowego w 3.3": "What's new in 3.3", "Treningi innych": "Others' workouts", "Pomocne narzędzia 🛠": "Helpful tools 🛠",
+  "Tryb siłowni": "Gym mode", "Ostatnie treningi na siłowni": "Recent gym workouts", "Rekordy": "Records",
+  "Pełnoekranowy tryb treningu: serie, przerwy z pikaniem, stoper, interwały i doping AI.": "Full-screen workout mode: sets, beeping rests, stopwatch, intervals and AI hype.",
+  "Podsumowanie grupy": "Group summary", "Dogłębna analiza trenera AI": "In-depth AI coach analysis", "Przygotuj analizę": "Prepare analysis",
+  "Trener porówna trendy, oceni każdą osobę i da zadania na kolejny okres.": "The coach will compare trends, assess everyone and set tasks for the next period.",
+  "Przyjaciele": "Friends",
+  "Widzisz tylko siebie i swoich przyjaciół: ranking, wykresy, czat, treningi i analizy trenera dotyczą tej grupy. Przyjaźń działa, gdy obie osoby się zaakceptują.": "You only see yourself and your friends: ranking, charts, chat, workouts and coach analyses cover this group. A friendship works when both people accept.",
+  "Menu na górze: Główna, Siłownia, Jedzenie i kalorie, Kalkulator, Pomocne narzędzia, Trener, Przyjaciele": "Top menu: Home, Gym, Food & calories, Calculator, Helpful tools, Coach, Friends",
+  "Przyjaciele: widzisz tylko swoją grupę (ranking, czat, treningi, trener)": "Friends: you only see your own group (ranking, chat, workouts, coach)",
+  "Podgląd treningów innych osób (dziś, wczoraj, 7 dni)": "Preview of other people's workouts (today, yesterday, 7 days)",
+  "Trener: podsumowanie grupy i dogłębna analiza AI": "Coach: group summary and in-depth AI analysis",
+  "Siłownia jako osobna strona z historią i rekordami": "Gym as a separate page with history and records",
+  "Usunięte pojedynki 1 na 1": "1-on-1 duels removed",
+  "Pogoda, pierścienie „Dziś” i seria dni": "Weather, “Today” rings and day streak",
+  "Kalkulator kalorii (TDEE) i dziennik jedzenia": "Calorie calculator (TDEE) and food log",
+  "Reakcje pod wiadomościami, czat ze zdjęciami": "Message reactions, chat with photos"
+});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [
@@ -5117,11 +5397,11 @@ function hideBoot() {
 let loginSig = "";
 function renderLogin() {
   $("login").hidden = !!state.me && !loginKeep;
-  const sig = NAMES.map(n => av(n, 56)).join("");
+  const sig = ALLN.map(n => av(n, 56)).join("");
   if (sig === loginSig) return;
   const first = !loginSig;
   loginSig = sig;
-  $("loginUsers").innerHTML = NAMES.map((n, i) => '<button class="loginbtn' + (first ? "" : " still") + '" style="--i:' + i + '" data-name="' + esc(n) + '">' + av(n, 56) + "<span>" + esc(n) + "</span></button>").join("");
+  $("loginUsers").innerHTML = ALLN.map((n, i) => '<button class="loginbtn' + (first ? "" : " still") + '" style="--i:' + i + '" data-name="' + esc(n) + '">' + av(n, 56) + "<span>" + esc(n) + "</span></button>").join("");
   Array.prototype.forEach.call($("loginUsers").children, b => b.addEventListener("click", () => tryLogin(b.getAttribute("data-name"))));
 }
 function login(n, remember, h) {

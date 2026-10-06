@@ -410,11 +410,103 @@
   #chatCard.chatfull { position: fixed; inset: 0; z-index: 45; margin: 0; border-radius: 0; display: flex; flex-direction: column; overflow: hidden; padding-top: calc(16px + env(safe-area-inset-top, 0px)); padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
   #chatCard.chatfull .chatbox { flex: 1; height: auto; min-height: 0; }
   .installbtn { margin-top: 4px; }
+
+  /* ===== v3.2 ===== */
+  .gymbtn { width: 100%; padding: 18px; font-size: 1.15rem; border-radius: 14px; }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0; }
+  .chips span { background: var(--bg); border-radius: 999px; padding: 4px 10px; font-size: .82rem; }
+  .tdbig { font-size: 1rem; margin-top: 12px; } .tdbig b { font-size: 2.2rem; } .tdbig small { color: var(--muted); }
+  .fdbig { font-size: 1rem; } .fdbig b { font-size: 2rem; }
+  .fdbar { height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; margin: 6px 0; }
+  .fdbar i { display: block; height: 100%; transition: width .6s ease; }
+  .fdmacros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; } .fdmacros small { color: var(--muted); font-size: .75rem; }
+  .fdmeal { display: flex; justify-content: space-between; margin-top: 12px; padding-bottom: 4px; border-bottom: 1px solid var(--line); }
+  .fditem { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 6px 0; }
+  .fditem small { display: block; color: var(--muted); font-size: .78rem; } .fdn { overflow-wrap: anywhere; }
+  .fdweek { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; align-items: end; }
+  .fdweek .wk { text-align: center; } .fdweek small { color: var(--muted); font-size: .72rem; }
+  .fdweek .col { height: 70px; background: var(--bg); border-radius: 8px; display: flex; align-items: flex-end; overflow: hidden; }
+  .fdweek .col i { display: block; width: 100%; border-radius: 6px 6px 0 0; min-height: 2px; transition: height .6s ease; }
+  .fdtabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+  .fdtab { font: inherit; font-size: .85rem; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  .fdtab.on { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .fdresults { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+  .fdres { display: flex; justify-content: space-between; align-items: center; gap: 8px; text-align: left; font: inherit; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+  .fdres small { color: var(--muted); white-space: nowrap; }
+  .fdportion { background: var(--bg); border-radius: 12px; padding: 12px; margin-top: 10px; }
+  .fchips { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 10px; }
+  .fchip { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--bg); }
+  .fchip button { font: inherit; font-size: .82rem; background: none; border: 0; color: var(--ink); padding: 7px 10px; cursor: pointer; }
+  .fchip button + button { border-left: 1px solid var(--line); color: var(--muted); }
+  .rx { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+  .rxchip, .rxadd, .rxpick button { font: inherit; font-size: .8rem; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 999px; padding: 2px 8px; cursor: pointer; }
+  .rxchip.mine { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .rxadd { color: var(--muted); }
+  .rxpick { display: inline-flex; gap: 2px; background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 2px; }
+  .rxpick button { border: 0; font-size: 1.05rem; padding: 2px 6px; }
+
+  /* tryb siłowni */
+  .gym { z-index: 56; background: #0b100e; color: #eef5f1; overscroll-behavior: contain; }
+  #gymBody { max-width: 560px; margin: 0 auto; padding: 12px 14px 40px; }
+  .gym button { font-family: inherit; }
+  .ghead { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .gsess { font-size: 2rem; font-weight: 800; font-variant-numeric: tabular-nums; color: #35d49a; line-height: 1; }
+  .ghead small { color: #8fa79d; }
+  .gtog { display: flex; gap: 6px; }
+  .gtog button { width: 46px; height: 46px; border-radius: 12px; border: 1px solid #29403a; background: #13201c; color: #eef5f1; font-size: 1.2rem; opacity: .45; cursor: pointer; }
+  .gtog button.on, .gtog button[data-g="close"] { opacity: 1; }
+  .gtabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+  .gtab { padding: 12px 2px; border-radius: 12px; border: 1px solid #29403a; background: #13201c; color: #b9cdc4; font-weight: 700; font-size: .85rem; cursor: pointer; }
+  .gtab.on { background: #35d49a; color: #04110c; border-color: #35d49a; }
+  .gbtn { min-height: 52px; padding: 10px 14px; border-radius: 14px; border: 1px solid #2c4740; background: #16251f; color: #eef5f1; font-weight: 700; font-size: 1rem; cursor: pointer; touch-action: manipulation; }
+  .gbtn:active, .gbig:active { transform: scale(.96); }
+  .gbtn.sel { background: #35d49a; color: #04110c; }
+  .gbtn.dim { opacity: .7; width: 100%; margin-top: 8px; }
+  .gbtn.fin { background: #3a1f1f; border-color: #6b3030; color: #ffb4a8; }
+  .gbig { width: 100%; min-height: 68px; border-radius: 18px; border: 0; background: #223a32; color: #eef5f1; font-size: 1.25rem; font-weight: 800; margin: 8px 0; cursor: pointer; touch-action: manipulation; }
+  .gbig.go { background: #35d49a; color: #04110c; } .gbig.stop { background: #e0533d; color: #fff; } .gbig.fire { background: linear-gradient(90deg, #ff7a18, #ff3d6e); color: #fff; }
+  .gym .grow { display: flex; gap: 8px; align-items: center; margin: 6px 0; }
+  .gym .grow > * { flex: 1; }
+  .gym .grow input, .gym .gpick input, .gym .gl input { min-width: 0; text-align: center; font-size: 1.9rem; font-weight: 800; padding: 8px 4px; border-radius: 14px; border: 1px solid #2c4740; background: #0f1a16; color: #fff; width: 100%; }
+  .gym .gpick input { font-size: 1.1rem; text-align: left; padding: 12px; flex: 2; }
+  .gym .grow input { flex: 1.5; }
+  .gchips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 8px; }
+  .gchip { flex: none; padding: 10px 12px; border-radius: 999px; border: 1px solid #2c4740; background: #13201c; color: #b9cdc4; font-weight: 700; cursor: pointer; }
+  .gchip.on { background: #35d49a; color: #04110c; border-color: #35d49a; } .gchip small { opacity: .8; }
+  .gcard { background: #13201c; border-radius: 18px; padding: 16px; margin: 6px 0 10px; text-align: center; }
+  .gex { font-size: 1.8rem; font-weight: 800; line-height: 1.15; overflow-wrap: anywhere; }
+  .gsub { color: #8fa79d; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; margin: 12px 0 4px; }
+  .gcard .gsub { margin: 6px 0 0; } .ghist { color: #b9cdc4; font-size: .92rem; margin-top: 4px; }
+  .gstep { margin: 8px 0; } .glab { color: #8fa79d; font-size: .8rem; letter-spacing: .08em; margin-bottom: 4px; text-align: center; }
+  .grest { background: #13201c; border-radius: 18px; padding: 12px; margin: 8px 0; }
+  .gring { position: relative; width: 190px; height: 190px; margin: 4px auto 10px; }
+  .gring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .gring circle { fill: none; stroke-width: 9; } .gring .trk { stroke: #223a32; } .gring .arc { stroke: #35d49a; stroke-linecap: round; }
+  .gtime { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .gdop { margin: 8px 0; padding: 14px; border-radius: 14px; background: #1c1612; border: 1px solid #5a3a20; font-size: 1.15rem; font-weight: 700; text-align: center; color: #ffcf9a; }
+  .gdop.empty { display: none; }
+  .gsets { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; } .gsets span { background: #13201c; border-radius: 999px; padding: 6px 12px; font-size: .9rem; }
+  .gbar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .gpresets { flex-wrap: wrap; } .gpresets .gbtn { flex: 1 1 28%; }
+  .gclock { font-size: 4rem; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; margin: 24px 0; }
+  .glaps div { display: flex; justify-content: space-between; padding: 10px 4px; border-bottom: 1px solid #1d2f29; font-variant-numeric: tabular-nums; } .glaps small { color: #8fa79d; }
+  .giv { border-radius: 22px; padding: 22px 10px; text-align: center; margin: 8px 0; }
+  .giv.prep { background: #3b3010; color: #ffd966; } .giv.work { background: #0f3d2c; color: #5df0b4; } .giv.rest { background: #11304a; color: #8cc8ff; }
+  .giv .gclock { margin: 8px 0; font-size: 6rem; } .gphase { font-size: 1.6rem; font-weight: 800; letter-spacing: .08em; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; } .gl { color: #8fa79d; font-size: .8rem; display: flex; flex-direction: column; gap: 4px; }
+  .grecs { display: flex; flex-direction: column; gap: 6px; } .grec { display: grid; grid-template-columns: 1.4fr .8fr; gap: 2px 8px; background: #13201c; border-radius: 12px; padding: 10px 12px; } .grec b { text-align: right; } .grec small { grid-column: 1 / -1; color: #8fa79d; }
+  .gempty { text-align: center; padding: 20px 0; } .gemo { font-size: 3.5rem; }
+  .gtpl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .gpick .gpl { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 12px 0; max-height: 55vh; overflow-y: auto; }
+  .gsum { text-align: center; } .gstats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 14px 0; } .gstats div { background: #13201c; border-radius: 12px; padding: 12px 4px; } .gstats b { font-size: 1.4rem; display: block; } .gstats small { color: #8fa79d; font-size: .7rem; }
+  .gpr { background: #2a2410; color: #ffd966; border-radius: 12px; padding: 12px; margin-bottom: 8px; font-weight: 700; }
 </style>
 </head>
 <body>
 <canvas id="confetti"></canvas>
 <div class="toast" id="toast" role="status"></div>
+<div class="overlay gym" id="gym" hidden data-notr><div id="gymBody"></div></div>
+<div class="overlay" id="scanner" hidden style="z-index:66;background:#000"><video id="scanVid" playsinline muted style="width:100%;height:100%;object-fit:cover"></video><div class="msg" id="scanMsg" data-notr style="position:fixed;top:16px;left:0;right:0;text-align:center;color:#fff"></div><button class="primary" id="scanClose" style="position:fixed;bottom:28px;left:50%;transform:translateX(-50%)">Zamknij</button></div>
 <div class="overlay" id="lightbox" hidden style="z-index:65;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center"><img id="lbImg" alt="" style="max-width:96vw;max-height:92vh;border-radius:8px"></div>
 
 <div class="overlay boot" id="boot" aria-hidden="true">
@@ -463,7 +555,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.1</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.2</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
@@ -622,13 +714,17 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.1</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.2</summary>
         <ul>
           <li>Logowanie PIN-em i kod awaryjny</li>
           <li>Trener AI z pamięcią (Porady trenera)</li>
           <li>Narzędzia AI: plan treningu, posiłki, zdjęcie jedzenia, wpis tekstem, analiza tygodnia</li>
           <li>Pogoda, pierścienie „Dziś” i seria dni</li>
           <li>Pojedynki 1 na 1</li>
+          <li>Kalkulator kalorii (TDEE) i makroskładniki</li>
+          <li>Dziennik jedzenia: szukanie produktów, skaner kodów, opis AI</li>
+          <li>Tryb siłowni: timery, interwały, rekordy, doping AI</li>
+          <li>Reakcje pod wiadomościami</li>
           <li>Instalacja skrótu na pulpicie</li>
           <li>Czat: większe okno, linki i zdjęcia</li>
           <li>Nowi użytkownicy z ekranu logowania</li>
@@ -645,13 +741,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.1</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.2</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.1</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.2</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -666,6 +762,8 @@
   <section class="card" id="summary"></section>
 
   <section class="card" id="today" data-notr></section>
+
+  <section class="card"><button class="primary gymbtn" id="gymOpen">🏋️ Tryb siłowni</button><div class="msg" style="margin-top:8px">Pełnoekranowy tryb treningu: serie, przerwy z pikaniem, stoper, interwały i doping AI.</div></section>
 
   <section class="card">
     <h2 id="tAdd">Dodaj pomiar</h2>
@@ -720,6 +818,62 @@
       </div>
       <div class="msg" id="betMsg"></div>
     </details>
+  </section>
+
+  <section class="card" id="foodCard">
+    <h2>Jedzenie i kalorie</h2>
+    <div class="row">
+      <label>Dzień<input type="date" id="fdDate"></label>
+      <label>Posiłek<select id="fdMeal"><option value="b">Śniadanie</option><option value="l">Obiad</option><option value="d">Kolacja</option><option value="s">Przekąska</option></select></label>
+    </div>
+    <div id="fdSummary" data-notr style="margin-top:10px"></div>
+    <div id="fdList" data-notr></div>
+    <h3>Ostatnie 7 dni</h3>
+    <div id="fdWeek" data-notr></div>
+    <h3>Dodaj jedzenie</h3>
+    <div class="fdtabs">
+      <button class="fdtab on" data-pane="search">🔎 Szukaj</button><button class="fdtab" data-pane="scan">📷 Kod</button><button class="fdtab" data-pane="manual">✍️ Ręcznie</button><button class="fdtab" data-pane="ai">🤖 Opis AI</button><button class="fdtab" data-pane="fav">⭐ Ulubione</button>
+    </div>
+    <div class="fdpane" id="fdp-search">
+      <div class="row"><label style="flex:2 1 180px">Nazwa produktu<input type="text" id="fdQuery" maxlength="60" placeholder="np. jogurt naturalny"></label><button class="primary" id="fdSearchGo">Szukaj</button></div>
+      <div class="msg" id="fdSearchMsg" data-notr></div>
+      <div class="fdresults" id="fdResults" data-notr></div>
+    </div>
+    <div class="fdpane" id="fdp-scan" hidden>
+      <div class="tools" style="margin-top:0"><button class="primary" id="fdScanGo">📷 Skanuj kod kreskowy</button></div>
+      <div class="row" style="margin-top:10px"><label style="flex:2 1 180px">Albo wpisz kod z opakowania<input type="text" id="fdCode" inputmode="numeric" maxlength="14" placeholder="np. 5900123456789"></label><button class="ghost" id="fdCodeGo">Szukaj kodu</button></div>
+      <div class="msg" id="fdScanMsg" data-notr></div>
+    </div>
+    <div class="fdpane" id="fdp-manual" hidden>
+      <div class="row"><label style="flex:2 1 180px">Nazwa<input type="text" id="fdName" maxlength="60" placeholder="np. kanapka z serem"></label><label>Kalorie (kcal)<input type="number" id="fdKcal" min="0" max="5000" inputmode="decimal"></label></div>
+      <div class="row" style="margin-top:10px"><label>Białko (g)<input type="number" id="fdP" min="0" max="500" inputmode="decimal"></label><label>Węgle (g)<input type="number" id="fdC" min="0" max="800" inputmode="decimal"></label><label>Tłuszcz (g)<input type="number" id="fdF" min="0" max="500" inputmode="decimal"></label><label>Porcje (mnożnik)<input type="number" id="fdMult" min="0.1" max="20" step="0.1" value="1" inputmode="decimal"></label></div>
+      <div class="checks" style="margin-top:10px"><label><input type="checkbox" id="fdFav"> ⭐ Zapisz w ulubionych</label></div>
+      <div class="tools"><button class="primary" id="fdManualAdd">Dodaj do dziennika</button></div>
+    </div>
+    <div class="fdpane" id="fdp-ai" hidden>
+      <div class="row"><label style="flex:2 1 200px">Opisz, co zjadłeś<input type="text" id="fdAiText" maxlength="300" placeholder="np. 2 jajka, kanapka z serem i kawa z mlekiem"></label><button class="primary" id="fdAiGo">Oszacuj</button></div>
+      <div class="aiout" id="fdAiOut" data-notr></div>
+    </div>
+    <div class="fdpane" id="fdp-fav" hidden><div id="fdFavs" data-notr></div></div>
+    <div class="fdportion" id="fdPortion" hidden data-notr></div>
+    <div class="msg" id="fdMsg" data-notr></div>
+  </section>
+
+  <section class="card" id="tdCard">
+    <h2>Kalkulator zapotrzebowania kalorycznego</h2>
+    <div class="row">
+      <label>Płeć<select id="tdSex"><option value="m">Mężczyzna</option><option value="f">Kobieta</option></select></label>
+      <label>Wiek<input type="number" id="tdAge" min="16" max="100" inputmode="numeric"></label>
+      <label>Wzrost (cm)<input type="number" id="tdH" min="120" max="230" inputmode="numeric"></label>
+      <label>Waga (kg)<input type="number" id="tdW" min="30" max="300" step="0.1" inputmode="decimal"></label>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <label style="flex:2 1 220px">Aktywność<select id="tdAct"><option value="1.2">Siedzący tryb życia (brak treningów)</option><option value="1.375">Lekka aktywność (1–3 treningi/tydz.)</option><option value="1.55" selected>Umiarkowana (3–5 treningów/tydz.)</option><option value="1.725">Duża (6–7 treningów/tydz.)</option><option value="1.9">Bardzo duża (praca fizyczna + treningi)</option></select></label>
+      <label>Cel<select id="tdGoal"><option value="keep">Utrzymanie wagi</option><option value="cut">Powolne chudnięcie</option><option value="bulk">Budowa masy</option></select></label>
+    </div>
+    <div id="tdOut" data-notr></div>
+    <div class="tools"><button class="primary" id="tdSave">Zapisz jako mój cel</button></div>
+    <div class="msg" id="tdMsg" data-notr></div>
   </section>
 
   <section class="card">
@@ -895,7 +1049,7 @@ let LANG = "pl";
 try { LANG = localStorage.getItem("pd-lang") === "en" ? "en" : "pl"; } catch (e) {}
 const L = (pl, en) => LANG === "en" ? en : pl;
 const LOC = () => LANG === "en" ? "en-GB" : "pl-PL";
-const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false });
+const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {} });
 NAMES.forEach(n => { state.users[n] = blankUser(); });
 function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
 function syncUsers() { ((state.group && state.group.extra) || []).forEach(x => { if (x && typeof x.n === "string" && typeof x.id === "string") registerUser(x.n, x.id); }); }
@@ -1148,7 +1302,13 @@ onSnapshot(collection(db, "progress"), snap => {
       accent: data.accent || null,
       pin: data.pin || null,
       mem: data.mem || [],
-      memOff: !!data.memOff
+      memOff: !!data.memOff,
+      prof: data.prof || null,
+      tgt: data.tgt || null,
+      food: data.food || {},
+      favs: data.favs || [],
+      recent: data.recent || [],
+      gym: data.gym || {}
     };
   });
   setStatus("Połączono. Dane są wspólne dla wszystkich.");
@@ -2361,7 +2521,7 @@ let chatSig = "";
 function renderChat() {
   const box = $("chatBox");
   const last = chat[chat.length - 1];
-  const sig = chat.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + LANG + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
+  const sig = chat.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + rxSig() + "|" + LANG + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
   if (sig === chatSig && gotChat) return;
   chatSig = sig;
   if (!chat.length && !typingFlag) { box.innerHTML = '<div class="empty">Brak wiadomości. Napisz pierwszą.</div>'; return; }
@@ -2376,7 +2536,7 @@ function renderChat() {
     chatSeen.add(key);
     const avatar = coach ? '<span class="av" style="width:28px;height:28px;font-size:17px">🤖</span>' : (IDS[m.name] ? av(m.name, 28) : "");
     const img = typeof m.img === "string" && IMG_RE.test(m.img) ? '<img class="chimg" src="' + m.img + '" alt="" loading="lazy">' : "";
-    return '<div class="cm' + (coach ? " coach" : "") + (isNew && animOn() ? " new" : "") + '">' + avatar + '<div><span class="nm" data-notr>' + esc(m.name) + (coach ? " 🤖" : "") + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt" data-notr>' + linkify(m.text || "") + "</span>" + img + "</div></div>";
+    return '<div class="cm' + (coach ? " coach" : "") + (isNew && animOn() ? " new" : "") + '">' + avatar + '<div><span class="nm" data-notr>' + esc(m.name) + (coach ? " 🤖" : "") + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt" data-notr>' + linkify(m.text || "") + "</span>" + img + rxHtml(m) + "</div></div>";
   }).join("");
   if (prime) chatPrimed = true;
   if (typingFlag) html += '<div class="cm coach typing"><span class="av" style="width:28px;height:28px;font-size:17px">🤖</span><div><span class="nm" data-notr>' + COACH + ' 🤖</span><br><span class="txt"><i class="dots"><b></b><b></b><b></b></i></span></div></div>';
@@ -2432,7 +2592,7 @@ async function saveAvatar(value) {
 function render(withForm) {
   renderLogin(); renderHeader(); renderBanner(); applyAccent(); renderMascot(); renderTabs(); renderSummary(); renderChart(); renderChartAll(); renderBoard();
   renderAi(); renderChallenge(); renderGroup(); renderBet(); renderDaily(); renderWorkouts(); renderCalendar(); renderTrainer(); renderHistory();
-  renderToday(); renderDuels(); renderAiTools();
+  renderToday(); renderDuels(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn();
   if (withForm) renderUserForm();
   if (!$("menu").hidden) { renderAvatarEditor(); renderSwatches(); renderMem(); }
   renderWelcomeAv(); afterRender();
@@ -2551,7 +2711,7 @@ $("betClear").addEventListener("click", async () => {
 
 /* czat */
 onSnapshot(query(collection(db, "chat"), orderBy("ts", "desc"), limit(50)), snap => {
-  chat = snap.docs.map(d => d.data()).reverse();
+  chat = snap.docs.map(d => Object.assign({ id: d.id }, d.data())).reverse();
   renderChat();
   gotChat = true;
   maybeGreeting();
@@ -2716,7 +2876,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.1";
+const VER = "3.2";
 const langNote = () => LANG === "en" ? "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON." : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -3267,6 +3427,7 @@ function userCtx(n) {
   bits.push("ten tydzień: " + w.n + " treningów, " + w.min + " min, ok. " + w.kcal + " kcal");
   bits.push("seria aktywnych dni: " + st.n);
   const wc = weatherCtx(); if (wc) bits.push(wc);
+  const fdn = sumF(foodDay(u, today())); if (fdn.k > 0 || u.tgt) bits.push("jedzenie dziś: " + Math.round(fdn.k) + " kcal" + (u.tgt ? " (cel " + u.tgt.k + " kcal)" : ""));
   const mt = memText(n); if (mt) bits.push(mt);
   bits.push("dziś: " + today());
   return bits.join("; ");
@@ -3368,7 +3529,8 @@ $("aiPhotoFile").addEventListener("change", function () {
       (items.length ? "<ul>" + items.map(i => "<li>" + esc(i.name || "?") + ": ≈ " + Math.round(nm(i.kcal) || 0) + " kcal</li>").join("") + "</ul>" : "") +
       (p.comment ? "<div>" + esc(p.comment) + "</div>" : "") + '<div class="msg">' + L("To tylko oszacowanie na podstawie zdjęcia. Zdjęcie trafia do Google (Gemini), nie jest zapisywane w aplikacji.", "This is only an estimate from the photo. The photo is sent to Google (Gemini) and is not stored in the app.") + "</div></div>";
     inp.value = "";
-    return { html: html };
+    const tot = { n: (items.map(i => i.name).filter(Boolean).join(", ") || L("Posiłek ze zdjęcia", "Meal from photo")).slice(0, 60), k: nm(p.total_kcal) || 0, p: nm(p.protein_g) || 0, c: nm(p.carbs_g) || 0, f: nm(p.fat_g) || 0 };
+    return { html: html.replace(/<\/div>$/, '<div class="tools"><button class="primary" id="aiPhotoAdd">' + L("➕ Dodaj do dziennika", "➕ Add to the log") + "</button></div></div>"), wire: out => { out.querySelector("#aiPhotoAdd").addEventListener("click", async function () { this.disabled = true; if (await addFood(tot)) out.innerHTML = '<div class="msg">' + L("Dodane ✅", "Added ✅") + "</div>"; else this.disabled = false; }); } };
   });
 });
 
@@ -3543,6 +3705,701 @@ async function addUser() {
 $("newUserGo").addEventListener("click", addUser);
 $("newUserName").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); addUser(); } });
 
+/* ================= v3.2: kalkulator, jedzenie, reakcje ================= */
+const uid2 = () => String(Date.now()) + Math.random().toString(36).slice(2, 6);
+const r1 = x => Math.round(x * 10) / 10;
+
+/* ---------- kalkulator zapotrzebowania kalorycznego ---------- */
+function tdeeCalc(o) {
+  const bmr = 10 * o.w + 6.25 * o.h - 5 * o.age + (o.sex === "m" ? 5 : -161);
+  const tdee = bmr * o.act, b = bmi(o.w, o.h);
+  let goal = o.goal, note = "";
+  if (goal === "cut" && (o.age < 18 || (b != null && b < 18.5))) {
+    goal = "keep";
+    note = L("Przy tym wieku lub BMI nie proponuję deficytu kalorii. Pokazuję utrzymanie wagi.", "With this age or BMI I do not suggest a calorie deficit. Showing maintenance.");
+  }
+  let target = tdee;
+  if (goal === "cut") target = Math.max(tdee * 0.85, o.sex === "m" ? 1500 : 1200);
+  if (goal === "bulk") target = tdee + 300;
+  target = Math.round(target / 10) * 10;
+  const p = Math.round(o.w * (goal === "cut" ? 2.0 : 1.8)), f = Math.round(target * 0.25 / 9);
+  const c = Math.max(0, Math.round((target - p * 4 - f * 9) / 4));
+  return { bmr: Math.round(bmr), tdee: Math.round(tdee), target: target, p: p, f: f, c: c, weekly: (target - tdee) * 7 / 7700, goal: goal, note: note };
+}
+function tdeeInput() {
+  return { sex: $("tdSex").value, age: parseInt($("tdAge").value, 10), h: parseFloat($("tdH").value), w: parseFloat(String($("tdW").value).replace(",", ".")), act: parseFloat($("tdAct").value), goal: $("tdGoal").value };
+}
+function tdeeValid(o) { return o.age >= 16 && o.age <= 100 && o.h >= 120 && o.h <= 230 && o.w >= 30 && o.w <= 300 && o.act > 1; }
+function renderTdeeOut() {
+  const o = tdeeInput(), out = $("tdOut");
+  if (!tdeeValid(o)) { out.innerHTML = '<div class="msg">' + L("Uzupełnij wiek (16–100), wzrost i wagę, a policzę Twoje zapotrzebowanie.", "Fill in age (16–100), height and weight and I will work out your needs.") + "</div>"; return null; }
+  const r = tdeeCalc(o);
+  const gl = { keep: L("utrzymanie wagi", "maintenance"), cut: L("powolne chudnięcie", "slow weight loss"), bulk: L("budowa masy", "muscle gain") }[r.goal];
+  out.innerHTML = '<div class="tdbig"><b>' + r.target + '</b> kcal / ' + L("dzień", "day") + '<small> (' + esc(gl) + ")</small></div>" +
+    '<div class="chips"><span>BMR ' + r.bmr + " kcal</span><span>TDEE " + r.tdee + " kcal</span><span>" + L("białko ", "protein ") + r.p + " g</span><span>" + L("węgle ", "carbs ") + r.c + " g</span><span>" + L("tłuszcz ", "fat ") + r.f + " g</span></div>" +
+    (Math.abs(r.weekly) > 0.02 ? '<div class="msg">' + L("Szacowana zmiana wagi: ok. ", "Estimated weight change: about ") + (r.weekly > 0 ? "+" : "") + fmt(r.weekly, 2) + " kg / " + L("tydzień", "week") + ".</div>" : "") +
+    (r.note ? '<div class="msg" style="color:var(--bad)">' + esc(r.note) + "</div>" : "") +
+    '<div class="msg">' + L("To szacunek według wzoru Mifflina i St Jeora, nie porada medyczna. Efekty bywają różne.", "This is an estimate using the Mifflin–St Jeor formula, not medical advice. Results vary.") + "</div>";
+  return r;
+}
+let tdSig = "";
+function renderTdee() {
+  const me = state.me;
+  if (!$("tdCard")) return;
+  $("tdSave").disabled = !me;
+  if (!me) { $("tdOut").innerHTML = ""; tdSig = ""; return; }
+  const u = state.users[me], sig = me + "|" + (u.prof ? "p" : "n");
+  if (sig !== tdSig) {
+    tdSig = sig;
+    const pr = u.prof || {}, l = latest(u);
+    $("tdSex").value = pr.sex || "m";
+    $("tdAge").value = pr.age || "";
+    $("tdH").value = u.height || "";
+    $("tdW").value = l ? l.weight : "";
+    $("tdAct").value = String(pr.act || 1.55);
+    $("tdGoal").value = pr.goal || "keep";
+    renderTdeeOut();
+  }
+}
+["tdSex", "tdAge", "tdH", "tdW", "tdAct", "tdGoal"].forEach(id => { $(id).addEventListener("input", renderTdeeOut); $(id).addEventListener("change", renderTdeeOut); });
+$("tdSave").addEventListener("click", async () => {
+  const me = state.me, o = tdeeInput();
+  if (!me || !tdeeValid(o)) { $("tdMsg").textContent = L("Uzupełnij poprawnie dane.", "Fill in the data correctly."); return; }
+  const r = tdeeCalc(o);
+  try {
+    await mutate(me, d => { d.prof = { sex: o.sex, age: o.age, act: o.act, goal: r.goal }; d.tgt = { k: r.target, p: r.p, c: r.c, f: r.f }; return d; });
+    $("tdMsg").textContent = L("Zapisano cel: " + r.target + " kcal dziennie. Widać go w dzienniku jedzenia.", "Saved target: " + r.target + " kcal per day. It shows in the food log.");
+  } catch (e) { console.error(e); $("tdMsg").textContent = L("Nie udało się zapisać.", "Could not save."); }
+});
+
+/* ---------- dziennik jedzenia ---------- */
+const MEALS = [["b", "Śniadanie", "Breakfast", "🥣"], ["l", "Obiad", "Lunch", "🍲"], ["d", "Kolacja", "Dinner", "🍝"], ["s", "Przekąska", "Snack", "🍎"]];
+const sumF = list => list.reduce((a, x) => ({ k: a.k + (x.k || 0), p: a.p + (x.p || 0), c: a.c + (x.c || 0), f: a.f + (x.f || 0) }), { k: 0, p: 0, c: 0, f: 0 });
+const foodDay = (u, d) => (u.food || {})[d] || [];
+let fdSel = null, fdRes = [], fdPaneSig = "";
+function barHtml(v, t, color) {
+  const pc = t ? Math.min(100, Math.round(v / t * 100)) : 0;
+  return '<div class="fdbar"><i style="width:' + pc + "%;background:" + (color || "var(--accent)") + '"></i></div>';
+}
+function renderFood() {
+  if (!$("foodCard")) return;
+  const me = state.me, n = ME(), u = state.users[n], date = $("fdDate").value || today();
+  const list = foodDay(u, date), tot = sumF(list), tg = u.tgt || null;
+  const burned = sumWork((u.workouts || []).filter(w => w.date === date)).kcal;
+  let s = '<div class="fdbig"><b>' + Math.round(tot.k) + "</b> / " + (tg ? tg.k : "—") + " kcal</div>" + barHtml(tot.k, tg ? tg.k : 0, tg && tot.k > tg.k * 1.1 ? "var(--bad)" : "var(--accent)");
+  if (tg) {
+    const left = tg.k - tot.k;
+    s += '<div class="msg">' + (left >= 0 ? L("Zostało: ", "Left: ") + Math.round(left) + " kcal" : L("Powyżej celu o ", "Over the target by ") + Math.round(-left) + " kcal") + "</div>";
+  } else s += '<div class="msg">' + L("Ustaw cel w kalkulatorze poniżej.", "Set a target in the calculator below.") + "</div>";
+  s += '<div class="fdmacros">' + [[L("Białko", "Protein"), tot.p, tg && tg.p, "#5b6fe0"], [L("Węgle", "Carbs"), tot.c, tg && tg.c, "#e0782a"], [L("Tłuszcz", "Fat"), tot.f, tg && tg.f, "#c2418c"]].map(m =>
+    "<div><small>" + m[0] + " " + Math.round(m[1]) + (m[2] ? " / " + m[2] : "") + " g</small>" + barHtml(m[1], m[2] || 0, m[3]) + "</div>").join("") + "</div>";
+  if (burned > 0) s += '<div class="msg">🔥 ' + L("Spalone w treningach tego dnia: ", "Burned in workouts that day: ") + burned + " kcal · " + L("bilans: ", "net: ") + Math.round(tot.k - burned) + " kcal</div>";
+  $("fdSummary").innerHTML = s;
+  let html = "";
+  MEALS.forEach(m => {
+    const items = list.filter(x => x.m === m[0]);
+    if (!items.length) return;
+    html += '<div class="fdmeal"><b>' + m[3] + " " + esc(L(m[1], m[2])) + "</b><span>" + Math.round(sumF(items).k) + " kcal</span></div>";
+    items.forEach(x => {
+      html += '<div class="fditem"><div><span class="fdn">' + esc(x.n) + '</span><small>' + x.k + " kcal · " + L("B", "P") + " " + fmt(x.p, 0) + " · " + L("W", "C") + " " + fmt(x.c, 0) + " · " + L("T", "F") + " " + fmt(x.f, 0) + "</small></div>" +
+        (me && me === n ? '<button class="linkbtn" data-fddel="' + esc(x.id) + '" aria-label="Usuń">✕</button>' : "") + "</div>";
+    });
+  });
+  $("fdList").innerHTML = html || '<div class="empty">' + L("Brak wpisów tego dnia.", "No entries for this day.") + "</div>";
+  /* tydzień */
+  let max = tg ? tg.k * 1.3 : 0; const days = [];
+  for (let i = 6; i >= 0; i--) { const d = addDays(date, -i), k = sumF(foodDay(u, d)).k; days.push({ d: d, k: k }); if (k > max) max = k; }
+  $("fdWeek").innerHTML = '<div class="fdweek">' + days.map(x => '<div class="wk"><div class="col"><i style="height:' + (max ? Math.round(x.k / max * 100) : 0) + "%;background:" + (tg && x.k > tg.k * 1.1 ? "var(--bad)" : "var(--accent)") + '"></i></div><small>' +
+    new Date(x.d + "T12:00:00").toLocaleDateString(LOC(), { weekday: "narrow" }) + "</small></div>").join("") + "</div>" + (tg ? '<div class="msg">' + L("Ostatnie 7 dni, cel: ", "Last 7 days, target: ") + tg.k + " kcal</div>" : "");
+  renderFavs(u);
+}
+function renderFavs(u) {
+  const favs = u.favs || [], rec = (u.recent || []).filter(r => !favs.some(f => norm(f.n) === norm(r.n)));
+  const chip = (x, src, i) => '<span class="fchip"><button data-fadd="' + src + ":" + i + '">' + esc(x.n) + " · " + x.k + '</button><button data-fstar="' + src + ":" + i + '" aria-label="' + (src === "fav" ? "Usuń z ulubionych" : "Dodaj do ulubionych") + '">' + (src === "fav" ? "✕" : "☆") + "</button></span>";
+  $("fdFavs").innerHTML = (favs.length ? "<b>⭐ " + L("Ulubione", "Favourites") + '</b><div class="fchips">' + favs.map((x, i) => chip(x, "fav", i)).join("") + "</div>" : "") +
+    (rec.length ? "<b>🕘 " + L("Ostatnio dodane", "Recently added") + '</b><div class="fchips">' + rec.map((x, i) => chip(x, "rec", i)).join("") + "</div>" : "") +
+    (!favs.length && !rec.length ? '<div class="msg">' + L("Tu pojawią się Twoje ulubione i ostatnio dodane produkty.", "Your favourites and recent items will show up here.") + "</div>" : "");
+}
+async function addFood(item) {
+  const me = state.me;
+  if (!me) return false;
+  const date = $("fdDate").value || today(), meal = $("fdMeal").value;
+  const k = Math.round(item.k);
+  if (!(k >= 0 && k <= 5000) || !item.n) { $("fdMsg").textContent = L("Podaj nazwę i kalorie (0–5000).", "Enter a name and calories (0–5000)."); return false; }
+  const e = { id: uid2(), m: meal, n: String(item.n).slice(0, 60), k: k, p: r1(item.p || 0), c: r1(item.c || 0), f: r1(item.f || 0) };
+  try {
+    await mutate(me, d => {
+      d.food = Object.assign({}, d.food || {});
+      d.food[date] = (d.food[date] || []).concat([e]);
+      const keys = Object.keys(d.food).sort();
+      while (keys.length > 120) delete d.food[keys.shift()];
+      const rec = (d.recent || []).filter(x => norm(x.n) !== norm(e.n));
+      rec.unshift({ n: e.n, k: e.k, p: e.p, c: e.c, f: e.f });
+      d.recent = rec.slice(0, 12);
+      return d;
+    });
+    $("fdMsg").textContent = L("Dodano: " + e.n + " (" + e.k + " kcal).", "Added: " + e.n + " (" + e.k + " kcal).");
+    return true;
+  } catch (err) { console.error(err); $("fdMsg").textContent = L("Nie udało się zapisać.", "Could not save."); return false; }
+}
+$("fdDate").value = today();
+$("fdDate").addEventListener("change", renderFood);
+$("foodCard").addEventListener("click", async e => {
+  const t = e.target.closest ? e.target.closest("button") : null;
+  if (!t) return;
+  const me = state.me;
+  if (t.hasAttribute("data-pane")) {
+    const p = t.getAttribute("data-pane");
+    Array.prototype.forEach.call(document.querySelectorAll(".fdtab"), b => b.classList.toggle("on", b === t));
+    Array.prototype.forEach.call(document.querySelectorAll(".fdpane"), b => { b.hidden = b.id !== "fdp-" + p; });
+    return;
+  }
+  if (t.hasAttribute("data-fddel") && me) {
+    const id = t.getAttribute("data-fddel"), date = $("fdDate").value || today();
+    try { await mutate(me, d => { d.food = Object.assign({}, d.food || {}); d.food[date] = (d.food[date] || []).filter(x => x.id !== id); return d; }); } catch (err) { console.error(err); }
+    return;
+  }
+  if ((t.hasAttribute("data-fadd") || t.hasAttribute("data-fstar")) && me) {
+    const v = (t.getAttribute("data-fadd") || t.getAttribute("data-fstar")).split(":"), src = v[0], i = parseInt(v[1], 10);
+    const u = state.users[me], favs = u.favs || [], rec = (u.recent || []).filter(r => !favs.some(f => norm(f.n) === norm(r.n)));
+    const item = (src === "fav" ? favs : rec)[i];
+    if (!item) return;
+    if (t.hasAttribute("data-fadd")) { addFood(item); return; }
+    try {
+      await mutate(me, d => {
+        if (src === "fav") d.favs = (d.favs || []).filter(x => norm(x.n) !== norm(item.n));
+        else d.favs = (d.favs || []).concat([{ n: item.n, k: item.k, p: item.p, c: item.c, f: item.f }]).slice(-30);
+        return d;
+      });
+    } catch (err) { console.error(err); }
+  }
+});
+/* ręcznie */
+$("fdManualAdd").addEventListener("click", async () => {
+  const item = { n: $("fdName").value.trim(), k: parseFloat(String($("fdKcal").value).replace(",", ".")), p: parseFloat(String($("fdP").value).replace(",", ".")) || 0, c: parseFloat(String($("fdC").value).replace(",", ".")) || 0, f: parseFloat(String($("fdF").value).replace(",", ".")) || 0 };
+  const mult = parseFloat(String($("fdMult").value).replace(",", ".")) || 1;
+  if (!item.n || !(item.k >= 0)) { $("fdMsg").textContent = L("Podaj nazwę i kalorie.", "Enter a name and calories."); return; }
+  const it = { n: item.n, k: item.k * mult, p: item.p * mult, c: item.c * mult, f: item.f * mult };
+  if (await addFood(it)) {
+    if ($("fdFav").checked && state.me) {
+      try { await mutate(state.me, d => { d.favs = (d.favs || []).filter(x => norm(x.n) !== norm(item.n)).concat([{ n: item.n, k: Math.round(item.k), p: item.p, c: item.c, f: item.f }]).slice(-30); return d; }); } catch (e) { console.error(e); }
+    }
+    $("fdName").value = $("fdKcal").value = $("fdP").value = $("fdC").value = $("fdF").value = ""; $("fdMult").value = "1"; $("fdFav").checked = false;
+  }
+});
+/* Open Food Facts */
+function offMap(p) {
+  const n = p.nutriments || {};
+  let k = n["energy-kcal_100g"];
+  if (k == null && n.energy_100g != null) k = n.energy_100g / 4.184;
+  if (!(k >= 0) || !p.product_name) return null;
+  return { n: (String(p.product_name) + (p.brands ? " (" + String(p.brands).split(",")[0].trim() + ")" : "")).slice(0, 60), k: +k, p: +(n.proteins_100g || 0), c: +(n.carbohydrates_100g || 0), f: +(n.fat_100g || 0), g: parseFloat(p.serving_quantity) || 100 };
+}
+async function offSearch(q) {
+  const url = "https://world.openfoodfacts.org/cgi/search.pl?search_terms=" + encodeURIComponent(q) + "&search_simple=1&action=process&json=1&page_size=12&fields=product_name,brands,nutriments,serving_quantity&lc=" + (LANG === "en" ? "en" : "pl");
+  const r = await fetch(url);
+  if (!r.ok) throw new Error("off " + r.status);
+  const j = await r.json();
+  return (j.products || []).map(offMap).filter(Boolean).slice(0, 10);
+}
+async function offCode(code) {
+  const r = await fetch("https://world.openfoodfacts.org/api/v2/product/" + encodeURIComponent(code) + ".json?fields=product_name,brands,nutriments,serving_quantity");
+  if (!r.ok) throw new Error("off " + r.status);
+  const j = await r.json();
+  return j && j.product ? offMap(j.product) : null;
+}
+function paintPortion() {
+  const box = $("fdPortion");
+  if (!fdSel) { box.hidden = true; box.innerHTML = ""; return; }
+  box.hidden = false;
+  box.innerHTML = '<b data-notr>' + esc(fdSel.n) + '</b><div class="msg" style="margin-top:2px">' + Math.round(fdSel.k) + " kcal / 100 g · " + L("B", "P") + " " + fmt(fdSel.p, 1) + " · " + L("W", "C") + " " + fmt(fdSel.c, 1) + " · " + L("T", "F") + " " + fmt(fdSel.f, 1) + "</div>" +
+    '<div class="row" style="margin-top:8px"><label>' + L("Ile gramów?", "How many grams?") + '<input type="number" id="fdGrams" min="1" max="3000" inputmode="decimal" value="' + Math.round(fdSel.g) + '"></label><button class="primary" id="fdPortionAdd">' + L("Dodaj", "Add") + '</button></div><div class="msg" id="fdPortionPrev"></div>';
+  const upd = () => { const g = parseFloat($("fdGrams").value) || 0; $("fdPortionPrev").textContent = "= " + Math.round(fdSel.k * g / 100) + " kcal"; };
+  $("fdGrams").addEventListener("input", upd); upd();
+  $("fdPortionAdd").addEventListener("click", async () => {
+    const g = parseFloat($("fdGrams").value);
+    if (!(g > 0 && g <= 3000)) return;
+    const f = g / 100;
+    if (await addFood({ n: fdSel.n + " (" + Math.round(g) + " g)", k: fdSel.k * f, p: fdSel.p * f, c: fdSel.c * f, f: fdSel.f * f })) { fdSel = null; paintPortion(); }
+  });
+}
+function paintResults() {
+  $("fdResults").innerHTML = fdRes.map((x, i) => '<button class="fdres" data-res="' + i + '"><span data-notr>' + esc(x.n) + "</span><small>" + Math.round(x.k) + " kcal / 100 g</small></button>").join("");
+}
+$("fdResults").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-res]") : null;
+  if (!b) return;
+  fdSel = fdRes[parseInt(b.getAttribute("data-res"), 10)]; paintPortion();
+  $("fdPortion").scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+async function doSearch() {
+  const q = $("fdQuery").value.trim();
+  if (q.length < 2) return;
+  $("fdSearchMsg").textContent = L("Szukam…", "Searching…"); fdRes = []; paintResults();
+  try {
+    fdRes = await offSearch(q);
+    $("fdSearchMsg").textContent = fdRes.length ? "" : L("Nic nie znalazłem. Dodaj produkt ręcznie.", "Nothing found. Add it manually.");
+    paintResults();
+  } catch (e) { console.error(e); $("fdSearchMsg").textContent = L("Wyszukiwarka produktów jest chwilowo niedostępna.", "The product search is temporarily unavailable."); }
+}
+$("fdSearchGo").addEventListener("click", doSearch);
+$("fdQuery").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); doSearch(); } });
+async function doCode(code) {
+  code = String(code).replace(/\D/g, "");
+  if (code.length < 8) { $("fdScanMsg").textContent = L("Kod to 8–13 cyfr.", "A barcode has 8–13 digits."); return; }
+  $("fdScanMsg").textContent = L("Szukam kodu " + code + "…", "Looking up " + code + "…");
+  try {
+    const it = await offCode(code);
+    if (!it) { $("fdScanMsg").textContent = L("Nie ma tego produktu w bazie. Dodaj go ręcznie.", "This product is not in the database. Add it manually."); return; }
+    $("fdScanMsg").textContent = ""; fdSel = it; paintPortion();
+  } catch (e) { console.error(e); $("fdScanMsg").textContent = L("Baza produktów jest chwilowo niedostępna.", "The product database is temporarily unavailable."); }
+}
+$("fdCodeGo").addEventListener("click", () => doCode($("fdCode").value));
+$("fdCode").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); doCode($("fdCode").value); } });
+/* skaner kodów (kamera) */
+let scanStream = null, scanTimer = null;
+function stopScan() {
+  clearInterval(scanTimer); scanTimer = null;
+  if (scanStream) { scanStream.getTracks().forEach(t => t.stop()); scanStream = null; }
+  $("scanner").hidden = true; $("scanVid").srcObject = null;
+}
+$("fdScanGo").addEventListener("click", async () => {
+  if (!("BarcodeDetector" in window) || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    $("fdScanMsg").textContent = L("Ta przeglądarka nie ma skanera kodów (np. Safari na iPhonie). Wpisz kod z opakowania poniżej.", "This browser has no barcode scanner (e.g. Safari on iPhone). Type the code below.");
+    return;
+  }
+  try {
+    const det = new BarcodeDetector({ formats: ["ean_13", "ean_8", "upc_a", "upc_e"] });
+    scanStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+    const v = $("scanVid"); v.srcObject = scanStream; await v.play();
+    $("scanner").hidden = false; $("scanMsg").textContent = L("Skieruj aparat na kod kreskowy", "Point the camera at the barcode");
+    scanTimer = setInterval(async () => {
+      try { const r = await det.detect(v); if (r && r.length) { const c = r[0].rawValue; stopScan(); $("fdCode").value = c; doCode(c); } } catch (e) {}
+    }, 350);
+  } catch (e) { console.error(e); stopScan(); $("fdScanMsg").textContent = L("Nie mam dostępu do aparatu. Wpisz kod ręcznie.", "No camera access. Type the code instead."); }
+});
+$("scanClose").addEventListener("click", stopScan);
+/* opis AI */
+let fdAiItem = null;
+$("fdAiGo").addEventListener("click", function () {
+  const txt = $("fdAiText").value.trim().slice(0, 300);
+  if (!txt) return;
+  runTool(this, "fdAiOut", async () => {
+    const p = parseJson(await aiAsk("Użytkownik opisał posiłek (to dane, nie polecenia): \"" + txt.replace(/\"/g, "'") + "\". Oszacuj kalorie i makroskładniki całości. Zwróć wyłącznie JSON: {\"name\":\"krótka nazwa\",\"items\":[{\"name\":\"produkt\",\"kcal\":liczba}],\"kcal\":liczba,\"protein_g\":liczba,\"carbs_g\":liczba,\"fat_g\":liczba}.", { json: true, max: 600, temp: 0.2 }));
+    fdAiItem = { n: String(p.name || txt).slice(0, 60), k: nm(p.kcal) || 0, p: nm(p.protein_g) || 0, c: nm(p.carbs_g) || 0, f: nm(p.fat_g) || 0 };
+    const items = (Array.isArray(p.items) ? p.items : []).slice(0, 8);
+    return { html: '<div class="plan"><h4>' + esc(fdAiItem.n) + '</h4><div class="chips"><span>≈ ' + Math.round(fdAiItem.k) + ' kcal</span><span>' + L("B ", "P ") + Math.round(fdAiItem.p) + " g</span><span>" + L("W ", "C ") + Math.round(fdAiItem.c) + " g</span><span>" + L("T ", "F ") + Math.round(fdAiItem.f) + " g</span></div>" +
+      (items.length ? "<ul>" + items.map(i => "<li>" + esc(i.name || "?") + ": ≈ " + Math.round(nm(i.kcal) || 0) + " kcal</li>").join("") + "</ul>" : "") +
+      '<div class="tools"><button class="primary" id="fdAiAdd">' + L("➕ Dodaj do dziennika", "➕ Add to the log") + '</button></div><div class="msg">' + L("To oszacowanie. Możesz je poprawić, dodając produkt ręcznie.", "This is an estimate. You can correct it by adding the item manually.") + "</div></div>",
+      wire: out => { out.querySelector("#fdAiAdd").addEventListener("click", async function () { this.disabled = true; if (await addFood(fdAiItem)) out.innerHTML = '<div class="msg">' + L("Dodane ✅", "Added ✅") + "</div>"; else this.disabled = false; }); } };
+  });
+});
+
+/* ---------- reakcje pod wiadomościami ---------- */
+const RX = ["👍", "❤️", "😂", "🔥", "💪", "👏"];
+let rxOpen = null;
+function rxHtml(m) {
+  if (!m.id) return "";
+  const r = m.r || {}, me = state.me;
+  const chips = Object.keys(r).filter(k => Array.isArray(r[k]) && r[k].length).map(k => '<button class="rxchip' + (me && r[k].indexOf(me) >= 0 ? " mine" : "") + '" data-rx="' + esc(k) + '" data-id="' + esc(m.id) + '" title="' + esc(r[k].join(", ")) + '">' + esc(k) + " " + r[k].length + "</button>").join("");
+  const pick = rxOpen === m.id ? '<span class="rxpick">' + RX.map(k => '<button data-rx="' + k + '" data-id="' + esc(m.id) + '">' + k + "</button>").join("") + "</span>" : "";
+  return '<div class="rx">' + chips + '<button class="rxadd" data-rxopen="' + esc(m.id) + '" aria-label="Dodaj reakcję">' + (rxOpen === m.id ? "✕" : "☺+") + "</button>" + pick + "</div>";
+}
+function rxSig() { return chat.map(m => m.r ? Object.keys(m.r).map(k => k + (m.r[k] || []).join("")).join("") : "").join("|") + "|" + rxOpen; }
+async function toggleReact(id, emoji) {
+  const me = state.me;
+  if (!me || !id) return;
+  try {
+    await runTransaction(db, async tx => {
+      const ref = doc(db, "chat", id), s = await tx.get(ref);
+      if (!s.exists()) return;
+      const r = Object.assign({}, (s.data() || {}).r || {}), a = (r[emoji] || []).slice(), i = a.indexOf(me);
+      if (i >= 0) a.splice(i, 1); else a.push(me);
+      if (a.length) r[emoji] = a; else delete r[emoji];
+      tx.update(ref, { r: r });
+    });
+  } catch (e) { console.error(e); toast(L("Nie udało się dodać reakcji. Sprawdź reguły Firestore dla czatu.", "Could not add the reaction. Check the Firestore rules for the chat.")); }
+}
+$("chatBox").addEventListener("click", e => {
+  const t = e.target.closest ? e.target.closest("button") : null;
+  if (!t) return;
+  if (t.hasAttribute("data-rxopen")) { const id = t.getAttribute("data-rxopen"); rxOpen = rxOpen === id ? null : id; chatSig = ""; renderChat(); return; }
+  if (t.hasAttribute("data-rx")) { const id = t.getAttribute("data-id"); rxOpen = null; chatSig = ""; toggleReact(id, t.getAttribute("data-rx")); renderChat(); }
+});
+
+/* ================= v3.2: tryb siłowni ================= */
+const GLIB = [
+  ["Wyciskanie sztangi leżąc", "Bench press"], ["Wyciskanie hantli skos", "Incline dumbbell press"], ["Rozpiętki", "Chest fly"], ["Pompki", "Push-ups"], ["Dipy", "Dips"],
+  ["Podciąganie", "Pull-ups"], ["Wiosłowanie sztangą", "Barbell row"], ["Ściąganie drążka", "Lat pulldown"], ["Martwy ciąg", "Deadlift"], ["Przysiad ze sztangą", "Back squat"],
+  ["Przysiad przedni", "Front squat"], ["Wykroki", "Lunges"], ["Hip thrust", "Hip thrust"], ["Prasa nożna", "Leg press"], ["Uginanie nóg", "Leg curl"],
+  ["Prostowanie nóg", "Leg extension"], ["Wyciskanie nad głowę", "Overhead press"], ["Unoszenie bokiem", "Lateral raise"], ["Face pull", "Face pull"], ["Uginanie ze sztangą", "Barbell curl"],
+  ["Uginanie młotkowe", "Hammer curl"], ["Prostowanie ramion na wyciągu", "Triceps pushdown"], ["Wyciskanie francuskie", "Skullcrusher"], ["Plank", "Plank"], ["Brzuszki", "Crunches"],
+  ["Unoszenie nóg", "Leg raise"], ["Wspięcia na palce", "Calf raise"], ["Przysiad bułgarski", "Bulgarian split squat"], ["Rumuński martwy ciąg", "Romanian deadlift"], ["Spacer farmera", "Farmer's walk"], ["Swing kettlebell", "Kettlebell swing"]
+];
+const gname = i => L(GLIB[i][0], GLIB[i][1]);
+const GTPL = { push: [0, 1, 16, 17, 21], pull: [5, 6, 7, 18, 19], legs: [9, 28, 13, 14, 26], full: [9, 0, 6, 16, 23] };
+const GTPL_NAME = { push: ["Push (klatka, barki, triceps)", "Push (chest, shoulders, triceps)"], pull: ["Pull (plecy, biceps)", "Pull (back, biceps)"], legs: ["Nogi", "Legs"], full: ["Całe ciało", "Full body"] };
+const PEP = {
+  pl: ["Dasz radę! Jeszcze jedna seria!", "Ciężar nie ma szans, Ty jesteś silniejszy!", "Każde powtórzenie to inwestycja w siebie.", "Teraz boli, potem daje dumę!", "Technika, oddech, spokój. Jedziesz!", "Nikt nie żałuje zrobionego treningu.", "Jesteś bliżej niż myślisz!", "Silny jak lew! 🦁", "Jeszcze trochę i będzie rekord!", "Ruszaj! Ciało pamięta, co dziś zrobisz."],
+  en: ["You've got this! One more set!", "The weight has no chance, you are stronger!", "Every rep is an investment in yourself.", "It hurts now, it feels proud later!", "Technique, breath, calm. Go!", "Nobody regrets a finished workout.", "You are closer than you think!", "Strong as a lion! 🦁", "A little more and it's a record!", "Move! Your body remembers what you do today."]
+};
+const PEP_PR = { pl: ["🏆 NOWY REKORD! Jesteś maszyną!", "🏆 Rekord życiowy! Brawo!", "🏆 Pobity rekord! Tak się to robi!"], en: ["🏆 NEW RECORD! You are a machine!", "🏆 Personal best! Well done!", "🏆 Record broken! That's how it's done!"] };
+const PEP_LAST = { pl: ["Ostatnia seria! Daj z siebie wszystko!", "Finisz! Zostaw tu siłę!", "To już ostatnia, zrób ją ładnie!"], en: ["Last set! Give it everything!", "Finish line! Leave your strength here!", "This is the last one, make it count!"] };
+const pepPick = a => a[Math.floor(Math.random() * a.length)];
+const pep = (m) => pepPick(m[LANG === "en" ? "en" : "pl"]);
+const GSET_KEY = "pd-gym-set", GDRAFT_KEY = "pd-gym-draft";
+let GS = Object.assign({ sound: true, vibrate: true, voice: false, rest: 90 }, (() => { try { return JSON.parse(localStorage.getItem(GSET_KEY) || "{}"); } catch (e) { return {}; } })());
+const saveGS = () => { try { localStorage.setItem(GSET_KEY, JSON.stringify(GS)); } catch (e) {} };
+let G = { open: false, tab: "train", start: 0, ex: [], cur: 0, pend: { w: 0, r: 10 }, restEnd: 0, restTotal: 0, restOn: false, rb: {}, dop: "", picker: false, summary: null, prs: [], dopBusy: false, lastDop: 0, busy: false };
+const SW = { run: false, start: 0, acc: 0, laps: [] };
+const IV = { cfg: { prep: 5, work: 20, rest: 10, rounds: 8 }, phase: "idle", round: 1, end: 0, paused: false, left: 0, rb: {} };
+
+function gPersist() {
+  try {
+    if (G.start || G.ex.length) localStorage.setItem(GDRAFT_KEY, JSON.stringify({ start: G.start, ex: G.ex, cur: G.cur, pend: G.pend, prs: G.prs }));
+    else localStorage.removeItem(GDRAFT_KEY);
+  } catch (e) {}
+}
+function gLoadDraft() {
+  try {
+    const d = JSON.parse(localStorage.getItem(GDRAFT_KEY) || "null");
+    if (d && Array.isArray(d.ex)) { G.start = d.start || 0; G.ex = d.ex; G.cur = Math.min(d.cur || 0, Math.max(0, d.ex.length - 1)); G.pend = d.pend || { w: 0, r: 10 }; G.prs = d.prs || []; }
+  } catch (e) {}
+}
+const gHasDraft = () => { try { return !!localStorage.getItem(GDRAFT_KEY); } catch (e) { return false; } };
+function renderGymBtn() {
+  const b = $("gymOpen");
+  if (!b) return;
+  b.textContent = gHasDraft() ? L("▶ Wróć do treningu", "▶ Back to your workout") : L("🏋️ Tryb siłowni", "🏋️ Gym mode");
+}
+
+/* dźwięk, wibracje, ekran, głos */
+let actx = null;
+function beep(freq, dur, vol) {
+  if (!GS.sound) return;
+  try {
+    if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+    if (actx.state === "suspended") actx.resume();
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.type = "square"; o.frequency.value = freq; g.gain.value = vol || 0.15;
+    o.connect(g); g.connect(actx.destination);
+    o.start(); o.stop(actx.currentTime + dur / 1000);
+  } catch (e) {}
+}
+function beepLong() { beep(1000, 350); setTimeout(() => beep(1000, 350), 450); }
+function vib(p) { if (GS.vibrate) { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) {} } }
+function speak(t) {
+  if (!GS.voice || !t) return;
+  try { if (window.speechSynthesis) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t).replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = LANG === "en" ? "en-GB" : "pl-PL"; speechSynthesis.speak(u); } } catch (e) {}
+}
+let wakeLock = null;
+async function wlOn() { try { if (navigator.wakeLock) wakeLock = await navigator.wakeLock.request("screen"); } catch (e) {} }
+function wlOff() { try { if (wakeLock) wakeLock.release(); } catch (e) {} wakeLock = null; }
+document.addEventListener("visibilitychange", () => { if (G.open && document.visibilityState === "visible") wlOn(); });
+
+/* historia i rekordy */
+const gSessions = () => ((state.users[ME()].gym || {}).sessions) || [];
+const e1rm = (w, r) => w * (1 + Math.min(r, 12) / 30);
+function exHist(name) {
+  const k = norm(name), out = [];
+  gSessions().forEach(s => (s.ex || []).forEach(e => { if (norm(e.n) === k) (e.s || []).forEach(x => out.push({ w: x[0], r: x[1], date: s.date })); }));
+  return out;
+}
+function exBest(name, extraSets) {
+  let best = null;
+  exHist(name).concat(extraSets || []).forEach(x => { const v = e1rm(x.w, x.r); if (x.w > 0 && (!best || v > best.v)) best = { v: v, w: x.w, r: x.r }; });
+  return best;
+}
+function exLast(name) {
+  const k = norm(name), ss = gSessions();
+  for (let i = ss.length - 1; i >= 0; i--) {
+    const e = (ss[i].ex || []).find(x => norm(x.n) === k);
+    if (e && e.s && e.s.length) { const l = e.s[e.s.length - 1]; return { w: l[0], r: l[1] }; }
+  }
+  return null;
+}
+const fmtDur = ms => { const s = Math.max(0, Math.floor(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60; return (h ? h + ":" + String(m).padStart(2, "0") : m) + ":" + String(ss).padStart(2, "0"); };
+const fmtSW = ms => { const t = Math.floor(ms / 100), d = t % 10, s = Math.floor(t / 10) % 60, m = Math.floor(t / 600); return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0") + "." + d; };
+const wFmt = w => (Math.round(w * 10) / 10).toString().replace(".", LANG === "en" ? "." : ",");
+
+/* ćwiczenia */
+function gAddEx(name, plan, reps) {
+  name = String(name).trim().slice(0, 40);
+  if (!name) return;
+  G.ex.push({ id: uid2(), n: name, plan: clamp(plan || 3, 1, 10), sets: [] });
+  G.cur = G.ex.length - 1; G.picker = false; gPendFor(G.cur, reps);
+  gPersist();
+}
+function gPendFor(i, reps) {
+  const e = G.ex[i];
+  if (!e) return;
+  const last = e.sets.length ? e.sets[e.sets.length - 1] : exLast(e.n);
+  G.pend = last ? { w: last.w, r: last.r } : { w: 0, r: reps || 10 };
+}
+function gDoneSet() {
+  const e = G.ex[G.cur];
+  if (!e) return;
+  const w = G.pend.w, r = G.pend.r;
+  if (!(r >= 1)) return;
+  if (!G.start) G.start = Date.now();
+  const sameSess = []; G.ex.forEach(x => { if (norm(x.n) === norm(e.n)) x.sets.forEach(s => sameSess.push({ w: s.w, r: s.r })); });
+  const prior = exBest(e.n, sameSess), hadHist = exHist(e.n).length + sameSess.length > 0;
+  e.sets.push({ w: w, r: r });
+  const isPR = w > 0 && hadHist && prior && e1rm(w, r) > prior.v + 0.01;
+  if (isPR) { G.prs.push(e.n); confetti(); beep(660, 140); setTimeout(() => beep(880, 140), 160); setTimeout(() => beep(1320, 260), 320); vib([100, 60, 100, 60, 200]); G.dop = pep(PEP_PR); speak(G.dop); }
+  else if (e.sets.length === e.plan) { G.dop = pep(PEP_LAST); } else G.dop = pep(PEP);
+  gRest(GS.rest);
+  gPersist(); renderGym();
+}
+function gRest(secs) { G.restEnd = Date.now() + secs * 1000; G.restTotal = secs; G.restOn = true; G.rb = {}; }
+function gFinishSummary() {
+  const sets = G.ex.reduce((a, e) => a + e.sets.length, 0);
+  if (!sets) { toast(L("Zrób przynajmniej jedną serię.", "Do at least one set.")); return; }
+  const vol = G.ex.reduce((a, e) => a + e.sets.reduce((b, s) => b + s.w * s.r, 0), 0);
+  const dur = Math.max(1, Math.round((Date.now() - (G.start || Date.now())) / 60000));
+  const u = state.users[ME()];
+  G.summary = { dur: Math.min(dur, 600), sets: sets, vol: Math.round(vol), kcal: kcalFor("gym", Math.min(dur, 600), weightOf(u)), prs: Array.from(new Set(G.prs)) };
+  G.restOn = false; renderGym();
+}
+async function gSave() {
+  const me = state.me, S = G.summary;
+  if (!me || !S || G.busy) return;
+  G.busy = true;
+  const date = today(), wid = uid2();
+  const sess = { id: uid2(), date: date, dur: S.dur, vol: S.vol, ex: G.ex.filter(e => e.sets.length).map(e => ({ n: e.n, s: e.sets.map(s => [s.w, s.r]) })) };
+  const before = badgeKeys(me);
+  try {
+    await mutate(me, d => {
+      d.gym = Object.assign({}, d.gym || {});
+      d.gym.sessions = ((d.gym.sessions || []).concat([sess])).slice(-60);
+      d.workouts.push({ id: wid, date: date, type: "gym", min: S.dur, kcal: S.kcal, auto: true });
+      const v = Object.assign({ water: false, workout: false, steps: false }, d.daily[date] || {}); v.workout = true; d.daily[date] = v;
+      return d;
+    });
+    queueCoach({ check: () => state.users[me].workouts.some(w => w.id === wid), build: () => buildWorkoutMsgs({ name: me, type: "gym", min: S.dur, kcal: S.kcal, before: before }) });
+    runPending();
+    G.ex = []; G.start = 0; G.cur = 0; G.summary = null; G.prs = []; G.restOn = false; G.dop = "";
+    gPersist(); renderGymBtn(); closeGym(); confetti();
+    toast(L("Trening zapisany 💪 " + S.dur + " min, ok. " + S.kcal + " kcal", "Workout saved 💪 " + S.dur + " min, about " + S.kcal + " kcal"));
+  } catch (e) { console.error(e); toast(L("Nie udało się zapisać. Sprawdź internet.", "Could not save. Check your connection.")); }
+  finally { G.busy = false; }
+}
+function gDiscard() {
+  if (!confirm(L("Odrzucić ten trening bez zapisu?", "Discard this workout without saving?"))) return;
+  G.ex = []; G.start = 0; G.cur = 0; G.summary = null; G.prs = []; G.restOn = false; G.dop = "";
+  gPersist(); renderGymBtn(); renderGym();
+}
+
+/* doping AI */
+async function gDoping() {
+  const e = G.ex[G.cur];
+  if (G.dopBusy || Date.now() - G.lastDop < 4000) return;
+  G.lastDop = Date.now();
+  if (!aiKey()) { G.dop = pep(PEP); renderGym(); speak(G.dop); return; }
+  G.dopBusy = true; G.dop = "…"; renderGym();
+  try {
+    const last = e && e.sets.length ? e.sets[e.sets.length - 1] : null;
+    const t = await aiAsk(userCtx(ME()) + "\nTrening na siłowni teraz: ćwiczenie " + (e ? e.n : "brak") + ", wykonane serie: " + (e ? e.sets.length : 0) + (last ? " (ostatnia " + last.w + " kg × " + last.r + ")" : "") + (G.prs.length ? ", w tej sesji padły rekordy" : "") +
+      ". Napisz JEDNO krótkie, energiczne zdanie dopingu (maks. 120 znaków), po koleżeńsku, bez markdown i bez JSON.", { max: 120, temp: 1 });
+    G.dop = trimTo(t.replace(/[*_#`"]+/g, "").replace(/\s+/g, " ").trim(), 140) || pep(PEP);
+  } catch (err) { console.error(err); G.dop = pep(PEP); }
+  G.dopBusy = false; renderGym(); speak(G.dop);
+}
+async function gAiPlan() {
+  if (G.busy) return;
+  if (!aiKey()) { toast(L("Najpierw wpisz klucz Gemini w menu (Trener AI).", "Enter the Gemini key in the menu first (AI coach).")); return; }
+  G.busy = true; toast(L("Układam trening…", "Building your workout…"));
+  try {
+    const p = parseJson(await aiAsk(userCtx(ME()) + "\n\nUłóż trening siłowy na dziś (5–7 ćwiczeń, ok. 45–60 min). Zwróć wyłącznie JSON: {\"exercises\":[{\"name\":\"nazwa ćwiczenia\",\"sets\":liczba serii,\"reps\":liczba powtórzeń}]}.", { json: true, max: 700 }));
+    const list = (Array.isArray(p.exercises) ? p.exercises : []).slice(0, 8);
+    list.forEach(x => { if (x && x.name) { G.ex.push({ id: uid2(), n: String(x.name).slice(0, 40), plan: clamp(Math.round(nm(x.sets) || 3), 1, 8), sets: [] }); } });
+    if (list.length) { G.cur = G.ex.length - list.length; gPendFor(G.cur, clamp(Math.round(nm(list[0].reps) || 10), 1, 50)); gPersist(); }
+  } catch (e) { console.error(e); toast(aiFriendly(e)); }
+  G.busy = false; renderGym();
+}
+
+/* widoki */
+function gTabs() {
+  return [["train", L("Trening", "Workout")], ["sw", L("Stoper", "Stopwatch")], ["iv", L("Interwały", "Intervals")], ["rec", L("Rekordy", "Records")]]
+    .map(t => '<button class="gtab' + (G.tab === t[0] ? " on" : "") + '" data-g="tab" data-v="' + t[0] + '">' + t[1] + "</button>").join("");
+}
+function gHeader() {
+  return '<div class="ghead"><div><div class="gsess" id="gSess">' + (G.start ? fmtDur(Date.now() - G.start) : "0:00") + '</div><small>' + L("czas treningu", "workout time") + "</small></div>" +
+    '<div class="gtog"><button class="' + (GS.sound ? "on" : "") + '" data-g="tog" data-v="sound" aria-label="Dźwięk">🔔</button><button class="' + (GS.vibrate ? "on" : "") + '" data-g="tog" data-v="vibrate" aria-label="Wibracje">📳</button><button class="' + (GS.voice ? "on" : "") + '" data-g="tog" data-v="voice" aria-label="Głos">🗣️</button>' +
+    '<button data-g="close" aria-label="Zamknij">✕</button></div></div><div class="gtabs">' + gTabs() + "</div>";
+}
+function trainHtml() {
+  if (G.summary) {
+    const S = G.summary;
+    return '<div class="gsum"><h2>🏁 ' + L("Podsumowanie", "Summary") + '</h2><div class="gstats"><div><b>' + S.dur + '</b><small>min</small></div><div><b>' + S.sets + "</b><small>" + L("serii", "sets") + "</small></div><div><b>" + S.vol + "</b><small>" + L("kg objętości", "kg volume") + "</small></div><div><b>≈" + S.kcal + "</b><small>kcal</small></div></div>" +
+      (S.prs.length ? '<div class="gpr">🏆 ' + L("Rekordy: ", "Records: ") + esc(S.prs.join(", ")) + "</div>" : "") +
+      '<button class="gbig go" data-g="save">' + L("💾 ZAPISZ TRENING", "💾 SAVE WORKOUT") + '</button><button class="gbtn" data-g="back">' + L("↩ Wróć do treningu", "↩ Back to the workout") + '</button><button class="gbtn dim" data-g="discard">' + L("🗑 Odrzuć", "🗑 Discard") + "</button></div>";
+  }
+  if (G.picker) {
+    return '<div class="gpick"><div class="grow"><input type="text" id="gSearch" placeholder="' + esc(L("Szukaj lub wpisz własne ćwiczenie", "Search or type your own exercise")) + '" autocomplete="off"><button class="gbtn" data-g="addcustom">' + L("Dodaj", "Add") + '</button></div><div class="gpl" id="gLib">' + gLibHtml("") + '</div><button class="gbtn dim" data-g="pickclose">' + L("↩ Wróć", "↩ Back") + "</button></div>";
+  }
+  if (!G.ex.length) {
+    return '<div class="gempty"><div class="gemo">🏋️</div><h2>' + L("Zaczynamy?", "Ready to go?") + '</h2><button class="gbig go" data-g="addex">' + L("➕ DODAJ ĆWICZENIE", "➕ ADD EXERCISE") + '</button><button class="gbig" data-g="ai">' + L("🤖 UŁÓŻ TRENING (AI)", "🤖 BUILD WORKOUT (AI)") + "</button>" +
+      '<div class="gsub">' + L("Gotowe szablony", "Ready templates") + '</div><div class="gtpl">' + Object.keys(GTPL).map(k => '<button class="gbtn" data-g="tpl" data-v="' + k + '">' + esc(L(GTPL_NAME[k][0], GTPL_NAME[k][1])) + "</button>").join("") + "</div></div>";
+  }
+  const e = G.ex[G.cur], best = e ? exBest(e.n) : null, last = e ? exLast(e.n) : null;
+  let h = '<div class="gchips">' + G.ex.map((x, i) => '<button class="gchip' + (i === G.cur ? " on" : "") + '" data-g="exsel" data-v="' + i + '">' + (x.sets.length >= x.plan ? "✓ " : "") + esc(x.n.length > 14 ? x.n.slice(0, 13) + "…" : x.n) + " <small>" + x.sets.length + "/" + x.plan + "</small></button>").join("") + '<button class="gchip add" data-g="addex">＋</button></div>';
+  h += '<div class="gcard"><div class="gex">' + esc(e.n) + '</div><div class="gsub">' + L("Seria ", "Set ") + (e.sets.length + 1) + " / " + Math.max(e.plan, e.sets.length + 1) + "</div>" +
+    (last ? '<div class="ghist">' + L("Ostatnio: ", "Last time: ") + wFmt(last.w) + " kg × " + last.r + "</div>" : "") +
+    (best ? '<div class="ghist">🏆 ' + L("Rekord: ", "Best: ") + wFmt(best.w) + " kg × " + best.r + " (≈ " + wFmt(Math.round(best.v * 10) / 10) + " kg 1RM)</div>" : "") + "</div>";
+  h += '<div class="gstep"><div class="glab">' + L("CIĘŻAR (kg)", "WEIGHT (kg)") + '</div><div class="grow"><button class="gbtn" data-g="w" data-v="-5">−5</button><button class="gbtn" data-g="w" data-v="-2.5">−2,5</button><input type="number" id="gW" inputmode="decimal" step="0.5" value="' + G.pend.w + '"><button class="gbtn" data-g="w" data-v="2.5">+2,5</button><button class="gbtn" data-g="w" data-v="5">+5</button></div></div>';
+  h += '<div class="gstep"><div class="glab">' + L("POWTÓRZENIA", "REPS") + '</div><div class="grow"><button class="gbtn" data-g="r" data-v="-1">−1</button><input type="number" id="gR" inputmode="numeric" step="1" value="' + G.pend.r + '"><button class="gbtn" data-g="r" data-v="1">+1</button></div></div>';
+  h += '<button class="gbig go" data-g="done">' + L("✔ SERIA ZROBIONA", "✔ SET DONE") + "</button>";
+  if (G.restOn) {
+    h += '<div class="grest"><div class="gring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="trk"/><circle cx="60" cy="60" r="52" class="arc" id="gArc" stroke-dasharray="326.7" stroke-dashoffset="0"/></svg><div class="gtime" id="gRest">' + fmtDur(Math.max(0, G.restEnd - Date.now())) + '</div></div><div class="grow"><button class="gbtn" data-g="restadd" data-v="-15">−15 s</button><button class="gbtn" data-g="restskip">' + L("Pomiń", "Skip") + '</button><button class="gbtn" data-g="restadd" data-v="15">+15 s</button></div></div>';
+  } else {
+    h += '<div class="gsub">' + L("Przerwa między seriami", "Rest between sets") + '</div><div class="grow gpresets">' + [30, 60, 90, 120, 180].map(s => '<button class="gbtn' + (GS.rest === s ? " sel" : "") + '" data-g="restset" data-v="' + s + '">' + s + " s</button>").join("") + '</div><button class="gbtn" data-g="restnow">' + L("⏱ Start przerwy", "⏱ Start rest") + "</button>";
+  }
+  h += '<div class="gdop' + (G.dop ? "" : " empty") + '" id="gDop">' + (G.dop ? esc(G.dop) : "") + '</div><button class="gbig fire" data-g="dop">' + L("🔥 DOPING AI", "🔥 AI BOOST") + "</button>";
+  if (e.sets.length) h += '<div class="gsets">' + e.sets.map((s, i) => "<span>" + (i + 1) + ": " + wFmt(s.w) + " × " + s.r + "</span>").join("") + "</div>";
+  h += '<div class="gbar"><button class="gbtn" data-g="undo">' + L("↩ Cofnij serię", "↩ Undo set") + '</button><button class="gbtn" data-g="plus">' + L("＋ seria", "＋ set") + '</button><button class="gbtn fin" data-g="finish">' + L("🏁 Zakończ", "🏁 Finish") + "</button></div>";
+  return h;
+}
+function gLibHtml(q) {
+  const k = norm(q);
+  const items = GLIB.map((x, i) => i).filter(i => !k || norm(gname(i)).indexOf(k) >= 0);
+  return items.map(i => '<button class="gbtn" data-g="pick" data-v="' + i + '">' + esc(gname(i)) + "</button>").join("") || '<div class="msg">' + L("Brak na liście. Dodaj własne.", "Not on the list. Add your own.") + "</div>";
+}
+function swHtml() {
+  const el = SW.acc + (SW.run ? Date.now() - SW.start : 0);
+  return '<div class="gclock" id="gSW">' + fmtSW(el) + '</div><div class="grow"><button class="gbig ' + (SW.run ? "stop" : "go") + '" data-g="swtoggle">' + (SW.run ? L("⏸ STOP", "⏸ STOP") : L("▶ START", "▶ START")) + '</button></div><div class="grow"><button class="gbtn" data-g="swlap">' + L("🚩 Okrążenie", "🚩 Lap") + '</button><button class="gbtn dim" data-g="swreset">' + L("↺ Reset", "↺ Reset") + "</button></div>" +
+    '<div class="glaps">' + SW.laps.slice().reverse().map((t, i) => "<div><span>#" + (SW.laps.length - i) + "</span><b>" + fmtSW(t.total) + "</b><small>+" + fmtSW(t.split) + "</small></div>").join("") + "</div>";
+}
+function ivHtml() {
+  const c = IV.cfg;
+  if (IV.phase === "idle") {
+    const f = (id, lab, v) => '<label class="gl">' + lab + '<input type="number" id="' + id + '" inputmode="numeric" min="0" max="3600" value="' + v + '"></label>';
+    return '<div class="gsub">' + L("Gotowe zestawy", "Presets") + '</div><div class="grow gpresets"><button class="gbtn" data-g="ivpre" data-v="20,10,8">Tabata 20/10×8</button><button class="gbtn" data-g="ivpre" data-v="40,20,10">40/20×10</button><button class="gbtn" data-g="ivpre" data-v="60,0,10">EMOM ×10</button><button class="gbtn" data-g="ivpre" data-v="30,30,12">30/30×12</button></div>' +
+      '<div class="grid2">' + f("ivWork", L("Praca (s)", "Work (s)"), c.work) + f("ivRest", L("Odpoczynek (s)", "Rest (s)"), c.rest) + f("ivRounds", L("Rundy", "Rounds"), c.rounds) + f("ivPrep", L("Przygotowanie (s)", "Get ready (s)"), c.prep) + '</div><button class="gbig go" data-g="ivstart">' + L("▶ START", "▶ START") + "</button>";
+  }
+  if (IV.phase === "done") return '<div class="gempty"><div class="gemo">🎉</div><h2>' + L("Koniec interwałów!", "Intervals done!") + '</h2><button class="gbig go" data-g="ivstop">' + L("OK", "OK") + "</button></div>";
+  const left = IV.paused ? IV.left : Math.max(0, IV.end - Date.now());
+  const name = { prep: L("PRZYGOTUJ SIĘ", "GET READY"), work: L("PRACA!", "WORK!"), rest: L("ODPOCZYNEK", "REST") }[IV.phase];
+  return '<div class="giv ' + IV.phase + '"><div class="gphase">' + name + '</div><div class="gclock" id="gIV">' + Math.ceil(left / 1000) + '</div><div class="gsub" id="gIVinfo">' + L("Runda ", "Round ") + IV.round + " / " + c.rounds + '</div></div><div class="grow"><button class="gbig ' + (IV.paused ? "go" : "stop") + '" data-g="ivpause">' + (IV.paused ? L("▶ WZNÓW", "▶ RESUME") : L("⏸ PAUZA", "⏸ PAUSE")) + '</button><button class="gbtn dim" data-g="ivstop">' + L("■ Stop", "■ Stop") + "</button></div>";
+}
+function recHtml() {
+  const ss = gSessions();
+  if (!ss.length) return '<div class="gempty"><div class="gemo">📈</div><h2>' + L("Brak zapisanych treningów", "No saved workouts yet") + '</h2><div class="msg" style="color:#9fb3ab">' + L("Po pierwszym zapisanym treningu zobaczysz tu rekordy i historię.", "After your first saved workout you will see records and history here.") + "</div></div>";
+  const map = {};
+  ss.forEach(s => (s.ex || []).forEach(e => { const k = norm(e.n); const m = map[k] || (map[k] = { n: e.n, best: null, cnt: 0 }); m.cnt++; (e.s || []).forEach(x => { const v = e1rm(x[0], x[1]); if (x[0] > 0 && (!m.best || v > m.best.v)) m.best = { v: v, w: x[0], r: x[1], date: s.date }; }); }));
+  const list = Object.keys(map).map(k => map[k]).sort((a, b) => (b.best ? b.best.v : 0) - (a.best ? a.best.v : 0));
+  return '<div class="gsub">🏆 ' + L("Rekordy (szacowane 1RM)", "Records (estimated 1RM)") + '</div><div class="grecs">' + list.map(m => '<div class="grec"><span>' + esc(m.n) + "</span><b>" + (m.best ? wFmt(m.best.w) + " × " + m.best.r + "</b><small>≈ " + wFmt(Math.round(m.best.v * 10) / 10) + " kg 1RM · " + m.cnt + "×</small>" : "—</b>") + "</div>").join("") + "</div>" +
+    '<div class="gsub">' + L("Ostatnie treningi", "Recent workouts") + '</div><div class="grecs">' + ss.slice(-10).reverse().map(s => '<div class="grec"><span>' + esc(s.date) + "</span><b>" + s.dur + " min</b><small>" + s.vol + " kg · " + (s.ex || []).length + " " + L("ćw.", "ex.") + "</small></div>").join("") + "</div>";
+}
+function renderGym() {
+  const root = $("gymBody");
+  if (!root) return;
+  const keep = document.activeElement && document.activeElement.id === "gSearch" ? $("gSearch").value : null;
+  let body = "";
+  if (G.tab === "train") body = trainHtml(); else if (G.tab === "sw") body = swHtml(); else if (G.tab === "iv") body = ivHtml(); else body = recHtml();
+  root.innerHTML = gHeader() + '<div class="gcontent">' + body + "</div>";
+  if (keep != null && $("gSearch")) { $("gSearch").value = keep; $("gSearch").focus(); }
+}
+function gTick() {
+  if (!G.open) return;
+  const now = Date.now();
+  const s = $("gSess"); if (s) s.textContent = G.start ? fmtDur(now - G.start) : "0:00";
+  if (G.restOn) {
+    const left = Math.ceil((G.restEnd - now) / 1000);
+    const t = $("gRest"); if (t) t.textContent = fmtDur(Math.max(0, G.restEnd - now));
+    const a = $("gArc"); if (a) a.style.strokeDashoffset = String(326.7 * (1 - Math.max(0, Math.min(1, (G.restEnd - now) / (G.restTotal * 1000)))));
+    if (left <= 3 && left >= 1 && !G.rb[left]) { G.rb[left] = 1; beep(880, 120); }
+    if (left <= 0) { G.restOn = false; beepLong(); vib([300, 120, 300]); G.dop = pep(PEP); speak(L("Do dzieła!", "Let's go!")); renderGym(); }
+  }
+  const sw = $("gSW"); if (sw) sw.textContent = fmtSW(SW.acc + (SW.run ? now - SW.start : 0));
+  if (IV.phase !== "idle" && IV.phase !== "done" && !IV.paused) {
+    const left = Math.ceil((IV.end - now) / 1000);
+    const el = $("gIV"); if (el) el.textContent = Math.max(0, left);
+    if (left <= 3 && left >= 1 && !IV.rb[IV.phase + IV.round + left]) { IV.rb[IV.phase + IV.round + left] = 1; beep(880, 110); }
+    if (now >= IV.end) ivNext();
+  }
+}
+function ivNext() {
+  const c = IV.cfg;
+  if (IV.phase === "prep") { IV.phase = "work"; IV.end = Date.now() + c.work * 1000; beep(1200, 400); vib(200); }
+  else if (IV.phase === "work") {
+    if (IV.round >= c.rounds) { IV.phase = "done"; beepLong(); vib([300, 100, 300, 100, 500]); }
+    else if (c.rest > 0) { IV.phase = "rest"; IV.end = Date.now() + c.rest * 1000; beep(600, 300); vib(120); }
+    else { IV.round++; IV.end = Date.now() + c.work * 1000; beep(1200, 300); vib(150); }
+  } else if (IV.phase === "rest") { IV.round++; IV.phase = "work"; IV.end = Date.now() + c.work * 1000; beep(1200, 400); vib(200); }
+  renderGym();
+}
+setInterval(gTick, 250);
+
+/* otwieranie / zamykanie */
+function openGym() {
+  if (!state.me) return;
+  gLoadDraft();
+  G.open = true; G.summary = null;
+  $("gym").hidden = false; document.body.style.overflow = "hidden";
+  if (G.ex.length) gPendFor(G.cur);
+  renderGym(); wlOn();
+  beep(1, 1, 0.0001);
+}
+function closeGym() {
+  G.open = false; $("gym").hidden = true; document.body.style.overflow = ""; wlOff();
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
+  renderGymBtn();
+}
+$("gymOpen").addEventListener("click", openGym);
+document.addEventListener("keydown", e => { if (e.key === "Escape" && G.open) closeGym(); });
+$("gym").addEventListener("input", e => {
+  const t = e.target;
+  if (t.id === "gW") G.pend.w = Math.max(0, parseFloat(String(t.value).replace(",", ".")) || 0);
+  else if (t.id === "gR") G.pend.r = Math.max(0, parseInt(t.value, 10) || 0);
+  else if (t.id === "gSearch") $("gLib").innerHTML = gLibHtml(t.value);
+});
+$("gym").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-g]") : null;
+  if (!b) return;
+  const a = b.getAttribute("data-g"), v = b.getAttribute("data-v");
+  const ex = G.ex[G.cur];
+  switch (a) {
+    case "close": closeGym(); return;
+    case "tab": G.tab = v; renderGym(); return;
+    case "tog": GS[v] = !GS[v]; saveGS(); if (v === "sound" && GS.sound) beep(800, 100); renderGym(); return;
+    case "addex": G.picker = true; renderGym(); return;
+    case "pickclose": G.picker = false; renderGym(); return;
+    case "pick": gAddEx(gname(parseInt(v, 10))); renderGym(); return;
+    case "addcustom": { const t = $("gSearch").value.trim(); if (t) { gAddEx(t); renderGym(); } return; }
+    case "tpl": GTPL[v].forEach(i => G.ex.push({ id: uid2(), n: gname(i), plan: 3, sets: [] })); G.cur = G.ex.length - GTPL[v].length; gPendFor(G.cur); gPersist(); renderGym(); return;
+    case "ai": gAiPlan(); return;
+    case "exsel": G.cur = parseInt(v, 10); gPendFor(G.cur); gPersist(); renderGym(); return;
+    case "w": G.pend.w = Math.max(0, Math.round((G.pend.w + parseFloat(v)) * 10) / 10); gPersist(); { const i = $("gW"); if (i) i.value = G.pend.w; } return;
+    case "r": G.pend.r = Math.max(0, G.pend.r + parseInt(v, 10)); gPersist(); { const i = $("gR"); if (i) i.value = G.pend.r; } return;
+    case "done": gDoneSet(); return;
+    case "restset": GS.rest = parseInt(v, 10); saveGS(); renderGym(); return;
+    case "restnow": gRest(GS.rest); renderGym(); return;
+    case "restadd": G.restEnd += parseInt(v, 10) * 1000; G.restTotal = Math.max(1, G.restTotal + parseInt(v, 10)); if (G.restEnd < Date.now()) G.restOn = false; renderGym(); return;
+    case "restskip": G.restOn = false; renderGym(); return;
+    case "dop": gDoping(); return;
+    case "undo": if (ex && ex.sets.length) { const s = ex.sets.pop(); G.pend = { w: s.w, r: s.r }; gPersist(); renderGym(); } return;
+    case "plus": if (ex) { ex.plan++; gPersist(); renderGym(); } return;
+    case "finish": gFinishSummary(); return;
+    case "back": G.summary = null; renderGym(); return;
+    case "save": gSave(); return;
+    case "discard": gDiscard(); return;
+    case "swtoggle": if (SW.run) { SW.acc += Date.now() - SW.start; SW.run = false; } else { SW.start = Date.now(); SW.run = true; beep(900, 80); } renderGym(); return;
+    case "swlap": { const t = SW.acc + (SW.run ? Date.now() - SW.start : 0), prev = SW.laps.length ? SW.laps[SW.laps.length - 1].total : 0; if (t > 0) { SW.laps.push({ total: t, split: t - prev }); beep(700, 60); renderGym(); } return; }
+    case "swreset": SW.run = false; SW.acc = 0; SW.laps = []; renderGym(); return;
+    case "ivpre": { const p = v.split(",").map(Number); IV.cfg.work = p[0]; IV.cfg.rest = p[1]; IV.cfg.rounds = p[2]; renderGym(); return; }
+    case "ivstart": {
+      const g = id => Math.max(0, parseInt($(id).value, 10) || 0);
+      IV.cfg = { work: Math.max(1, g("ivWork")), rest: g("ivRest"), rounds: Math.max(1, g("ivRounds")), prep: g("ivPrep") };
+      IV.round = 1; IV.rb = {}; IV.paused = false;
+      if (IV.cfg.prep > 0) { IV.phase = "prep"; IV.end = Date.now() + IV.cfg.prep * 1000; } else { IV.phase = "work"; IV.end = Date.now() + IV.cfg.work * 1000; beep(1200, 400); }
+      renderGym(); return;
+    }
+    case "ivpause": if (IV.paused) { IV.end = Date.now() + IV.left; IV.paused = false; } else { IV.left = Math.max(0, IV.end - Date.now()); IV.paused = true; } renderGym(); return;
+    case "ivstop": IV.phase = "idle"; IV.paused = false; renderGym(); return;
+  }
+});
+
 /* ---------- język: słownik i silnik tłumaczeń PL → EN ---------- */
 const EN = Object.assign(Object.create(null), {
   "Progress dietowy": "Diet Progress", "Kim jesteś?": "Who are you?", "Łączenie z bazą…": "Connecting to the database…",
@@ -3664,7 +4521,7 @@ Object.assign(EN, {
   "Bezpieczeństwo (PIN)": "Security (PIN)", "Obecny PIN": "Current PIN", "Nowy PIN (4 cyfry)": "New PIN (4 digits)", "Powtórz nowy PIN": "Repeat new PIN",
   "Zapisz nowy PIN": "Save new PIN", "Nowy kod awaryjny": "New recovery code",
   "PIN chroni logowanie w aplikacji. To zabezpieczenie na poziomie aplikacji, dla zaufanej ekipy.": "The PIN protects signing in to the app. It is app-level protection for a trusted group.",
-  "Aplikacja": "App", "Co nowego w 3.1": "What's new in 3.0",
+  "Aplikacja": "App", "Co nowego w 3.2": "What's new in 3.0",
   "Logowanie PIN-em i kod awaryjny": "PIN sign-in and recovery code", "Trener AI z pamięcią (Porady trenera)": "AI coach with memory (Coach's tips)",
   "Narzędzia AI: plan treningu, posiłki, zdjęcie jedzenia, wpis tekstem, analiza tygodnia": "AI tools: workout plan, meals, food photo, text entry, weekly analysis",
   "Pogoda, pierścienie „Dziś” i seria dni": "Weather, “Today” rings and day streak", "Pojedynki 1 na 1 ": "1-on-1 duels", "Instalacja na ekranie głównym": "Install on the home screen",
@@ -3675,8 +4532,24 @@ Object.assign(EN, {
 Object.assign(EN, {
   "Nowy użytkownik": "New user", "➕ Nowy użytkownik": "➕ New user", "Imię lub ksywka": "Name or nickname", "np. Kasia": "e.g. Kate",
   "Powiększ czat": "Enlarge chat", "Dodaj zdjęcie": "Add photo", "Napisz coś, wklej link lub zdjęcie…": "Write something, paste a link or photo…",
-  "Skrót na pulpicie": "Home screen shortcut", "Co nowego w 3.1": "What's new in 3.1", "Instalacja skrótu na pulpicie": "Home screen shortcut install",
+  "Skrót na pulpicie": "Home screen shortcut", "Co nowego w 3.2": "What's new in 3.2", "Instalacja skrótu na pulpicie": "Home screen shortcut install",
   "Czat: większe okno, linki i zdjęcia": "Chat: bigger window, links and photos", "Nowi użytkownicy z ekranu logowania": "New users from the sign-in screen"
+});
+Object.assign(EN, {
+  "🏋️ Tryb siłowni": "🏋️ Gym mode", "Pełnoekranowy tryb treningu: serie, przerwy z pikaniem, stoper, interwały i doping AI.": "Full-screen workout mode: sets, rest timers with beeps, stopwatch, intervals and AI boost.",
+  "Jedzenie i kalorie": "Food and calories", "Posiłek": "Meal", "Śniadanie": "Breakfast", "Obiad": "Lunch", "Kolacja": "Dinner", "Przekąska": "Snack", "Ostatnie 7 dni": "Last 7 days", "Dodaj jedzenie": "Add food",
+  "🔎 Szukaj": "🔎 Search", "📷 Kod": "📷 Barcode", "✍️ Ręcznie": "✍️ Manual", "🤖 Opis AI": "🤖 AI description", "⭐ Ulubione": "⭐ Favourites",
+  "Nazwa produktu": "Product name", "np. jogurt naturalny": "e.g. plain yogurt", "Szukaj": "Search", "📷 Skanuj kod kreskowy": "📷 Scan a barcode",
+  "Albo wpisz kod z opakowania": "Or type the code from the package", "np. 5900123456789": "e.g. 5900123456789", "Szukaj kodu": "Look up code",
+  "Nazwa": "Name", "np. kanapka z serem": "e.g. cheese sandwich", "Kalorie (kcal)": "Calories (kcal)", "Białko (g)": "Protein (g)", "Węgle (g)": "Carbs (g)", "Tłuszcz (g)": "Fat (g)", "Porcje (mnożnik)": "Portions (multiplier)",
+  "⭐ Zapisz w ulubionych": "⭐ Save to favourites", "Dodaj do dziennika": "Add to the log", "Opisz, co zjadłeś": "Describe what you ate",
+  "np. 2 jajka, kanapka z serem i kawa z mlekiem": "e.g. 2 eggs, a cheese sandwich and a coffee with milk", "Oszacuj": "Estimate",
+  "Kalkulator zapotrzebowania kalorycznego": "Calorie needs calculator", "Płeć": "Sex", "Mężczyzna": "Male", "Kobieta": "Female", "Wiek": "Age", "Aktywność": "Activity",
+  "Siedzący tryb życia (brak treningów)": "Sedentary (no workouts)", "Lekka aktywność (1–3 treningi/tydz.)": "Light (1–3 workouts/week)", "Umiarkowana (3–5 treningów/tydz.)": "Moderate (3–5 workouts/week)",
+  "Duża (6–7 treningów/tydz.)": "High (6–7 workouts/week)", "Bardzo duża (praca fizyczna + treningi)": "Very high (physical job + training)",
+  "Utrzymanie wagi": "Maintain weight", "Powolne chudnięcie": "Slow weight loss", "Budowa masy": "Muscle gain", "Zapisz jako mój cel": "Save as my target",
+  "Kalkulator kalorii (TDEE) i makroskładniki": "Calorie calculator (TDEE) and macros", "Dziennik jedzenia: szukanie produktów, skaner kodów, opis AI": "Food log: product search, barcode scanner, AI description",
+  "Tryb siłowni: timery, interwały, rekordy, doping AI": "Gym mode: timers, intervals, records, AI boost", "Reakcje pod wiadomościami": "Reactions under messages", "Dodaj reakcję": "Add reaction"
 });
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;

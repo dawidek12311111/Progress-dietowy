@@ -575,6 +575,21 @@
   .pod.rise .pcol .pav { animation: popav .6s .9s both; }
   @keyframes podrise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
   @keyframes popav { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
+
+  /* ===== v3.5 ===== */
+  html[dir="rtl"] body { font-family: "Vazirmatn", "Noto Sans Arabic", "Noto Naskh Arabic", Tahoma, system-ui, sans-serif; }
+  html[dir="rtl"] .race, html[dir="rtl"] .nav, html[dir="rtl"] .pad, html[dir="rtl"] .pdots, html[dir="rtl"] .pod, html[dir="rtl"] .racectl input { direction: ltr; }
+  html[dir="rtl"] .lname, html[dir="rtl"] .navbtn { direction: rtl; }
+  .trx { margin-top: 4px; padding: 6px 9px; border-radius: 8px; background: var(--bg); font-size: .88rem; border-inline-start: 3px solid var(--accent); }
+  .trbtn { background: none; border: 0; color: var(--muted); font: inherit; font-size: .76rem; padding: 2px 0; cursor: pointer; }
+  .trbtn:hover { color: var(--accent); }
+
+  /* ===== flagi jezyka ===== */
+  .langflags { position: absolute; top: 12px; right: 12px; left: auto; display: flex; gap: 8px; z-index: 5; direction: ltr; }
+  .langflags button { width: 44px; height: 32px; padding: 0; border-radius: 8px; border: 2px solid transparent; background: rgba(255,255,255,.6); cursor: pointer; overflow: hidden; display: flex; align-items: center; justify-content: center; transition: transform .12s, border-color .15s; touch-action: manipulation; }
+  .langflags button svg { width: 100%; height: 100%; display: block; }
+  .langflags button:active { transform: scale(.9); }
+  .langflags button.on { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,0,0,.08); }
 </style>
 </head>
 <body>
@@ -609,6 +624,11 @@
 
 <div class="overlay login" id="login">
   <div class="floaters" id="loginFloat" data-notr aria-hidden="true"></div>
+  <div class="langflags" id="loginLang" data-notr>
+    <button type="button" data-lang="pl" aria-label="Polski" title="Polski"><svg viewBox="0 0 28 20"><rect width="28" height="10" fill="#fff"/><rect y="10" width="28" height="10" fill="#dc143c"/></svg></button>
+    <button type="button" data-lang="en" aria-label="English" title="English"><svg viewBox="0 0 28 20"><rect width="28" height="20" fill="#012169"/><path d="M0 0L28 20M28 0L0 20" stroke="#fff" stroke-width="4"/><path d="M0 0L28 20M28 0L0 20" stroke="#c8102e" stroke-width="1.6"/><path d="M14 0V20M0 10H28" stroke="#fff" stroke-width="6"/><path d="M14 0V20M0 10H28" stroke="#c8102e" stroke-width="3.4"/></svg></button>
+    <button type="button" data-lang="fa" aria-label="فارسی" title="فارسی"><svg viewBox="0 0 28 20"><rect width="28" height="7" fill="#239f40"/><rect y="7" width="28" height="6" fill="#fff"/><rect y="13" width="28" height="7" fill="#da0000"/><circle cx="14" cy="10" r="2" fill="none" stroke="#da0000" stroke-width="1"/></svg></button>
+  </div>
   <div class="lcont">
   <svg class="logo" viewBox="0 0 360 150" width="300" role="img" aria-label="Logo: hantla i owoce">
     <g class="lg fl">
@@ -630,7 +650,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.4</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.6</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
@@ -732,7 +752,7 @@
       </div>
       <div class="row" style="margin-top:10px">
         <label>Język / Language
-          <select id="setLang"><option value="pl">Polski</option><option value="en">English</option></select>
+          <select id="setLang"><option value="pl">Polski</option><option value="en">English</option><option value="fa">فارسی</option></select>
         </label>
       </div>
       <h3>Kolor apki</h3>
@@ -745,6 +765,7 @@
         <label><input type="checkbox" id="setConfetti"> 🎉 Konfetti przy nowej odznace</label>
         <label><input type="checkbox" id="setCoachAuto"> 🤖 Trener pisze sam po moich wpisach</label>
         <label><input type="checkbox" id="setAnim"> ✨ Animacje</label>
+        <label><input type="checkbox" id="setAutoTr"> 🌐 Automatycznie tłumacz wiadomości na czacie</label>
         <label><input type="checkbox" id="setJokes"> 😈 Trener może żartobliwie dokuczać</label>
       </div>
       <div class="msg">Te ustawienia dotyczą tylko tego urządzenia.</div>
@@ -789,8 +810,11 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.4</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.6</summary>
         <ul>
+          <li>Flagi języka na ekranie logowania (PL, EN, FA)</li>
+          <li>Język perski (فارسی) z pisaniem od prawej do lewej, wersja podstawowa</li>
+          <li>Tłumaczenie wiadomości na czacie (przycisk 🌐 lub automatycznie)</li>
           <li>Wyzwanie miesiąca: wyścig kroków bez limitów, z animacją, podium i wyzwaniem dnia od trenera AI</li>
           <li>Zaproszenia do apki przez Messenger, WhatsApp, SMS lub link</li>
           <li>Przycisk „Zobacz” przy przyjacielu: jego postępy w jednym dotknięciu</li>
@@ -820,13 +844,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.4</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.6</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.4</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.6</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -1174,7 +1198,7 @@ setTimeout(function () {
   if (window.__pdReady) return;
   var el = document.getElementById("bootMsg");
   if (!el) return;
-  var en = false; try { en = localStorage.getItem("pd-lang") === "en"; } catch (e) {}
+  var en = false; try { var sl = localStorage.getItem("pd-lang"); en = sl === "en" || sl === "fa"; } catch (e) {}
   el.textContent = en ? "Taking a while… If this lasts, check your internet connection and refresh the page." : "To trwa dłużej niż zwykle… Jeśli nic się nie dzieje, sprawdź internet i odśwież stronę.";
 }, 10000);
 </script>
@@ -1205,9 +1229,11 @@ const EMOJIS = ["🦁", "🐻", "🦊", "🐺", "🐯", "🐼", "🐸", "🦄", 
 const state = { users: {}, group: {}, current: NAMES[0], me: null };
 const ME = () => state.me || state.current;
 let LANG = "pl";
-try { LANG = localStorage.getItem("pd-lang") === "en" ? "en" : "pl"; } catch (e) {}
-const L = (pl, en) => LANG === "en" ? en : pl;
-const LOC = () => LANG === "en" ? "en-GB" : "pl-PL";
+let FA = false;
+try { const sl0 = localStorage.getItem("pd-lang"); LANG = sl0 === "en" || sl0 === "fa" ? "en" : "pl"; FA = sl0 === "fa"; } catch (e) {}
+const FAD = Object.create(null);
+const L = (pl, en) => LANG === "en" ? ((FA && FAD[en]) || en) : pl;
+const LOC = () => LANG === "en" ? (FA ? "fa-IR-u-ca-gregory-nu-latn" : "en-GB") : "pl-PL";
 const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [], stp: {} });
 NAMES.forEach(n => { state.users[n] = blankUser(); });
 function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; ALLN.push(n); NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
@@ -2062,7 +2088,7 @@ async function askGemini(sender, text) {
   const prompt = "Dane ekipy:\n" + aiContext() + "\n\nKontekst rozmówcy: " + userCtx(sender) + "\n\nOstatnie wiadomości w czacie:\n" + hist +
     "\n\nOdpowiedz jako Trener na tę wiadomość od " + sender + ": " + text;
   const body = {
-    systemInstruction: { parts: [{ text: AI_SYSTEM + jokesNote() + (LANG === "en" ? " WAŻNE: odpowiadaj po angielsku (reply in English)." : "") }] },
+    systemInstruction: { parts: [{ text: AI_SYSTEM + jokesNote() + (LANG === "en" ? (FA ? " WAŻNE: odpowiadaj po persku (Farsi)." : " WAŻNE: odpowiadaj po angielsku (reply in English).") : "") }] },
     contents: [{ role: "user", parts: [{ text: prompt }] }],
     generationConfig: { maxOutputTokens: 400, temperature: 0.9 }
   };
@@ -2687,8 +2713,9 @@ function vchat() {
 function renderChat() {
   const box = $("chatBox");
   const vc = vchat();
+  if (autoTrOn()) queueAutoTr(vc);
   const last = vc[vc.length - 1];
-  const sig = vc.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + rxSig() + "|" + LANG + "|" + NAMES.join(",") + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
+  const sig = vc.length + "|" + (last ? last.name + "|" + last.text + "|" + (last.img ? last.img.length : 0) + "|" + (last.ts && last.ts.toMillis ? last.ts.toMillis() : "") : "") + "|" + typingFlag + "|" + rxSig() + "|" + LANG + FA + "|" + trVer + "|" + NAMES.join(",") + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",");
   if (sig === chatSig && gotChat) return;
   chatSig = sig;
   if (!vc.length && !typingFlag) { box.innerHTML = '<div class="empty">Brak wiadomości. Napisz pierwszą.</div>'; return; }
@@ -2703,12 +2730,13 @@ function renderChat() {
     chatSeen.add(key);
     const avatar = coach ? '<span class="av" style="width:28px;height:28px;font-size:17px">🤖</span>' : (IDS[m.name] ? av(m.name, 28) : "");
     const img = typeof m.img === "string" && IMG_RE.test(m.img) ? '<img class="chimg" src="' + m.img + '" alt="" loading="lazy">' : "";
-    return '<div class="cm' + (coach ? " coach" : "") + (isNew && animOn() ? " new" : "") + '">' + avatar + '<div><span class="nm" data-notr>' + esc(m.name) + (coach ? " 🤖" : "") + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt" data-notr>' + linkify(m.text || "") + "</span>" + img + rxHtml(m) + "</div></div>";
+    return '<div class="cm' + (coach ? " coach" : "") + (isNew && animOn() ? " new" : "") + '">' + avatar + '<div><span class="nm" data-notr>' + esc(m.name) + (coach ? " 🤖" : "") + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt" data-notr>' + linkify(m.text || "") + "</span>" + trHtml(m) + img + rxHtml(m) + "</div></div>";
   }).join("");
   if (prime) chatPrimed = true;
   if (typingFlag) html += '<div class="cm coach typing"><span class="av" style="width:28px;height:28px;font-size:17px">🤖</span><div><span class="nm" data-notr>' + COACH + ' 🤖</span><br><span class="txt"><i class="dots"><b></b><b></b><b></b></i></span></div></div>';
+  const keepBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 70, oldTop = box.scrollTop;
   box.innerHTML = html;
-  box.scrollTop = box.scrollHeight;
+  box.scrollTop = keepBottom ? box.scrollHeight : oldTop;
 }
 
 /* ---------- widok: historia i formularz ---------- */
@@ -3044,8 +3072,8 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.4";
-const langNote = () => LANG === "en" ? "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON." : "";
+const VER = "3.6";
+const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
 const WX_LAT = 50.2649, WX_LON = 19.0238;
@@ -3751,6 +3779,85 @@ async function ensureDch() {
   } catch (err) { console.error(err); }
   finally { dchBusy = false; }
 }
+
+/* ================= v3.5: tłumaczenie czatu ================= */
+const TL = () => FA ? "fa" : LANG;
+const TL_NAME = { pl: "polski", en: "angielski (English)", fa: "perski / farsi (فارسی)" };
+let trCache = {};
+try { trCache = JSON.parse(localStorage.getItem("pd-trc") || "{}") || {}; } catch (e) { trCache = {}; }
+let trVer = 0, trBusy = {}, trQueue = [], trRunning = false, trStop = false;
+function trSave() {
+  const k = Object.keys(trCache);
+  if (k.length > 300) k.slice(0, k.length - 300).forEach(x => { delete trCache[x]; });
+  try { localStorage.setItem("pd-trc", JSON.stringify(trCache)); } catch (e) {}
+}
+const trKey = m => m.id + "|" + TL();
+const autoTrOn = () => { try { const v = localStorage.getItem("pd-autotr"); return v === "1" || (v === null && FA); } catch (e) { return FA; } };
+function trHtml(m) {
+  if (!m.text || !m.id) return "";
+  const c = trCache[trKey(m)];
+  if (c && c !== "=") return '<div class="trx" data-notr>🌐 ' + esc(c) + "</div>";
+  if (c === "=" || m.name === state.me) return "";
+  if (trBusy[trKey(m)]) return '<div class="trx" data-notr>…</div>';
+  return '<button class="trbtn" data-tr="' + esc(m.id) + '" type="button" data-notr>' + esc(L("🌐 Przetłumacz", "🌐 Translate")) + "</button>";
+}
+async function translateMsg(m) {
+  const key = trKey(m);
+  if (trCache[key] !== undefined || trBusy[key]) return;
+  trBusy[key] = 1; trVer++; renderChat();
+  try {
+    const k = aiKey();
+    if (!k) throw new Error("nokey");
+    const body = {
+      systemInstruction: { parts: [{ text: "Jesteś tłumaczem wiadomości z czatu znajomych. Zwracasz wyłącznie tłumaczenie." }] },
+      contents: [{ role: "user", parts: [{ text: "Przetłumacz wiadomość na język: " + TL_NAME[TL()] + ". Zachowaj ton, emoji, imiona i linki. Jeśli wiadomość jest już w tym języku, odpowiedz dokładnie jednym znakiem =. Zwróć tylko tłumaczenie.\n\nWiadomość: " + m.text }] }],
+      generationConfig: { maxOutputTokens: 400, temperature: 0.2 }
+    };
+    const r = await geminiGenerate(k, body);
+    if (!r.ok) throw new Error(geminiErr(r));
+    const t = String(geminiText(r) || "").replace(/^["«»\s]+|["«»\s]+$/g, "");
+    if (!t) throw new Error("empty");
+    trCache[key] = (t === "=" || norm(t) === norm(m.text)) ? "=" : t.slice(0, 700);
+    trSave();
+  } catch (e) {
+    console.error(e);
+    const msg = String((e && e.message) || e);
+    if (/429|quota|RESOURCE/i.test(msg)) trStop = true;
+    toast(msg === "nokey" ? L("Najpierw wpisz klucz Gemini w menu (Trener AI).", "Enter the Gemini key in the menu first (AI coach).") : L("Nie udało się przetłumaczyć.", "Could not translate."));
+  } finally { delete trBusy[key]; trVer++; renderChat(); }
+}
+async function runTrQueue() {
+  if (trRunning) return;
+  trRunning = true;
+  while (trQueue.length && !trStop) { const m = trQueue.shift(); await translateMsg(m); await sleep(700); }
+  trRunning = false;
+}
+function queueAutoTr(vc) {
+  if (trStop || !aiKey() || !state.me) return;
+  vc.slice(-12).forEach(m => {
+    if (m.text && m.id && m.name !== COACH && m.name !== state.me && trCache[trKey(m)] === undefined && !trBusy[trKey(m)] && trQueue.indexOf(m) < 0) trQueue.push(m);
+  });
+  runTrQueue();
+}
+$("chatBox").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-tr]") : null;
+  if (!b) return;
+  const m = chat.find(x => x.id === b.getAttribute("data-tr"));
+  if (m) translateMsg(m);
+});
+$("setAutoTr").addEventListener("change", () => { try { localStorage.setItem("pd-autotr", $("setAutoTr").checked ? "1" : "0"); } catch (e) {} trStop = false; renderChat(); });
+
+
+/* ---------- flagi na ekranie logowania ---------- */
+function markFlags() {
+  const cur = FA ? "fa" : LANG;
+  Array.prototype.forEach.call($("loginLang").querySelectorAll("[data-lang]"), b => b.classList.toggle("on", b.getAttribute("data-lang") === cur));
+}
+$("loginLang").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-lang]") : null;
+  if (!b) return;
+  setLang(b.getAttribute("data-lang"));
+});
 
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
@@ -5208,6 +5315,15 @@ Object.assign(EN, {
   "📤 Udostępnij": "📤 Share", "💬 WhatsApp": "💬 WhatsApp", "📘 Messenger": "📘 Messenger", "✉️ SMS": "✉️ SMS", "📋 Kopiuj link": "📋 Copy link",
   "Widzisz tylko siebie i swoich przyjaciół. Przyjaciele widzą nawzajem swoje postępy (waga, BMI, treningi, jedzenie, kroki), ranking i czat grupy. Przyjaźń działa, gdy obie osoby się zaakceptują. Dotknij „Zobacz”, żeby wejść w czyjś profil.": "You only see yourself and your friends. Friends see each other's progress (weight, BMI, workouts, food, steps), the ranking and the group chat. A friendship works when both people accept. Tap “View” to open someone's profile."
 });
+
+Object.assign(EN, {
+  "Co nowego w 3.6": "What's new in 3.6", "Flagi języka na ekranie logowania (PL, EN, FA)": "Language flags on the sign-in screen (PL, EN, FA)",
+  "🌐 Przetłumacz": "🌐 Translate",
+  "🌐 Automatycznie tłumacz wiadomości na czacie": "🌐 Auto-translate chat messages",
+  "Język perski (فارسی) z pisaniem od prawej do lewej, wersja podstawowa": "Persian (فارسی) with right-to-left layout, core version",
+  "Tłumaczenie wiadomości na czacie (przycisk 🌐 lub automatycznie)": "Chat message translation (🌐 button or automatic)"
+});
+Object.assign(FAD, {"Poland": "لهستان", "Home": "خانه", "Gym": "باشگاه", "Food & calories": "غذا و کالری", "Calculator": "ماشین‌حساب", "Helpful tools": "ابزارهای مفید", "Coach": "مربی", "Friends": "دوستان", "Challenge & steps": "چالش و قدم‌ها", "Invitations for you": "دعوت‌ها برای شما", "Accept": "پذیرفتن", "Decline": "رد کردن", "wants to share data": "می‌خواهد داده‌ها را به اشتراک بگذارد", "My friends": "دوستان من", "Remove": "حذف", "Nobody yet. Invite someone below.": "فعلاً کسی نیست. پایین کسی را دعوت کنید.", "Cancel": "لغو", "waiting for acceptance": "منتظر پذیرش", "Sent invitations": "دعوت‌های ارسال‌شده", "Other people in the app": "دیگر افراد برنامه", "Invite": "دعوت", "No more people.": "فرد دیگری نیست.", "View": "مشاهده", "Yesterday": "دیروز", "7 days": "۷ روز", "30 days": "۳۰ روز", "Min": "دقیقه", "kcal burned": "کیلوکالری سوخته", "kcal/day": "کیلوکالری در روز", "Active days": "روزهای فعال", "Weight Δ": "تغییر وزن", "Steps": "قدم", "Avg/day": "میانگین در روز", "Behind": "تا پیشتاز", "Day ": "روز ", " of ": " از ", "Saved ✅": "ذخیره شد ✅", "Link copied ✅": "لینک کپی شد ✅", "Copied. Paste it in Messenger.": "کپی شد. در مسنجر بچسبانید.", "Pick a day from the last 30 days.": "یک روز از ۳۰ روز اخیر انتخاب کنید.", "Enter a step count (0–100000).": "تعداد قدم را وارد کنید (۰ تا ۱۰۰۰۰۰).", "Daily goal: ": "هدف روز: ", " steps": " قدم", "A new AI coach challenge every day.": "هر روز یک چالش تازه از مربی هوش مصنوعی.", "Today's challenge. With a Gemini key the AI coach invents a new one daily.": "چالش امروز. با کلید Gemini مربی هوش مصنوعی هر روز یکی تازه می‌سازد.", "Added to friends 🎉": "به دوستان اضافه شد 🎉", "Nobody here yet. Add friends in the “Friends” tab.": "هنوز کسی اینجا نیست. در بخش «دوستان» دوست اضافه کنید.", "No workout: ": "بدون تمرین: ", "Nobody has logged anything yet.": "هنوز کسی چیزی ثبت نکرده است.", "Nobody logged a workout in the last 7 days.": "در ۷ روز اخیر کسی تمرینی ثبت نکرده است.", "exercises": "حرکت", "Best set": "بهترین ست", "Exercise": "حرکت ورزشی", "Records will show up after your first workout.": "رکوردها بعد از اولین تمرین نمایش داده می‌شوند.", "No gym workouts yet. Start your first one!": "هنوز تمرین باشگاهی نیست. اولین را شروع کنید!", "Summary": "خلاصه", "Group tasks": "وظایف گروه", "Person of the period: ": "فرد برتر دوره: ", "Post a short version to chat": "ارسال نسخه کوتاه در گفتگو", "Posted ✅": "ارسال شد ✅", "overtakes": "سبقت می‌گیرد از", "Leading: ": "پیشتاز: ", "steps ahead": "قدم اختلاف", "Who ": "چه کسی ", "Weight": "وزن", "Today": "امروز", "Workouts": "تمرین‌ها", "No limits: whoever makes more steps this month wins. Runners move at the pace of their steps, and the marks on the track show thousands.": "بدون محدودیت: هر که در این ماه قدم بیشتری بردارد برنده است. دونده‌ها با سرعت قدم‌هایشان می‌دوند و نشانه‌های روی مسیر هزارتا را نشان می‌دهند.", "Send the link. Your friend opens it, adds themselves on the login screen, and then you invite them here in the Friends tab.": "لینک را بفرستید. دوستتان آن را باز می‌کند، خودش را در صفحه ورود اضافه می‌کند و بعد شما او را از همین‌جا در بخش دوستان دعوت می‌کنید.", "You only see yourself and your friends. Friends see each other's progress (weight, BMI, workouts, food, steps), the ranking and the group chat. A friendship works when both people accept. Tap “View” to open someone's profile.": "شما فقط خودتان و دوستانتان را می‌بینید. دوستان پیشرفت یکدیگر (وزن، شاخص توده بدنی، تمرین، غذا، قدم)، رتبه‌بندی و گفتگوی گروه را می‌بینند. دوستی زمانی برقرار می‌شود که هر دو نفر بپذیرند. روی «مشاهده» بزنید تا نمایه کسی را باز کنید.", "🌐 Translate": "🌐 ترجمه", "Translating…": "در حال ترجمه…", "Could not translate.": "ترجمه ممکن نشد.", "🌐 Auto-translate chat messages": "🌐 ترجمه خودکار پیام‌های گفتگو", "Diet Progress": "پیشرفت رژیمی", "Who are you?": "شما کی هستید؟", "Connecting to the database…": "در حال اتصال به پایگاه داده…", "Settings": "تنظیمات", "Profile": "نمایه", "Avatar: pick an emoji or upload a photo": "آواتار: یک ایموجی انتخاب کنید یا عکس بارگذاری کنید", "Upload photo": "بارگذاری عکس", "Default avatar": "آواتار پیش‌فرض", "My data": "اطلاعات من", "Height (cm)": "قد (سانتی‌متر)", "Goal weight (kg)": "وزن هدف (کیلوگرم)", "Save": "ذخیره", "Current weight (kg)": "وزن فعلی (کیلوگرم)", "Save for today": "ذخیره برای امروز", "Appearance": "ظاهر", "Theme": "پوسته", "Automatic": "خودکار", "Light": "روشن", "Dark": "تیره", "Text size": "اندازه متن", "Smaller": "کوچک‌تر", "Normal": "معمولی", "Larger": "بزرگ‌تر", "Largest": "بزرگ‌ترین", "App colour": "رنگ برنامه", "Default": "پیش‌فرض", "Preferences": "ترجیحات", "🎉 Confetti on a new badge": "🎉 کاغذرنگی برای نشان جدید", "🤖 Coach posts on its own after my entries": "🤖 مربی بعد از ثبت‌های من خودش پیام می‌دهد", "✨ Animations": "✨ انیمیشن‌ها", "These settings apply to this device only.": "این تنظیمات فقط برای همین دستگاه اعمال می‌شود.", "Language / Język": "زبان / Language / Język", "Show welcome screen": "نمایش صفحه خوش‌آمدگویی", "AI Coach (Gemini)": "مربی هوش مصنوعی (Gemini)", "Gemini API key": "کلید API جمینای", "Test AI": "آزمایش هوش مصنوعی", "Turn AI off": "خاموش کردن هوش مصنوعی", "Data & account": "داده‌ها و حساب", "Send ranking to WhatsApp": "ارسال رتبه‌بندی به واتس‌اپ", "Export data to a file": "خروجی داده‌ها در فایل", "Switch user": "تغییر کاربر", "Let's go 💪": "بزن بریم 💪", "Not me: switch user": "من نیستم: تغییر کاربر", "Add measurement": "افزودن اندازه‌گیری", "Date": "تاریخ", "Weight (kg)": "وزن (کیلوگرم)", "Add": "افزودن", "Weight chart": "نمودار وزن", "Combined chart": "نمودار مشترک", "BMI ranking": "رتبه‌بندی شاخص توده بدنی", "Weekly challenge": "چالش هفته", "Group goal & progress": "هدف و پیشرفت گروه", "Bet": "شرط دوستانه", "Set or change the bet": "تنظیم یا تغییر شرط", "Stake": "جایزه شرط", "Bet end date": "تاریخ پایان شرط", "Save bet": "ذخیره شرط", "Delete bet": "حذف شرط", "Workout & calories": "تمرین و کالری", "Day": "روز", "Type": "نوع", "Time (min)": "زمان (دقیقه)", "Calories (optional)": "کالری (اختیاری)", "Add workout": "افزودن تمرین", "This week": "این هفته", "Activity ranking (this week)": "رتبه‌بندی فعالیت (این هفته)", "Recent workouts": "تمرین‌های اخیر", "Daily points": "امتیازهای روز", "💧 Water": "💧 آب", "🏃 Workout": "🏃 تمرین", "👟 Steps": "👟 قدم", "Points are saved to your profile.": "امتیازها در نمایه شما ذخیره می‌شوند.", "Calendar & achievements": "تقویم و دستاوردها", "Badges": "نشان‌ها", "Chat": "گفتگو", "Message": "پیام", "Send": "ارسال", "Measurement history": "تاریخچه اندازه‌گیری‌ها", "Close settings": "بستن تنظیمات", "Menu and settings": "منو و تنظیمات", "e.g. 84.5": "مثلاً 84.5", "e.g. 45": "مثلاً 45", "from your watch": "از ساعت شما", "Write something…": "چیزی بنویسید…", "Connected. Data is shared with everyone.": "متصل شد. داده‌ها بین همه مشترک است.", "now": "اکنون", "No messages yet. Write the first one.": "هنوز پیامی نیست. اولین پیام را بنویسید.", "No measurements yet. Add the first one above.": "هنوز اندازه‌گیری‌ای نیست. اولی را در بالا اضافه کنید.", "No workouts yet. Add the first one above.": "هنوز تمرینی نیست. اولی را در بالا اضافه کنید.", "Delete": "حذف", "Who": "چه کسی", "Rating": "رتبه", "Goal": "هدف", "Total": "مجموع", "Minutes": "دقیقه", "Time": "زمان", "Progress this week": "پیشرفت این هفته", "Progress since start": "پیشرفت از ابتدا", "7-day average": "میانگین ۷ روز", "Measurement streak": "تداوم اندازه‌گیری", "Goal forecast": "پیش‌بینی رسیدن به هدف", "kcal (est.)": "کیلوکالری (تخمینی)", "normal": "نرمال", "overweight": "اضافه وزن", "underweight": "کم‌وزنی", "obese": "چاقی", "missing height or measurement": "قد یا اندازه‌گیری موجود نیست", "Everyone's progress to goal": "پیشرفت همه تا هدف", "Together you got closer to your goals by": "با هم به هدف‌هایتان نزدیک‌تر شدید به میزان", "Add at least two measurements to see the chart.": "برای دیدن نمودار حداقل دو اندازه‌گیری اضافه کنید.", "Goal reached": "به هدف رسیدید", "No activity on this day.": "در این روز فعالیتی نبود.", "Previous month": "ماه قبل", "Next month": "ماه بعد", "Mo": "دو", "Tu": "سه", "We": "چهار", "Th": "پنج", "Fr": "جمعه", "Sa": "شنبه", "Su": "یک", "My profile": "نمایه من", "Viewing:": "در حال مشاهده:", "(read-only)": "(فقط خواندنی)", "A small step today beats a big plan for tomorrow.": "یک قدم کوچک امروز بهتر از یک برنامه بزرگ برای فرداست.", "Consistency beats intensity.": "پایداری از شدت مهم‌تر است.", "You don't have to be perfect, just don't give up.": "لازم نیست بی‌نقص باشید، فقط تسلیم نشوید.", "Starting is the hardest part, then it's downhill.": "شروع کردن سخت‌ترین بخش است، بعدش آسان می‌شود.", "Every healthy choice counts.": "هر انتخاب سالم ارزش دارد.", "It's easier together, keep each other on track.": "با هم آسان‌تر است، همدیگر را در مسیر نگه دارید.", "Sleep, water and movement do half the work.": "خواب، آب و حرکت نیمی از کار را انجام می‌دهند.", "Hi! Add your first measurements and I'll cheer you on.": "سلام! اولین اندازه‌گیری‌هایتان را وارد کنید تا من تشویقتان کنم.", "Saving…": "در حال ذخیره…", "Measurement added.": "اندازه‌گیری اضافه شد.", "Pick a date.": "یک تاریخ انتخاب کنید.", "Pick a day.": "یک روز انتخاب کنید.", "Enter your weight in kilograms (20–400).": "وزن خود را به کیلوگرم وارد کنید (۲۰ تا ۴۰۰).", "Enter your height in cm (100–250).": "قد خود را به سانتی‌متر وارد کنید (۱۰۰ تا ۲۵۰).", "Saved.": "ذخیره شد.", "Could not save.": "ذخیره نشد.", "Could not delete the measurement.": "حذف اندازه‌گیری ممکن نشد.", "Could not delete the workout.": "حذف تمرین ممکن نشد.", "Running": "دویدن", "Cycling": "دوچرخه‌سواری", "Walking / hiking": "پیاده‌روی / کوهنوردی", "Swimming": "شنا", "Ball / team sports": "ورزش‌های توپی / تیمی", "HIIT / CrossFit": "هایت / کراس‌فیت", "Yoga / stretching": "یوگا / کشش", "Dancing": "رقص", "Other": "سایر", "First measurement": "اولین اندازه‌گیری", "Leader of the week": "پیشتاز هفته", "5 measurements": "۵ اندازه‌گیری", "15 measurements": "۱۵ اندازه‌گیری", "3-week streak": "تداوم ۳ هفته‌ای", "8-week streak": "تداوم ۸ هفته‌ای", "1 kg closer to goal": "۱ کیلو نزدیک‌تر به هدف", "5 kg closer to goal": "۵ کیلو نزدیک‌تر به هدف", "7 days with points": "۷ روز با امتیاز", "First workout": "اولین تمرین", "10 workouts": "۱۰ تمرین", "3 workouts in a week": "۳ تمرین در یک هفته", "1000 kcal in a week": "۱۰۰۰ کیلوکالری در یک هفته", "5000 kcal in total": "۵۰۰۰ کیلوکالری در مجموع", "Activity calendar for the last 12 weeks": "تقویم فعالیت ۱۲ هفته اخیر", "Helpful tools 🛠": "ابزارهای مفید 🛠", "🏋️ Workout plan for today": "🏋️ برنامه تمرین امروز", "Place": "مکان", "Outdoors": "فضای باز", "Build a workout": "برنامه تمرین بساز", "🥗 Meal idea": "🥗 ایده وعده غذایی", "What do you have? (optional)": "چه چیزی دارید؟ (اختیاری)", "e.g. eggs, rice, broccoli": "مثلاً تخم‌مرغ، برنج، بروکلی", "Target kcal (optional)": "کیلوکالری هدف (اختیاری)", "Suggest a meal": "یک وعده پیشنهاد بده", "📷 Food photo (calories)": "📷 عکس غذا (کالری)", "Take a photo or pick from the gallery": "عکس بگیرید یا از گالری انتخاب کنید", "✍️ Text entry": "✍️ ثبت با متن", "Write what you did": "بنویسید چه کردید", "Recognise": "تشخیص بده", "💡 Advice for today": "💡 توصیه امروز", "Give advice": "توصیه بده", "📊 Weekly analysis": "📊 تحلیل هفته", "The coach will post a team summary in the chat.": "مربی خلاصه‌ای از تیم را در گفتگو می‌فرستد.", "Post to chat": "ارسال در گفتگو", "Coach's tips": "نکته‌های مربی", "Coach remembers facts from chats": "مربی واقعیت‌هایی را از گفتگوها به خاطر می‌سپارد", "Add your own tip or fact": "نکته یا واقعیت خودتان را اضافه کنید", "Clear all": "پاک کردن همه", "😈 Coach may tease playfully": "😈 مربی ممکن است با شوخی سربه‌سرتان بگذارد", "Security (PIN)": "امنیت (پین)", "Current PIN": "پین فعلی", "New PIN (4 digits)": "پین جدید (۴ رقم)", "Repeat new PIN": "تکرار پین جدید", "Save new PIN": "ذخیره پین جدید", "New recovery code": "کد بازیابی جدید", "App": "برنامه", "Remember on this phone": "مرا در این گوشی به خاطر بسپار", "I forgot my PIN": "پینم را فراموش کردم", "Saved, continue": "ذخیره شد، ادامه", "Reset PIN": "بازنشانی پین", "Back": "بازگشت", "Delete digit": "حذف رقم", "New user": "کاربر جدید", "➕ New user": "➕ کاربر جدید", "Name or nickname": "نام یا نام مستعار", "e.g. Kate": "مثلاً سارا", "Enlarge chat": "بزرگ کردن گفتگو", "Add photo": "افزودن عکس", "Write something, paste a link or photo…": "چیزی بنویسید، لینک یا عکس بچسبانید…", "Home screen shortcut": "میانبر صفحه اصلی", "🏋️ Gym mode": "🏋️ حالت باشگاه", "Gym mode": "حالت باشگاه", "Food and calories": "غذا و کالری", "Meal": "وعده", "Breakfast": "صبحانه", "Lunch": "ناهار", "Dinner": "شام", "Snack": "میان‌وعده", "Last 7 days": "۷ روز اخیر", "Add food": "افزودن غذا", "🔎 Search": "🔎 جستجو", "📷 Barcode": "📷 بارکد", "✍️ Manual": "✍️ دستی", "🤖 AI description": "🤖 توضیح با هوش مصنوعی", "⭐ Favourites": "⭐ مورد علاقه‌ها", "Product name": "نام محصول", "e.g. plain yogurt": "مثلاً ماست ساده", "Search": "جستجو", "📷 Scan a barcode": "📷 اسکن بارکد", "Or type the code from the package": "یا کد روی بسته را بنویسید", "Look up code": "جستجوی کد", "Name": "نام", "e.g. cheese sandwich": "مثلاً ساندویچ پنیر", "Calories (kcal)": "کالری (کیلوکالری)", "Protein (g)": "پروتئین (گرم)", "Carbs (g)": "کربوهیدرات (گرم)", "Fat (g)": "چربی (گرم)", "Portions (multiplier)": "تعداد وعده (ضریب)", "⭐ Save to favourites": "⭐ ذخیره در مورد علاقه‌ها", "Add to the log": "افزودن به دفتر غذا", "Describe what you ate": "بنویسید چه خوردید", "e.g. 2 eggs, a cheese sandwich and a coffee with milk": "مثلاً ۲ تخم‌مرغ، یک ساندویچ پنیر و یک قهوه با شیر", "Estimate": "تخمین بزن", "Calorie needs calculator": "ماشین‌حساب نیاز کالری", "Sex": "جنسیت", "Male": "مرد", "Female": "زن", "Age": "سن", "Activity": "فعالیت", "Sedentary (no workouts)": "کم‌تحرک (بدون تمرین)", "Light (1–3 workouts/week)": "سبک (۱ تا ۳ تمرین در هفته)", "Moderate (3–5 workouts/week)": "متوسط (۳ تا ۵ تمرین در هفته)", "High (6–7 workouts/week)": "زیاد (۶ تا ۷ تمرین در هفته)", "Very high (physical job + training)": "خیلی زیاد (کار بدنی + تمرین)", "Maintain weight": "حفظ وزن", "Slow weight loss": "کاهش وزن آهسته", "Muscle gain": "افزایش عضله", "Save as my target": "ذخیره به‌عنوان هدف من", "Add reaction": "افزودن واکنش", "Others' workouts": "تمرین‌های دیگران", "Recent gym workouts": "تمرین‌های اخیر باشگاه", "Records": "رکوردها", "Group summary": "خلاصه گروه", "In-depth AI coach analysis": "تحلیل کامل مربی هوش مصنوعی", "Prepare analysis": "تهیه تحلیل", "Challenge of the day": "چالش امروز", "Monthly challenge: step race": "چالش ماه: مسابقه قدم", "▶ Replay the race": "▶ پخش دوباره مسابقه", "My steps": "قدم‌های من", "Number of steps": "تعداد قدم", "Save steps": "ذخیره قدم‌ها", "Invite friends to the app": "دعوت دوستان به برنامه", "📤 Share": "📤 اشتراک‌گذاری", "💬 WhatsApp": "💬 واتس‌اپ", "📘 Messenger": "📘 مسنجر", "✉️ SMS": "✉️ پیامک", "📋 Copy link": "📋 کپی لینک", "What's new in 3.6": "تازه‌ها در نسخه 3.6"});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [
@@ -5278,11 +5394,23 @@ function trCore(core) {
   if (out === core) for (let i = 0; i < EN_LONG.length; i++) if (out.indexOf(EN_LONG[i]) >= 0) out = out.split(EN_LONG[i]).join(EN[EN_LONG[i]]);
   return out;
 }
+let FA_LONG = null;
+const faCore = s => {
+  if (s in FAD) return FAD[s];
+  const mm = /^([^\p{L}\p{N}]+?)\s+(.+)$/u.exec(s);
+  if (mm && (mm[2] in FAD)) return mm[1] + " " + FAD[mm[2]];
+  if (!FA_LONG) FA_LONG = Object.keys(FAD).filter(k => k.length >= 8).sort((a, b) => b.length - a.length);
+  let out = s;
+  for (let i = 0; i < FA_LONG.length; i++) if (out.indexOf(FA_LONG[i]) >= 0) out = out.split(FA_LONG[i]).join(FAD[FA_LONG[i]]);
+  return out;
+};
+let trEpoch = 0;
 function trStr(s) {
   if (LANG !== "en" || s == null) return s;
   const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(String(s));
   if (!m[2]) return s;
-  return m[1] + trCore(m[2]) + m[3];
+  const e = trCore(m[2]);
+  return m[1] + (FA ? faCore(e) : e) + m[3];
 }
 
 /* ---------- język: tłumaczenie DOM ---------- */
@@ -5296,31 +5424,35 @@ function inNoTr(el) {
   return false;
 }
 function trText(n) {
-  const cur = n.nodeValue;
+  let cur = n.nodeValue;
   if (n.__w !== undefined && cur === n.__w) {
-    if (LANG !== "en") { n.__w = undefined; n.nodeValue = n.__o; }
-    return;
-  }
-  n.__o = cur; n.__w = undefined;
-  if (LANG !== "en" || inNoTr(n.parentNode)) return;
+    if (LANG !== "en") { n.__w = undefined; n.nodeValue = n.__o; return; }
+    if (n.__e === trEpoch) return;
+    cur = n.__o; n.__w = undefined;
+  } else { n.__o = cur; n.__w = undefined; }
+  n.__e = trEpoch;
+  if (LANG !== "en" || inNoTr(n.parentNode)) { if (cur !== n.nodeValue) n.nodeValue = cur; return; }
   const t = trStr(cur);
   if (t !== cur) { n.__w = t; n.nodeValue = t; }
+  else if (cur !== n.nodeValue) n.nodeValue = cur;
 }
 function trAttrs(el) {
   if (!el.getAttribute) return;
   for (let i = 0; i < TR_ATTRS.length; i++) {
     const a = TR_ATTRS[i];
     if (!el.hasAttribute(a)) continue;
-    const cur = el.getAttribute(a);
+    let cur = el.getAttribute(a);
     const st = el.__a || (el.__a = {});
-    if (st[a] && cur === st[a].w) {
-      if (LANG !== "en") { el.setAttribute(a, st[a].o); st[a] = null; }
-      continue;
+    if (st[a] && st[a].w && cur === st[a].w) {
+      if (LANG !== "en") { el.setAttribute(a, st[a].o); st[a] = null; continue; }
+      if (st[a].e === trEpoch) continue;
+      cur = st[a].o;
     }
-    st[a] = { o: cur, w: null };
-    if (LANG !== "en" || inNoTr(el)) continue;
+    st[a] = { o: cur, w: null, e: trEpoch };
+    if (LANG !== "en" || inNoTr(el)) { if (el.getAttribute(a) !== cur) el.setAttribute(a, cur); continue; }
     const t = trStr(cur);
     if (t !== cur) { st[a].w = t; el.setAttribute(a, t); }
+    else if (el.getAttribute(a) !== cur) el.setAttribute(a, cur);
   }
 }
 function trTree(root) {
@@ -5345,12 +5477,14 @@ function startObservers() {
   trObs.observe(document.body, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: TR_ATTRS });
 }
 function setLang(l) {
-  LANG = l === "en" ? "en" : "pl";
-  try { localStorage.setItem("pd-lang", LANG); } catch (e) {}
-  document.documentElement.lang = LANG;
+  FA = l === "fa"; LANG = l === "en" || l === "fa" ? "en" : "pl"; trEpoch++;
+  try { localStorage.setItem("pd-lang", FA ? "fa" : LANG); } catch (e) {}
+  document.documentElement.lang = FA ? "fa" : LANG; document.documentElement.dir = FA ? "rtl" : "ltr";
   document.title = L("Progress dietowy", "Diet Progress");
   trTree(document.body);
   render(true);
+  markFlags();
+  renderWeather();
   renderChat();
 }
 
@@ -5886,8 +6020,8 @@ function renderSettings() {
   renderUserForm();
   let t = "auto", sz = "100", cf = "1", ca = "1";
   try { t = localStorage.getItem("pd-theme") || "auto"; sz = localStorage.getItem("pd-size") || "100"; cf = localStorage.getItem("pd-confetti") || "1"; ca = localStorage.getItem("pd-coach-auto") || "1"; } catch (e) {}
-  $("setTheme").value = t; $("setSize").value = sz; $("setLang").value = LANG; $("setAnim").checked = animOn();
-  $("setConfetti").checked = cf !== "0"; $("setCoachAuto").checked = ca !== "0"; $("setJokes").checked = jokesOn();
+  $("setTheme").value = t; $("setSize").value = sz; $("setLang").value = FA ? "fa" : LANG; $("setAnim").checked = animOn();
+  $("setConfetti").checked = cf !== "0"; $("setCoachAuto").checked = ca !== "0"; $("setJokes").checked = jokesOn(); $("setAutoTr").checked = autoTrOn();
   renderMem(); renderInstall();
   renderSwatches(); renderAi();
 }
@@ -5916,9 +6050,10 @@ $("dailyDate").value = today();
 $("wDate").value = today();
 $("betEnd").value = addDays(today(), 30);
 applyAnim();
-document.documentElement.lang = LANG;
+document.documentElement.lang = FA ? "fa" : LANG; document.documentElement.dir = FA ? "rtl" : "ltr";
 document.title = L("Progress dietowy", "Diet Progress");
 startObservers();
+markFlags();
 if (LANG === "en") trTree(document.body);
 render(true);
 renderChat();

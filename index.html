@@ -517,6 +517,64 @@
   .grhi li { margin-top: 4px; }
   .aiout .mvp { margin: 6px 0; }
   .aiout .plan p { margin: 6px 0; }
+
+  /* ===== v3.4 ===== */
+  .race { position: relative; overflow: hidden; border-radius: 14px; padding: 10px 12px 4px; background: linear-gradient(180deg, #9fd4ff 0%, #e6f5ff 55%, #cfe9c4 100%); color: #12312a; margin-top: 10px; }
+  .race .clouds { position: absolute; inset: 0; pointer-events: none; opacity: .8; background-image: radial-gradient(ellipse 46px 13px at 15% 14%, #fff 62%, transparent 64%), radial-gradient(ellipse 64px 16px at 62% 24%, #fff 62%, transparent 64%), radial-gradient(ellipse 38px 11px at 88% 9%, #fff 62%, transparent 64%); background-size: 200% 100%; animation: clouds 60s linear infinite; }
+  @keyframes clouds { from { background-position: 0 0; } to { background-position: -200% 0; } }
+  .lane { position: relative; margin-bottom: 4px; }
+  .lane.leadlane .lname { font-weight: 800; }
+  .lhead { display: flex; justify-content: space-between; font-size: .84rem; position: relative; }
+  .lcnt { font-weight: 800; font-variant-numeric: tabular-nums; }
+  .track { position: relative; height: 46px; border-bottom: 3px dashed rgba(0, 0, 0, .2); }
+  .runner { position: absolute; bottom: 2px; width: 46px; height: 46px; display: flex; align-items: flex-end; justify-content: center; z-index: 2; }
+  .runner .rav { display: inline-block; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .25)); }
+  .runner .crown { position: absolute; top: -12px; font-size: 1.1rem; display: none; }
+  .runner.lead .crown { display: block; }
+  .race.playing .runner .rav { animation: runbob .32s ease-in-out infinite; }
+  .race.playing .runner.lead .rav { animation-duration: .24s; }
+  @keyframes runbob { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-7px) rotate(4deg); } }
+  .trail { position: absolute; left: 0; bottom: 14px; height: 8px; border-radius: 99px; width: 0; background: linear-gradient(90deg, transparent, var(--c)); opacity: .85; }
+  .race.playing .trail { filter: blur(.4px); }
+  .flag { position: absolute; right: 0; bottom: 3px; font-size: 1.4rem; z-index: 1; }
+  .pace { position: absolute; top: 4px; bottom: 0; width: 0; border-left: 2px dashed rgba(220, 70, 40, .55); z-index: 1; }
+  .racectl { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+  .racectl input[type="range"] { flex: 1; width: auto; padding: 0; border: 0; background: none; }
+  #raceDay { font-size: .84rem; white-space: nowrap; color: var(--muted); }
+  .dch { display: flex; gap: 14px; align-items: center; background: var(--bg); border-radius: 14px; padding: 14px; }
+  .dche { font-size: 2.6rem; line-height: 1; }
+  html[data-anim="on"] .dche { display: inline-block; animation: bob 3s ease-in-out infinite; }
+  .dcht { font-size: 1.1rem; display: block; margin-bottom: 2px; }
+  .dch small { display: block; margin-top: 4px; color: var(--muted); }
+  .dchwho { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; background: var(--bg); border-radius: 999px; padding: 4px 10px 4px 5px; font-size: .82rem; }
+  .chip.ok { outline: 2px solid var(--good); }
+  .strow { display: flex; justify-content: space-between; padding: 6px 2px; border-bottom: 1px solid var(--line); font-size: .92rem; }
+
+  /* ===== v3.4b: wyscig ===== */
+  .race .sun { position: absolute; top: 8px; right: 14px; width: 38px; height: 38px; border-radius: 50%; background: radial-gradient(circle, #fff6b0 30%, #ffd84a 62%, rgba(255,216,74,0) 72%); pointer-events: none; }
+  html[data-anim="on"] .race .sun { animation: sunpulse 3.2s ease-in-out infinite; }
+  @keyframes sunpulse { 0%, 100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.18); opacity: 1; } }
+  .race .hills { position: absolute; left: 0; right: 0; bottom: 0; height: 34px; pointer-events: none; z-index: 0; background: radial-gradient(ellipse 120px 34px at 12% 100%, #8fcf7c 70%, transparent 72%), radial-gradient(ellipse 160px 40px at 52% 100%, #7bc46a 70%, transparent 72%), radial-gradient(ellipse 130px 30px at 90% 100%, #94d283 70%, transparent 72%); opacity: .8; }
+  .tick { position: absolute; top: 0; bottom: 0; border-left: 1px solid rgba(0, 0, 0, .14); z-index: 0; }
+  .tick u { position: absolute; bottom: -1px; left: 3px; font-size: .62rem; text-decoration: none; color: rgba(0, 0, 0, .45); }
+  .puff { position: absolute; bottom: 6px; width: 10px; height: 10px; border-radius: 50%; opacity: .6; z-index: 1; pointer-events: none; animation: puff .7s ease-out forwards; }
+  @keyframes puff { to { transform: translate(-16px, -12px) scale(2.3); opacity: 0; } }
+  .race.playing .runner::before { content: ""; position: absolute; right: 42px; bottom: 18px; width: 30px; height: 12px; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 2px, transparent 2px 5px); opacity: .5; border-radius: 4px; animation: streak .3s linear infinite; }
+  @keyframes streak { from { transform: translateX(6px); opacity: .1; } to { transform: translateX(-4px); opacity: .55; } }
+  .race.shake { animation: rshake .45s; }
+  @keyframes rshake { 0%, 100% { transform: none; } 25% { transform: translateX(-4px); } 50% { transform: translateX(4px); } 75% { transform: translateX(-2px); } }
+  .pod { display: flex; align-items: flex-end; justify-content: center; gap: 10px; margin: 6px 0 12px; min-height: 140px; }
+  .pcol { display: flex; flex-direction: column; align-items: center; width: 31%; max-width: 110px; text-align: center; font-size: .82rem; }
+  .pcol b { margin-top: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+  .pcol small { color: var(--muted); font-variant-numeric: tabular-nums; margin-bottom: 4px; }
+  .pcol i { display: flex; align-items: flex-start; justify-content: center; width: 100%; font-style: normal; font-size: 1.4rem; padding-top: 4px; border-radius: 10px 10px 0 0; background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #000)); color: #fff; }
+  .pcol.p1 i { box-shadow: 0 0 18px rgba(255, 200, 40, .6); }
+  .pod.rise .pcol i { animation: podrise 1s cubic-bezier(.2, .9, .3, 1.2) both; transform-origin: bottom; }
+  .pod.rise .pcol.p1 i { animation-delay: .5s; } .pod.rise .pcol.p2 i { animation-delay: .25s; }
+  .pod.rise .pcol .pav { animation: popav .6s .9s both; }
+  @keyframes podrise { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes popav { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
 </style>
 </head>
 <body>
@@ -572,7 +630,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.3</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.4</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
@@ -731,8 +789,11 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.3</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.4</summary>
         <ul>
+          <li>Wyzwanie miesiąca: wyścig kroków bez limitów, z animacją, podium i wyzwaniem dnia od trenera AI</li>
+          <li>Zaproszenia do apki przez Messenger, WhatsApp, SMS lub link</li>
+          <li>Przycisk „Zobacz” przy przyjacielu: jego postępy w jednym dotknięciu</li>
           <li>Menu na górze: Główna, Siłownia, Jedzenie i kalorie, Kalkulator, Pomocne narzędzia, Trener, Przyjaciele</li>
           <li>Przyjaciele: widzisz tylko swoją grupę (ranking, czat, treningi, trener)</li>
           <li>Podgląd treningów innych osób (dziś, wczoraj, 7 dni)</li>
@@ -759,13 +820,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.3</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.4</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.3</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.4</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -897,6 +958,7 @@
 
   
 
+  <div id="chatHome">
   <section class="card" id="chatCard">
     <div class="chathead"><h2>Czat</h2><button class="ghost" id="chatExpand" aria-label="Powiększ czat">⤢</button></div>
     <div class="chatbox" id="chatBox" aria-live="polite"></div>
@@ -910,11 +972,39 @@
     <div class="react" id="react"></div>
     <div class="msg" id="chatMsg"></div>
   </section>
+  </div>
 
   <section class="card">
     <h2>Historia pomiarów</h2>
     <div class="scroll" id="history"></div>
   </section>
+</div>
+
+<div class="pg" id="pg-race" hidden>
+  <section class="card" id="dchCard">
+    <h2>Wyzwanie dnia</h2>
+    <div id="dchBox" data-notr></div>
+  </section>
+  <section class="card" id="raceCard">
+    <h2>Wyzwanie miesiąca: wyścig kroków</h2>
+    <div class="msg" id="raceInfo" data-notr style="margin-top:0"></div>
+    <div class="race" id="raceBox" data-notr></div>
+    <div class="msg" id="raceInfo2" data-notr style="font-weight:700"></div>
+    <div class="racectl"><button class="ghost" id="racePlay">▶ Odtwórz wyścig</button><input type="range" id="raceScrub" min="0" max="100" value="100" aria-label="Dzień wyścigu"><span id="raceDay" data-notr></span></div>
+    <div id="raceBoard" data-notr style="margin-top:10px"></div>
+  </section>
+  <section class="card">
+    <h2>Moje kroki</h2>
+    <div class="row">
+      <label>Dzień<input type="date" id="stDate"></label>
+      <label>Liczba kroków<input type="number" id="stVal" min="0" max="100000" inputmode="numeric" placeholder="np. 8500"></label>
+      <button class="primary" id="stSave">Zapisz kroki</button>
+    </div>
+    <div class="msg" id="stMsg" data-notr></div>
+    <h3>Ostatnie 7 dni</h3>
+    <div id="stList" data-notr></div>
+  </section>
+  <div id="raceChat"></div>
 </div>
 
 <div class="pg" id="pg-gym" hidden>
@@ -1059,8 +1149,20 @@
 
 <div class="pg" id="pg-friends" hidden>
   <section class="card">
+    <h2>Zaproś znajomych do aplikacji</h2>
+    <div class="msg" style="margin-top:0">Wyślij link. Znajomy otwiera go, dodaje siebie na ekranie logowania, a potem zapraszasz go tutaj w zakładce Przyjaciele.</div>
+    <div class="tools">
+      <button class="primary" id="shareNative" hidden>📤 Udostępnij</button>
+      <button class="ghost" id="shareWa">💬 WhatsApp</button>
+      <button class="ghost" id="shareMs">📘 Messenger</button>
+      <button class="ghost" id="shareSms">✉️ SMS</button>
+      <button class="ghost" id="shareCopy">📋 Kopiuj link</button>
+    </div>
+    <div class="msg" id="shareMsg" data-notr></div>
+  </section>
+  <section class="card">
     <h2>Przyjaciele</h2>
-    <div class="msg" style="margin-top:0">Widzisz tylko siebie i swoich przyjaciół: ranking, wykresy, czat, treningi i analizy trenera dotyczą tej grupy. Przyjaźń działa, gdy obie osoby się zaakceptują.</div>
+    <div class="msg" style="margin-top:0">Widzisz tylko siebie i swoich przyjaciół. Przyjaciele widzą nawzajem swoje postępy (waga, BMI, treningi, jedzenie, kroki), ranking i czat grupy. Przyjaźń działa, gdy obie osoby się zaakceptują. Dotknij „Zobacz”, żeby wejść w czyjś profil.</div>
     <div id="frBox" data-notr></div>
   </section>
 </div>
@@ -1106,7 +1208,7 @@ let LANG = "pl";
 try { LANG = localStorage.getItem("pd-lang") === "en" ? "en" : "pl"; } catch (e) {}
 const L = (pl, en) => LANG === "en" ? en : pl;
 const LOC = () => LANG === "en" ? "en-GB" : "pl-PL";
-const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [] });
+const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [], stp: {} });
 NAMES.forEach(n => { state.users[n] = blankUser(); });
 function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; ALLN.push(n); NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
 function syncUsers() { ((state.group && state.group.extra) || []).forEach(x => { if (x && typeof x.n === "string" && typeof x.id === "string") registerUser(x.n, x.id); }); }
@@ -1367,7 +1469,8 @@ onSnapshot(collection(db, "progress"), snap => {
       recent: data.recent || [],
       gym: data.gym || {},
       fr: Array.isArray(data.fr) ? data.fr : null,
-      rj: Array.isArray(data.rj) ? data.rj : []
+      rj: Array.isArray(data.rj) ? data.rj : [],
+      stp: data.stp || {}
     };
   });
   setStatus("Połączono. Dane są wspólne dla wszystkich.");
@@ -2657,7 +2760,7 @@ function render(withForm) {
   applyFriends();
   renderLogin(); renderHeader(); renderBanner(); applyAccent(); renderMascot(); renderTabs(); renderSummary(); renderChart(); renderChartAll(); renderBoard();
   renderAi(); renderChallenge(); renderGroup(); renderBet(); renderDaily(); renderWorkouts(); renderCalendar(); renderTrainer(); renderHistory();
-  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); applyPageVis(false);
+  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); renderRace(false); renderDch(); applyPageVis(false);
   if (withForm) renderUserForm();
   if (!$("menu").hidden) { renderAvatarEditor(); renderSwatches(); renderMem(); }
   renderWelcomeAv(); afterRender();
@@ -2941,7 +3044,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.3";
+const VER = "3.4";
 const langNote = () => LANG === "en" ? "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON." : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -3089,7 +3192,7 @@ $("today").addEventListener("click", async e => {
 
 /* ================= v3.3: menu, strony, przyjaciele, trener grupy ================= */
 const PAGES = [
-  ["home", "🏠", "Główna", "Home"], ["gym", "🏋️", "Siłownia", "Gym"], ["food", "🍽", "Jedzenie i kalorie", "Food & calories"],
+  ["home", "🏠", "Główna", "Home"], ["race", "🏁", "Wyzwanie i kroki", "Challenge & steps"], ["gym", "🏋️", "Siłownia", "Gym"], ["food", "🍽", "Jedzenie i kalorie", "Food & calories"],
   ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["friends", "👥", "Przyjaciele", "Friends"]
 ];
 let curPage = "home";
@@ -3108,6 +3211,10 @@ function applyPageVis(anim) {
     el.hidden = !on;
     if (on && anim && animOn()) { el.classList.remove("pgin"); void el.offsetWidth; el.classList.add("pgin"); }
   });
+  const cc = $("chatCard"), want = curPage === "race" ? $("raceChat") : $("chatHome");
+  if (cc && want && cc.parentNode !== want) { want.appendChild(cc); chatSig = ""; renderChat(); }
+  if (curPage === "race") { if (!raceEntered) { raceEntered = true; renderRace(true); } ensureDch(); }
+  else raceEntered = false;
   renderNav();
 }
 function renderNav() {
@@ -3179,7 +3286,7 @@ function renderFriends() {
     inc.forEach(n => { h += row(n, btn("ok", n, L("Przyjmij", "Accept"), "primary") + btn("no", n, L("Odrzuć", "Decline")), L("chce dzielić się danymi", "wants to share data")); });
   }
   h += "<h3>" + L("Moi przyjaciele", "My friends") + " (" + mut.length + ")</h3>";
-  h += mut.length ? mut.map(n => row(n, btn("rm", n, L("Usuń", "Remove")), "")).join("") : '<div class="empty">' + L("Na razie nikogo. Zaproś kogoś poniżej.", "Nobody yet. Invite someone below.") + "</div>";
+  h += mut.length ? mut.map(n => row(n, btn("view", n, L("Zobacz", "View"), "primary") + btn("rm", n, L("Usuń", "Remove")), "")).join("") : '<div class="empty">' + L("Na razie nikogo. Zaproś kogoś poniżej.", "Nobody yet. Invite someone below.") + "</div>";
   if (out.length) {
     h += "<h3>" + L("Wysłane zaproszenia", "Sent invitations") + "</h3>";
     h += out.map(n => row(n, btn("rm", n, L("Cofnij", "Cancel")), L("czeka na akceptację", "waiting for acceptance"))).join("");
@@ -3193,6 +3300,7 @@ $("frBox").addEventListener("click", async e => {
   if (!b || !state.me) return;
   const act = b.getAttribute("data-fr"), n = b.getAttribute("data-n"), id = IDS[n];
   if (!id) return;
+  if (act === "view") { state.current = n; viewSwap = true; showPage("home"); render(false); return; }
   b.disabled = true;
   await setFriends((fr, rj) => {
     if (act === "add" || act === "ok") { if (fr.indexOf(id) < 0) fr.push(id); rj = rj.filter(x => x !== id); }
@@ -3294,7 +3402,8 @@ function periodStats(n, from, to) {
     n: n, startW: startW, endW: endW, dW: dW, meas: inside.length, wn: w.n, wmin: w.min, wkcal: w.kcal, foodDays: fd.length, kAvg: kAvg, pAvg: pAvg,
     tgt: u.tgt && u.tgt.k || null, water: dk.filter(d => u.daily[d].water).length, steps: dk.filter(d => u.daily[d].steps).length,
     active: Object.keys(days).length, streak: streakDays(u).n,
-    gym: (((u.gym || {}).sessions) || []).filter(s => inR(s.date)).length, goal: goalOk(u) ? u.goal : null
+    gym: (((u.gym || {}).sessions) || []).filter(s => inR(s.date)).length, goal: goalOk(u) ? u.goal : null,
+    stp: Object.keys(u.stp || {}).filter(inR).reduce((a, k) => a + (u.stp[k] || 0), 0)
   };
 }
 function grPeriod() { const to = today(); return { from: addDays(to, -(grRange - 1)), to: to, days: grRange }; }
@@ -3342,7 +3451,7 @@ function periodLine(r, P) {
   b.push("dni aktywne " + r.active + "/" + P.days + ", seria " + r.streak + " dni");
   if (r.foodDays) b.push("dziennik jedzenia " + r.foodDays + " dni, średnio " + Math.round(r.kAvg) + " kcal/dzień" + (r.tgt ? " (cel " + r.tgt + ")" : "") + ", białko " + Math.round(r.pAvg) + " g");
   else b.push("brak dziennika jedzenia");
-  b.push("woda " + r.water + " dni, kroki " + r.steps + " dni");
+  b.push("woda " + r.water + " dni, kroki " + r.steps + " dni" + (r.stp ? ", suma kroków " + r.stp : ""));
   return b.join("; ");
 }
 async function groupAnalysis(P, rows) {
@@ -3385,6 +3494,263 @@ $("grAiGo").addEventListener("click", function () {
     };
   });
 });
+
+/* ================= v3.4: zaproszenia, wyzwanie miesiąca i kroki ================= */
+function inviteUrl() { return location.href.split("#")[0].split("?")[0]; }
+function inviteText() { return L("Dołącz do mnie w apce Progress dietowy: waga, treningi, kroki i ranking ze znajomymi 💪", "Join me in the Progress dietowy app: weight, workouts, steps and a ranking with friends 💪"); }
+async function copyText(t) {
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { await navigator.clipboard.writeText(t); return true; } } catch (e) {}
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand("copy"); ta.remove(); return !!ok;
+  } catch (e) { return false; }
+}
+const shareMsg = t => { const el = $("shareMsg"); if (el) el.textContent = t; };
+if (navigator.share) $("shareNative").hidden = false;
+$("shareNative").addEventListener("click", async () => {
+  try { await navigator.share({ title: "Progress dietowy", text: inviteText(), url: inviteUrl() }); }
+  catch (e) { if (e && e.name !== "AbortError") shareMsg(L("Nie udało się otworzyć udostępniania.", "Could not open sharing.")); }
+});
+$("shareWa").addEventListener("click", () => { window.open("https://wa.me/?text=" + encodeURIComponent(inviteText() + " " + inviteUrl()), "_blank", "noopener"); });
+$("shareSms").addEventListener("click", () => { location.href = "sms:?&body=" + encodeURIComponent(inviteText() + " " + inviteUrl()); });
+$("shareMs").addEventListener("click", async () => {
+  if (/android|iphone|ipad|ipod/i.test(navigator.userAgent)) location.href = "fb-messenger://share/?link=" + encodeURIComponent(inviteUrl());
+  else { const ok = await copyText(inviteText() + " " + inviteUrl()); shareMsg(ok ? L("Skopiowano. Wklej w Messengerze.", "Copied. Paste it in Messenger.") : inviteUrl()); }
+});
+$("shareCopy").addEventListener("click", async () => {
+  const ok = await copyText(inviteUrl());
+  shareMsg(ok ? L("Link skopiowany ✅", "Link copied ✅") : inviteUrl());
+});
+
+/* ---------- kroki ---------- */
+function monthInfo() {
+  const t = today(), y = +t.slice(0, 4), m = +t.slice(5, 7);
+  return { ym: t.slice(0, 7), days: new Date(y, m, 0).getDate(), dom: +t.slice(8, 10) };
+}
+const stepsOf = (n, d) => { const s = ((state.users[n] || {}).stp || {})[d]; return s > 0 ? s : 0; };
+function cumSteps(n, mi) { const a = [0]; for (let i = 1; i <= mi.dom; i++) a.push(a[i - 1] + stepsOf(n, mi.ym + "-" + pad(i))); return a; }
+const numFmt = n => Math.round(n).toLocaleString(LOC());
+const userColor = n => COLORS[Math.max(0, ALLN.indexOf(n)) % COLORS.length];
+
+/* ---------- wyścig ---------- */
+let raceSig = "", raceAnim = null, raceCum = {}, raceFinished = {}, raceEntered = false, raceScaleV = 10000, raceLead = null, raceLastPuff = {}, raceLastPct = {};
+function niceTick(max) {
+  const steps = [1000, 2000, 5000, 10000, 20000, 25000, 50000, 100000, 250000];
+  for (let i = 0; i < steps.length; i++) if (max / steps[i] <= 6) return steps[i];
+  return 500000;
+}
+function buildRace() {
+  if (raceAnim) return;
+  const box = $("raceBox"), mi = monthInfo();
+  raceCum = {};
+  NAMES.forEach(n => { raceCum[n] = cumSteps(n, mi); });
+  const mx = NAMES.reduce((m, n) => Math.max(m, raceCum[n][mi.dom] || 0), 0);
+  raceScaleV = Math.max(5000, mx * 1.12);
+  const sig = NAMES.join(",") + "|" + NAMES.map(n => (state.users[n].avatar || "").length).join(",") + "|" + mi.ym + "|" + LANG + "|" + Math.round(raceScaleV / 50);
+  if (sig === raceSig) return;
+  raceSig = sig;
+  const tk = niceTick(raceScaleV);
+  let ticks = "";
+  for (let v = tk; v < raceScaleV; v += tk) ticks += '<i class="tick" style="left:' + (v / raceScaleV * 100) + '%"><u>' + (v >= 1000 ? (v / 1000) + "k" : v) + "</u></i>";
+  box.innerHTML = '<div class="sun"></div><div class="clouds"></div>' + NAMES.map(n =>
+    '<div class="lane" data-n="' + esc(n) + '"><div class="lhead"><span class="lname">' + esc(n) + '</span><span class="lcnt" data-c="' + esc(n) + '">0</span></div>' +
+    '<div class="track">' + ticks + '<i class="trail" style="--c:' + userColor(n) + '"></i><span class="flag">🏁</span>' +
+    '<div class="runner" data-r="' + esc(n) + '"><span class="crown">👑</span><span class="rav">' + av(n, 38) + "</span></div></div></div>").join("") + '<div class="hills"></div>';
+}
+function interp(a, f) { const D = a.length - 1, i = Math.min(D, Math.floor(f)), j = Math.min(D, i + 1); return a[i] + (a[j] - a[i]) * (f - i); }
+function puff(track, left, color) {
+  const p = document.createElement("i");
+  p.className = "puff"; p.style.left = left; p.style.background = color;
+  track.appendChild(p);
+  setTimeout(() => { if (p.parentNode) p.parentNode.removeChild(p); }, 700);
+}
+function setRace(f) {
+  const mi = monthInfo(), G = raceScaleV, box = $("raceBox"), now = performance.now();
+  const vals = NAMES.map(n => ({ n: n, v: interp(raceCum[n] || [0], f) }));
+  const top = vals.reduce((m, x) => x.v > m ? x.v : m, 0);
+  let leader = null;
+  vals.forEach(x => {
+    const pct = Math.min(1, x.v / G);
+    const run = box.querySelector('[data-r="' + CSS.escape(x.n) + '"]'), cnt = box.querySelector('[data-c="' + CSS.escape(x.n) + '"]');
+    if (!run || !cnt) return;
+    const left = "calc(" + (pct * 100) + "% - " + (pct * 46) + "px)";
+    run.style.left = left;
+    run.parentNode.querySelector(".trail").style.width = "calc(" + (pct * 100) + "% - " + (pct * 46 - 20) + "px)";
+    cnt.textContent = numFmt(x.v);
+    const lead = top > 0 && x.v >= top;
+    if (lead) leader = x.n;
+    run.classList.toggle("lead", lead);
+    run.parentNode.parentNode.classList.toggle("leadlane", lead);
+    if (raceAnim && pct - (raceLastPct[x.n] || 0) > 0.0008 && now - (raceLastPuff[x.n] || 0) > 110) { raceLastPuff[x.n] = now; puff(run.parentNode, "calc(" + (pct * 100) + "% - " + (pct * 46 - 6) + "px)", userColor(x.n)); }
+    raceLastPct[x.n] = pct;
+  });
+  if (raceAnim && leader && raceLead && leader !== raceLead && top > 0) {
+    $("raceInfo2").textContent = "🔄 " + leader + " " + L("wyprzedza", "overtakes") + " " + raceLead + "!";
+    box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+  }
+  if (leader) raceLead = leader;
+  const day = Math.max(0, Math.min(mi.dom, Math.round(f)));
+  $("raceDay").textContent = L("Dzień ", "Day ") + day + L(" z ", " of ") + mi.days;
+  $("raceScrub").value = mi.dom ? Math.round(f / mi.dom * 100) : 100;
+}
+function stopRace() { if (raceAnim) { cancelAnimationFrame(raceAnim.id); raceAnim = null; } $("raceBox").classList.remove("playing"); }
+function finishRace() {
+  stopRace();
+  const rows = raceRows();
+  if (rows[0] && rows[0].tot > 0) { $("raceInfo2").textContent = "🏁 " + L("Prowadzi ", "Leading: ") + rows[0].n + (rows[1] ? " (+" + numFmt(rows[0].tot - rows[1].tot) + " " + L("kroków przewagi", "steps ahead") + ")" : ""); if (animOn()) confetti(); }
+  renderRaceBoard(true);
+}
+function playRace() {
+  stopRace();
+  const mi = monthInfo();
+  buildRace();
+  raceFinished = {}; raceLead = null; raceLastPct = {}; $("raceInfo2").textContent = "";
+  if (!animOn()) { setRace(mi.dom); renderRaceBoard(false); return; }
+  renderRaceBoard(false);
+  const dur = Math.max(4500, Math.min(11000, mi.dom * 450)), t0 = performance.now();
+  $("raceBox").classList.add("playing");
+  const st = { id: 0 };
+  raceAnim = st;
+  const tick = now => {
+    if (raceAnim !== st) return;
+    const p = Math.min(1, (now - t0) / dur), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+    setRace(mi.dom * e);
+    if (p < 1) st.id = requestAnimationFrame(tick); else finishRace();
+  };
+  st.id = requestAnimationFrame(tick);
+}
+$("racePlay").addEventListener("click", playRace);
+$("raceScrub").addEventListener("input", () => {
+  stopRace(); buildRace(); raceFinished = {}; raceLead = null;
+  $("raceInfo2").textContent = "";
+  const mi = monthInfo(); setRace(mi.dom * (parseInt($("raceScrub").value, 10) || 0) / 100);
+});
+function raceRows() {
+  const mi = monthInfo(), t = today();
+  return NAMES.map(n => ({ n: n, tot: (raceCum[n] || [0])[mi.dom] || 0, td: stepsOf(n, t) })).sort((a, b) => b.tot - a.tot || (a.n < b.n ? -1 : 1));
+}
+function renderRaceBoard(rise) {
+  const mi = monthInfo(), rows = raceRows();
+  const medals = ["🥇", "🥈", "🥉"], lead = rows[0] ? rows[0].tot : 0;
+  const pod = rows.slice(0, 3).map((r, i) => ({ r: r, i: i }));
+  const order = pod.length === 3 ? [pod[1], pod[0], pod[2]] : pod.length === 2 ? [pod[1], pod[0]] : pod;
+  const podHtml = lead > 0 ? '<div class="pod' + (rise && animOn() ? " rise" : "") + '">' + order.map(x => '<div class="pcol p' + (x.i + 1) + '"><span class="pav">' + av(x.r.n, 34) + '</span><b>' + esc(x.r.n) + "</b><small>" + numFmt(x.r.tot) + '</small><i style="height:' + Math.max(18, Math.round(x.r.tot / lead * 74)) + 'px">' + medals[x.i] + "</i></div>").join("") + "</div>" : "";
+  $("raceBoard").innerHTML = podHtml + '<div class="scroll"><table><thead><tr><th>#</th><th>' + L("Kto", "Who") + '</th><th class="num">' + L("Kroki", "Steps") + '</th><th class="num">' + L("Śr./dzień", "Avg/day") + '</th><th class="num">' + L("Dziś", "Today") + '</th><th class="num">' + L("Do lidera", "Behind") + "</th></tr></thead><tbody>" +
+    rows.map((r, i) => '<tr class="' + (i === 0 && r.tot > 0 ? "first" : "") + '"><td class="place">' + (medals[i] || (i + 1) + ".") + '</td><td><span class="who">' + av(r.n, 24) + esc(r.n) + '</span></td><td class="num">' + numFmt(r.tot) +
+      '</td><td class="num">' + numFmt(r.tot / Math.max(1, mi.dom)) + '</td><td class="num">' + numFmt(r.td) + '</td><td class="num">' + (i === 0 ? "—" : "−" + numFmt(lead - r.tot)) + "</td></tr>").join("") + "</tbody></table></div>";
+}
+function renderMySteps() {
+  const me = state.me;
+  if (!me || !state.users[me]) return;
+  const t = today(), el = $("stList");
+  if (!$("stDate").value) $("stDate").value = t;
+  $("stDate").max = t; $("stDate").min = addDays(t, -30);
+  const days = []; for (let i = 0; i < 7; i++) days.push(addDays(t, -i));
+  el.innerHTML = days.map(d => '<div class="strow"><span>' + esc(dayLabel(d)) + "</span><b>" + (stepsOf(me, d) ? numFmt(stepsOf(me, d)) : "—") + "</b></div>").join("");
+}
+function renderRace(replay) {
+  if (!$("raceBox") || !state.me) return;
+  const mi = monthInfo();
+  $("raceInfo").textContent = L("Bez limitów: kto w tym miesiącu zrobi więcej kroków, ten wygrywa. Biegacze mkną w tempie swoich kroków, a znaczniki na torze pokazują tysiące.",
+    "No limits: whoever makes more steps this month wins. Runners move at the pace of their steps, and the marks on the track show thousands.");
+  const oldSig = raceSig;
+  buildRace();
+  renderMySteps();
+  if (replay) { playRace(); return; }
+  if (!raceAnim) { raceFinished = {}; raceLead = null; setRace(mi.dom); renderRaceBoard(false); }
+  void oldSig;
+}
+$("stSave").addEventListener("click", async () => {
+  const me = state.me, d = $("stDate").value, n = Math.round(parseFloat($("stVal").value));
+  const msg = $("stMsg");
+  if (!me) return;
+  if (!d || d > today() || d < addDays(today(), -30)) { msg.textContent = L("Wybierz dzień z ostatnich 30 dni.", "Pick a day from the last 30 days."); return; }
+  if (!(n >= 0 && n <= 100000)) { msg.textContent = L("Podaj liczbę kroków (0–100000).", "Enter a step count (0–100000)."); return; }
+  msg.textContent = L("Zapisuję…", "Saving…");
+  try {
+    await mutate(me, dd => {
+      const s = Object.assign({}, dd.stp || {}); s[d] = n;
+      const keys = Object.keys(s).sort(); while (keys.length > 120) delete s[keys.shift()];
+      dd.stp = s;
+      if (n >= 8000) { const v = Object.assign({ water: false, workout: false, steps: false }, dd.daily[d] || {}); v.steps = true; dd.daily[d] = v; }
+      return dd;
+    });
+    $("stVal").value = "";
+    msg.textContent = L("Zapisane ✅", "Saved ✅");
+    if (n >= 10000 && d === today() && coachAutoOn()) coachSay(L(me + ", " + numFmt(n) + " kroków! Mistrzowski dzień, tak się zdobywa metę. 👟🔥", me + ", " + numFmt(n) + " steps! A champion day, that is how you reach the finish. 👟🔥"));
+    playRace();
+  } catch (e) { console.error(e); msg.textContent = L("Nie udało się zapisać.", "Could not save."); }
+});
+$("stVal").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("stSave").click(); } });
+
+/* ---------- wyzwanie dnia (AI, zmieniane codziennie) ---------- */
+const DCH = [
+  ["👟", "Spacer po obiedzie", "Wyjdź na 20 minut spaceru po głównym posiłku.", "Walk after lunch", "Go for a 20-minute walk after your main meal.", 6000],
+  ["🪜", "Schody zamiast windy", "Dziś wybieraj schody wszędzie, gdzie się da.", "Stairs over lift", "Take the stairs wherever you can today.", 7000],
+  ["💧", "Dzień wody", "Wypij 2 litry wody i zrób 8000 kroków.", "Water day", "Drink 2 litres of water and make 8000 steps.", 8000],
+  ["🌅", "Poranny ruch", "Zacznij dzień 15 minutami marszu przed pracą.", "Morning move", "Start the day with a 15-minute walk before work.", 6500],
+  ["🏃", "Wieczorny dystans", "Zrób wieczorem spacer lub bieg na 30 minut.", "Evening distance", "Do a 30-minute walk or run this evening.", 9000],
+  ["🤝", "Spacer we dwoje", "Zaproś kogoś na wspólny spacer i pochwalcie się na czacie.", "Walk together", "Invite someone for a walk and brag in the chat.", 7500],
+  ["🔥", "Rekord tygodnia", "Pobij swój najlepszy wynik kroków z ostatnich 7 dni.", "Weekly record", "Beat your best step count of the last 7 days.", 10000],
+  ["🧘", "Lekki dzień", "Spokojny spacer 5000 kroków i 10 minut rozciągania.", "Easy day", "A relaxed 5000-step walk and 10 minutes of stretching.", 5000],
+  ["🚶", "Przerwy na ruch", "Co godzinę wstań i zrób 300 kroków.", "Move breaks", "Stand up every hour and take 300 steps.", 7000],
+  ["🌳", "Zielona trasa", "Wybierz dziś trasę przez park lub las.", "Green route", "Choose a route through a park or forest today.", 8000],
+  ["🎧", "Spacer z muzyką", "Włącz ulubioną playlistę i idź, aż skończy się 5 utworów.", "Walk with music", "Put on your favourite playlist and walk for 5 songs.", 7000],
+  ["🚲", "Auto na bok", "Krótkie dystanse dziś pokonaj pieszo lub rowerem.", "Car aside", "Cover short distances on foot or by bike today.", 8500],
+  ["💪", "Kroki i pompki", "8000 kroków i 20 pompek w ciągu dnia.", "Steps and push-ups", "8000 steps and 20 push-ups during the day.", 8000],
+  ["🏁", "Sprint do mety", "Dorzuć 2000 kroków więcej niż wczoraj.", "Sprint to the finish", "Add 2000 more steps than yesterday.", 9000]
+];
+const groupKey = () => NAMES.map(n => IDS[n]).sort().join("+");
+let dchBusy = false, dchTried = "";
+function dchCurrent() {
+  const e = (((state.group || {}).dch) || {})[groupKey()];
+  if (e && e.d === today() && e.t) return { e: e.e || "🎯", t: e.t, x: e.x || "", s: +e.s || 0, ai: true };
+  const f = DCH[Math.floor(parseD(today()).getTime() / 86400000) % DCH.length];
+  return { e: f[0], t: L(f[1], f[3]), x: L(f[2], f[4]), s: f[5], ai: false };
+}
+function renderDch() {
+  const box = $("dchBox");
+  if (!box || !state.me) return;
+  const c = dchCurrent(), t = today();
+  box.innerHTML = '<div class="dch"><div class="dche">' + esc(c.e) + '</div><div><b class="dcht">' + esc(c.t) + "</b><div>" + esc(c.x) + "</div>" +
+    (c.s ? '<small>' + L("Cel dnia: ", "Daily goal: ") + numFmt(c.s) + L(" kroków", " steps") + "</small>" : "") + "</div></div>" +
+    (c.s ? '<div class="dchwho">' + NAMES.map(n => { const v = stepsOf(n, t), ok = v >= c.s; return '<span class="chip' + (ok ? " ok" : "") + '">' + av(n, 20) + esc(n) + " " + (ok ? "✅" : numFmt(v)) + "</span>"; }).join("") + "</div>" : "") +
+    '<div class="msg">' + (c.ai ? L("Nowe wyzwanie od trenera AI każdego dnia.", "A new AI coach challenge every day.") : L("Wyzwanie na dziś. Z kluczem Gemini trener AI wymyśla nowe codziennie.", "Today's challenge. With a Gemini key the AI coach invents a new one daily.")) + "</div>";
+}
+async function ensureDch() {
+  if (dchBusy || !state.me || !aiKey() || NAMES.length < 1) return;
+  const key = groupKey(), mark = today() + "|" + key;
+  if (dchTried === mark) return;
+  const e0 = (((state.group || {}).dch) || {})[key];
+  if (e0 && e0.d === today() && e0.t) return;
+  dchTried = mark; dchBusy = true;
+  let claimed = false;
+  try {
+    await mutateDoc("group", d => {
+      claimed = false;
+      const all = Object.assign({}, d.dch || {}), e = all[key];
+      if (!e || e.d !== today() || (!e.t && Date.now() - (e.ts || 0) > 60000)) { all[key] = { d: today(), t: "", ts: Date.now() }; d.dch = all; claimed = true; }
+      return d;
+    });
+    if (!claimed) return;
+    const mi = monthInfo(), top = NAMES.map(n => ({ n: n, v: (raceCum[n] || cumSteps(n, mi))[mi.dom] })).sort((a, b) => b.v - a.v);
+    const wd = parseD(today()).toLocaleDateString("pl-PL", { weekday: "long" });
+    const wc = (typeof weatherCtx === "function" && weatherCtx()) || "";
+    let p;
+    try {
+      p = parseJson(await aiAsk("WYZWANIE DNIA. Wymyśl JEDNO krótkie, motywujące wyzwanie na dziś dla grupy znajomych, którzy razem dbają o formę (głównie kroki i ruch, może też zdrowy nawyk). Dziś: " + today() + " (" + wd + "). " + wc +
+        " Stan wyścigu kroków w tym miesiącu: " + top.map(x => x.n + " " + x.v).join(", ") + ". Wyzwanie ma być inne niż typowe, konkretne i wykonalne w jeden dzień, bez porad medycznych. Zwróć wyłącznie JSON: {\"title\":\"max 40 znaków\",\"text\":\"1-2 zdania, max 160 znaków\",\"emoji\":\"jedno emoji\",\"steps\":liczba kroków celu dnia od 3000 do 15000}" + langNote(),
+        { json: true, max: 400, temp: 1 }));
+    } catch (err) { console.error(err); p = null; }
+    const s = x => String(x == null ? "" : x).replace(/[*_#`]+/g, "").trim();
+    const title = p ? s(p.title).slice(0, 60) : "";
+    if (!title) { await mutateDoc("group", d => { const all = Object.assign({}, d.dch || {}); if (all[key] && all[key].d === today() && !all[key].t) delete all[key]; d.dch = all; return d; }); return; }
+    const rec = { d: today(), t: title, x: s(p.text).slice(0, 220), e: s(p.emoji).slice(0, 4) || "🎯", s: Math.max(3000, Math.min(15000, Math.round(+p.steps / 500) * 500 || 7000)) };
+    await mutateDoc("group", d => { const all = Object.assign({}, d.dch || {}); all[key] = rec; d.dch = all; return d; });
+  } catch (err) { console.error(err); }
+  finally { dchBusy = false; }
+}
 
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
@@ -4828,6 +5194,19 @@ Object.assign(EN, {
   "Pogoda, pierścienie „Dziś” i seria dni": "Weather, “Today” rings and day streak",
   "Kalkulator kalorii (TDEE) i dziennik jedzenia": "Calorie calculator (TDEE) and food log",
   "Reakcje pod wiadomościami, czat ze zdjęciami": "Message reactions, chat with photos"
+});
+
+Object.assign(EN, {
+  "Co nowego w 3.4": "What's new in 3.4",
+  "Wyzwanie miesiąca: wyścig kroków bez limitów, z animacją, podium i wyzwaniem dnia od trenera AI": "Monthly challenge: unlimited animated step race with a podium and a daily AI coach challenge",
+  "Zaproszenia do apki przez Messenger, WhatsApp, SMS lub link": "Invite people to the app via Messenger, WhatsApp, SMS or a link",
+  "Przycisk „Zobacz” przy przyjacielu: jego postępy w jednym dotknięciu": "“View” button next to a friend: their progress in one tap",
+  "Wyzwanie i kroki": "Challenge & steps", "Wyzwanie dnia": "Challenge of the day", "Wyzwanie miesiąca: wyścig kroków": "Monthly challenge: step race",
+  "▶ Odtwórz wyścig": "▶ Replay the race", "Moje kroki": "My steps", "Liczba kroków": "Number of steps", "Zapisz kroki": "Save steps", "Ostatnie 7 dni": "Last 7 days",
+  "Zaproś znajomych do aplikacji": "Invite friends to the app",
+  "Wyślij link. Znajomy otwiera go, dodaje siebie na ekranie logowania, a potem zapraszasz go tutaj w zakładce Przyjaciele.": "Send the link. Your friend opens it, adds themselves on the login screen, and then you invite them here in the Friends tab.",
+  "📤 Udostępnij": "📤 Share", "💬 WhatsApp": "💬 WhatsApp", "📘 Messenger": "📘 Messenger", "✉️ SMS": "✉️ SMS", "📋 Kopiuj link": "📋 Copy link",
+  "Widzisz tylko siebie i swoich przyjaciół. Przyjaciele widzą nawzajem swoje postępy (waga, BMI, treningi, jedzenie, kroki), ranking i czat grupy. Przyjaźń działa, gdy obie osoby się zaakceptują. Dotknij „Zobacz”, żeby wejść w czyjś profil.": "You only see yourself and your friends. Friends see each other's progress (weight, BMI, workouts, food, steps), the ranking and the group chat. A friendship works when both people accept. Tap “View” to open someone's profile."
 });
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;

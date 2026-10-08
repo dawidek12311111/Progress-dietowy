@@ -737,6 +737,134 @@
   .tourDots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: width .25s, background .25s; }
   .tourDots i.on { width: 22px; border-radius: 99px; background: var(--accent); }
   .tourBtns { display: flex; justify-content: space-between; gap: 10px; }
+
+  /* ===== v3.8: film ===== */
+  .film { position: fixed; inset: 0; z-index: 95; background: radial-gradient(ellipse at 50% 30%, #1d3b34, #070d0c 75%); color: #fff; opacity: 0; transition: opacity .35s; overflow: hidden; display: flex; flex-direction: column; }
+  .film.in { opacity: 1; }
+  .film::before, .film::after { content: ""; position: absolute; left: 0; right: 0; height: 0; background: #000; z-index: 6; transition: height .8s cubic-bezier(.7,0,.2,1); }
+  .film::before { top: 0; } .film::after { bottom: 0; }
+  .film.go::before, .film.go::after { height: 7vh; }
+  .filmTop { position: absolute; top: calc(7vh + 8px); right: 12px; z-index: 8; display: flex; gap: 8px; }
+  .filmTop button { background: rgba(255,255,255,.14); color: #fff; border: 0; border-radius: 999px; padding: 8px 14px; font: inherit; font-size: .88rem; cursor: pointer; backdrop-filter: blur(4px); }
+  .filmScene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 10vh 20px; z-index: 2; }
+  .filmFx { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: 0; }
+  .filmFx.run.wipe { opacity: 1; background: linear-gradient(110deg, transparent 0 35%, #1f9e7a 35% 50%, #f2b33d 50% 58%, transparent 58%); background-size: 300% 100%; animation: fxWipe .7s ease-in-out forwards; }
+  @keyframes fxWipe { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  .filmFx.run.zoom { background: radial-gradient(circle, rgba(255,255,255,.95) 0, rgba(95,211,165,.6) 25%, transparent 60%); animation: fxZoom .7s ease-out forwards; }
+  @keyframes fxZoom { 0% { opacity: 0; transform: scale(.2); } 40% { opacity: 1; } 100% { opacity: 0; transform: scale(2.4); } }
+  .filmFx.run.flash { background: #fff; animation: fxFlash .55s ease-out forwards; }
+  @keyframes fxFlash { 0% { opacity: 0; } 30% { opacity: .9; } 100% { opacity: 0; } }
+  .fsc { width: 100%; max-width: 420px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; animation: fscIn .7s cubic-bezier(.2,.9,.3,1.1) both; }
+  @keyframes fscIn { from { opacity: 0; transform: scale(1.12); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+  .ftitle { font-size: clamp(1.7rem, 7vw, 2.4rem); font-weight: 900; line-height: 1.15; letter-spacing: -.01em; text-shadow: 0 6px 30px rgba(0,0,0,.5); }
+  .ftitle span, .fsub span, .wT span { display: inline-block; opacity: 0; transform: translateY(24px) rotate(4deg); animation: wordIn .55s cubic-bezier(.2,1.4,.4,1) forwards; animation-delay: calc(.25s + var(--w) * .12s); }
+  @keyframes wordIn { to { opacity: 1; transform: none; } }
+  .fsub { font-size: 1.1rem; color: rgba(255,255,255,.8); }
+  .fsub span { animation-delay: calc(1.2s + var(--w) * .1s); }
+  .flogo .mlogo { width: min(70vw, 300px); height: auto; color: #fff; animation: logoIn 1.4s cubic-bezier(.2,1.2,.3,1) both; filter: drop-shadow(0 10px 30px rgba(31,158,122,.6)); }
+  .flogo.small .mlogo { width: min(46vw, 180px); }
+  @keyframes logoIn { 0% { transform: scale(.2) rotate(-12deg); opacity: 0; } 60% { transform: scale(1.08) rotate(2deg); opacity: 1; } 100% { transform: none; } }
+  .fname { font-size: clamp(2rem, 9vw, 3rem); font-weight: 900; background: linear-gradient(90deg, #fff, #5fd3a5, #f2b33d, #fff); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 3s linear infinite, fscIn .8s .5s both; }
+  @keyframes shine { to { background-position: -300% 0; } }
+  .fsweep { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.25) 48%, transparent 66%); background-size: 250% 100%; animation: sweep 2.4s .6s ease-in-out both; pointer-events: none; }
+  @keyframes sweep { from { background-position: 150% 0; } to { background-position: -100% 0; } }
+  .fcard { width: 100%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 20px; padding: 16px; backdrop-filter: blur(6px); animation: fscIn .7s .4s both; position: relative; }
+  .fchart { width: 100%; height: auto; }
+  .fline { fill: none; stroke: #5fd3a5; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 2s .7s ease-out forwards; filter: drop-shadow(0 0 8px rgba(95,211,165,.7)); }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  .fdotc { fill: #f2b33d; opacity: 0; animation: popIn .5s 2.6s cubic-bezier(.2,1.6,.4,1) forwards; transform-box: fill-box; transform-origin: center; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0); } to { opacity: 1; transform: none; } }
+  .fstats { display: flex; justify-content: center; align-items: baseline; gap: 6px 10px; flex-wrap: wrap; margin-top: 6px; }
+  .fstats b { font-size: 2rem; font-variant-numeric: tabular-nums; } .fstats span { color: rgba(255,255,255,.7); margin-right: 14px; }
+  .frace .fl { position: relative; height: 54px; border-bottom: 2px dashed rgba(255,255,255,.25); }
+  .frun { position: absolute; bottom: 4px; left: 0; font-size: 2.1rem; animation: frun 3.6s cubic-bezier(.4,.1,.3,1) forwards, bobR .3s ease-in-out infinite alternate; animation-delay: calc(.6s + var(--d)), 0s; }
+  .frun em { position: absolute; top: -18px; left: 8px; font-style: normal; font-size: 1.1rem; animation: popIn .5s 4.2s both; }
+  @keyframes frun { to { left: calc(var(--to) - 36px); } }
+  @keyframes bobR { to { transform: translateY(-6px) rotate(6deg); } }
+  .ftrail { position: absolute; left: 0; bottom: 18px; height: 8px; width: 0; border-radius: 99px; background: linear-gradient(90deg, transparent, var(--c)); animation: ftrail 3.6s cubic-bezier(.4,.1,.3,1) forwards; animation-delay: calc(.6s + var(--d)); }
+  @keyframes ftrail { to { width: calc(var(--to) - 24px); } }
+  .fflag { position: absolute; right: 0; bottom: 6px; font-size: 1.5rem; }
+  .fmap svg { width: 100%; height: auto; }
+  .fpath { fill: none; stroke: #5fd3a5; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 420; stroke-dashoffset: 420; animation: draw 3.4s .4s ease-in-out forwards; }
+  .fcity { fill: #fff; opacity: 0; animation: popIn .5s var(--d) both; transform-box: fill-box; transform-origin: center; }
+  .fclab { fill: #fff; font-size: 11px; font-weight: 700; text-anchor: middle; opacity: 0; animation: popIn .5s var(--d) both; }
+  .fwalker { position: absolute; font-size: 1.6rem; left: 6%; top: 18%; animation: fwalk 3.4s .4s ease-in-out forwards; }
+  @keyframes fwalk { 0% { left: 4%; top: 14%; } 20% { left: 21%; top: 34%; } 40% { left: 34%; top: 54%; } 60% { left: 51%; top: 60%; } 75% { left: 68%; top: 57%; } 100% { left: 89%; top: 76%; } }
+  .fchat { display: flex; flex-direction: column; gap: 10px; text-align: start; }
+  .fb { max-width: 82%; padding: 10px 14px; border-radius: 16px; background: rgba(255,255,255,.14); opacity: 0; animation: msgPop .55s cubic-bezier(.2,1.5,.4,1) forwards; animation-delay: var(--d); }
+  .fb.r { align-self: flex-end; background: #1f9e7a; }
+  .ftr { margin-top: 6px; padding-top: 6px; border-top: 1px dashed rgba(255,255,255,.3); font-size: .9rem; color: #b8f3dc; opacity: 0; animation: fadeIn .6s 2.8s forwards; }
+  @keyframes fadeIn { to { opacity: 1; } }
+  .fcoach { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .fbot { font-size: 4rem; animation: bobR .8s ease-in-out infinite alternate; }
+  .fdots { display: flex; gap: 6px; } .fdots i { width: 9px; height: 9px; border-radius: 50%; background: #5fd3a5; animation: dot 1s infinite; } .fdots i:nth-child(2) { animation-delay: .15s; } .fdots i:nth-child(3) { animation-delay: .3s; }
+  .ftip { background: rgba(255,255,255,.12); border-radius: 14px; padding: 12px 14px; opacity: 0; animation: fscIn .6s 2s forwards; }
+  .fgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+  .fg { background: rgba(255,255,255,.1); border-radius: 18px; padding: 16px 6px; display: flex; flex-direction: column; gap: 6px; align-items: center; opacity: 0; animation: tileIn .6s cubic-bezier(.2,1.5,.4,1) forwards; animation-delay: var(--d); }
+  .fg b { font-size: 2.2rem; } .fg span { font-size: .85rem; }
+  .fcal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+  .ft { aspect-ratio: 1; border-radius: 8px; opacity: 0; animation: tileIn .45s cubic-bezier(.2,1.5,.4,1) forwards; animation-delay: calc(.5s + var(--d)); }
+  .ft.ok { background: #1f9e7a; } .ft.hi { background: #f2b33d; } .ft.lo { background: rgba(255,255,255,.25); }
+  .fcta .fbig { font-size: 1.25rem; padding: 16px 34px; border-radius: 999px; animation: fscIn .6s 1.4s both, btnPulse 1.4s 2s ease-in-out infinite; }
+  .fcta .linkbtn { color: rgba(255,255,255,.8); animation: fadeIn .5s 1.8s both; opacity: 0; }
+  .filmTap { position: absolute; inset: 0; z-index: 7; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 18vh; gap: 10px; background: none; border: 0; color: #fff; font: inherit; cursor: pointer; }
+  .filmTap .tapBtn { width: 84px; height: 84px; border-radius: 50%; background: #1f9e7a; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; box-shadow: 0 0 0 0 rgba(95,211,165,.6); animation: tapPulse 1.6s infinite; }
+  @keyframes tapPulse { 0% { box-shadow: 0 0 0 0 rgba(95,211,165,.6); } 100% { box-shadow: 0 0 0 28px rgba(95,211,165,0); } }
+  .filmBar { position: absolute; left: 0; right: 0; bottom: 7vh; height: 4px; background: rgba(255,255,255,.15); z-index: 7; }
+  .film:not(.go) .filmBar { bottom: 0; }
+  .filmBar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, #5fd3a5, #f2b33d); }
+  .filmFw { position: absolute; inset: 0; pointer-events: none; z-index: 9; }
+  /* ===== kreator ===== */
+  .wiz { position: fixed; inset: 0; z-index: 94; background: radial-gradient(ellipse at 50% 0%, color-mix(in srgb, var(--accent) 30%, var(--bg)), var(--bg) 70%); color: var(--ink); display: flex; flex-direction: column; opacity: 0; transition: opacity .35s; }
+  .wiz.in { opacity: 1; }
+  .wizTop { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; gap: 8px; }
+  .wizTop button { background: none; border: 0; font: inherit; color: var(--muted); font-size: 1rem; padding: 8px 10px; cursor: pointer; }
+  .wizTop #wizBack { font-size: 1.6rem; line-height: 1; }
+  .wizDots { display: flex; gap: 6px; flex: 1; justify-content: center; }
+  .wizDots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: all .3s; }
+  .wizDots i.done { background: var(--accent); opacity: .5; } .wizDots i.on { width: 22px; border-radius: 99px; background: var(--accent); }
+  .wizBody { flex: 1; overflow-y: auto; display: flex; align-items: center; justify-content: center; padding: 10px 20px; }
+  .wStep { width: 100%; max-width: 420px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; animation: wIn .55s cubic-bezier(.2,.9,.3,1.1) both; }
+  @keyframes wIn { from { opacity: 0; transform: translateX(40px) scale(.96); } to { opacity: 1; transform: none; } }
+  html[dir="rtl"] .wStep { animation-name: wInR; } @keyframes wInR { from { opacity: 0; transform: translateX(-40px) scale(.96); } to { opacity: 1; transform: none; } }
+  .wE { font-size: 3.6rem; line-height: 1; animation: popIn .6s .1s cubic-bezier(.2,1.6,.4,1) both; }
+  .wT { font-size: clamp(1.5rem, 6.5vw, 2rem); font-weight: 900; line-height: 1.2; }
+  .wS { color: var(--muted); }
+  .wInfo { background: var(--card); border-radius: 14px; padding: 12px 14px; box-shadow: 0 6px 20px rgba(0,0,0,.08); animation: fscIn .6s 1s both; }
+  .wLogo .mlogo { width: min(64vw, 260px); height: auto; color: var(--ink); animation: logoIn 1.3s cubic-bezier(.2,1.2,.3,1) both; }
+  .wnum { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .wnum b { font-size: 3.4rem; font-weight: 900; font-variant-numeric: tabular-nums; min-width: 3.2ch; color: var(--accent); }
+  .wnum b.bump { animation: bumpN .25s; } @keyframes bumpN { 50% { transform: scale(1.12); } }
+  .wnum span { color: var(--muted); font-weight: 700; margin-inline-start: -8px; }
+  .wnum button { width: 54px; height: 54px; border-radius: 50%; border: 0; background: var(--card); color: var(--ink); font-size: 1.8rem; box-shadow: 0 4px 14px rgba(0,0,0,.12); cursor: pointer; touch-action: manipulation; }
+  .wnum button:active { transform: scale(.9); }
+  .wStep input[type="range"] { width: 100%; max-width: 340px; accent-color: var(--accent); padding: 0; border: 0; background: none; height: 34px; }
+  .wHint { font-weight: 700; color: var(--muted); } .wHint.bad { color: var(--bad); }
+  .wChoice { display: flex; gap: 12px; width: 100%; max-width: 340px; }
+  .wc { flex: 1; font: inherit; border: 2px solid var(--line); background: var(--card); color: var(--ink); border-radius: 18px; padding: 14px 8px; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: transform .15s, border-color .2s; }
+  .wc b { font-size: 2.2rem; } .wc.on, .wa.on { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--card)); transform: scale(1.03); }
+  .wActs { display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 380px; }
+  .wa { font: inherit; display: flex; align-items: center; gap: 12px; text-align: start; border: 2px solid var(--line); background: var(--card); color: var(--ink); border-radius: 16px; padding: 10px 14px; cursor: pointer; animation: wIn .45s both; animation-delay: calc(var(--i) * 60ms); }
+  .wa b { font-size: 1.8rem; } .wa span { display: flex; flex-direction: column; } .wa small { color: var(--muted); }
+  .wAvPrev, .wDoneAv { width: 96px; height: 96px; border-radius: 50%; background: var(--card); display: flex; align-items: center; justify-content: center; font-size: 3.4rem; box-shadow: 0 8px 24px rgba(0,0,0,.15); overflow: hidden; }
+  .wAvPrev img, .wDoneAv img { width: 100%; height: 100%; object-fit: cover; }
+  .wAvPrev.bump { animation: popIn .45s cubic-bezier(.2,1.6,.4,1); }
+  .wDoneAv { width: 120px; height: 120px; font-size: 4.2rem; animation: popIn .7s cubic-bezier(.2,1.6,.4,1) both; }
+  .wEmo { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; width: 100%; max-width: 380px; }
+  .wEmo button { font-size: 1.5rem; border: 2px solid transparent; background: var(--card); border-radius: 12px; padding: 6px 0; cursor: pointer; animation: tileIn .4s both; animation-delay: calc(var(--i) * 25ms); }
+  .wEmo button.on { border-color: var(--accent); }
+  .wSum { justify-content: center; }
+  .wizTrans { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 3; opacity: 0; }
+  .wizTrans.run { animation: wtBg .8s ease-in-out; }
+  @keyframes wtBg { 0% { opacity: 0; } 35% { opacity: 1; } 100% { opacity: 0; } }
+  .wizTrans .mlogo { width: 200px; color: var(--accent); }
+  .wizTrans.run .mlogo { animation: wtLogo .8s cubic-bezier(.5,0,.3,1); }
+  @keyframes wtLogo { 0% { transform: scale(.3) rotate(-20deg); opacity: 0; } 45% { transform: scale(1) rotate(0); opacity: 1; } 100% { transform: scale(3.2); opacity: 0; } }
+  .wizFoot { padding: 10px 20px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; align-items: center; }
+  .wizNext { width: 100%; max-width: 380px; font-size: 1.15rem; padding: 16px; border-radius: 999px; }
+  .wizBar { width: 100%; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; max-width: 380px; }
+  .wizBar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #5fd3a5, #f2b33d); transition: width .6s cubic-bezier(.3,.8,.3,1); }
+  .wizFw { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
 </style>
 </head>
 <body>
@@ -797,9 +925,10 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.7</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.8</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
+  <button class="linkbtn" id="filmBtn" type="button">▶ Zobacz, jak to działa</button>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
   <div id="addUserBox" hidden style="width:100%;max-width:360px">
     <div class="row">
@@ -853,6 +982,21 @@
   </div>
 </div>
 
+<div class="film" id="film" hidden role="dialog" aria-modal="true" data-notr>
+  <div class="filmScene" id="filmScene"></div>
+  <div class="filmFx" id="filmFx"></div>
+  <div class="filmTop"><button id="filmMute" type="button">🔊</button><button id="filmSkip" type="button"></button></div>
+  <button class="filmTap" id="filmTap" type="button"><span class="tapBtn">▶</span><span id="filmTapT"></span></button>
+  <div class="filmBar"><i id="filmBarI"></i></div>
+  <div class="filmFw" id="filmFw"></div>
+</div>
+<div class="wiz" id="wiz" hidden role="dialog" aria-modal="true">
+  <div class="wizTop" data-notr><button id="wizBack" type="button" aria-label="‹">‹</button><div class="wizDots" id="wizDots"></div><button id="wizSkip" type="button"></button><button id="wizClose" type="button" aria-label="✕">✕</button></div>
+  <div class="wizBody" id="wizBody"></div>
+  <div class="wizTrans" id="wizTrans"></div>
+  <div class="wizFoot" data-notr><div class="wizBar"><i id="wizBarI"></i></div><button class="primary wizNext" id="wizNext" type="button"></button></div>
+  <div class="wizFw" id="wizFw"></div>
+</div>
 <div class="celeb" id="celeb" hidden><div class="celebIn" data-notr><div class="celebE" id="celebE"></div><div class="celebT" id="celebT"></div><div class="celebS" id="celebS"></div></div><div class="celebFw" id="celebFw"></div></div>
 <div class="cine" id="cine" hidden role="dialog" aria-modal="true">
   <div class="cineTop"><b id="cineTitle" data-notr></b><span id="cineDay" data-notr></span><button id="cineVoice" aria-label="Głos komentatora">🗣</button><button id="cineMute" aria-label="Dźwięk">🔊</button><button id="cineClose" aria-label="Zamknij">✕</button></div>
@@ -928,6 +1072,7 @@
         <label><input type="checkbox" id="setVib"> 📳 Wibracje</label>
         <label><input type="checkbox" id="setSnd"> 🔊 Dźwięki i muzyka</label>
         <button class="ghost" id="tourAgain" type="button">👋 Pokaż wprowadzenie</button>
+        <button class="ghost" id="previewNew" type="button">👀 Zobacz, jak widzi to nowy użytkownik</button>
       </div>
       <div class="msg">Te ustawienia dotyczą tylko tego urządzenia.</div>
     </section>
@@ -971,8 +1116,11 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.7</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.8</summary>
         <ul>
+          <li>Film powitalny dla nowych osób</li>
+          <li>Kreator profilu po rejestracji</li>
+          <li>Podgląd, jak widzi to nowy użytkownik (ustawienia)</li>
           <li>Wspólna podróż grupy: Katowice → Teheran</li>
           <li>Tryb kino wyścigu z komentarzem AI i muzyką</li>
           <li>Historia: rozmowy, dieta, obliczenia i wyniki AI</li>
@@ -1011,13 +1159,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.7</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.8</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.7</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.8</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -3258,7 +3406,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.7";
+const VER = "3.8";
 const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -4916,7 +5064,240 @@ function applyGo() {
   else if (g === "chat") { showPage("home"); setTimeout(() => { $("chatCard").scrollIntoView({ block: "start", behavior: "smooth" }); $("chatText").focus(); }, 450); }
   else if (g === "race") showPage("race");
 }
-function postEnter() { setTimeout(() => { if (!state.me) return; if (!tourSeen()) openTour(); else applyGo(); }, 1100); }
+function postEnter() { setTimeout(() => { if (!state.me) return; if (wizPending()) openWizard(false); else if (!tourSeen()) openTour(); else applyGo(); }, 1100); }
+
+/* ================= v3.8: film powitalny ================= */
+const logoSvg = cls => { const s = document.querySelector(".brand .mlogo"); return s ? s.outerHTML.replace('class="mlogo"', 'class="mlogo ' + (cls || "") + '"') : "💪"; };
+const words = (t, cls) => '<div class="' + (cls || "ftitle") + '">' + String(t).split(" ").map((w, i) => '<span style="--w:' + i + '">' + esc(w) + "</span>").join(" ") + "</div>";
+const FILM = [
+  { d: 6000, fx: "zoom", h: () => '<div class="fsc fintro"><div class="fsweep"></div><div class="flogo">' + logoSvg() + '</div><div class="fname">' + esc(L("Progress dietowy", "Progress dietowy")) + "</div>" + words(L("Twoja ekipa. Twoja forma.", "Your crew. Your shape."), "fsub") + "</div>" },
+  { d: 6500, fx: "wipe", h: () => '<div class="fsc">' + words(L("Śledź wagę i BMI", "Track weight and BMI")) + '<div class="fcard"><svg viewBox="0 0 300 120" class="fchart"><path d="M10 30 C 50 26, 70 50, 100 48 S 160 70, 190 72 S 250 92, 290 96" class="fline"/><circle cx="290" cy="96" r="6" class="fdotc"/></svg><div class="fstats"><b class="fcount" data-to="-4.2">0</b><span>kg</span><b class="fcount" data-to="24.1">0</b><span>BMI</span></div></div></div>' },
+  { d: 7000, fx: "flash", h: () => '<div class="fsc">' + words(L("Ścigaj się na kroki z przyjaciółmi", "Race your friends on steps")) + '<div class="fcard frace">' +
+      [["🦁", 88, "#1f9e7a"], ["🐻", 72, "#e0782a"], ["🦊", 61, "#5b6fe0"]].map((x, i) => '<div class="fl"><i class="ftrail" style="--c:' + x[2] + ";--to:" + x[1] + '%;--d:' + i * 0.15 + 's"></i><span class="frun" style="--to:' + x[1] + "%;--d:" + i * 0.15 + 's">' + x[0] + (i === 0 ? '<em>👑</em>' : "") + '</span><span class="fflag">🏁</span></div>').join("") + "</div></div>" },
+  { d: 7000, fx: "zoom", h: () => '<div class="fsc">' + words(L("Idźcie razem w podróż", "Go on a journey together")) + '<div class="fcard fmap"><svg viewBox="0 0 300 150"><path d="M20 30 L70 60 L110 90 L160 100 L210 95 L280 125" class="fpath"/>' +
+      [[20, 30, "Katowice"], [110, 90, L("Belgrad", "Belgrade")], [210, 95, "Ankara"], [280, 125, L("Teheran", "Tehran")]].map((c, i) => '<circle cx="' + c[0] + '" cy="' + c[1] + '" r="5" class="fcity" style="--d:' + (0.4 + i * 0.7) + 's"/><text x="' + c[0] + '" y="' + (c[1] - 9) + '" class="fclab" style="--d:' + (0.4 + i * 0.7) + 's">' + esc(c[2]) + "</text>").join("") +
+      '</svg><span class="fwalker">🚶</span></div></div>' },
+  { d: 7000, fx: "wipe", h: () => '<div class="fsc">' + words(L("Rozmawiajcie w każdym języku", "Chat in any language")) + '<div class="fcard fchat">' +
+      '<div class="fb l" style="--d:.3s">🐻 ' + esc(L("Kto dziś biega? 🏃", "Who's running today? 🏃")) + '</div><div class="fb r" style="--d:1.1s">' + esc(L("Ja! 10 km po pracy 💪", "Me! 10 km after work 💪")) + '</div><div class="fb l" style="--d:2s">🦊 سلام! من هم می‌آیم<div class="ftr">🌐 ' + esc(L("Cześć! Ja też idę", "Hi! I'm coming too")) + '</div></div><div class="fb r" style="--d:3s">❤️ 👍 🔥</div></div></div>' },
+  { d: 6500, fx: "flash", h: () => '<div class="fsc">' + words(L("Trener AI zawsze pod ręką", "An AI coach always at hand")) + '<div class="fcard fcoach"><div class="fbot">🤖</div><div class="fdots"><i></i><i></i><i></i></div><div class="ftip">' + esc(L("Świetna seria 5 dni! Dziś spokojny spacer i dużo wody 💧", "Great 5-day streak! Today an easy walk and plenty of water 💧")) + "</div></div></div>" },
+  { d: 6500, fx: "zoom", h: () => '<div class="fsc">' + words(L("Siłownia, jedzenie, kalkulator i więcej", "Gym, food, calculator and more")) + '<div class="fgrid">' +
+      [["🏋️", L("Siłownia", "Gym")], ["🍽", L("Jedzenie", "Food")], ["🧮", L("Kalkulator", "Calculator")], ["📷", L("Zdjęcia AI", "AI photos")], ["🎬", L("Kino", "Cinema")], ["🌦", L("Pogoda", "Weather")]].map((x, i) => '<div class="fg" style="--d:' + (0.3 + i * 0.18) + 's"><b>' + x[0] + "</b><span>" + esc(x[1]) + "</span></div>").join("") + "</div></div>" },
+  { d: 6000, fx: "wipe", h: () => { let t = ""; for (let i = 0; i < 28; i++) t += '<i class="ft ' + ["ok", "ok", "hi", "ok", "lo", "ok", "ok"][i % 7] + '" style="--d:' + (i * 0.05) + 's"></i>'; return '<div class="fsc">' + words(L("Wszystko zapisane w historii", "Everything saved in history")) + '<div class="fcard fcal">' + t + "</div></div>"; } },
+  { d: 0, fx: "zoom", h: () => '<div class="fsc fcta"><div class="flogo small">' + logoSvg() + "</div>" + words(L("Dołącz do ekipy 💪", "Join the crew 💪")) + words(L("Rejestracja zajmuje kilka sekund", "Signing up takes a few seconds"), "fsub") +
+      '<button class="primary fbig" id="filmJoin">' + esc(film && film.preview ? L("Dalej: kreator profilu ▶", "Next: profile setup ▶") : L("➕ Dołączam", "➕ Join now")) + '</button><button class="linkbtn" id="filmHave">' + esc(film && film.preview ? L("Zamknij", "Close") : L("Mam już konto", "I already have an account")) + "</button></div>" }
+];
+let film = null;
+const filmTotal = () => FILM.reduce((s, x) => s + x.d, 0);
+const filmSeen = () => { try { return localStorage.getItem("pd-film") === "1"; } catch (e) { return true; } };
+function openFilm(preview) {
+  try { localStorage.setItem("pd-film", "1"); } catch (e) {}
+  film = { i: -1, preview: !!preview, timer: 0, raf: 0, t0: 0, played: 0 };
+  const el = $("film");
+  el.hidden = false; el.classList.remove("in", "go"); void el.offsetWidth; el.classList.add("in");
+  $("filmScene").innerHTML = '<div class="fsc fintro"><div class="flogo">' + logoSvg() + "</div></div>";
+  $("filmTap").hidden = false;
+  $("filmTapT").textContent = L("Dotknij, aby obejrzeć", "Tap to watch");
+  $("filmSkip").textContent = L("Pomiń", "Skip");
+  $("filmMute").textContent = sndOn() ? "🔊" : "🔇";
+  $("filmBarI").style.width = "0%";
+  document.body.style.overflow = "hidden";
+}
+function filmStart() {
+  if (!film) return;
+  sctx();
+  $("filmTap").hidden = true;
+  $("film").classList.add("go");
+  if (sndOn()) { SND.bpm = 104; musicStart(); }
+  film.t0 = performance.now();
+  const me = film, tot = filmTotal();
+  const tick = now => { if (film !== me) return; const p = Math.min(1, (now - me.t0) / tot); $("filmBarI").style.width = (p * 100) + "%"; if (p < 1) me.raf = requestAnimationFrame(tick); };
+  me.raf = requestAnimationFrame(tick);
+  filmNext();
+}
+function filmNext() {
+  if (!film) return;
+  const me = film;
+  me.i++;
+  if (me.i >= FILM.length) return;
+  const sc = FILM[me.i], fx = $("filmFx");
+  fx.className = "filmFx " + sc.fx; void fx.offsetWidth; fx.classList.add("run");
+  if (me.i > 0) { sfx("whoosh"); buzz(15); }
+  setTimeout(() => {
+    if (film !== me) return;
+    $("filmScene").innerHTML = sc.h();
+    Array.prototype.forEach.call($("filmScene").querySelectorAll(".fcount"), el => {
+      const to = parseFloat(el.getAttribute("data-to")), t0 = performance.now();
+      const f = now => { const p = Math.min(1, (now - t0) / 1600), v = to * (1 - Math.pow(1 - p, 3)); el.textContent = (to < 0 ? "−" : "") + fmt(Math.abs(v)); if (p < 1 && film === me) requestAnimationFrame(f); };
+      setTimeout(() => requestAnimationFrame(f), 600);
+    });
+    if (me.i === FILM.length - 1) {
+      musicStop(2); sfx("fanfare"); buzz([80, 40, 120]);
+      if (animOn()) { confetti(); fireworks($("filmFw"), 3); setTimeout(() => { $("filmFw").innerHTML = ""; }, 3500); }
+      $("filmBarI").style.width = "100%";
+      $("filmJoin").addEventListener("click", () => { const pv = film && film.preview; closeFilm(); if (pv) openWizard(true); else { $("addUserBox").hidden = false; $("newUserMsg").textContent = ""; setTimeout(() => $("newUserName").focus(), 300); } });
+      $("filmHave").addEventListener("click", closeFilm);
+    } else me.timer = setTimeout(filmNext, sc.d);
+  }, 330);
+}
+function closeFilm() {
+  if (!film) return;
+  clearTimeout(film.timer); cancelAnimationFrame(film.raf);
+  film = null; musicStop(0.5);
+  const el = $("film"); el.classList.remove("in");
+  setTimeout(() => { el.hidden = true; el.classList.remove("go"); $("filmScene").innerHTML = ""; }, 300);
+  document.body.style.overflow = "";
+}
+$("filmTap").addEventListener("click", filmStart);
+$("filmSkip").addEventListener("click", () => {
+  if (!film) return;
+  if (film.i < 0) { closeFilm(); return; }
+  clearTimeout(film.timer); film.i = FILM.length - 2; filmNext();
+});
+$("filmMute").addEventListener("click", () => {
+  const on = !sndOn();
+  try { localStorage.setItem("pd-snd", on ? "1" : "0"); } catch (e) {}
+  if ($("setSnd")) $("setSnd").checked = on;
+  sndApplyMute(); $("filmMute").textContent = on ? "🔊" : "🔇";
+  if (on && film && film.i >= 0 && film.i < FILM.length - 1) { SND.bpm = 104; musicStart(); }
+  if (!on) musicStop(0.2);
+});
+$("filmBtn").addEventListener("click", () => openFilm(false));
+$("previewNew").addEventListener("click", () => { closeMenu(true); openFilm(true); });
+
+/* ================= v3.8: kreator profilu ================= */
+const ACTS = [[1.2, "🛋", "Siedzący tryb życia", "Sedentary", "brak treningów", "no workouts"], [1.375, "🚶", "Lekka aktywność", "Light activity", "1–3 treningi w tygodniu", "1–3 workouts a week"],
+  [1.55, "🏃", "Umiarkowana", "Moderate", "3–5 treningów w tygodniu", "3–5 workouts a week"], [1.725, "🏋️", "Wysoka", "High", "6–7 treningów w tygodniu", "6–7 workouts a week"], [1.9, "🔥", "Bardzo wysoka", "Very high", "praca fizyczna i treningi", "physical job and training"]];
+const WIZ_STEPS = ["intro", "h", "w", "g", "sa", "act", "av", "done"];
+let wiz = null;
+const wizPending = () => { try { return !!state.me && localStorage.getItem("pd-wiz") === state.me; } catch (e) { return false; } };
+function openWizard(preview) {
+  const me = state.me, u = (me && state.users[me]) || {}, l = u.entries ? latest(u) : null, pr = u.prof || {};
+  wiz = { i: 0, preview: !!preview, d: { h: u.height || 175, w: l ? l.weight : 80, g: u.goal || (l ? Math.round(l.weight - 3) : 75), sex: pr.sex || "m", age: pr.age || 30, act: pr.act || 1.55, av: u.avatar && String(u.avatar).indexOf("data:") !== 0 ? u.avatar : null, img: u.avatar && String(u.avatar).indexOf("data:") === 0 ? u.avatar : null } };
+  const el = $("wiz");
+  el.hidden = false; el.classList.remove("in"); void el.offsetWidth; el.classList.add("in");
+  document.body.style.overflow = "hidden";
+  sctx();
+  if (sndOn()) { SND.bpm = 96; musicStart(); }
+  paintWiz(false);
+}
+function wizNum(id, val, unit, min, max, step) {
+  return '<div class="wnum"><button type="button" data-wd="-1" aria-label="−">−</button><b id="wv">' + esc(fmt(val, step < 1 ? 1 : 0)) + "</b><span>" + esc(unit) + '</span><button type="button" data-wd="1" aria-label="+">+</button></div>' +
+    '<input type="range" id="wr" min="' + min + '" max="' + max + '" step="' + step + '" value="' + val + '" data-k="' + id + '">';
+}
+function wizHtml() {
+  const s = WIZ_STEPS[wiz.i], d = wiz.d, nm = state.me || L("Ty", "You");
+  const head = (e, t, sub) => '<div class="wE">' + e + "</div>" + words(t, "wT") + (sub ? '<div class="wS">' + esc(sub) + "</div>" : "");
+  if (s === "intro") return '<div class="wLogo">' + logoSvg() + "</div>" + words(L("Cześć", "Hi") + ", " + nm + "!", "wT") + '<div class="wS">' + esc(L("Ustawmy kilka rzeczy, żeby trener i kalkulator działały od razu.", "Let's set a few things so the coach and calculator work right away.")) + '</div><div class="wInfo">⚙️ ' + esc(L("Wszystko możesz później zmienić w ustawieniach.", "You can change everything later in the settings.")) + "</div>";
+  if (s === "h") return head("📏", L("Ile masz wzrostu?", "How tall are you?")) + wizNum("h", d.h, "cm", 120, 220, 1);
+  if (s === "w") return head("⚖️", L("Ile dziś ważysz?", "What do you weigh today?"), L("To będzie Twój pierwszy pomiar.", "This will be your first measurement.")) + wizNum("w", d.w, "kg", 35, 200, 0.1) + '<div class="wHint" id="wHint"></div>';
+  if (s === "g") return head("🎯", L("Jaki masz cel?", "What's your goal?"), L("Waga, do której chcesz dojść.", "The weight you want to reach.")) + wizNum("g", d.g, "kg", 35, 200, 0.1) + '<div class="wHint" id="wHint"></div>';
+  if (s === "sa") return head("🧬", L("Płeć i wiek", "Sex and age"), L("Potrzebne do obliczenia kalorii.", "Needed to calculate calories.")) +
+    '<div class="wChoice">' + [["m", "🙋‍♂️", L("Mężczyzna", "Male")], ["f", "🙋‍♀️", L("Kobieta", "Female")]].map(x => '<button type="button" class="wc' + (d.sex === x[0] ? " on" : "") + '" data-sex="' + x[0] + '"><b>' + x[1] + "</b>" + esc(x[2]) + "</button>").join("") + "</div>" + wizNum("age", d.age, L("lat", "years"), 16, 90, 1);
+  if (s === "act") return head("🏃", L("Jak bardzo się ruszasz?", "How active are you?")) + '<div class="wActs">' + ACTS.map((a, i) => '<button type="button" class="wa' + (Math.abs(d.act - a[0]) < 0.01 ? " on" : "") + '" data-act="' + a[0] + '" style="--i:' + i + '"><b>' + a[1] + "</b><span><strong>" + esc(L(a[2], a[3])) + "</strong><small>" + esc(L(a[4], a[5])) + "</small></span></button>").join("") + "</div>";
+  if (s === "av") return head("🎭", L("Wybierz awatar", "Pick your avatar"), L("Emoji albo własne zdjęcie.", "An emoji or your own photo.")) +
+    '<div class="wAvPrev" id="wAvPrev">' + (d.img ? '<img src="' + esc(d.img) + '" alt="">' : esc(d.av || "🙂")) + '</div><div class="wEmo">' + EMOJIS.map((e, i) => '<button type="button" data-av="' + e + '" class="' + (d.av === e && !d.img ? "on" : "") + '" style="--i:' + i + '">' + e + "</button>").join("") + '</div><button type="button" class="ghost" id="wPhotoBtn">📷 ' + esc(L("Własne zdjęcie", "Your own photo")) + '</button><input type="file" id="wPhoto" accept="image/*" hidden>';
+  const r = tdeeCalc({ sex: d.sex, age: d.age, h: d.h, w: d.w, act: d.act, goal: d.g < d.w - 0.5 ? "cut" : d.g > d.w + 0.5 ? "bulk" : "keep" });
+  return '<div class="wDoneAv">' + (d.img ? '<img src="' + esc(d.img) + '" alt="">' : esc(d.av || "🙂")) + "</div>" + words(L("Gotowe! 🎉", "All set! 🎉"), "wT") +
+    '<div class="chips wSum"><span>📏 ' + d.h + " cm</span><span>⚖️ " + fmt(d.w) + " kg</span><span>🎯 " + fmt(d.g) + " kg</span><span>🔥 " + r.target + " kcal / " + esc(L("dzień", "day")) + "</span></div>" +
+    '<div class="wS">' + esc(wiz.preview ? L("To podgląd: nic nie zostanie zapisane.", "This is a preview: nothing will be saved.") : L("Zapiszę to w Twoim profilu. Zmienisz wszystko w ustawieniach.", "I'll save this to your profile. You can change everything in the settings.")) + "</div>";
+}
+function wizHint() {
+  const el = $("wHint"); if (!el) return;
+  const d = wiz.d, s = WIZ_STEPS[wiz.i];
+  if (s === "w") { const b = bmi(d.w, d.h); el.textContent = "BMI " + fmt(b) + " · " + category(b); }
+  if (s === "g") {
+    const b = bmi(d.g, d.h), diff = d.g - d.w;
+    el.textContent = (Math.abs(diff) < 0.05 ? L("Utrzymanie wagi", "Keep the weight") : (diff < 0 ? "−" : "+") + fmt(Math.abs(diff)) + " kg") + " · BMI " + fmt(b) + (b < 18.5 ? " · " + L("to poniżej normy BMI, wybierz wyższy cel", "below a healthy BMI, pick a higher goal") : "");
+    el.classList.toggle("bad", b < 18.5);
+  }
+}
+function paintWiz(trans) {
+  const go = () => {
+    const s = WIZ_STEPS[wiz.i], n = WIZ_STEPS.length;
+    $("wizBody").innerHTML = '<div class="wStep">' + wizHtml() + "</div>";
+    $("wizBarI").style.width = (wiz.i / (n - 1) * 100) + "%";
+    $("wizDots").innerHTML = WIZ_STEPS.map((x, i) => '<i class="' + (i < wiz.i ? "done" : i === wiz.i ? "on" : "") + '"></i>').join("");
+    $("wizBack").style.visibility = wiz.i > 0 && s !== "done" ? "visible" : "hidden";
+    $("wizSkip").style.visibility = s !== "intro" && s !== "done" ? "visible" : "hidden";
+    $("wizSkip").textContent = L("Pomiń", "Skip");
+    $("wizNext").textContent = s === "intro" ? L("Zaczynamy ▶", "Let's start ▶") : s === "done" ? L("Wchodzę 💪", "Let's go 💪") : L("Dalej", "Next");
+    $("wizClose").textContent = "✕";
+    wizHint();
+    if (s === "done") { musicStop(1.5); sfx("fanfare"); buzz([80, 40, 160]); if (animOn()) { confetti(); fireworks($("wizFw"), 3); setTimeout(() => { $("wizFw").innerHTML = ""; }, 3200); } }
+  };
+  if (!trans || !animOn()) { go(); return; }
+  const t = $("wizTrans");
+  t.innerHTML = logoSvg("wtLogo"); t.classList.remove("run"); void t.offsetWidth; t.classList.add("run");
+  sfx("whoosh");
+  setTimeout(go, 360);
+}
+function wizMove(dir) { wiz.i = Math.max(0, Math.min(WIZ_STEPS.length - 1, wiz.i + dir)); buzz(15); paintWiz(true); }
+async function wizFinish() {
+  const d = wiz.d, me = state.me, pv = wiz.preview;
+  if (!pv && me) {
+    const goal = d.g < d.w - 0.5 ? "cut" : d.g > d.w + 0.5 ? "bulk" : "keep", r = tdeeCalc({ sex: d.sex, age: d.age, h: d.h, w: d.w, act: d.act, goal: goal });
+    const gb = bmi(d.g, d.h);
+    try {
+      await mutate(me, x => {
+        x.height = d.h;
+        if (gb >= 18.5) x.goal = Math.round(d.g * 10) / 10;
+        const t = today();
+        if (!x.entries.some(e => e.date === t)) x.entries.push({ id: uid2(), date: t, weight: Math.round(d.w * 10) / 10 });
+        x.prof = { sex: d.sex, age: d.age, act: d.act, goal: r.goal };
+        x.tgt = { k: r.target, p: r.p, c: r.c, f: r.f };
+        if (d.img) x.avatar = d.img; else if (d.av) x.avatar = d.av;
+        return x;
+      });
+      toast(L("Profil zapisany ✅", "Profile saved ✅"));
+    } catch (e) { console.error(e); toast(L("Nie udało się zapisać profilu.", "Could not save the profile.")); }
+    try { localStorage.removeItem("pd-wiz"); } catch (e) {}
+  }
+  closeWizard();
+}
+function closeWizard() {
+  const pv = wiz && wiz.preview;
+  wiz = null; musicStop(0.6);
+  const el = $("wiz"); el.classList.remove("in");
+  setTimeout(() => { el.hidden = true; $("wizBody").innerHTML = ""; }, 300);
+  document.body.style.overflow = "";
+  if (!pv) { try { localStorage.removeItem("pd-wiz"); } catch (e) {} setTimeout(() => { if (!tourSeen()) openTour(); else applyGo(); }, 500); }
+}
+$("wizNext").addEventListener("click", () => { if (!wiz) return; if (WIZ_STEPS[wiz.i] === "done") wizFinish(); else wizMove(1); });
+$("wizBack").addEventListener("click", () => { if (wiz) wizMove(-1); });
+$("wizSkip").addEventListener("click", () => { if (wiz) wizMove(1); });
+$("wizClose").addEventListener("click", () => { if (wiz) closeWizard(); });
+$("wizBody").addEventListener("input", e => {
+  const r = e.target; if (!wiz || r.id !== "wr") return;
+  const k = r.getAttribute("data-k"), v = parseFloat(r.value);
+  wiz.d[k] = v; $("wv").textContent = fmt(v, r.step < 1 ? 1 : 0); wizHint();
+});
+$("wizBody").addEventListener("click", async e => {
+  if (!wiz) return;
+  const t = e.target.closest ? e.target.closest("button, #wPhoto") : null; if (!t) return;
+  if (t.hasAttribute("data-wd")) {
+    const r = $("wr"), st = parseFloat(r.step), v = Math.max(parseFloat(r.min), Math.min(parseFloat(r.max), Math.round((parseFloat(r.value) + st * parseInt(t.getAttribute("data-wd"), 10)) * 10) / 10));
+    r.value = v; wiz.d[r.getAttribute("data-k")] = v; $("wv").textContent = fmt(v, st < 1 ? 1 : 0); wizHint(); buzz(8);
+    const b = $("wv"); b.classList.remove("bump"); void b.offsetWidth; b.classList.add("bump");
+  } else if (t.hasAttribute("data-sex")) { wiz.d.sex = t.getAttribute("data-sex"); Array.prototype.forEach.call($("wizBody").querySelectorAll("[data-sex]"), x => x.classList.toggle("on", x === t)); buzz(12); sfx("pop"); }
+  else if (t.hasAttribute("data-act")) { wiz.d.act = parseFloat(t.getAttribute("data-act")); Array.prototype.forEach.call($("wizBody").querySelectorAll("[data-act]"), x => x.classList.toggle("on", x === t)); buzz(12); sfx("pop"); }
+  else if (t.hasAttribute("data-av")) {
+    wiz.d.av = t.getAttribute("data-av"); wiz.d.img = null;
+    Array.prototype.forEach.call($("wizBody").querySelectorAll("[data-av]"), x => x.classList.toggle("on", x === t));
+    const p = $("wAvPrev"); p.textContent = wiz.d.av; p.classList.remove("bump"); void p.offsetWidth; p.classList.add("bump"); buzz(12); sfx("pop");
+  } else if (t.id === "wPhotoBtn") $("wPhoto").click();
+});
+$("wizBody").addEventListener("change", async e => {
+  const f = e.target.id === "wPhoto" && e.target.files && e.target.files[0];
+  if (!f || !wiz) return;
+  try {
+    const b64 = await fileToJpeg(f, 256);
+    wiz.d.img = "data:image/jpeg;base64," + b64; wiz.d.av = null;
+    $("wAvPrev").innerHTML = '<img src="' + wiz.d.img + '" alt="">';
+    Array.prototype.forEach.call($("wizBody").querySelectorAll("[data-av]"), x => x.classList.remove("on"));
+    sfx("pop"); buzz(20);
+  } catch (err) { toast(L("Nie mogę odczytać zdjęcia.", "Cannot read the photo.")); }
+});
+setTimeout(() => { if (!state.me && !pendingMe && !filmSeen() && !$("login").hidden && !film) openFilm(false); }, 2600);
 
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
@@ -5491,6 +5872,7 @@ async function addUser() {
     await mutate(raw, d => { d.name = raw; return d; });
     $("newUserName").value = ""; $("addUserBox").hidden = true; msg.textContent = "";
     render(false);
+    try { localStorage.setItem("pd-wiz", raw); } catch (e) {}
     tryLogin(raw);
   } catch (e) { console.error(e); msg.textContent = L("Nie udało się zapisać. Sprawdź internet.", "Could not save. Check your connection."); }
 }
@@ -6387,6 +6769,8 @@ Object.assign(EN, {
 Object.assign(FAD, {"Poland": "لهستان", "Home": "خانه", "Gym": "باشگاه", "Food & calories": "غذا و کالری", "Calculator": "ماشین‌حساب", "Helpful tools": "ابزارهای مفید", "Coach": "مربی", "Friends": "دوستان", "Challenge & steps": "چالش و قدم‌ها", "Invitations for you": "دعوت‌ها برای شما", "Accept": "پذیرفتن", "Decline": "رد کردن", "wants to share data": "می‌خواهد داده‌ها را به اشتراک بگذارد", "My friends": "دوستان من", "Remove": "حذف", "Nobody yet. Invite someone below.": "فعلاً کسی نیست. پایین کسی را دعوت کنید.", "Cancel": "لغو", "waiting for acceptance": "منتظر پذیرش", "Sent invitations": "دعوت‌های ارسال‌شده", "Other people in the app": "دیگر افراد برنامه", "Invite": "دعوت", "No more people.": "فرد دیگری نیست.", "View": "مشاهده", "Yesterday": "دیروز", "7 days": "۷ روز", "30 days": "۳۰ روز", "Min": "دقیقه", "kcal burned": "کیلوکالری سوخته", "kcal/day": "کیلوکالری در روز", "Active days": "روزهای فعال", "Weight Δ": "تغییر وزن", "Steps": "قدم", "Avg/day": "میانگین در روز", "Behind": "تا پیشتاز", "Day ": "روز ", " of ": " از ", "Saved ✅": "ذخیره شد ✅", "Link copied ✅": "لینک کپی شد ✅", "Copied. Paste it in Messenger.": "کپی شد. در مسنجر بچسبانید.", "Pick a day from the last 30 days.": "یک روز از ۳۰ روز اخیر انتخاب کنید.", "Enter a step count (0–100000).": "تعداد قدم را وارد کنید (۰ تا ۱۰۰۰۰۰).", "Daily goal: ": "هدف روز: ", " steps": " قدم", "A new AI coach challenge every day.": "هر روز یک چالش تازه از مربی هوش مصنوعی.", "Today's challenge. With a Gemini key the AI coach invents a new one daily.": "چالش امروز. با کلید Gemini مربی هوش مصنوعی هر روز یکی تازه می‌سازد.", "Added to friends 🎉": "به دوستان اضافه شد 🎉", "Nobody here yet. Add friends in the “Friends” tab.": "هنوز کسی اینجا نیست. در بخش «دوستان» دوست اضافه کنید.", "No workout: ": "بدون تمرین: ", "Nobody has logged anything yet.": "هنوز کسی چیزی ثبت نکرده است.", "Nobody logged a workout in the last 7 days.": "در ۷ روز اخیر کسی تمرینی ثبت نکرده است.", "exercises": "حرکت", "Best set": "بهترین ست", "Exercise": "حرکت ورزشی", "Records will show up after your first workout.": "رکوردها بعد از اولین تمرین نمایش داده می‌شوند.", "No gym workouts yet. Start your first one!": "هنوز تمرین باشگاهی نیست. اولین را شروع کنید!", "Summary": "خلاصه", "Group tasks": "وظایف گروه", "Person of the period: ": "فرد برتر دوره: ", "Post a short version to chat": "ارسال نسخه کوتاه در گفتگو", "Posted ✅": "ارسال شد ✅", "overtakes": "سبقت می‌گیرد از", "Leading: ": "پیشتاز: ", "steps ahead": "قدم اختلاف", "Who ": "چه کسی ", "Weight": "وزن", "Today": "امروز", "Workouts": "تمرین‌ها", "No limits: whoever makes more steps this month wins. Runners move at the pace of their steps, and the marks on the track show thousands.": "بدون محدودیت: هر که در این ماه قدم بیشتری بردارد برنده است. دونده‌ها با سرعت قدم‌هایشان می‌دوند و نشانه‌های روی مسیر هزارتا را نشان می‌دهند.", "Send the link. Your friend opens it, adds themselves on the login screen, and then you invite them here in the Friends tab.": "لینک را بفرستید. دوستتان آن را باز می‌کند، خودش را در صفحه ورود اضافه می‌کند و بعد شما او را از همین‌جا در بخش دوستان دعوت می‌کنید.", "You only see yourself and your friends. Friends see each other's progress (weight, BMI, workouts, food, steps), the ranking and the group chat. A friendship works when both people accept. Tap “View” to open someone's profile.": "شما فقط خودتان و دوستانتان را می‌بینید. دوستان پیشرفت یکدیگر (وزن، شاخص توده بدنی، تمرین، غذا، قدم)، رتبه‌بندی و گفتگوی گروه را می‌بینند. دوستی زمانی برقرار می‌شود که هر دو نفر بپذیرند. روی «مشاهده» بزنید تا نمایه کسی را باز کنید.", "🌐 Translate": "🌐 ترجمه", "Translating…": "در حال ترجمه…", "Could not translate.": "ترجمه ممکن نشد.", "🌐 Auto-translate chat messages": "🌐 ترجمه خودکار پیام‌های گفتگو", "Diet Progress": "پیشرفت رژیمی", "Who are you?": "شما کی هستید؟", "Connecting to the database…": "در حال اتصال به پایگاه داده…", "Settings": "تنظیمات", "Profile": "نمایه", "Avatar: pick an emoji or upload a photo": "آواتار: یک ایموجی انتخاب کنید یا عکس بارگذاری کنید", "Upload photo": "بارگذاری عکس", "Default avatar": "آواتار پیش‌فرض", "My data": "اطلاعات من", "Height (cm)": "قد (سانتی‌متر)", "Goal weight (kg)": "وزن هدف (کیلوگرم)", "Save": "ذخیره", "Current weight (kg)": "وزن فعلی (کیلوگرم)", "Save for today": "ذخیره برای امروز", "Appearance": "ظاهر", "Theme": "پوسته", "Automatic": "خودکار", "Light": "روشن", "Dark": "تیره", "Text size": "اندازه متن", "Smaller": "کوچک‌تر", "Normal": "معمولی", "Larger": "بزرگ‌تر", "Largest": "بزرگ‌ترین", "App colour": "رنگ برنامه", "Default": "پیش‌فرض", "Preferences": "ترجیحات", "🎉 Confetti on a new badge": "🎉 کاغذرنگی برای نشان جدید", "🤖 Coach posts on its own after my entries": "🤖 مربی بعد از ثبت‌های من خودش پیام می‌دهد", "✨ Animations": "✨ انیمیشن‌ها", "These settings apply to this device only.": "این تنظیمات فقط برای همین دستگاه اعمال می‌شود.", "Language / Język": "زبان / Language / Język", "Show welcome screen": "نمایش صفحه خوش‌آمدگویی", "AI Coach (Gemini)": "مربی هوش مصنوعی (Gemini)", "Gemini API key": "کلید API جمینای", "Test AI": "آزمایش هوش مصنوعی", "Turn AI off": "خاموش کردن هوش مصنوعی", "Data & account": "داده‌ها و حساب", "Send ranking to WhatsApp": "ارسال رتبه‌بندی به واتس‌اپ", "Export data to a file": "خروجی داده‌ها در فایل", "Switch user": "تغییر کاربر", "Let's go 💪": "بزن بریم 💪", "Not me: switch user": "من نیستم: تغییر کاربر", "Add measurement": "افزودن اندازه‌گیری", "Date": "تاریخ", "Weight (kg)": "وزن (کیلوگرم)", "Add": "افزودن", "Weight chart": "نمودار وزن", "Combined chart": "نمودار مشترک", "BMI ranking": "رتبه‌بندی شاخص توده بدنی", "Weekly challenge": "چالش هفته", "Group goal & progress": "هدف و پیشرفت گروه", "Bet": "شرط دوستانه", "Set or change the bet": "تنظیم یا تغییر شرط", "Stake": "جایزه شرط", "Bet end date": "تاریخ پایان شرط", "Save bet": "ذخیره شرط", "Delete bet": "حذف شرط", "Workout & calories": "تمرین و کالری", "Day": "روز", "Type": "نوع", "Time (min)": "زمان (دقیقه)", "Calories (optional)": "کالری (اختیاری)", "Add workout": "افزودن تمرین", "This week": "این هفته", "Activity ranking (this week)": "رتبه‌بندی فعالیت (این هفته)", "Recent workouts": "تمرین‌های اخیر", "Daily points": "امتیازهای روز", "💧 Water": "💧 آب", "🏃 Workout": "🏃 تمرین", "👟 Steps": "👟 قدم", "Points are saved to your profile.": "امتیازها در نمایه شما ذخیره می‌شوند.", "Calendar & achievements": "تقویم و دستاوردها", "Badges": "نشان‌ها", "Chat": "گفتگو", "Message": "پیام", "Send": "ارسال", "Measurement history": "تاریخچه اندازه‌گیری‌ها", "Close settings": "بستن تنظیمات", "Menu and settings": "منو و تنظیمات", "e.g. 84.5": "مثلاً 84.5", "e.g. 45": "مثلاً 45", "from your watch": "از ساعت شما", "Write something…": "چیزی بنویسید…", "Connected. Data is shared with everyone.": "متصل شد. داده‌ها بین همه مشترک است.", "now": "اکنون", "No messages yet. Write the first one.": "هنوز پیامی نیست. اولین پیام را بنویسید.", "No measurements yet. Add the first one above.": "هنوز اندازه‌گیری‌ای نیست. اولی را در بالا اضافه کنید.", "No workouts yet. Add the first one above.": "هنوز تمرینی نیست. اولی را در بالا اضافه کنید.", "Delete": "حذف", "Who": "چه کسی", "Rating": "رتبه", "Goal": "هدف", "Total": "مجموع", "Minutes": "دقیقه", "Time": "زمان", "Progress this week": "پیشرفت این هفته", "Progress since start": "پیشرفت از ابتدا", "7-day average": "میانگین ۷ روز", "Measurement streak": "تداوم اندازه‌گیری", "Goal forecast": "پیش‌بینی رسیدن به هدف", "kcal (est.)": "کیلوکالری (تخمینی)", "normal": "نرمال", "overweight": "اضافه وزن", "underweight": "کم‌وزنی", "obese": "چاقی", "missing height or measurement": "قد یا اندازه‌گیری موجود نیست", "Everyone's progress to goal": "پیشرفت همه تا هدف", "Together you got closer to your goals by": "با هم به هدف‌هایتان نزدیک‌تر شدید به میزان", "Add at least two measurements to see the chart.": "برای دیدن نمودار حداقل دو اندازه‌گیری اضافه کنید.", "Goal reached": "به هدف رسیدید", "No activity on this day.": "در این روز فعالیتی نبود.", "Previous month": "ماه قبل", "Next month": "ماه بعد", "Mo": "دو", "Tu": "سه", "We": "چهار", "Th": "پنج", "Fr": "جمعه", "Sa": "شنبه", "Su": "یک", "My profile": "نمایه من", "Viewing:": "در حال مشاهده:", "(read-only)": "(فقط خواندنی)", "A small step today beats a big plan for tomorrow.": "یک قدم کوچک امروز بهتر از یک برنامه بزرگ برای فرداست.", "Consistency beats intensity.": "پایداری از شدت مهم‌تر است.", "You don't have to be perfect, just don't give up.": "لازم نیست بی‌نقص باشید، فقط تسلیم نشوید.", "Starting is the hardest part, then it's downhill.": "شروع کردن سخت‌ترین بخش است، بعدش آسان می‌شود.", "Every healthy choice counts.": "هر انتخاب سالم ارزش دارد.", "It's easier together, keep each other on track.": "با هم آسان‌تر است، همدیگر را در مسیر نگه دارید.", "Sleep, water and movement do half the work.": "خواب، آب و حرکت نیمی از کار را انجام می‌دهند.", "Hi! Add your first measurements and I'll cheer you on.": "سلام! اولین اندازه‌گیری‌هایتان را وارد کنید تا من تشویقتان کنم.", "Saving…": "در حال ذخیره…", "Measurement added.": "اندازه‌گیری اضافه شد.", "Pick a date.": "یک تاریخ انتخاب کنید.", "Pick a day.": "یک روز انتخاب کنید.", "Enter your weight in kilograms (20–400).": "وزن خود را به کیلوگرم وارد کنید (۲۰ تا ۴۰۰).", "Enter your height in cm (100–250).": "قد خود را به سانتی‌متر وارد کنید (۱۰۰ تا ۲۵۰).", "Saved.": "ذخیره شد.", "Could not save.": "ذخیره نشد.", "Could not delete the measurement.": "حذف اندازه‌گیری ممکن نشد.", "Could not delete the workout.": "حذف تمرین ممکن نشد.", "Running": "دویدن", "Cycling": "دوچرخه‌سواری", "Walking / hiking": "پیاده‌روی / کوهنوردی", "Swimming": "شنا", "Ball / team sports": "ورزش‌های توپی / تیمی", "HIIT / CrossFit": "هایت / کراس‌فیت", "Yoga / stretching": "یوگا / کشش", "Dancing": "رقص", "Other": "سایر", "First measurement": "اولین اندازه‌گیری", "Leader of the week": "پیشتاز هفته", "5 measurements": "۵ اندازه‌گیری", "15 measurements": "۱۵ اندازه‌گیری", "3-week streak": "تداوم ۳ هفته‌ای", "8-week streak": "تداوم ۸ هفته‌ای", "1 kg closer to goal": "۱ کیلو نزدیک‌تر به هدف", "5 kg closer to goal": "۵ کیلو نزدیک‌تر به هدف", "7 days with points": "۷ روز با امتیاز", "First workout": "اولین تمرین", "10 workouts": "۱۰ تمرین", "3 workouts in a week": "۳ تمرین در یک هفته", "1000 kcal in a week": "۱۰۰۰ کیلوکالری در یک هفته", "5000 kcal in total": "۵۰۰۰ کیلوکالری در مجموع", "Activity calendar for the last 12 weeks": "تقویم فعالیت ۱۲ هفته اخیر", "Helpful tools 🛠": "ابزارهای مفید 🛠", "🏋️ Workout plan for today": "🏋️ برنامه تمرین امروز", "Place": "مکان", "Outdoors": "فضای باز", "Build a workout": "برنامه تمرین بساز", "🥗 Meal idea": "🥗 ایده وعده غذایی", "What do you have? (optional)": "چه چیزی دارید؟ (اختیاری)", "e.g. eggs, rice, broccoli": "مثلاً تخم‌مرغ، برنج، بروکلی", "Target kcal (optional)": "کیلوکالری هدف (اختیاری)", "Suggest a meal": "یک وعده پیشنهاد بده", "📷 Food photo (calories)": "📷 عکس غذا (کالری)", "Take a photo or pick from the gallery": "عکس بگیرید یا از گالری انتخاب کنید", "✍️ Text entry": "✍️ ثبت با متن", "Write what you did": "بنویسید چه کردید", "Recognise": "تشخیص بده", "💡 Advice for today": "💡 توصیه امروز", "Give advice": "توصیه بده", "📊 Weekly analysis": "📊 تحلیل هفته", "The coach will post a team summary in the chat.": "مربی خلاصه‌ای از تیم را در گفتگو می‌فرستد.", "Post to chat": "ارسال در گفتگو", "Coach's tips": "نکته‌های مربی", "Coach remembers facts from chats": "مربی واقعیت‌هایی را از گفتگوها به خاطر می‌سپارد", "Add your own tip or fact": "نکته یا واقعیت خودتان را اضافه کنید", "Clear all": "پاک کردن همه", "😈 Coach may tease playfully": "😈 مربی ممکن است با شوخی سربه‌سرتان بگذارد", "Security (PIN)": "امنیت (پین)", "Current PIN": "پین فعلی", "New PIN (4 digits)": "پین جدید (۴ رقم)", "Repeat new PIN": "تکرار پین جدید", "Save new PIN": "ذخیره پین جدید", "New recovery code": "کد بازیابی جدید", "App": "برنامه", "Remember on this phone": "مرا در این گوشی به خاطر بسپار", "I forgot my PIN": "پینم را فراموش کردم", "Saved, continue": "ذخیره شد، ادامه", "Reset PIN": "بازنشانی پین", "Back": "بازگشت", "Delete digit": "حذف رقم", "New user": "کاربر جدید", "➕ New user": "➕ کاربر جدید", "Name or nickname": "نام یا نام مستعار", "e.g. Kate": "مثلاً سارا", "Enlarge chat": "بزرگ کردن گفتگو", "Add photo": "افزودن عکس", "Write something, paste a link or photo…": "چیزی بنویسید، لینک یا عکس بچسبانید…", "Home screen shortcut": "میانبر صفحه اصلی", "🏋️ Gym mode": "🏋️ حالت باشگاه", "Gym mode": "حالت باشگاه", "Food and calories": "غذا و کالری", "Meal": "وعده", "Breakfast": "صبحانه", "Lunch": "ناهار", "Dinner": "شام", "Snack": "میان‌وعده", "Last 7 days": "۷ روز اخیر", "Add food": "افزودن غذا", "🔎 Search": "🔎 جستجو", "📷 Barcode": "📷 بارکد", "✍️ Manual": "✍️ دستی", "🤖 AI description": "🤖 توضیح با هوش مصنوعی", "⭐ Favourites": "⭐ مورد علاقه‌ها", "Product name": "نام محصول", "e.g. plain yogurt": "مثلاً ماست ساده", "Search": "جستجو", "📷 Scan a barcode": "📷 اسکن بارکد", "Or type the code from the package": "یا کد روی بسته را بنویسید", "Look up code": "جستجوی کد", "Name": "نام", "e.g. cheese sandwich": "مثلاً ساندویچ پنیر", "Calories (kcal)": "کالری (کیلوکالری)", "Protein (g)": "پروتئین (گرم)", "Carbs (g)": "کربوهیدرات (گرم)", "Fat (g)": "چربی (گرم)", "Portions (multiplier)": "تعداد وعده (ضریب)", "⭐ Save to favourites": "⭐ ذخیره در مورد علاقه‌ها", "Add to the log": "افزودن به دفتر غذا", "Describe what you ate": "بنویسید چه خوردید", "e.g. 2 eggs, a cheese sandwich and a coffee with milk": "مثلاً ۲ تخم‌مرغ، یک ساندویچ پنیر و یک قهوه با شیر", "Estimate": "تخمین بزن", "Calorie needs calculator": "ماشین‌حساب نیاز کالری", "Sex": "جنسیت", "Male": "مرد", "Female": "زن", "Age": "سن", "Activity": "فعالیت", "Sedentary (no workouts)": "کم‌تحرک (بدون تمرین)", "Light (1–3 workouts/week)": "سبک (۱ تا ۳ تمرین در هفته)", "Moderate (3–5 workouts/week)": "متوسط (۳ تا ۵ تمرین در هفته)", "High (6–7 workouts/week)": "زیاد (۶ تا ۷ تمرین در هفته)", "Very high (physical job + training)": "خیلی زیاد (کار بدنی + تمرین)", "Maintain weight": "حفظ وزن", "Slow weight loss": "کاهش وزن آهسته", "Muscle gain": "افزایش عضله", "Save as my target": "ذخیره به‌عنوان هدف من", "Add reaction": "افزودن واکنش", "Others' workouts": "تمرین‌های دیگران", "Recent gym workouts": "تمرین‌های اخیر باشگاه", "Records": "رکوردها", "Group summary": "خلاصه گروه", "In-depth AI coach analysis": "تحلیل کامل مربی هوش مصنوعی", "Prepare analysis": "تهیه تحلیل", "Challenge of the day": "چالش امروز", "Monthly challenge: step race": "چالش ماه: مسابقه قدم", "▶ Replay the race": "▶ پخش دوباره مسابقه", "My steps": "قدم‌های من", "Number of steps": "تعداد قدم", "Save steps": "ذخیره قدم‌ها", "Invite friends to the app": "دعوت دوستان به برنامه", "📤 Share": "📤 اشتراک‌گذاری", "💬 WhatsApp": "💬 واتس‌اپ", "📘 Messenger": "📘 مسنجر", "✉️ SMS": "✉️ پیامک", "📋 Copy link": "📋 کپی لینک", "What's new in 3.6": "تازه‌ها در نسخه 3.6"});
 Object.assign(EN, {"Co nowego w 3.7": "What's new in 3.7", "Wspólna podróż grupy: Katowice → Teheran": "Shared group journey: Katowice → Tehran", "Tryb kino wyścigu z komentarzem AI i muzyką": "Race cinema mode with AI commentary and music", "Historia: rozmowy, dieta, obliczenia i wyniki AI": "History: chats, diet, calculations and AI results", "Kroki ze zrzutu ekranu": "Steps from a screenshot", "Pogoda zależna od języka (Polska, Wielka Brytania, Iran)": "Weather by language (Poland, United Kingdom, Iran)", "Więcej animacji, wibracje, wprowadzenie i skróty na ikonie": "More animations, vibration, an intro and app icon shortcuts", "🎬 Kino": "🎬 Cinema", "📷 Ze zrzutu ekranu": "📷 From a screenshot", "Wspólna podróż": "Shared journey", "Historia": "History", "⬇️ Eksportuj historię do pliku": "⬇️ Export history to a file", "📳 Wibracje": "📳 Vibration", "🔊 Dźwięki i muzyka": "🔊 Sounds and music", "👋 Pokaż wprowadzenie": "👋 Show the intro", "▶ Start": "▶ Start", "Włącz dźwięk, oprzyj się wygodnie i patrz, jak wyścig ożywa dzień po dniu.": "Turn the sound on, sit back and watch the race come alive day by day.", "Głos komentatora": "Commentator voice", "Dźwięk": "Sound", "Zamknij": "Close"});
 Object.assign(FAD, {"What's new in 3.7": "تازه‌ها در نسخه 3.7", "History": "تاریخچه", "💬 Chats": "💬 گفتگوها", "🍽 Diet": "🍽 رژیم", "🧮 Calculations": "🧮 محاسبه‌ها", "🤖 AI results": "🤖 نتایج هوش مصنوعی", "Search conversations": "جستجو در گفتگوها", "Load older": "بارگذاری قدیمی‌ترها", "Loading…": "در حال بارگذاری…", "Shared journey": "سفر مشترک", "Next stop: ": "ایستگاه بعدی: ", " in ": " تا ", "Who added how much": "چه کسی چقدر اضافه کرد", "Previous journeys": "سفرهای قبلی", "Turbo mode: 1 step = ": "حالت توربو: هر قدم = ", " m on the journey": " متر در سفر", "Route for ": "مسیر برای ", "From": "از", "To": "به", "Vote": "رأی بده", "Change vote": "تغییر رأی", "Vote saved 🗳": "رأی ثبت شد 🗳", "Pick two different cities.": "دو شهر متفاوت انتخاب کنید.", "Vote where the group walks next month. The route with the most votes wins.": "رأی دهید گروه ماه بعد از کجا به کجا برود. مسیری که بیشترین رأی را دارد برنده است.", "You reached the destination: ": "به مقصد رسیدید: ", "Preparing the route…": "در حال آماده‌سازی مسیر…", "🎬 Cinema": "🎬 سینما", "📷 From a screenshot": "📷 از اسکرین‌شات", "⬇️ Export history to a file": "⬇️ خروجی تاریخچه در فایل", "📳 Vibration": "📳 لرزش", "🔊 Sounds and music": "🔊 صدا و موسیقی", "👋 Show the intro": "👋 نمایش راهنما", "▶ Start": "▶ شروع", "Turn the sound on, sit back and watch the race come alive day by day.": "صدا را روشن کنید، راحت بنشینید و ببینید مسابقه روز به روز زنده می‌شود.", "Step race": "مسابقه قدم", "📤 Share the result": "📤 اشتراک‌گذاری نتیجه", "↺ Again": "↺ دوباره", "Close": "بستن", "Next": "بعدی", "Skip": "رد شدن", "Welcome to Progress dietowy!": "به پیشرفت رژیمی خوش آمدید!", "The menu is at the top. Swipe it and pick a tab.": "منو در بالای صفحه است. آن را بکشید و یک بخش را انتخاب کنید.", "Log your steps (even from a screenshot) and race your friends. Together you also go on a shared journey.": "قدم‌هایتان را ثبت کنید (حتی از اسکرین‌شات) و با دوستان مسابقه دهید. با هم به یک سفر مشترک هم می‌روید.", "Friends & chat": "دوستان و گفتگو", "Invite friends, follow each other's progress and chat. The 🌐 button translates messages.": "دوستان را دعوت کنید، پیشرفت یکدیگر را دنبال کنید و گفتگو کنید. دکمه 🌐 پیام‌ها را ترجمه می‌کند.", "AI coach & history": "مربی هوش مصنوعی و تاریخچه", "The coach gives tips and analyses the group. Everything you calculate or get from the AI is saved in History.": "مربی نکته می‌دهد و گروه را تحلیل می‌کند. هر چه محاسبه کنید یا از هوش مصنوعی بگیرید در تاریخچه ذخیره می‌شود.", "New record!": "رکورد جدید!", " steps in one day": " قدم در یک روز", "Keep it up, the race is on.": "ادامه بده، مسابقه ادامه دارد.", "Reading the screenshot…": "در حال خواندن اسکرین‌شات…", "steps": "قدم", "Check it and tap “Save steps”. The photo is not saved.": "بررسی کنید و «ذخیره قدم‌ها» را بزنید. عکس ذخیره نمی‌شود.", "Uncertain read: check the number before saving.": "خواندن مطمئن نیست: پیش از ذخیره عدد را بررسی کنید.", "Workout plan": "برنامه تمرین", "Meal idea": "ایده وعده", "Food photo": "عکس غذا", "Text entry": "ثبت با متن", "Advice": "توصیه", "Group analysis": "تحلیل گروه", "Steps from a screenshot": "قدم از اسکرین‌شات", "↺ Load into the calculator": "↺ بارگذاری در ماشین‌حساب", "Days logged": "روزهای ثبت‌شده", "Avg kcal / day (month)": "میانگین کالری در روز (ماه)", "Avg kcal (7 days)": "میانگین کالری (۷ روز)", "No entries on this day.": "در این روز ثبتی نیست.", "The last 60 results are kept; the oldest are overwritten.": "۶۰ نتیجه آخر نگه داشته می‌شود و قدیمی‌ترها جایگزین می‌شوند.", "AI tool results will be saved here automatically.": "نتایج ابزارهای هوش مصنوعی خودکار اینجا ذخیره می‌شوند.", "No saved calculations yet. Use the calculator and the result saves itself.": "هنوز محاسبه‌ای ذخیره نشده. از ماشین‌حساب استفاده کنید تا نتیجه خودکار ذخیره شود.", "No messages for these filters.": "برای این فیلترها پیامی نیست.", "That is all the messages.": "همه پیام‌ها همین بود.", "History file downloaded.": "فایل تاریخچه دانلود شد.", "Thunderstorm: train at home today, it is safer.": "رعد و برق: امروز در خانه تمرین کنید، امن‌تر است.", "Raining: a good day for a home or gym workout.": "باران می‌بارد: روز خوبی برای تمرین در خانه یا باشگاه است.", "Cold: dress warmly and warm up for longer.": "هوا سرد است: گرم بپوشید و بیشتر گرم کنید.", "Hot: drink more water, train early or late.": "هوا گرم است: آب بیشتری بنوشید و صبح زود یا عصر تمرین کنید.", "Great weather for a run, a ride or a walk!": "هوای عالی برای دویدن، دوچرخه‌سواری یا پیاده‌روی!", "A walk counts too. Keep moving!": "پیاده‌روی هم حساب است. در حرکت بمانید!", "feels like ": "دمای محسوس ", "wind ": "باد ", "rain ": "باران ", "Loading weather…": "در حال بارگذاری آب‌وهوا…", "Weather is temporarily unavailable.": "آب‌وهوا موقتاً در دسترس نیست.", "Commentator voice": "صدای گزارشگر", "Sound": "صدا"});
+Object.assign(EN, {"Co nowego w 3.8": "What's new in 3.8", "Film powitalny dla nowych osób": "Welcome film for newcomers", "Kreator profilu po rejestracji": "Profile setup after signing up", "Podgląd, jak widzi to nowy użytkownik (ustawienia)": "Preview as a new user (settings)", "▶ Zobacz, jak to działa": "▶ See how it works", "👀 Zobacz, jak widzi to nowy użytkownik": "👀 See it as a new user"});
+Object.assign(FAD, {"What's new in 3.8": "تازه‌ها در نسخه 3.8", "Your crew. Your shape.": "گروه تو. فرم تو.", "Track weight and BMI": "وزن و شاخص توده بدنی را دنبال کن", "Race your friends on steps": "با دوستانت در قدم‌ها مسابقه بده", "Belgrade": "بلگراد", "Tehran": "تهران", "Go on a journey together": "با هم به سفر بروید", "Chat in any language": "به هر زبانی گفتگو کنید", "Who's running today? 🏃": "امروز کی می‌دود؟ 🏃", "Me! 10 km after work 💪": "من! ۱۰ کیلومتر بعد از کار 💪", "Hi! I'm coming too": "سلام! من هم می‌آیم", "An AI coach always at hand": "مربی هوش مصنوعی همیشه در دسترس", "Great 5-day streak! Today an easy walk and plenty of water 💧": "تداوم ۵ روزه عالی! امروز یک پیاده‌روی آرام و آب زیاد 💧", "Gym, food, calculator and more": "باشگاه، غذا، ماشین‌حساب و بیشتر", "Food": "غذا", "AI photos": "عکس‌های هوش مصنوعی", "Cinema": "سینما", "Weather": "آب‌وهوا", "Everything saved in history": "همه چیز در تاریخچه ذخیره می‌شود", "Join the crew 💪": "به گروه بپیوند 💪", "Signing up takes a few seconds": "ثبت‌نام فقط چند ثانیه طول می‌کشد", "Next: profile setup ▶": "بعدی: تنظیم نمایه ▶", "➕ Join now": "➕ همین حالا بپیوند", "I already have an account": "حساب کاربری دارم", "Tap to watch": "برای تماشا بزنید", "Hi": "سلام", "You": "تو", "Let's set a few things so the coach and calculator work right away.": "بیایید چند چیز را تنظیم کنیم تا مربی و ماشین‌حساب از همین حالا کار کنند.", "You can change everything later in the settings.": "بعداً می‌توانید همه چیز را در تنظیمات تغییر دهید.", "How tall are you?": "قد شما چقدر است؟", "What do you weigh today?": "امروز وزن شما چقدر است؟", "This will be your first measurement.": "این اولین اندازه‌گیری شما خواهد بود.", "What's your goal?": "هدف شما چیست؟", "The weight you want to reach.": "وزنی که می‌خواهید به آن برسید.", "Sex and age": "جنسیت و سن", "Needed to calculate calories.": "برای محاسبه کالری لازم است.", "years": "سال", "How active are you?": "چقدر فعال هستید؟", "Sedentary": "کم‌تحرک", "Light activity": "فعالیت سبک", "Moderate": "متوسط", "High": "زیاد", "Very high": "خیلی زیاد", "no workouts": "بدون تمرین", "1–3 workouts a week": "۱ تا ۳ تمرین در هفته", "3–5 workouts a week": "۳ تا ۵ تمرین در هفته", "6–7 workouts a week": "۶ تا ۷ تمرین در هفته", "physical job and training": "کار بدنی و تمرین", "Pick your avatar": "آواتار خود را انتخاب کنید", "An emoji or your own photo.": "یک ایموجی یا عکس خودتان.", "Your own photo": "عکس خودتان", "All set! 🎉": "همه چیز آماده است! 🎉", "day": "روز", "This is a preview: nothing will be saved.": "این یک پیش‌نمایش است: چیزی ذخیره نمی‌شود.", "I'll save this to your profile. You can change everything in the settings.": "این را در نمایه شما ذخیره می‌کنم. همه چیز را بعداً در تنظیمات تغییر دهید.", "Keep the weight": "حفظ وزن", "below a healthy BMI, pick a higher goal": "زیر شاخص توده بدنی سالم است، هدف بالاتری انتخاب کنید", "Let's start ▶": "شروع کنیم ▶", "Profile saved ✅": "نمایه ذخیره شد ✅", "Could not save the profile.": "ذخیره نمایه ممکن نشد.", "▶ See how it works": "▶ ببینید چطور کار می‌کند", "👀 See it as a new user": "👀 از دید کاربر جدید ببینید", "Cannot read the photo.": "عکس خوانده نشد."});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [

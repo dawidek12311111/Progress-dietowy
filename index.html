@@ -1000,6 +1000,11 @@
   @keyframes newIn { from { opacity: 0; transform: perspective(600px) rotateY(70deg) translateX(40px); } to { opacity: 1; transform: none; } }
   .dvnew b { font-size: 2.2rem; } .dvnew strong { display: block; font-size: 1.05rem; } .dvnew small { color: rgba(255,255,255,.75); }
   .wsum { margin-top: 10px; }
+
+  /* v3.9.1: statyczne imię na powitaniu */
+  #wlHi, #wlHi * { animation: none !important; transform: none !important; opacity: 1 !important; filter: none !important; }
+  .pg.pgoff { display: none !important; }
+  html[data-anim="on"] .wsum { animation: popIn .6s 2.5s both; }
 </style>
 </head>
 <body>
@@ -1060,7 +1065,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.9</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.9.1</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="filmBtn" type="button">▶ Zobacz, jak to działa</button>
@@ -1271,8 +1276,9 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.9</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.9.1</summary>
         <ul>
+          <li>Wszyscy widzą się nawzajem i mają wspólny czat (bez zakładki Przyjaciele)</li>
           <li>Dzik: uśmiechnięty asystent AI odpowiadający w chmurce</li>
           <li>Wideo „Podsumowanie dnia” z ekranu powitalnego</li>
           <li>Kino wagi: historia wagi z basowym bitem i komentarzem AI</li>
@@ -1318,13 +1324,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.9</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.9.1</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.9</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.9.1</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -1670,7 +1676,7 @@
   </section>
 </div>
 
-<div class="pg" id="pg-friends" hidden>
+<div class="pg pgoff" id="pg-friends" hidden aria-hidden="true">
   <section class="card">
     <h2>Zaproś znajomych do aplikacji</h2>
     <div class="msg" style="margin-top:0">Wyślij link. Znajomy otwiera go, dodaje siebie na ekranie logowania, a potem zapraszasz go tutaj w zakładce Przyjaciele.</div>
@@ -3574,7 +3580,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.9";
+const VER = "3.9.1";
 const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -3728,7 +3734,7 @@ $("today").addEventListener("click", async e => {
 /* ================= v3.3: menu, strony, przyjaciele, trener grupy ================= */
 const PAGES = [
   ["home", "🏠", "Główna", "Home"], ["race", "🏁", "Wyzwanie i kroki", "Challenge & steps"], ["gym", "🏋️", "Siłownia", "Gym"], ["food", "🍽", "Jedzenie i kalorie", "Food & calories"],
-  ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["history", "🗂", "Historia", "History"], ["friends", "👥", "Przyjaciele", "Friends"]
+  ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["history", "🗂", "Historia", "History"]
 ];
 let curPage = "home";
 try { const p0 = sessionStorage.getItem("pd-page"); if (p0 && PAGES.some(x => x[0] === p0)) curPage = p0; } catch (e) {}
@@ -3777,7 +3783,7 @@ function frList(n) {
 const isMutual = (a, b) => a !== b && frList(a).indexOf(IDS[b]) >= 0 && frList(b).indexOf(IDS[a]) >= 0;
 function applyFriends() {
   const me = state.me;
-  const vis = me ? ALLN.filter(n => n === me || isMutual(me, n)) : ALLN.slice();
+  const vis = ALLN.slice(); void me;
   const same = vis.length === NAMES.length && vis.every((n, i) => n === NAMES[i]);
   if (!same) { NAMES.length = 0; vis.forEach(n => NAMES.push(n)); }
   if (NAMES.indexOf(state.current) < 0) state.current = me && NAMES.indexOf(me) >= 0 ? me : NAMES[0];
@@ -5195,7 +5201,7 @@ $("cineEnd").addEventListener("click", async e => {
 const TOUR = [
   ["👋", "Witaj w Progress dietowy!", "Welcome to Progress dietowy!", "Na górze jest menu. Przesuń je palcem i wybierz zakładkę.", "The menu is at the top. Swipe it and pick a tab.", "🏠🏁🏋️🍽🧮🛠🤖🗂👥"],
   ["🏁", "Wyzwanie i kroki", "Challenge & steps", "Wpisuj kroki (także ze zrzutu ekranu) i ścigaj się z przyjaciółmi. Razem idziecie też we wspólną podróż.", "Log your steps (even from a screenshot) and race your friends. Together you also go on a shared journey.", "👟📷🏃🗺"],
-  ["👥", "Przyjaciele i czat", "Friends & chat", "Zaproś znajomych, oglądajcie nawzajem postępy i piszcie na czacie. Przycisk 🌐 tłumaczy wiadomości.", "Invite friends, follow each other's progress and chat. The 🌐 button translates messages.", "💬🤝🌐🎉"],
+  ["👥", "Ekipa i czat", "Crew & chat", "Wszyscy widzicie nawzajem swoje postępy i piszecie na wspólnym czacie. Przycisk 🌐 tłumaczy wiadomości.", "Everyone sees each other's progress and writes in the shared chat. The 🌐 button translates messages.", "💬🤝🌐🎉"],
   ["🤖", "Trener AI i historia", "AI coach & history", "Trener podpowiada i analizuje grupę. Wszystko, co policzysz i dostaniesz od AI, zapisuje się w Historii.", "The coach gives tips and analyses the group. Everything you calculate or get from the AI is saved in History.", "🧠📊🗂✨"]
 ];
 let tourI = 0;
@@ -7417,6 +7423,8 @@ Object.assign(EN, {"Co nowego w 3.8.1": "What's new in 3.8.1", "Kino wagi: histo
 Object.assign(FAD, {"What's new in 3.8.1": "تازه‌ها در نسخه 3.8.1", "🎬 Weight cinema": "🎬 سینمای وزن", "Weight cinema": "سینمای وزن", "Weight story": "داستان وزن", "Weight over time": "وزن در طول زمان", "Total change": "تغییر کل", "average ": "میانگین ", " kg / week": " کیلو در هفته", "Records": "رکوردها", "best week": "بهترین هفته", "lowest weight": "کمترین وزن", "measurements": "اندازه‌گیری", "wk": "هفته", "measurement streak": "تداوم اندازه‌گیری", "Movement": "حرکت", "workouts": "تمرین", "minutes": "دقیقه", "kcal burned": "کیلوکالری سوخته", "steps": "قدم", "Against the crew": "در کنار گروه", "Road to the goal": "راه رسیدن به هدف", "Goal reached! 🎉": "به هدف رسیدی! 🎉", "Goal forecast: ": "پیش‌بینی رسیدن به هدف: ", "The trend is off right now, but it can turn around.": "روند فعلاً خلاف جهت است، ولی می‌شود برگرداند.", "The goal is still far, step by step.": "هدف هنوز دور است، قدم به قدم.", "📤 Share": "📤 اشتراک‌گذاری", "↺ Again": "↺ دوباره", "Close": "بستن", "healthy BMI": "شاخص سالم", "At least 2 weight measurements are needed.": "حداقل ۲ اندازه‌گیری وزن لازم است.", "Copied ✅": "کپی شد ✅", "Tap a flag or ▶ to watch": "برای تماشا روی پرچم یا ▶ بزنید"});
 Object.assign(EN, {"Co nowego w 3.9": "What's new in 3.9", "Dzik: uśmiechnięty asystent AI odpowiadający w chmurce": "The Boar: a smiling AI assistant answering in a speech bubble", "Wideo „Podsumowanie dnia” z ekranu powitalnego": "“Daily recap” video from the welcome screen", "🎬 Chcę obejrzeć dzisiejsze podsumowanie": "🎬 I want to watch today's recap", "🎬 Podsumowanie dnia": "🎬 Daily recap", "🐗 Zapytaj Dzika": "🐗 Ask the Boar", "Pytanie o zdrowie, sport albo kalorie": "A question about health, sport or calories", "np. Ile białka powinienem jeść dziennie?": "e.g. How much protein should I eat a day?", "Zapytaj 🐗": "Ask 🐗"});
 Object.assign(FAD, {"What's new in 3.9": "تازه‌ها در نسخه 3.9", "🎬 I want to watch today's recap": "🎬 می‌خواهم خلاصه امروز را ببینم", "🎬 Daily recap": "🎬 خلاصه روز", "🐗 Ask the Boar": "🐗 از گراز بپرس", "A question about health, sport or calories": "سؤالی درباره سلامت، ورزش یا کالری", "e.g. How much protein should I eat a day?": "مثلاً روزی چقدر پروتئین بخورم؟", "Ask 🐗": "بپرس 🐗", "Hi! I'm the Boar 🐗 Ask me about health, sport, sleep and counting calories.": "سلام! من گراز هستم 🐗 درباره سلامت، ورزش، خواب و شمارش کالری از من بپرس.", "Ask me about health, sport or calories! 🐗": "درباره سلامت، ورزش یا کالری از من بپرس! 🐗", "Your day": "روز تو", "Daily recap": "خلاصه روز", "Weight": "وزن", "since last": "از دفعه قبل", "days": "روز", "No measurements": "اندازه‌گیری نیست", "You vs the crew": "تو در برابر گروه", "progress to goal this week": "پیشرفت تا هدف در این هفته", "Steps today": "قدم‌های امروز", "How far we've come together": "با هم تا کجا آمده‌ایم", "From the chat": "از گفتگو", "New in the app": "تازه‌های برنامه", "Weight cinema": "سینمای وزن", "Your weight story as a film, with a bass beat and AI commentary.": "داستان وزن تو مثل یک فیلم، با ریتم باس و گزارش هوش مصنوعی.", "Boar assistant": "دستیار گراز", "A smiling boar answers questions about health, sport and calories.": "یک گراز خندان به سؤالات درباره سلامت، ورزش و کالری پاسخ می‌دهد.", "Let's go 💪": "بزن بریم 💪", "📤 Share": "📤 اشتراک‌گذاری", "↺ Again": "↺ دوباره", "My day in Progress dietowy": "روز من در پیشرفت رژیمی"});
+Object.assign(EN, {"Co nowego w 3.9.1": "What's new in 3.9.1", "Wszyscy widzą się nawzajem i mają wspólny czat (bez zakładki Przyjaciele)": "Everyone sees each other and shares one chat (no Friends tab)"});
+Object.assign(FAD, {"What's new in 3.9.1": "تازه‌ها در نسخه 3.9.1", "Crew & chat": "گروه و گفتگو", "Everyone sees each other's progress and writes in the shared chat. The 🌐 button translates messages.": "همه پیشرفت یکدیگر را می‌بینند و در گفتگوی مشترک می‌نویسند. دکمه 🌐 پیام‌ها را ترجمه می‌کند."});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [
@@ -7860,7 +7868,7 @@ function showWelcome(n, mode) {
   welcomeOpen = true; clearTimeout(welcomeTimer);
   const hi = L("Cześć", "Hey") + ", " + n + "!";
   $("wlHi").setAttribute("aria-label", hi);
-  $("wlHi").innerHTML = Array.from(hi).map((c, i) => '<span aria-hidden="true" style="--i:' + i + '">' + (c === " " ? "&nbsp;" : esc(c)) + "</span>").join("");
+  $("wlHi").textContent = hi;
   $("wlMsg").textContent = dailyLine(n);
   wlAvHtml = "";
   renderWelcomeAv();

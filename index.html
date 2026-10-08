@@ -865,6 +865,63 @@
   .wizBar { width: 100%; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; max-width: 380px; }
   .wizBar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #5fd3a5, #f2b33d); transition: width .6s cubic-bezier(.3,.8,.3,1); }
   .wizFw { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+
+  /* ===== v3.8.1 ===== */
+  .filmTap { cursor: default; justify-content: center; padding: 8vh 0 0; }
+  .flangT { font-weight: 700; text-align: center; padding: 0 16px; color: rgba(255,255,255,.9); animation: fadeIn .6s .2s both; opacity: 0; }
+  .flangs { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 6px 0 10px; }
+  .flang { font: inherit; color: #fff; background: rgba(255,255,255,.08); border: 2px solid rgba(255,255,255,.2); border-radius: 18px; padding: 12px 12px 10px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; min-width: 92px; animation: tileIn .5s cubic-bezier(.2,1.5,.4,1) both; animation-delay: calc(.3s + var(--i) * .12s); transition: transform .15s, border-color .2s; }
+  .flang:active { transform: scale(.94); }
+  .flang.on { border-color: #5fd3a5; background: rgba(95,211,165,.18); box-shadow: 0 0 22px rgba(95,211,165,.35); }
+  .flflag svg { width: 60px; height: 42px; border-radius: 8px; display: block; box-shadow: 0 4px 12px rgba(0,0,0,.35); }
+  .filmTap .tapBtn { border: 0; color: #fff; cursor: pointer; font-size: 2.2rem; }
+  .flangS { color: rgba(255,255,255,.7); font-size: .88rem; }
+  /* kino wagi */
+  .wcine .filmScene { padding: 9vh 16px 22vh; }
+  .wcStage { position: absolute; inset: 0; }
+  .wcStage.shake { animation: rshake .4s; }
+  .wcine.beat .filmScene { animation: beat 0.4545s ease-out infinite; }
+  @keyframes beat { 0% { transform: scale(1.018); } 100% { transform: scale(1); } }
+  .wcine.beat::before, .wcine.beat::after { animation: lbPulse 0.4545s ease-out infinite; }
+  @keyframes lbPulse { 0% { background: #0a1a16; } 100% { background: #000; } }
+  .wcsc { width: 100%; max-width: 440px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; animation: fscIn .6s cubic-bezier(.2,.9,.3,1.1) both; }
+  .wcav .av { box-shadow: 0 0 0 4px rgba(95,211,165,.6), 0 10px 40px rgba(95,211,165,.45); animation: popIn .7s cubic-bezier(.2,1.6,.4,1) both; }
+  .wcrange { color: rgba(255,255,255,.75); font-weight: 600; animation: fadeIn .6s 1s both; opacity: 0; }
+  .wcchart { width: 100%; height: auto; }
+  .wcband { fill: rgba(95,211,165,.12); } .wcbandt { fill: rgba(255,255,255,.55); font-size: 9px; text-anchor: end; }
+  .wcgoal { stroke: #f2b33d; stroke-width: 2; stroke-dasharray: 6 5; } .wcgoalt { fill: #f2b33d; font-size: 10px; font-weight: 700; }
+  .wcpath { fill: none; stroke: #5fd3a5; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(95,211,165,.8)); }
+  .wcarea { opacity: 0; animation: fadeIn 1.2s 2s forwards; }
+  .wcdot { fill: #fff; stroke: #5fd3a5; stroke-width: 3; filter: drop-shadow(0 0 8px #5fd3a5); }
+  .wcread { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .wcread b { font-size: 1.8rem; } .wcread span { color: rgba(255,255,255,.7); }
+  .wcbig { font-size: clamp(3.4rem, 18vw, 5.4rem); font-weight: 900; line-height: 1; display: flex; align-items: baseline; gap: 8px; text-shadow: 0 8px 40px rgba(95,211,165,.5); font-variant-numeric: tabular-nums; }
+  .wcbig small { font-size: 1.6rem; color: rgba(255,255,255,.7); }
+  .wcbig.small { font-size: 2.6rem; }
+  .wcarrow { font-size: 2.6rem; animation: popIn .6s 1.6s both; } .wcarrow.good { filter: drop-shadow(0 0 14px #5fd3a5); }
+  .wcgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+  .wctile { background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; padding: 14px 8px; display: flex; flex-direction: column; gap: 4px; align-items: center; opacity: 0; animation: tileIn .55s cubic-bezier(.2,1.5,.4,1) forwards; animation-delay: var(--d); }
+  .wctile b { font-size: 1.8rem; } .wctile strong { font-size: 1.4rem; font-variant-numeric: tabular-nums; } .wctile small { color: rgba(255,255,255,.7); }
+  .wcgauge { position: relative; width: 100%; padding: 16px 0 8px; }
+  .wcbar { display: flex; height: 14px; border-radius: 99px; overflow: hidden; }
+  .wcbar i { display: block; height: 100%; } .wcbar .z1 { width: 14%; background: #f2b33d; } .wcbar .z2 { width: 26%; background: #1f9e7a; } .wcbar .z3 { width: 20%; background: #e0782a; } .wcbar .z4 { flex: 1; background: #c0392b; }
+  .wcneedle { position: absolute; top: 4px; width: 4px; height: 38px; border-radius: 4px; background: #fff; box-shadow: 0 0 12px #fff; left: var(--from); animation: needle 2.2s .6s cubic-bezier(.3,.8,.3,1.1) forwards; }
+  @keyframes needle { to { left: var(--to); } }
+  .wcfr { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .wcfrow { display: grid; grid-template-columns: minmax(90px, 1fr) 2fr auto; gap: 8px; align-items: center; opacity: 0; animation: fadeIn .4s forwards; animation-delay: var(--d); }
+  .wcfrow i { display: block; height: 12px; border-radius: 99px; background: linear-gradient(90deg, #5fd3a5, #1f9e7a); width: 0; animation: grow 1.4s cubic-bezier(.3,.8,.3,1) forwards; animation-delay: var(--d); }
+  @keyframes grow { to { width: var(--w); } }
+  .wcfrow.me { font-weight: 900; } .wcfrow.me i { background: linear-gradient(90deg, #f2b33d, #e0782a); box-shadow: 0 0 12px rgba(242,179,61,.6); }
+  .wcring { position: relative; width: 170px; height: 170px; }
+  .wcring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .wcrt { fill: none; stroke: rgba(255,255,255,.15); stroke-width: 12; }
+  .wcra { fill: none; stroke: #5fd3a5; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 327; stroke-dashoffset: 327; animation: ringFill 2s .5s cubic-bezier(.3,.8,.3,1) forwards; filter: drop-shadow(0 0 8px #5fd3a5); }
+  @keyframes ringFill { to { stroke-dashoffset: calc(327 - 327 * var(--p)); } }
+  .wcring b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; font-weight: 900; }
+  .wcmot { font-size: clamp(1.3rem, 5.6vw, 1.8rem); font-weight: 800; line-height: 1.3; animation: fscIn .8s .3s both; }
+  .wcSub { position: absolute; left: 14px; right: 14px; bottom: calc(7vh + 18px); z-index: 7; }
+  .wcStart { position: absolute; left: 0; right: 0; bottom: 18vh; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 8; }
+  .wcStart button { font-size: 1.2rem; padding: 14px 34px; border-radius: 999px; }
 </style>
 </head>
 <body>
@@ -925,7 +982,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.8</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.8.1</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="filmBtn" type="button">▶ Zobacz, jak to działa</button>
@@ -986,9 +1043,18 @@
   <div class="filmScene" id="filmScene"></div>
   <div class="filmFx" id="filmFx"></div>
   <div class="filmTop"><button id="filmMute" type="button">🔊</button><button id="filmSkip" type="button"></button></div>
-  <button class="filmTap" id="filmTap" type="button"><span class="tapBtn">▶</span><span id="filmTapT"></span></button>
+  <div class="filmTap" id="filmTap"></div>
   <div class="filmBar"><i id="filmBarI"></i></div>
   <div class="filmFw" id="filmFw"></div>
+</div>
+<div class="film wcine" id="wcine" hidden role="dialog" aria-modal="true" data-notr>
+  <div class="wcStage" id="wcStage"><div class="filmScene" id="wcScene"></div></div>
+  <div class="filmFx" id="wcFx"></div>
+  <div class="filmTop"><button id="wcMute" type="button">🔊</button><button id="wcSkip" type="button">⏭</button><button id="wcClose" type="button">✕</button></div>
+  <div class="cineSub wcSub" id="wcSub"></div>
+  <div class="wcStart" id="wcStart"><button class="primary" id="wcGo" type="button">▶ Start</button></div>
+  <div class="filmBar"><i id="wcBarI"></i></div>
+  <div class="filmFw" id="wcFw"></div>
 </div>
 <div class="wiz" id="wiz" hidden role="dialog" aria-modal="true">
   <div class="wizTop" data-notr><button id="wizBack" type="button" aria-label="‹">‹</button><div class="wizDots" id="wizDots"></div><button id="wizSkip" type="button"></button><button id="wizClose" type="button" aria-label="✕">✕</button></div>
@@ -1116,8 +1182,10 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.8</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.8.1</summary>
         <ul>
+          <li>Kino wagi: historia wagi z basowym bitem i komentarzem AI</li>
+          <li>Wybór języka przed filmem powitalnym</li>
           <li>Film powitalny dla nowych osób</li>
           <li>Kreator profilu po rejestracji</li>
           <li>Podgląd, jak widzi to nowy użytkownik (ustawienia)</li>
@@ -1159,13 +1227,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.8</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.8.1</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.8</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.8.1</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -1197,7 +1265,7 @@
   </section>
 
   <section class="card">
-    <h2>Wykres wagi</h2>
+    <div class="chathead"><h2>Wykres wagi</h2><button class="ghost" id="wcOpen" type="button">🎬 Kino wagi</button></div>
     <div id="chart"></div>
   </section>
 
@@ -3406,7 +3474,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.8";
+const VER = "3.8.1";
 const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -4263,6 +4331,7 @@ function sfx0(kind) {
 const CHORDS = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];
 const midi = m => 440 * Math.pow(2, (m - 69) / 12);
 function musicStep(t) {
+  if (SND.style === "bass") { bassStep(t); return; }
   const s = SND.step % 16, bar = Math.floor(SND.step / 16) % 4, ch = CHORDS[bar], d = SND.mus;
   if (s % 4 === 0) { const c = SND.ctx, o = c.createOscillator(), g = c.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.14); g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18); o.connect(g); g.connect(d); o.start(t); o.stop(t + 0.2); }
   if (s === 4 || s === 12) noise(t, 0.16, 0.16, "bandpass", 1800, 900, d);
@@ -5096,7 +5165,8 @@ function openFilm(preview) {
   el.hidden = false; el.classList.remove("in", "go"); void el.offsetWidth; el.classList.add("in");
   $("filmScene").innerHTML = '<div class="fsc fintro"><div class="flogo">' + logoSvg() + "</div></div>";
   $("filmTap").hidden = false;
-  $("filmTapT").textContent = L("Dotknij, aby obejrzeć", "Tap to watch");
+  try { if (!preview && !localStorage.getItem("pd-lang")) { const dl = detectLang(); if (dl !== (FA ? "fa" : LANG)) setLang(dl); } } catch (e) {}
+  paintFilmTap();
   $("filmSkip").textContent = L("Pomiń", "Skip");
   $("filmMute").textContent = sndOn() ? "🔊" : "🔇";
   $("filmBarI").style.width = "0%";
@@ -5147,7 +5217,6 @@ function closeFilm() {
   setTimeout(() => { el.hidden = true; el.classList.remove("go"); $("filmScene").innerHTML = ""; }, 300);
   document.body.style.overflow = "";
 }
-$("filmTap").addEventListener("click", filmStart);
 $("filmSkip").addEventListener("click", () => {
   if (!film) return;
   if (film.i < 0) { closeFilm(); return; }
@@ -5298,6 +5367,250 @@ $("wizBody").addEventListener("change", async e => {
   } catch (err) { toast(L("Nie mogę odczytać zdjęcia.", "Cannot read the photo.")); }
 });
 setTimeout(() => { if (!state.me && !pendingMe && !filmSeen() && !$("login").hidden && !film) openFilm(false); }, 2600);
+
+/* ================= v3.8.1: basowy bit ================= */
+SND.style = "pop";
+const BASS_ROOTS = [33, 33, 29, 31];
+function bassNote(t, f, dur, d) {
+  const c = SND.ctx, o = c.createOscillator(), fl = c.createBiquadFilter(), g = c.createGain();
+  o.type = "sawtooth"; o.frequency.setValueAtTime(f, t);
+  fl.type = "lowpass"; fl.Q.value = 8; fl.frequency.setValueAtTime(1100, t); fl.frequency.exponentialRampToValueAtTime(150, t + dur);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.34, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(fl); fl.connect(g); g.connect(d); o.start(t); o.stop(t + dur + 0.03);
+}
+function bassStep(t) {
+  const s = SND.step % 16, bar = Math.floor(SND.step / 16) % 4, r = BASS_ROOTS[bar], d = SND.mus, c = SND.ctx;
+  if (s % 4 === 0) {
+    const o = c.createOscillator(), g = c.createGain();
+    o.frequency.setValueAtTime(175, t); o.frequency.exponentialRampToValueAtTime(36, t + 0.16);
+    g.gain.setValueAtTime(1, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+    o.connect(g); g.connect(d); o.start(t); o.stop(t + 0.28);
+  }
+  if (s === 4 || s === 12) noise(t, 0.14, 0.24, "bandpass", 1700, 1100, d);
+  noise(t, s % 4 === 2 ? 0.1 : 0.03, s % 4 === 2 ? 0.1 : 0.05, "highpass", 9000, null, d);
+  if (s % 4 !== 0) bassNote(t, midi(r + (s % 8 === 6 ? 12 : 0)), 0.13, d);
+  if (s === 0 || s === 10) [0, 3, 7].forEach(iv => tone(midi(r + 36 + iv), t, 0.12, "square", 0.028, d));
+  if (bar === 3 && s >= 12) noise(t, 0.06, 0.06 + (s - 12) * 0.03, "highpass", 3000, null, d);
+  SND.step++;
+}
+/* ================= v3.8.1: wybór języka przed filmem ================= */
+function detectLang() {
+  try { const s = localStorage.getItem("pd-lang"); if (s) return s; } catch (e) {}
+  const n = String((navigator.languages && navigator.languages[0]) || navigator.language || "pl").toLowerCase();
+  return n.indexOf("fa") === 0 ? "fa" : n.indexOf("pl") === 0 ? "pl" : "en";
+}
+function paintFilmTap() {
+  const cur = FA ? "fa" : LANG, flags = {};
+  Array.prototype.forEach.call(document.querySelectorAll("#loginLang [data-lang]"), b => { flags[b.getAttribute("data-lang")] = b.innerHTML; });
+  const names = { pl: "Polski", en: "English", fa: "فارسی" };
+  $("filmScene").innerHTML = "";
+  $("filmTap").innerHTML = '<div class="flogo small">' + logoSvg() + '</div><div class="flangT">Wybierz język · Choose language · <span dir="rtl">زبان را انتخاب کنید</span></div><div class="flangs">' +
+    ["pl", "en", "fa"].map((k, i) => '<button type="button" class="flang' + (k === cur ? " on" : "") + '" data-flang="' + k + '" style="--i:' + i + '"><span class="flflag">' + (flags[k] || k) + "</span><b>" + names[k] + "</b></button>").join("") +
+    '</div><button type="button" class="tapBtn" id="filmPlay" aria-label="Play">▶</button><span class="flangS">' + esc(L("Dotknij flagi albo ▶, aby obejrzeć", "Tap a flag or ▶ to watch")) + "</span>";
+}
+$("filmTap").addEventListener("click", e => {
+  const f = e.target.closest ? e.target.closest("[data-flang]") : null;
+  if (f) {
+    const k = f.getAttribute("data-flang");
+    if (k !== (FA ? "fa" : LANG)) setLang(k);
+    markFlags(); buzz(20); filmStart(); return;
+  }
+  if (e.target.closest && e.target.closest("#filmPlay")) { try { if (!localStorage.getItem("pd-lang")) localStorage.setItem("pd-lang", FA ? "fa" : LANG); } catch (err) {} filmStart(); }
+});
+
+/* ================= v3.8.1: kino wagi ================= */
+let WC = null;
+function wcStats(n) {
+  const u = state.users[n], s = sorted(u);
+  if (s.length < 2) return null;
+  const f = s[0], l = s[s.length - 1], ch = l.weight - f.weight, days = Math.max(1, daysBetween(f.date, l.date));
+  const dir = goalOk(u) ? Math.sign(u.goal - f.weight) || -1 : -1;
+  let best = { v: 0 };
+  for (let i = 0; i < s.length; i++) for (let j = i + 1; j < s.length && daysBetween(s[i].date, s[j].date) <= 7; j++) { const v = (s[j].weight - s[i].weight) * dir; if (v > best.v) best = { v: v, a: s[i].date, b: s[j].date }; }
+  const lo = s.reduce((m, e) => e.weight < m.weight ? e : m, s[0]), hi = s.reduce((m, e) => e.weight > m.weight ? e : m, s[0]);
+  const ws = sumWork((u.workouts || []).filter(w => w.date >= f.date)), steps = Object.keys(u.stp || {}).reduce((a, k) => a + (u.stp[k] || 0), 0);
+  const b0 = bmi(f.weight, u.height), b1 = bmi(l.weight, u.height);
+  const gp = goalOk(u) && Math.abs(f.weight - u.goal) > 0.05 ? Math.max(0, Math.min(1, (f.weight - l.weight) / (f.weight - u.goal))) : null;
+  const fc = forecast(u);
+  const friends = NAMES.map(x => { const ss = sorted(state.users[x]); return ss.length > 1 ? { n: x, c: ss[ss.length - 1].weight - ss[0].weight } : null; }).filter(Boolean);
+  return { n: n, u: u, s: s, f: f, l: l, ch: ch, days: days, perWeek: ch / (days / 7), dir: dir, best: best, lo: lo, hi: hi, ws: ws, steps: steps, b0: b0, b1: b1, gp: gp, fc: fc, friends: friends, meas: s.length, streak: streakWeeks(u), goal: goalOk(u) ? u.goal : null };
+}
+const sgn = v => (v > 0.04 ? "+" : v < -0.04 ? "−" : "") + fmt(Math.abs(v));
+function wcTemplates(S) {
+  const good = S.ch * S.dir > 0;
+  return [
+    L("Panie i panowie, przed nami historia wagi: " + S.n + "!", "Ladies and gentlemen, here comes the weight story of " + S.n + "!"),
+    L("Pomiar po pomiarze, " + S.meas + " wpisów. Tak wygląda konsekwencja.", "Entry after entry, " + S.meas + " measurements. That's consistency."),
+    good ? L("Zmiana: " + sgn(S.ch) + " kg. Kawał roboty!", "Change: " + sgn(S.ch) + " kg. Serious work!") : L("Waga " + sgn(S.ch) + " kg, ale gra trwa. Każdy dzień to nowa szansa.", "Weight " + sgn(S.ch) + " kg, but the game is on. Every day is a new chance."),
+    S.best.v > 0.05 ? L("Najlepszy tydzień: " + fmt(S.best.v) + " kg w dobrą stronę!", "Best week: " + fmt(S.best.v) + " kg the right way!") : L("Rekordowy tydzień dopiero przed Tobą!", "Your record week is still ahead!"),
+    L("BMI z " + fmt(S.b0) + " na " + fmt(S.b1) + ". Liczby mówią same za siebie.", "BMI from " + fmt(S.b0) + " to " + fmt(S.b1) + ". The numbers speak for themselves."),
+    L(S.ws.n + " treningów i " + numFmt(S.steps) + " kroków. Silnik pracuje!", S.ws.n + " workouts and " + numFmt(S.steps) + " steps. The engine is running!"),
+    L("Na tle ekipy: każdy kilogram to wspólna walka.", "Against the crew: every kilo is a shared fight."),
+    S.gp != null ? L("Cel w " + Math.round(S.gp * 100) + "% zrobiony. Meta coraz bliżej!", "Goal " + Math.round(S.gp * 100) + "% done. The finish is getting closer!") : L("Ustaw cel w ustawieniach, a pokażę, ile zostało.", "Set a goal in the settings and I'll show what's left."),
+    L("Nie zatrzymuj się. Najlepsza wersja Ciebie właśnie się buduje! 💪", "Don't stop. The best version of you is being built right now! 💪")
+  ];
+}
+async function wcLines(S) {
+  const tpl = wcTemplates(S);
+  if (!aiKey()) return tpl;
+  try {
+    const sum = "Osoba: " + S.n + "; pomiarów " + S.meas + " od " + S.f.date + " do " + S.l.date + "; waga z " + fmt(S.f.weight) + " na " + fmt(S.l.weight) + " kg (zmiana " + sgn(S.ch) + " kg)" +
+      (S.goal != null ? "; cel " + fmt(S.goal) + " kg (" + Math.round((S.gp || 0) * 100) + "% drogi)" : "; brak celu") + "; najlepszy tydzień " + fmt(S.best.v) + " kg; BMI " + fmt(S.b0) + " → " + fmt(S.b1) +
+      (S.b1 != null && S.b1 < 18.5 ? " (poniżej normy: NIE zachęcaj do chudnięcia)" : "") + "; treningi " + S.ws.n + " (" + S.ws.min + " min); kroki " + S.steps + "; ekipa: " + S.friends.map(x => x.n + " " + sgn(x.c) + " kg").join(", ");
+    const p = parseJson(await aiAsk("Jesteś energicznym, życzliwym komentatorem i trenerem. Robisz kinowe podsumowanie historii wagi przy szybkim basowym bicie. Dane: " + sum +
+      "\nNapisz dokładnie 9 krótkich linijek (każda do 110 znaków) do kolejnych scen: 1) intro, 2) wykres wagi w czasie, 3) całkowita zmiana, 4) najlepszy tydzień i rekordy, 5) BMI, 6) treningi i kroki, 7) porównanie z ekipą, 8) postęp do celu i prognoza, 9) mocne motywujące zakończenie. Bez oceniania wyglądu, bez porad medycznych, maksymalnie jedno emoji na linijkę. Zwróć wyłącznie JSON: {\"lines\":[\"...\"]}",
+      { json: true, max: 1200, temp: 0.95 }));
+    const ls = (Array.isArray(p.lines) ? p.lines : []).map(x => String(x).replace(/[*_#`]+/g, "").trim().slice(0, 140));
+    return tpl.map((t, i) => ls[i] || t);
+  } catch (e) { console.error(e); return tpl; }
+}
+function wcChart(S) {
+  const W = 340, H = 200, pd = 26, xs = S.s.map(e => daysBetween(S.f.date, e.date)), ys = S.s.map(e => e.weight);
+  const all = ys.concat(S.goal != null ? [S.goal] : []), mn = Math.min.apply(null, all) - 1, mx = Math.max.apply(null, all) + 1, dx = Math.max(1, xs[xs.length - 1]);
+  const X = x => pd + x / dx * (W - 2 * pd), Y = y => H - pd - (y - mn) / (mx - mn) * (H - 2 * pd);
+  let bands = "";
+  if (S.u.height) {
+    const m2 = (S.u.height / 100) ** 2, lo = 18.5 * m2, hi = 25 * m2;
+    const y1 = Math.max(pd, Y(Math.min(mx, hi))), y2 = Math.min(H - pd, Y(Math.max(mn, lo)));
+    if (y2 > y1) bands = '<rect x="' + pd + '" y="' + y1.toFixed(1) + '" width="' + (W - 2 * pd) + '" height="' + (y2 - y1).toFixed(1) + '" class="wcband"/><text x="' + (W - pd - 4) + '" y="' + (y1 + 12).toFixed(1) + '" class="wcbandt">' + esc(L("norma BMI", "healthy BMI")) + "</text>";
+  }
+  const d = S.s.map((e, i) => (i ? "L" : "M") + X(xs[i]).toFixed(1) + " " + Y(e.weight).toFixed(1)).join(" ");
+  const area = d + " L" + X(xs[xs.length - 1]).toFixed(1) + " " + (H - pd) + " L" + X(0).toFixed(1) + " " + (H - pd) + " Z";
+  const gl = S.goal != null ? '<line x1="' + pd + '" x2="' + (W - pd) + '" y1="' + Y(S.goal).toFixed(1) + '" y2="' + Y(S.goal).toFixed(1) + '" class="wcgoal"/><text x="' + (pd + 4) + '" y="' + (Y(S.goal) - 5).toFixed(1) + '" class="wcgoalt">🎯 ' + fmt(S.goal) + " kg</text>" : "";
+  return '<svg viewBox="0 0 ' + W + " " + H + '" class="wcchart"><defs><linearGradient id="wcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fd3a5" stop-opacity=".55"/><stop offset="1" stop-color="#5fd3a5" stop-opacity="0"/></linearGradient></defs>' + bands + gl +
+    '<path d="' + area + '" fill="url(#wcg)" class="wcarea"/><path d="' + d + '" class="wcpath" id="wcPath"/><circle r="7" class="wcdot" id="wcDot" cx="' + X(0) + '" cy="' + Y(ys[0]) + '"/></svg>' +
+    '<div class="wcread"><b id="wcW">' + fmt(S.f.weight) + ' kg</b><span id="wcD">' + esc(S.f.date) + "</span></div>";
+}
+function wcScenes(S) {
+  const tile = (e, v, l, i) => '<div class="wctile" style="--d:' + (0.3 + i * 0.25) + 's"><b>' + e + "</b><strong>" + v + "</strong><small>" + esc(l) + "</small></div>";
+  const sc = [];
+  sc.push({ k: 0, d: 5200, h: '<div class="wcsc wcintro"><div class="wcav">' + av(S.n, 96) + "</div>" + words(S.n, "ftitle") + words(L("Historia wagi", "Weight story"), "fsub") + '<div class="wcrange">' + esc(fmtDate(S.f.date) + " → " + fmtDate(S.l.date)) + "</div></div>" });
+  sc.push({ k: 1, d: 8200, chart: true, h: '<div class="wcsc">' + words(L("Waga w czasie", "Weight over time"), "ftitle") + '<div class="fcard">' + wcChart(S) + "</div></div>" });
+  sc.push({ k: 2, d: 5200, h: '<div class="wcsc">' + words(L("Całkowita zmiana", "Total change"), "fsub") + '<div class="wcbig"><span class="fcount" data-to="' + S.ch.toFixed(1) + '">0</span><small>kg</small></div><div class="wcarrow ' + (S.ch * S.dir > 0 ? "good" : "") + '">' + (S.ch < -0.04 ? "⬇️" : S.ch > 0.04 ? "⬆️" : "➡️") + "</div><div class=\"wcrange\">" + esc(L("średnio ", "average ") + sgn(S.perWeek) + L(" kg / tydzień", " kg / week")) + "</div></div>" });
+  sc.push({ k: 3, d: 6000, h: '<div class="wcsc">' + words(L("Rekordy", "Records"), "ftitle") + '<div class="wcgrid">' + tile("🏆", fmt(S.best.v) + " kg", L("najlepszy tydzień", "best week"), 0) + tile("⬇️", fmt(S.lo.weight) + " kg", L("najniższa waga", "lowest weight"), 1) +
+    tile("📏", S.meas, L("pomiarów", "measurements"), 2) + tile("🔥", S.streak + " " + L("tyg.", "wk"), L("passa pomiarów", "measurement streak"), 3) + "</div></div>" });
+  if (S.b0 != null && S.b1 != null) {
+    const pos = b => Math.max(0, Math.min(100, (b - 15) / 25 * 100));
+    sc.push({ k: 4, d: 5600, h: '<div class="wcsc">' + words("BMI", "ftitle") + '<div class="wcgauge"><div class="wcbar"><i class="z1"></i><i class="z2"></i><i class="z3"></i><i class="z4"></i></div><span class="wcneedle" style="--from:' + pos(S.b0) + "%;--to:" + pos(S.b1) + '%"></span></div><div class="wcbig small"><span>' + fmt(S.b0) + '</span><small>→</small><span class="fcount" data-to="' + S.b1.toFixed(1) + '">0</span></div><div class="wcrange">' + esc(category(S.b1)) + "</div></div>" });
+  }
+  sc.push({ k: 5, d: 5600, h: '<div class="wcsc">' + words(L("Ruch", "Movement"), "ftitle") + '<div class="wcgrid">' + tile("🏃", '<span class="fcount" data-to="' + S.ws.n + '" data-int="1">0</span>', L("treningów", "workouts"), 0) + tile("⏱", '<span class="fcount" data-to="' + S.ws.min + '" data-int="1">0</span>', L("minut", "minutes"), 1) +
+    tile("🔥", '<span class="fcount" data-to="' + S.ws.kcal + '" data-int="1">0</span>', L("kcal spalone", "kcal burned"), 2) + tile("👟", '<span class="fcount" data-to="' + S.steps + '" data-int="1">0</span>', L("kroków", "steps"), 3) + "</div></div>" });
+  if (S.friends.length > 1) {
+    const mxc = Math.max.apply(null, S.friends.map(x => Math.abs(x.c))) || 1;
+    sc.push({ k: 6, d: 5800, h: '<div class="wcsc">' + words(L("Na tle ekipy", "Against the crew"), "ftitle") + '<div class="wcfr">' + S.friends.sort((a, b) => a.c - b.c).map((x, i) => '<div class="wcfrow' + (x.n === S.n ? " me" : "") + '" style="--d:' + (0.4 + i * 0.2) + 's"><span class="who">' + av(x.n, 26) + esc(x.n) + '</span><i style="--w:' + (Math.abs(x.c) / mxc * 100) + '%"></i><b>' + sgn(x.c) + " kg</b></div>").join("") + "</div></div>" });
+  }
+  const fc = S.fc, fct = !fc ? "" : fc.reached ? L("Cel osiągnięty! 🎉", "Goal reached! 🎉") : fc.date ? L("Prognoza dojścia do celu: ", "Goal forecast: ") + fmtDate(fc.date) : fc.away ? L("Trend chwilowo w złą stronę, ale da się to odwrócić.", "The trend is off right now, but it can turn around.") : L("Do celu jeszcze daleko, krok po kroku.", "The goal is still far, step by step.");
+  sc.push({ k: 7, d: 5800, h: '<div class="wcsc">' + words(L("Droga do celu", "Road to the goal"), "ftitle") + (S.gp != null ? '<div class="wcring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" class="wcrt"/><circle cx="60" cy="60" r="52" class="wcra" style="--p:' + S.gp + '"/></svg><b><span class="fcount" data-to="' + Math.round(S.gp * 100) + '" data-int="1">0</span>%</b></div>' : '<div class="wcbig small">🎯</div>') + '<div class="wcrange">' + esc(fct) + "</div></div>" });
+  sc.push({ k: 8, d: 0, final: true, h: '<div class="wcsc wcfinal"><div class="wcav">' + av(S.n, 80) + '</div><div class="wcmot" id="wcMot"></div><div class="tools" style="justify-content:center"><button class="primary" id="wcShare">' + esc(L("📤 Udostępnij", "📤 Share")) + '</button><button class="ghost" id="wcAgain">' + esc(L("↺ Jeszcze raz", "↺ Again")) + '</button><button class="ghost" id="wcDone">' + esc(L("Zamknij", "Close")) + "</button></div></div>" });
+  return sc;
+}
+function wcAnimChart(S, ms) {
+  const path = $("wcPath"), dot = $("wcDot"); if (!path) return;
+  const len = path.getTotalLength(), t0 = performance.now(), me = WC;
+  path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+  const span = Math.max(1, daysBetween(S.f.date, S.l.date));
+  const step = now => {
+    if (WC !== me || !$("wcPath")) return;
+    const p = Math.min(1, (now - t0) / ms), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2, pt = path.getPointAtLength(len * e);
+    path.style.strokeDashoffset = len * (1 - e); dot.setAttribute("cx", pt.x); dot.setAttribute("cy", pt.y);
+    const day = Math.round(span * e), dd = addDays(S.f.date, day);
+    let w = S.s[0].weight; for (let i = 1; i < S.s.length; i++) { if (S.s[i].date <= dd) w = S.s[i].weight; else { const a = S.s[i - 1], k = daysBetween(a.date, dd) / Math.max(1, daysBetween(a.date, S.s[i].date)); w = a.weight + (S.s[i].weight - a.weight) * k; break; } }
+    $("wcW").textContent = fmt(w) + " kg"; $("wcD").textContent = fmtDate(dd);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function wcCounts() {
+  Array.prototype.forEach.call($("wcScene").querySelectorAll(".fcount"), el => {
+    const to = parseFloat(el.getAttribute("data-to")), int = el.hasAttribute("data-int"), t0 = performance.now() + 500;
+    const f = now => { const p = Math.max(0, Math.min(1, (now - t0) / 1500)), v = to * (1 - Math.pow(1 - p, 3)); el.textContent = int ? numFmt(v) : (to < -0.04 ? "−" : to > 0.04 && el.closest(".wcbig") && !el.closest(".small") ? "+" : "") + fmt(Math.abs(v)); if (p < 1 && WC) requestAnimationFrame(f); };
+    requestAnimationFrame(f);
+  });
+}
+function openWeightCine() {
+  const n = state.current, S = wcStats(n);
+  if (!S) { toast(L("Potrzebne są co najmniej 2 pomiary wagi.", "At least 2 weight measurements are needed.")); return; }
+  WC = { S: S, i: -1, timer: 0, lines: null, scenes: wcScenes(S) };
+  const el = $("wcine");
+  el.hidden = false; el.classList.remove("in", "beat"); void el.offsetWidth; el.classList.add("in");
+  $("wcScene").innerHTML = '<div class="wcsc wcintro"><div class="wcav">' + av(n, 96) + "</div>" + words(L("Kino wagi", "Weight cinema"), "ftitle") + '</div>';
+  $("wcStart").hidden = false; $("wcGo").textContent = L("▶ Start", "▶ Start");
+  $("wcSub").textContent = ""; $("wcSub").classList.remove("show"); $("wcBarI").style.width = "0%";
+  $("wcMute").textContent = sndOn() ? "🔊" : "🔇";
+  document.body.style.overflow = "hidden";
+}
+async function wcGo() {
+  if (!WC) return;
+  const me = WC;
+  sctx();
+  $("wcStart").hidden = true; $("wcine").classList.add("go");
+  const lp = wcLines(me.S);
+  if (sndOn()) { SND.style = "bass"; SND.bpm = 132; musicStart(); }
+  $("wcine").classList.add("beat");
+  me.lines = await Promise.race([lp, sleep(2500).then(() => wcTemplates(me.S))]);
+  if (WC !== me) return;
+  const tot = me.scenes.reduce((a, x) => a + x.d, 0), t0 = performance.now();
+  const bar = now => { if (WC !== me) return; const p = Math.min(1, (now - t0) / tot); $("wcBarI").style.width = (p * 100) + "%"; if (p < 1) requestAnimationFrame(bar); };
+  requestAnimationFrame(bar);
+  wcNext();
+}
+function wcNext() {
+  const me = WC; if (!me) return;
+  me.i++;
+  const sc = me.scenes[me.i]; if (!sc) return;
+  const fx = $("wcFx"), kinds = ["flash", "zoom", "wipe"];
+  fx.className = "filmFx " + kinds[me.i % 3]; void fx.offsetWidth; fx.classList.add("run");
+  const st = $("wcStage"); st.classList.remove("shake"); void st.offsetWidth; st.classList.add("shake");
+  if (me.i > 0) { sfx("whoosh"); buzz([30, 20, 30]); }
+  setTimeout(() => {
+    if (WC !== me) return;
+    $("wcScene").innerHTML = sc.h;
+    wcCounts();
+    if (sc.chart) wcAnimChart(me.S, sc.d - 1400);
+    const line = me.lines && me.lines[sc.k];
+    if (sc.final) {
+      $("wcSub").classList.remove("show");
+      $("wcMot").textContent = line || "";
+      musicStop(2.2); sfx("fanfare"); buzz([100, 50, 100, 50, 220]);
+      if (animOn()) { confetti(); fireworks($("wcFw"), 4); setTimeout(() => { if ($("wcFw")) $("wcFw").innerHTML = ""; }, 3600); }
+      $("wcine").classList.remove("beat");
+      $("wcBarI").style.width = "100%";
+    } else {
+      if (line) { const s = $("wcSub"); s.classList.remove("show"); void s.offsetWidth; s.textContent = line; s.classList.add("show"); if (cineVoiceOn() && window.speechSynthesis) { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(line.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = FA ? "fa-IR" : LANG === "en" ? "en-GB" : "pl-PL"; u.rate = 1.1; speechSynthesis.speak(u); } catch (e) {} } }
+      me.timer = setTimeout(wcNext, sc.d);
+    }
+  }, 300);
+}
+function closeWeightCine() {
+  if (!WC) return;
+  clearTimeout(WC.timer); WC = null; musicStop(0.4); SND.style = "pop";
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
+  const el = $("wcine"); el.classList.remove("in", "beat", "go");
+  setTimeout(() => { el.hidden = true; $("wcScene").innerHTML = ""; }, 300);
+  document.body.style.overflow = "";
+}
+$("wcOpen").addEventListener("click", openWeightCine);
+$("wcGo").addEventListener("click", wcGo);
+$("wcClose").addEventListener("click", closeWeightCine);
+$("wcSkip").addEventListener("click", () => { if (!WC || WC.i < 0) return; clearTimeout(WC.timer); WC.i = WC.scenes.length - 2; wcNext(); });
+$("wcMute").addEventListener("click", () => {
+  const on = !sndOn();
+  try { localStorage.setItem("pd-snd", on ? "1" : "0"); } catch (e) {}
+  if ($("setSnd")) $("setSnd").checked = on;
+  sndApplyMute(); $("wcMute").textContent = on ? "🔊" : "🔇";
+  if (on && WC && WC.i >= 0 && WC.i < WC.scenes.length - 1) { SND.style = "bass"; SND.bpm = 132; musicStart(); }
+  if (!on) musicStop(0.2);
+});
+$("wcScene").addEventListener("click", async e => {
+  const t = e.target;
+  if (t.id === "wcDone") closeWeightCine();
+  else if (t.id === "wcAgain") { const S = WC && WC.S; closeWeightCine(); setTimeout(() => { openWeightCine(); wcGo(); }, 350); void S; }
+  else if (t.id === "wcShare" && WC) {
+    const S = WC.S, txt = "🎬 " + L("Historia wagi", "Weight story") + ": " + S.n + "\n" + fmtDate(S.f.date) + " → " + fmtDate(S.l.date) + ": " + sgn(S.ch) + " kg\n" + (WC.lines ? WC.lines[WC.lines.length - 1] : "") + "\n" + inviteUrl();
+    try { if (navigator.share) { await navigator.share({ title: "Progress dietowy", text: txt }); return; } } catch (err) { if (err && err.name === "AbortError") return; }
+    const ok = await copyText(txt); toast(ok ? L("Skopiowano ✅", "Copied ✅") : txt);
+  }
+});
 
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
@@ -6771,6 +7084,8 @@ Object.assign(EN, {"Co nowego w 3.7": "What's new in 3.7", "Wspólna podróż gr
 Object.assign(FAD, {"What's new in 3.7": "تازه‌ها در نسخه 3.7", "History": "تاریخچه", "💬 Chats": "💬 گفتگوها", "🍽 Diet": "🍽 رژیم", "🧮 Calculations": "🧮 محاسبه‌ها", "🤖 AI results": "🤖 نتایج هوش مصنوعی", "Search conversations": "جستجو در گفتگوها", "Load older": "بارگذاری قدیمی‌ترها", "Loading…": "در حال بارگذاری…", "Shared journey": "سفر مشترک", "Next stop: ": "ایستگاه بعدی: ", " in ": " تا ", "Who added how much": "چه کسی چقدر اضافه کرد", "Previous journeys": "سفرهای قبلی", "Turbo mode: 1 step = ": "حالت توربو: هر قدم = ", " m on the journey": " متر در سفر", "Route for ": "مسیر برای ", "From": "از", "To": "به", "Vote": "رأی بده", "Change vote": "تغییر رأی", "Vote saved 🗳": "رأی ثبت شد 🗳", "Pick two different cities.": "دو شهر متفاوت انتخاب کنید.", "Vote where the group walks next month. The route with the most votes wins.": "رأی دهید گروه ماه بعد از کجا به کجا برود. مسیری که بیشترین رأی را دارد برنده است.", "You reached the destination: ": "به مقصد رسیدید: ", "Preparing the route…": "در حال آماده‌سازی مسیر…", "🎬 Cinema": "🎬 سینما", "📷 From a screenshot": "📷 از اسکرین‌شات", "⬇️ Export history to a file": "⬇️ خروجی تاریخچه در فایل", "📳 Vibration": "📳 لرزش", "🔊 Sounds and music": "🔊 صدا و موسیقی", "👋 Show the intro": "👋 نمایش راهنما", "▶ Start": "▶ شروع", "Turn the sound on, sit back and watch the race come alive day by day.": "صدا را روشن کنید، راحت بنشینید و ببینید مسابقه روز به روز زنده می‌شود.", "Step race": "مسابقه قدم", "📤 Share the result": "📤 اشتراک‌گذاری نتیجه", "↺ Again": "↺ دوباره", "Close": "بستن", "Next": "بعدی", "Skip": "رد شدن", "Welcome to Progress dietowy!": "به پیشرفت رژیمی خوش آمدید!", "The menu is at the top. Swipe it and pick a tab.": "منو در بالای صفحه است. آن را بکشید و یک بخش را انتخاب کنید.", "Log your steps (even from a screenshot) and race your friends. Together you also go on a shared journey.": "قدم‌هایتان را ثبت کنید (حتی از اسکرین‌شات) و با دوستان مسابقه دهید. با هم به یک سفر مشترک هم می‌روید.", "Friends & chat": "دوستان و گفتگو", "Invite friends, follow each other's progress and chat. The 🌐 button translates messages.": "دوستان را دعوت کنید، پیشرفت یکدیگر را دنبال کنید و گفتگو کنید. دکمه 🌐 پیام‌ها را ترجمه می‌کند.", "AI coach & history": "مربی هوش مصنوعی و تاریخچه", "The coach gives tips and analyses the group. Everything you calculate or get from the AI is saved in History.": "مربی نکته می‌دهد و گروه را تحلیل می‌کند. هر چه محاسبه کنید یا از هوش مصنوعی بگیرید در تاریخچه ذخیره می‌شود.", "New record!": "رکورد جدید!", " steps in one day": " قدم در یک روز", "Keep it up, the race is on.": "ادامه بده، مسابقه ادامه دارد.", "Reading the screenshot…": "در حال خواندن اسکرین‌شات…", "steps": "قدم", "Check it and tap “Save steps”. The photo is not saved.": "بررسی کنید و «ذخیره قدم‌ها» را بزنید. عکس ذخیره نمی‌شود.", "Uncertain read: check the number before saving.": "خواندن مطمئن نیست: پیش از ذخیره عدد را بررسی کنید.", "Workout plan": "برنامه تمرین", "Meal idea": "ایده وعده", "Food photo": "عکس غذا", "Text entry": "ثبت با متن", "Advice": "توصیه", "Group analysis": "تحلیل گروه", "Steps from a screenshot": "قدم از اسکرین‌شات", "↺ Load into the calculator": "↺ بارگذاری در ماشین‌حساب", "Days logged": "روزهای ثبت‌شده", "Avg kcal / day (month)": "میانگین کالری در روز (ماه)", "Avg kcal (7 days)": "میانگین کالری (۷ روز)", "No entries on this day.": "در این روز ثبتی نیست.", "The last 60 results are kept; the oldest are overwritten.": "۶۰ نتیجه آخر نگه داشته می‌شود و قدیمی‌ترها جایگزین می‌شوند.", "AI tool results will be saved here automatically.": "نتایج ابزارهای هوش مصنوعی خودکار اینجا ذخیره می‌شوند.", "No saved calculations yet. Use the calculator and the result saves itself.": "هنوز محاسبه‌ای ذخیره نشده. از ماشین‌حساب استفاده کنید تا نتیجه خودکار ذخیره شود.", "No messages for these filters.": "برای این فیلترها پیامی نیست.", "That is all the messages.": "همه پیام‌ها همین بود.", "History file downloaded.": "فایل تاریخچه دانلود شد.", "Thunderstorm: train at home today, it is safer.": "رعد و برق: امروز در خانه تمرین کنید، امن‌تر است.", "Raining: a good day for a home or gym workout.": "باران می‌بارد: روز خوبی برای تمرین در خانه یا باشگاه است.", "Cold: dress warmly and warm up for longer.": "هوا سرد است: گرم بپوشید و بیشتر گرم کنید.", "Hot: drink more water, train early or late.": "هوا گرم است: آب بیشتری بنوشید و صبح زود یا عصر تمرین کنید.", "Great weather for a run, a ride or a walk!": "هوای عالی برای دویدن، دوچرخه‌سواری یا پیاده‌روی!", "A walk counts too. Keep moving!": "پیاده‌روی هم حساب است. در حرکت بمانید!", "feels like ": "دمای محسوس ", "wind ": "باد ", "rain ": "باران ", "Loading weather…": "در حال بارگذاری آب‌وهوا…", "Weather is temporarily unavailable.": "آب‌وهوا موقتاً در دسترس نیست.", "Commentator voice": "صدای گزارشگر", "Sound": "صدا"});
 Object.assign(EN, {"Co nowego w 3.8": "What's new in 3.8", "Film powitalny dla nowych osób": "Welcome film for newcomers", "Kreator profilu po rejestracji": "Profile setup after signing up", "Podgląd, jak widzi to nowy użytkownik (ustawienia)": "Preview as a new user (settings)", "▶ Zobacz, jak to działa": "▶ See how it works", "👀 Zobacz, jak widzi to nowy użytkownik": "👀 See it as a new user"});
 Object.assign(FAD, {"What's new in 3.8": "تازه‌ها در نسخه 3.8", "Your crew. Your shape.": "گروه تو. فرم تو.", "Track weight and BMI": "وزن و شاخص توده بدنی را دنبال کن", "Race your friends on steps": "با دوستانت در قدم‌ها مسابقه بده", "Belgrade": "بلگراد", "Tehran": "تهران", "Go on a journey together": "با هم به سفر بروید", "Chat in any language": "به هر زبانی گفتگو کنید", "Who's running today? 🏃": "امروز کی می‌دود؟ 🏃", "Me! 10 km after work 💪": "من! ۱۰ کیلومتر بعد از کار 💪", "Hi! I'm coming too": "سلام! من هم می‌آیم", "An AI coach always at hand": "مربی هوش مصنوعی همیشه در دسترس", "Great 5-day streak! Today an easy walk and plenty of water 💧": "تداوم ۵ روزه عالی! امروز یک پیاده‌روی آرام و آب زیاد 💧", "Gym, food, calculator and more": "باشگاه، غذا، ماشین‌حساب و بیشتر", "Food": "غذا", "AI photos": "عکس‌های هوش مصنوعی", "Cinema": "سینما", "Weather": "آب‌وهوا", "Everything saved in history": "همه چیز در تاریخچه ذخیره می‌شود", "Join the crew 💪": "به گروه بپیوند 💪", "Signing up takes a few seconds": "ثبت‌نام فقط چند ثانیه طول می‌کشد", "Next: profile setup ▶": "بعدی: تنظیم نمایه ▶", "➕ Join now": "➕ همین حالا بپیوند", "I already have an account": "حساب کاربری دارم", "Tap to watch": "برای تماشا بزنید", "Hi": "سلام", "You": "تو", "Let's set a few things so the coach and calculator work right away.": "بیایید چند چیز را تنظیم کنیم تا مربی و ماشین‌حساب از همین حالا کار کنند.", "You can change everything later in the settings.": "بعداً می‌توانید همه چیز را در تنظیمات تغییر دهید.", "How tall are you?": "قد شما چقدر است؟", "What do you weigh today?": "امروز وزن شما چقدر است؟", "This will be your first measurement.": "این اولین اندازه‌گیری شما خواهد بود.", "What's your goal?": "هدف شما چیست؟", "The weight you want to reach.": "وزنی که می‌خواهید به آن برسید.", "Sex and age": "جنسیت و سن", "Needed to calculate calories.": "برای محاسبه کالری لازم است.", "years": "سال", "How active are you?": "چقدر فعال هستید؟", "Sedentary": "کم‌تحرک", "Light activity": "فعالیت سبک", "Moderate": "متوسط", "High": "زیاد", "Very high": "خیلی زیاد", "no workouts": "بدون تمرین", "1–3 workouts a week": "۱ تا ۳ تمرین در هفته", "3–5 workouts a week": "۳ تا ۵ تمرین در هفته", "6–7 workouts a week": "۶ تا ۷ تمرین در هفته", "physical job and training": "کار بدنی و تمرین", "Pick your avatar": "آواتار خود را انتخاب کنید", "An emoji or your own photo.": "یک ایموجی یا عکس خودتان.", "Your own photo": "عکس خودتان", "All set! 🎉": "همه چیز آماده است! 🎉", "day": "روز", "This is a preview: nothing will be saved.": "این یک پیش‌نمایش است: چیزی ذخیره نمی‌شود.", "I'll save this to your profile. You can change everything in the settings.": "این را در نمایه شما ذخیره می‌کنم. همه چیز را بعداً در تنظیمات تغییر دهید.", "Keep the weight": "حفظ وزن", "below a healthy BMI, pick a higher goal": "زیر شاخص توده بدنی سالم است، هدف بالاتری انتخاب کنید", "Let's start ▶": "شروع کنیم ▶", "Profile saved ✅": "نمایه ذخیره شد ✅", "Could not save the profile.": "ذخیره نمایه ممکن نشد.", "▶ See how it works": "▶ ببینید چطور کار می‌کند", "👀 See it as a new user": "👀 از دید کاربر جدید ببینید", "Cannot read the photo.": "عکس خوانده نشد."});
+Object.assign(EN, {"Co nowego w 3.8.1": "What's new in 3.8.1", "Kino wagi: historia wagi z basowym bitem i komentarzem AI": "Weight cinema: your weight story with a bass beat and AI commentary", "Wybór języka przed filmem powitalnym": "Language choice before the welcome film", "🎬 Kino wagi": "🎬 Weight cinema"});
+Object.assign(FAD, {"What's new in 3.8.1": "تازه‌ها در نسخه 3.8.1", "🎬 Weight cinema": "🎬 سینمای وزن", "Weight cinema": "سینمای وزن", "Weight story": "داستان وزن", "Weight over time": "وزن در طول زمان", "Total change": "تغییر کل", "average ": "میانگین ", " kg / week": " کیلو در هفته", "Records": "رکوردها", "best week": "بهترین هفته", "lowest weight": "کمترین وزن", "measurements": "اندازه‌گیری", "wk": "هفته", "measurement streak": "تداوم اندازه‌گیری", "Movement": "حرکت", "workouts": "تمرین", "minutes": "دقیقه", "kcal burned": "کیلوکالری سوخته", "steps": "قدم", "Against the crew": "در کنار گروه", "Road to the goal": "راه رسیدن به هدف", "Goal reached! 🎉": "به هدف رسیدی! 🎉", "Goal forecast: ": "پیش‌بینی رسیدن به هدف: ", "The trend is off right now, but it can turn around.": "روند فعلاً خلاف جهت است، ولی می‌شود برگرداند.", "The goal is still far, step by step.": "هدف هنوز دور است، قدم به قدم.", "📤 Share": "📤 اشتراک‌گذاری", "↺ Again": "↺ دوباره", "Close": "بستن", "healthy BMI": "شاخص سالم", "At least 2 weight measurements are needed.": "حداقل ۲ اندازه‌گیری وزن لازم است.", "Copied ✅": "کپی شد ✅", "Tap a flag or ▶ to watch": "برای تماشا روی پرچم یا ▶ بزنید"});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [

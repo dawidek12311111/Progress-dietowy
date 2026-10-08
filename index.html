@@ -590,6 +590,153 @@
   .langflags button svg { width: 100%; height: 100%; display: block; }
   .langflags button:active { transform: scale(.9); }
   .langflags button.on { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(0,0,0,.08); }
+
+  /* ===== v3.7 ===== */
+  /* przejścia stron: karty po kolei */
+  html[data-anim="on"] .pg.pgin > .card, html[data-anim="on"] .pg.pgin > div > .card { animation: cardIn .5s cubic-bezier(.2,.9,.3,1.1) both; }
+  html[data-anim="on"] .pg.pgin > :nth-child(2) { animation-delay: .06s; } html[data-anim="on"] .pg.pgin > :nth-child(3) { animation-delay: .12s; }
+  html[data-anim="on"] .pg.pgin > :nth-child(4) { animation-delay: .18s; } html[data-anim="on"] .pg.pgin > :nth-child(5) { animation-delay: .24s; }
+  html[data-anim="on"] .pg.pgin > :nth-child(n+6) { animation-delay: .3s; }
+  @keyframes cardIn { from { opacity: 0; transform: translateY(18px) scale(.98); } to { opacity: 1; transform: none; } }
+  /* tabele */
+  tr.flipping td { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  html[data-anim="on"] tr.first td.place { display: inline-block; animation: medal 2.6s ease-in-out infinite; }
+  @keyframes medal { 0%, 100% { filter: drop-shadow(0 0 0 rgba(255,200,40,0)); transform: rotate(0); } 45% { filter: drop-shadow(0 0 6px rgba(255,200,40,.9)); transform: rotate(-8deg) scale(1.12); } 55% { transform: rotate(6deg) scale(1.12); } }
+  /* iskry, balony, fajerwerki */
+  .spark { position: fixed; width: 7px; height: 7px; border-radius: 50%; pointer-events: none; z-index: 90; animation: spark .75s ease-out forwards; }
+  @keyframes spark { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+  .floatemo { position: fixed; z-index: 90; font-size: 1.6rem; pointer-events: none; transform: translate(-50%, 0); animation: balloon 1.5s ease-out forwards; }
+  @keyframes balloon { 0% { opacity: 0; transform: translate(-50%, 0) scale(.5); } 15% { opacity: 1; transform: translate(-50%, -10px) scale(1.1); } 100% { opacity: 0; transform: translate(calc(-50% + var(--sx)), -140px) scale(1); } }
+  .fwp { position: absolute; width: 6px; height: 6px; border-radius: 50%; opacity: 0; animation: fwp 1.4s ease-out both; }
+  @keyframes fwp { 0% { opacity: 1; transform: translate(0, 0); } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx), calc(var(--dy) + 30px)); } }
+  .celeb { position: fixed; inset: 0; z-index: 85; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.45); opacity: 0; transition: opacity .25s; padding: 20px; }
+  .celeb.in { opacity: 1; }
+  .celebIn { background: var(--card); color: var(--ink); border-radius: 22px; padding: 26px 24px; text-align: center; max-width: 340px; width: 100%; transform: scale(.7); transition: transform .45s cubic-bezier(.2,1.5,.4,1); box-shadow: 0 20px 60px rgba(0,0,0,.35); position: relative; z-index: 2; }
+  .celeb.in .celebIn { transform: none; }
+  .celebE { font-size: 4rem; line-height: 1; }
+  html[data-anim="on"] .celeb.in .celebE { animation: celebE 1.2s ease-in-out infinite; display: inline-block; }
+  @keyframes celebE { 0%, 100% { transform: scale(1) rotate(0); } 50% { transform: scale(1.2) rotate(-8deg); } }
+  .celebT { font-size: 1.4rem; font-weight: 800; margin-top: 8px; }
+  .celebS { color: var(--muted); margin-top: 6px; }
+  .celebFw { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+  /* czat: wiadomości z odbiciem */
+  html[data-anim="on"] .cm.new { animation: msgPop .55s cubic-bezier(.2,1.5,.4,1) both; }
+  @keyframes msgPop { from { opacity: 0; transform: translateY(16px) scale(.85); } to { opacity: 1; transform: none; } }
+  /* pogoda: animowane tło */
+  .wx > *:not(.wxfx) { position: relative; z-index: 1; }
+  .wxfx { position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .9; }
+  html[data-anim="on"] .wx[data-mood="rain"] .wxfx { background-image: repeating-linear-gradient(105deg, transparent 0 14px, rgba(70,110,200,.28) 14px 15px, transparent 15px 34px); background-size: 120px 120px; animation: rain .5s linear infinite; }
+  @keyframes rain { from { background-position: 0 0; } to { background-position: -30px 120px; } }
+  html[data-anim="on"] .wx[data-mood="snow"] .wxfx, html[data-anim="on"] .wx[data-mood="cold"] .wxfx { background-image: radial-gradient(circle, rgba(255,255,255,.95) 0 2px, transparent 2.5px), radial-gradient(circle, rgba(255,255,255,.8) 0 1.5px, transparent 2px); background-size: 46px 46px, 31px 31px; background-position: 0 0, 15px 20px; animation: snow 6s linear infinite; filter: drop-shadow(0 0 1px rgba(120,150,200,.6)); }
+  @keyframes snow { from { background-position: 0 0, 15px 20px; } to { background-position: 30px 230px, 0 175px; } }
+  html[data-anim="on"] .wx[data-mood="sun"] .wxfx { background: conic-gradient(from 0deg at 88% 8%, rgba(255,200,60,.0), rgba(255,200,60,.18) 4%, rgba(255,200,60,0) 8%, rgba(255,200,60,.18) 12%, rgba(255,200,60,0) 16%, rgba(255,200,60,.18) 20%, rgba(255,200,60,0) 24%); animation: rays 14s linear infinite; }
+  @keyframes rays { from { filter: hue-rotate(0); transform: rotate(0); } 50% { transform: rotate(3deg); } to { transform: rotate(0); } }
+  html[data-anim="on"] .wx[data-mood="cloud"] .wxfx, html[data-anim="on"] .wx[data-mood="night"] .wxfx { background-image: radial-gradient(ellipse 70px 22px at 20% 30%, rgba(255,255,255,.55) 60%, transparent 62%), radial-gradient(ellipse 90px 26px at 70% 18%, rgba(255,255,255,.45) 60%, transparent 62%); background-size: 200% 100%; animation: clouds 40s linear infinite; }
+  .wx[data-mood="cloud"] { background-image: linear-gradient(180deg, rgba(140,150,170,.18), transparent 70%); }
+  .wx[data-mood="snow"] { background-image: linear-gradient(180deg, rgba(160,200,255,.22), transparent 70%); }
+  /* pierścienie */
+  html[data-anim="on"] .ringbtn.done .ico { animation: ringPop .6s cubic-bezier(.2,1.6,.4,1); }
+  @keyframes ringPop { 0% { transform: scale(.8); } 60% { transform: scale(1.12); } 100% { transform: none; } }
+  /* zrzut ekranu z krokami */
+  .stshot { margin-top: 10px; }
+  .scanwrap { position: relative; max-width: 220px; margin: 10px auto 6px; border-radius: 12px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,.15); }
+  .scanwrap img { display: block; width: 100%; max-height: 300px; object-fit: cover; }
+  .scanwrap.scanning img { filter: saturate(.6) brightness(.9); }
+  .scanline { position: absolute; left: 0; right: 0; height: 3px; top: 0; background: linear-gradient(90deg, transparent, #33e6a6, transparent); box-shadow: 0 0 14px 4px rgba(51,230,166,.7); animation: scan 1.4s ease-in-out infinite alternate; }
+  @keyframes scan { from { top: 0; } to { top: calc(100% - 3px); } }
+  .scanwrap.done { max-width: 120px; opacity: .85; }
+  .shotres { text-align: center; font-size: 1.05rem; }
+  .bignum { font-size: 2.2rem; font-weight: 900; color: var(--accent); font-variant-numeric: tabular-nums; }
+  button.pulse { animation: btnPulse 1s ease-in-out 3; }
+  @keyframes btnPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(31,158,122,.0); } 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 35%, transparent); } }
+  /* historia */
+  .hinav { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 8px 0; }
+  .hinav b { text-transform: capitalize; }
+  .hical { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+  .hihd { text-align: center; font-size: .72rem; color: var(--muted); }
+  .hiday { font: inherit; border: 1px solid var(--line); background: var(--bg); color: var(--ink); border-radius: 10px; padding: 5px 2px; min-height: 46px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .hiday b { font-size: .85rem; } .hiday small { font-size: .62rem; color: var(--muted); }
+  .hiday.ok { background: color-mix(in srgb, var(--good) 28%, var(--card)); } .hiday.hi { background: color-mix(in srgb, #f2b33d 35%, var(--card)); }
+  .hiday.ov { background: color-mix(in srgb, var(--bad) 30%, var(--card)); } .hiday.lo, .hiday.lg { background: color-mix(in srgb, var(--muted) 18%, var(--card)); }
+  .hiday.sel { outline: 2px solid var(--accent); } .hiday.tdy b { text-decoration: underline; }
+  html[data-anim="on"] .hiday, html[data-anim="on"] .hicalc, html[data-anim="on"] .hiai { animation: tileIn .45s cubic-bezier(.2,1.3,.4,1) both; animation-delay: calc(var(--i) * 18ms); }
+  @keyframes tileIn { from { opacity: 0; transform: scale(.6) translateY(8px); } to { opacity: 1; transform: none; } }
+  .himeal { background: var(--bg); border-radius: 10px; padding: 8px 10px; margin-top: 6px; font-size: .9rem; }
+  .himeal div { display: flex; justify-content: space-between; gap: 8px; margin-top: 3px; }
+  .hiMsg { background: var(--bg); border-radius: 10px; padding: 7px 10px; margin-top: 6px; font-size: .9rem; overflow-wrap: anywhere; }
+  .hiMsg.coach { border-inline-start: 3px solid var(--accent); } .hiMsg small { color: var(--muted); }
+  .hicalc { background: var(--bg); border-radius: 12px; padding: 10px; margin-top: 8px; }
+  details.hiai { background: var(--bg); border-radius: 12px; padding: 8px 10px; margin-top: 8px; }
+  details.hiai summary { cursor: pointer; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  details.hiai summary small { color: var(--muted); }
+  .hiaitxt { white-space: pre-wrap; font-size: .88rem; margin: 8px 0; line-height: 1.45; }
+  /* podróż */
+  .jrhead { display: flex; flex-direction: column; gap: 2px; margin-bottom: 8px; } .jrhead small { color: var(--muted); }
+  .jrmap { width: 100%; height: auto; display: block; border-radius: 14px; }
+  .jrgrid { stroke: rgba(0,0,0,.05); stroke-width: 1; }
+  .jrfull { fill: none; stroke: rgba(40,60,80,.35); stroke-width: 3; stroke-dasharray: 6 6; stroke-linecap: round; }
+  .jrtrav { fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 2px 2px rgba(0,0,0,.2)); }
+  .jrcity { fill: #fff; stroke: rgba(40,60,80,.55); stroke-width: 2; } .jrcity.ok { fill: var(--accent); stroke: #fff; }
+  .jrlab { font-size: 9.5px; font-weight: 700; fill: #26404a; paint-order: stroke; stroke: rgba(255,255,255,.85); stroke-width: 3px; }
+  .jrlab.ok { fill: #0f5e47; }
+  .jrflag { font-size: 14px; }
+  .jrmark { transition: transform 1.8s cubic-bezier(.3,.8,.3,1); }
+  .jrdot { fill: #fff; stroke: var(--accent); stroke-width: 2.5; }
+  .jrpulse { fill: var(--accent); opacity: .35; transform-box: fill-box; transform-origin: center; }
+  html[data-anim="on"] .jrpulse { animation: jrpulse 1.6s ease-out infinite; }
+  @keyframes jrpulse { from { transform: scale(1); opacity: .45; } to { transform: scale(2.4); opacity: 0; } }
+  .jrwalk { font-size: 12px; text-anchor: middle; }
+  html[data-anim="on"] .jrwalk { animation: jrwalk .5s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: center bottom; }
+  @keyframes jrwalk { from { transform: rotate(-8deg); } to { transform: rotate(8deg); } }
+  .jrstat { margin-top: 10px; font-size: 1.05rem; } .jrstat b { font-size: 1.3rem; }
+  .jrbar { height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; margin-top: 6px; }
+  .jrbar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), #5fd3a5); transition: width 1.8s ease; }
+  .jrnext { margin-top: 8px; font-weight: 700; } .jrnext.done { color: var(--good); }
+  .jrfact { background: var(--bg); border-radius: 12px; padding: 10px 12px; margin-top: 8px; font-size: .9rem; }
+  .jrcon { display: grid; grid-template-columns: minmax(90px, 1fr) 2fr auto; align-items: center; gap: 8px; margin-top: 6px; font-size: .88rem; }
+  .jrcon i { display: block; height: 8px; border-radius: 99px; }
+  /* kino */
+  .cine { position: fixed; inset: 0; z-index: 80; background: radial-gradient(ellipse at 50% 20%, #23324a, #0b111b 70%); color: #fff; display: flex; flex-direction: column; opacity: 0; transition: opacity .35s; overflow: hidden; }
+  .cine.in { opacity: 1; }
+  .cineTop { display: flex; align-items: center; gap: 8px; padding: 12px 14px; }
+  .cineTop b { flex: 1; font-size: 1rem; }
+  .cineTop span { font-variant-numeric: tabular-nums; font-weight: 700; background: rgba(255,255,255,.12); padding: 4px 10px; border-radius: 99px; }
+  .cineTop button { background: rgba(255,255,255,.12); color: #fff; border: 0; border-radius: 10px; width: 38px; height: 34px; font-size: 1.05rem; cursor: pointer; }
+  .cineTop button.off { opacity: .45; }
+  .cineStage { flex: 1; display: flex; align-items: center; overflow: hidden; padding: 0 12px; position: relative; }
+  .cineStage.flash::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.35); animation: cflash .5s ease-out forwards; pointer-events: none; }
+  @keyframes cflash { to { opacity: 0; } }
+  .cineCam { width: 100%; transition: transform .9s cubic-bezier(.3,.8,.3,1); transform-origin: center; }
+  .cinerace { margin: 0; }
+  .cinerace .track { height: 56px; }
+  .cinerace .runner { width: 52px; height: 52px; }
+  .cinerace .lhead { font-size: .95rem; }
+  .cineSub { min-height: 64px; margin: 0 14px 10px; padding: 12px 14px; border-radius: 14px; background: rgba(0,0,0,.45); font-size: 1.05rem; font-weight: 600; text-align: center; opacity: 0; transform: translateY(10px); transition: opacity .35s, transform .35s; }
+  .cineSub.show { opacity: 1; transform: none; }
+  .cineCount { position: absolute; left: 0; right: 0; top: 38%; text-align: center; font-size: 5rem; font-weight: 900; pointer-events: none; text-shadow: 0 6px 30px rgba(0,0,0,.6); z-index: 5; }
+  .cineCount.pop { animation: cpop .8s cubic-bezier(.2,1.5,.4,1); }
+  @keyframes cpop { 0% { transform: scale(2.4); opacity: 0; } 40% { opacity: 1; transform: scale(.95); } 100% { transform: scale(1); opacity: 1; } }
+  .cineStart, .cineEnd { position: absolute; left: 0; right: 0; bottom: 18%; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 0 16px; z-index: 6; }
+  .cineStart .msg { color: rgba(255,255,255,.75); text-align: center; }
+  .cineStart button { font-size: 1.2rem; padding: 14px 30px; }
+  .cineEnd { bottom: 0; background: rgba(11,17,27,.94); padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-radius: 22px 22px 0 0; }
+  .cineFinal { font-weight: 700; text-align: center; font-size: 1.05rem; }
+  .cineEnd .pcol small { color: rgba(255,255,255,.7); }
+  .cineFw { position: absolute; inset: 0; pointer-events: none; z-index: 7; }
+  /* wprowadzenie */
+  .tour { position: fixed; inset: 0; z-index: 75; background: rgba(5,15,12,.6); display: flex; align-items: center; justify-content: center; padding: 18px; }
+  .tourCard { background: var(--card); color: var(--ink); border-radius: 24px; max-width: 360px; width: 100%; padding: 26px 22px 18px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  .tourE { font-size: 4rem; line-height: 1; display: inline-block; }
+  html[data-anim="on"] .tourE { animation: bob 2.4s ease-in-out infinite; }
+  .tourCard h2 { margin: 10px 0 6px; } .tourCard p { color: var(--muted); margin: 0; line-height: 1.45; }
+  #tourBody.slide { animation: tourSlide .4s ease both; }
+  @keyframes tourSlide { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+  .tourIcons { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 14px; font-size: 1.5rem; }
+  html[data-anim="on"] .tourIcons span { animation: tileIn .5s cubic-bezier(.2,1.5,.4,1) both; animation-delay: calc(.2s + var(--i) * 70ms); }
+  .tourDots { display: flex; justify-content: center; gap: 6px; margin: 16px 0 12px; }
+  .tourDots i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: width .25s, background .25s; }
+  .tourDots i.on { width: 22px; border-radius: 99px; background: var(--accent); }
+  .tourBtns { display: flex; justify-content: space-between; gap: 10px; }
 </style>
 </head>
 <body>
@@ -650,7 +797,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.6</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.7</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="addUserBtn">➕ Nowy użytkownik</button>
@@ -706,6 +853,17 @@
   </div>
 </div>
 
+<div class="celeb" id="celeb" hidden><div class="celebIn" data-notr><div class="celebE" id="celebE"></div><div class="celebT" id="celebT"></div><div class="celebS" id="celebS"></div></div><div class="celebFw" id="celebFw"></div></div>
+<div class="cine" id="cine" hidden role="dialog" aria-modal="true">
+  <div class="cineTop"><b id="cineTitle" data-notr></b><span id="cineDay" data-notr></span><button id="cineVoice" aria-label="Głos komentatora">🗣</button><button id="cineMute" aria-label="Dźwięk">🔊</button><button id="cineClose" aria-label="Zamknij">✕</button></div>
+  <div class="cineStage" id="cineStage"><div class="cineCam" id="cineCam"><div class="race cinerace" id="cineTrack" data-notr></div></div></div>
+  <div class="cineSub" id="cineSub" data-notr></div>
+  <div class="cineCount" id="cineCount" data-notr></div>
+  <div class="cineStart" id="cineStart"><button class="primary" id="cineGo">▶ Start</button><div class="msg">Włącz dźwięk, oprzyj się wygodnie i patrz, jak wyścig ożywa dzień po dniu.</div></div>
+  <div class="cineEnd" id="cineEnd" hidden data-notr></div>
+  <div class="cineFw" id="cineFw"></div>
+</div>
+<div class="tour" id="tour" hidden role="dialog" aria-modal="true"><div class="tourCard"><div id="tourBody" data-notr></div><div class="tourDots" id="tourDots"></div><div class="tourBtns" data-notr><button class="ghost" id="tourSkip"></button><button class="primary" id="tourNext"></button></div></div></div>
 <div class="overlay" id="menu" hidden role="dialog" aria-modal="true" aria-label="Ustawienia">
   <div class="wrap">
     <div class="hdr">
@@ -767,6 +925,9 @@
         <label><input type="checkbox" id="setAnim"> ✨ Animacje</label>
         <label><input type="checkbox" id="setAutoTr"> 🌐 Automatycznie tłumacz wiadomości na czacie</label>
         <label><input type="checkbox" id="setJokes"> 😈 Trener może żartobliwie dokuczać</label>
+        <label><input type="checkbox" id="setVib"> 📳 Wibracje</label>
+        <label><input type="checkbox" id="setSnd"> 🔊 Dźwięki i muzyka</label>
+        <button class="ghost" id="tourAgain" type="button">👋 Pokaż wprowadzenie</button>
       </div>
       <div class="msg">Te ustawienia dotyczą tylko tego urządzenia.</div>
     </section>
@@ -810,8 +971,14 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.6</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.7</summary>
         <ul>
+          <li>Wspólna podróż grupy: Katowice → Teheran</li>
+          <li>Tryb kino wyścigu z komentarzem AI i muzyką</li>
+          <li>Historia: rozmowy, dieta, obliczenia i wyniki AI</li>
+          <li>Kroki ze zrzutu ekranu</li>
+          <li>Pogoda zależna od języka (Polska, Wielka Brytania, Iran)</li>
+          <li>Więcej animacji, wibracje, wprowadzenie i skróty na ikonie</li>
           <li>Flagi języka na ekranie logowania (PL, EN, FA)</li>
           <li>Język perski (فارسی) z pisaniem od prawej do lewej, wersja podstawowa</li>
           <li>Tłumaczenie wiadomości na czacie (przycisk 🌐 lub automatycznie)</li>
@@ -844,13 +1011,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.6</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.7</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.6</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.7</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -1014,8 +1181,13 @@
     <div class="msg" id="raceInfo" data-notr style="margin-top:0"></div>
     <div class="race" id="raceBox" data-notr></div>
     <div class="msg" id="raceInfo2" data-notr style="font-weight:700"></div>
-    <div class="racectl"><button class="ghost" id="racePlay">▶ Odtwórz wyścig</button><input type="range" id="raceScrub" min="0" max="100" value="100" aria-label="Dzień wyścigu"><span id="raceDay" data-notr></span></div>
+    <div class="racectl"><button class="ghost" id="cineOpen">🎬 Kino</button><button class="ghost" id="racePlay">▶ Odtwórz wyścig</button><input type="range" id="raceScrub" min="0" max="100" value="100" aria-label="Dzień wyścigu"><span id="raceDay" data-notr></span></div>
     <div id="raceBoard" data-notr style="margin-top:10px"></div>
+  </section>
+  <section class="card" id="jrCard">
+    <h2>Wspólna podróż</h2>
+    <div id="jrMain" data-notr></div>
+    <div id="jrVote" data-notr></div>
   </section>
   <section class="card">
     <h2>Moje kroki</h2>
@@ -1024,6 +1196,8 @@
       <label>Liczba kroków<input type="number" id="stVal" min="0" max="100000" inputmode="numeric" placeholder="np. 8500"></label>
       <button class="primary" id="stSave">Zapisz kroki</button>
     </div>
+    <div class="tools"><button class="ghost" id="stShotBtn">📷 Ze zrzutu ekranu</button><input type="file" id="stShot" accept="image/*" hidden></div>
+    <div class="stshot" id="stShotBox" data-notr hidden></div>
     <div class="msg" id="stMsg" data-notr></div>
     <h3>Ostatnie 7 dni</h3>
     <div id="stList" data-notr></div>
@@ -1171,6 +1345,16 @@
   </section>
 </div>
 
+<div class="pg" id="pg-history" hidden>
+  <section class="card">
+    <h2>Historia</h2>
+    <div class="seg" id="hiSeg" data-notr></div>
+    <div id="hiCtl" data-notr></div>
+    <div id="hiRes" data-notr></div>
+    <div class="tools"><button class="ghost" id="hiExport">⬇️ Eksportuj historię do pliku</button></div>
+  </section>
+</div>
+
 <div class="pg" id="pg-friends" hidden>
   <section class="card">
     <h2>Zaproś znajomych do aplikacji</h2>
@@ -1204,7 +1388,7 @@ setTimeout(function () {
 </script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, onSnapshot, runTransaction, addDoc, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager, collection, doc, onSnapshot, runTransaction, addDoc, query, orderBy, limit, serverTimestamp, getDocs, startAfter } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBPPdXhBZl3auMR_2B2Gcxr4w7XyygsX84",
@@ -1234,7 +1418,7 @@ try { const sl0 = localStorage.getItem("pd-lang"); LANG = sl0 === "en" || sl0 ==
 const FAD = Object.create(null);
 const L = (pl, en) => LANG === "en" ? ((FA && FAD[en]) || en) : pl;
 const LOC = () => LANG === "en" ? (FA ? "fa-IR-u-ca-gregory-nu-latn" : "en-GB") : "pl-PL";
-const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [], stp: {} });
+const blankUser = () => ({ height: null, goal: null, entries: [], avatar: null, daily: {}, workouts: [], accent: null, pin: null, mem: [], memOff: false, prof: null, tgt: null, food: {}, favs: [], recent: [], gym: {}, fr: null, rj: [], stp: {}, aih: [], calc: [] });
 NAMES.forEach(n => { state.users[n] = blankUser(); });
 function registerUser(n, id) { if (Object.prototype.hasOwnProperty.call(IDS, n)) return false; ALLN.push(n); NAMES.push(n); IDS[n] = id; state.users[n] = blankUser(); return true; }
 function syncUsers() { ((state.group && state.group.extra) || []).forEach(x => { if (x && typeof x.n === "string" && typeof x.id === "string") registerUser(x.n, x.id); }); }
@@ -1496,7 +1680,9 @@ onSnapshot(collection(db, "progress"), snap => {
       gym: data.gym || {},
       fr: Array.isArray(data.fr) ? data.fr : null,
       rj: Array.isArray(data.rj) ? data.rj : [],
-      stp: data.stp || {}
+      stp: data.stp || {},
+      aih: Array.isArray(data.aih) ? data.aih : [],
+      calc: Array.isArray(data.calc) ? data.calc : []
     };
   });
   setStatus("Połączono. Dane są wspólne dla wszystkich.");
@@ -2788,7 +2974,7 @@ function render(withForm) {
   applyFriends();
   renderLogin(); renderHeader(); renderBanner(); applyAccent(); renderMascot(); renderTabs(); renderSummary(); renderChart(); renderChartAll(); renderBoard();
   renderAi(); renderChallenge(); renderGroup(); renderBet(); renderDaily(); renderWorkouts(); renderCalendar(); renderTrainer(); renderHistory();
-  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); renderRace(false); renderDch(); applyPageVis(false);
+  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); renderRace(false); renderDch(); renderJourney(false); renderJrVote(); renderHistTab(); applyPageVis(false);
   if (withForm) renderUserForm();
   if (!$("menu").hidden) { renderAvatarEditor(); renderSwatches(); renderMem(); }
   renderWelcomeAv(); afterRender();
@@ -2816,7 +3002,7 @@ async function addMeasurement(date, w, msgId) {
     });
     runPending();
     $("weight").value = "";
-    msgEl.textContent = updated ? "Zaktualizowano pomiar z tego dnia." : "Dodano pomiar.";
+    msgEl.textContent = updated ? "Zaktualizowano pomiar z tego dnia." : "Dodano pomiar."; buzz(30);
     return true;
   } catch (e) {
     console.error(e);
@@ -3072,7 +3258,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.6";
+const VER = "3.7";
 const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -3086,19 +3272,21 @@ const WMO = [
 function wmo(c) { for (const r of WMO) if (r[0].indexOf(c) >= 0) return r; return [[], "🌡️", "—", "—"]; }
 let WX = null, wxFail = false;
 async function loadWeather() {
+  const k0 = wxKey();
   let cached = null;
-  try { cached = JSON.parse(localStorage.getItem("pd-wx") || "null"); } catch (e) {}
+  try { cached = JSON.parse(localStorage.getItem("pd-wx-" + wxKey()) || "null"); } catch (e) {}
   if (cached && cached.d) { WX = cached.d; renderWeather(); if (Date.now() - cached.t < 25 * 60000) return; }
   try {
-    const url = "https://api.open-meteo.com/v1/forecast?latitude=" + WX_LAT + "&longitude=" + WX_LON +
+    const url = "https://api.open-meteo.com/v1/forecast?latitude=" + WXL[k0].lat + "&longitude=" + WXL[k0].lon +
       "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,precipitation,is_day" +
-      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FWarsaw&forecast_days=4";
+      "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=auto&forecast_days=4";
     const res = await fetch(url);
     if (!res.ok) throw new Error("wx " + res.status);
     const d = await res.json();
     if (!d || !d.current || !d.daily) throw new Error("wx data");
+    if (k0 !== wxKey()) return;
     WX = d; wxFail = false;
-    try { localStorage.setItem("pd-wx", JSON.stringify({ t: Date.now(), d: d })); } catch (e) {}
+    try { localStorage.setItem("pd-wx-" + k0, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {}
   } catch (e) { console.error(e); wxFail = !WX; }
   renderWeather();
 }
@@ -3115,7 +3303,9 @@ function wxMood() {
   const c = WX.current;
   if (!c.is_day) return "night";
   if (c.precipitation > 0.2 || [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99].indexOf(c.weather_code) >= 0) return "rain";
+  if ([71, 73, 75, 77, 85, 86].indexOf(c.weather_code) >= 0) return "snow";
   if (c.temperature_2m <= 2) return "cold";
+  if ([3, 45, 48].indexOf(c.weather_code) >= 0) return "cloud";
   return "sun";
 }
 function renderWeather() {
@@ -3123,7 +3313,7 @@ function renderWeather() {
   if (!el) return;
   if (!WX) {
     el.removeAttribute("data-mood");
-    el.innerHTML = '<div class="wxplace">🇵🇱 ' + L("Polska", "Poland") + '</div><div class="msg">' + (wxFail ? L("Pogoda chwilowo niedostępna.", "Weather is temporarily unavailable.") : L("Ładuję pogodę…", "Loading weather…")) + "</div>";
+    el.innerHTML = '<div class="wxplace">' + esc(WXL[wxKey()].lab) + '</div><div class="msg">' + (wxFail ? L("Pogoda chwilowo niedostępna.", "Weather is temporarily unavailable.") : L("Ładuję pogodę…", "Loading weather…")) + "</div>";
     return;
   }
   const c = WX.current, w = wmo(c.weather_code), dly = WX.daily;
@@ -3135,8 +3325,8 @@ function renderWeather() {
     days += '<div class="wxday">' + esc(nm) + "<b>" + dw[1] + "</b>" + Math.round(dly.temperature_2m_max[i]) + "° / " + Math.round(dly.temperature_2m_min[i]) + "°</div>";
   }
   const rain = dly.precipitation_probability_max ? dly.precipitation_probability_max[0] : null;
-  el.innerHTML = '<div class="wxtop"><div class="wxico">' + w[1] + '</div><div><div class="wxplace">🇵🇱 ' + L("Polska", "Poland") + '</div><div class="wxtemp">' + Math.round(c.temperature_2m) + "°C</div>" +
-    '<div class="wxmeta">' + esc(LANG === "en" ? w[3] : w[2]) + " · " + L("odczuwalna ", "feels like ") + Math.round(c.apparent_temperature) + "° · " + L("wiatr ", "wind ") + Math.round(c.wind_speed_10m) + " km/h" +
+  el.innerHTML = '<div class="wxfx" aria-hidden="true"></div><div class="wxtop"><div class="wxico">' + w[1] + '</div><div><div class="wxplace">' + esc(WXL[wxKey()].lab) + '</div><div class="wxtemp">' + Math.round(c.temperature_2m) + "°C</div>" +
+    '<div class="wxmeta">' + esc(wdesc(w)) + " · " + L("odczuwalna ", "feels like ") + Math.round(c.apparent_temperature) + "° · " + L("wiatr ", "wind ") + Math.round(c.wind_speed_10m) + " km/h" +
     (rain != null ? " · " + L("deszcz ", "rain ") + rain + "%" : "") + "</div></div></div>" +
     '<div class="wxtip">' + esc(wxTip()) + '</div><div class="wxdays">' + days + "</div>";
 }
@@ -3209,19 +3399,20 @@ $("today").addEventListener("click", async e => {
   const k = b.getAttribute("data-ring"), name = ME();
   if (k === "weight") { $("weight").scrollIntoView({ behavior: "smooth", block: "center" }); $("weight").focus(); return; }
   const date = today();
-  const cur = ringDone(state.users[name], k);
+  const cur = ringDone(state.users[name], k), rr = b.getBoundingClientRect();
   try {
     await mutate(name, d => {
       const v = Object.assign({ water: false, workout: false, steps: false }, d.daily[date] || {});
       v[k] = !cur; d.daily[date] = v; return d;
     });
+    if (!cur) { sparksAt(rr.left + rr.width / 2, rr.top + rr.width / 2, 18); buzz(25); sfx("pop"); }
   } catch (err) { console.error(err); toast(L("Nie udało się zapisać.", "Could not save.")); }
 });
 
 /* ================= v3.3: menu, strony, przyjaciele, trener grupy ================= */
 const PAGES = [
   ["home", "🏠", "Główna", "Home"], ["race", "🏁", "Wyzwanie i kroki", "Challenge & steps"], ["gym", "🏋️", "Siłownia", "Gym"], ["food", "🍽", "Jedzenie i kalorie", "Food & calories"],
-  ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["friends", "👥", "Przyjaciele", "Friends"]
+  ["tdee", "🧮", "Kalkulator", "Calculator"], ["tools", "🛠", "Pomocne narzędzia", "Helpful tools"], ["coach", "🤖", "Trener", "Coach"], ["history", "🗂", "Historia", "History"], ["friends", "👥", "Przyjaciele", "Friends"]
 ];
 let curPage = "home";
 try { const p0 = sessionStorage.getItem("pd-page"); if (p0 && PAGES.some(x => x[0] === p0)) curPage = p0; } catch (e) {}
@@ -3241,8 +3432,9 @@ function applyPageVis(anim) {
   });
   const cc = $("chatCard"), want = curPage === "race" ? $("raceChat") : $("chatHome");
   if (cc && want && cc.parentNode !== want) { want.appendChild(cc); chatSig = ""; renderChat(); }
-  if (curPage === "race") { if (!raceEntered) { raceEntered = true; renderRace(true); } ensureDch(); }
+  if (curPage === "race") { if (!raceEntered) { raceEntered = true; renderRace(true); } ensureDch(); ensureJourney(); }
   else raceEntered = false;
+  if (curPage === "history" && anim) { hiChat = []; hiLast = null; hiDone = false; hiErr = false; renderHistTab(); }
   renderNav();
 }
 function renderNav() {
@@ -3696,6 +3888,7 @@ $("stSave").addEventListener("click", async () => {
   if (!d || d > today() || d < addDays(today(), -30)) { msg.textContent = L("Wybierz dzień z ostatnich 30 dni.", "Pick a day from the last 30 days."); return; }
   if (!(n >= 0 && n <= 100000)) { msg.textContent = L("Podaj liczbę kroków (0–100000).", "Enter a step count (0–100000)."); return; }
   msg.textContent = L("Zapisuję…", "Saving…");
+  const prevTot = raceTotals(), prevBest = myBestDay(me, d);
   try {
     await mutate(me, dd => {
       const s = Object.assign({}, dd.stp || {}); s[d] = n;
@@ -3707,7 +3900,8 @@ $("stSave").addEventListener("click", async () => {
     $("stVal").value = "";
     msg.textContent = L("Zapisane ✅", "Saved ✅");
     if (n >= 10000 && d === today() && coachAutoOn()) coachSay(L(me + ", " + numFmt(n) + " kroków! Mistrzowski dzień, tak się zdobywa metę. 👟🔥", me + ", " + numFmt(n) + " steps! A champion day, that is how you reach the finish. 👟🔥"));
-    playRace();
+    buzz(30); $("stShotBox").hidden = true;
+    afterStepsSaved(prevTot, prevBest, me, d, n);
   } catch (e) { console.error(e); msg.textContent = L("Nie udało się zapisać.", "Could not save."); }
 });
 $("stVal").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $("stSave").click(); } });
@@ -3741,6 +3935,7 @@ function renderDch() {
   const box = $("dchBox");
   if (!box || !state.me) return;
   const c = dchCurrent(), t = today();
+  if (c.ai) { const hk = "pd-dchh|" + groupKey(); let hv = null; try { hv = localStorage.getItem(hk); } catch (e) {} if (hv !== t) { try { localStorage.setItem(hk, t); } catch (e) {} aiHistAdd("dch", c.e + " " + c.t + "\n" + c.x); } }
   box.innerHTML = '<div class="dch"><div class="dche">' + esc(c.e) + '</div><div><b class="dcht">' + esc(c.t) + "</b><div>" + esc(c.x) + "</div>" +
     (c.s ? '<small>' + L("Cel dnia: ", "Daily goal: ") + numFmt(c.s) + L(" kroków", " steps") + "</small>" : "") + "</div></div>" +
     (c.s ? '<div class="dchwho">' + NAMES.map(n => { const v = stepsOf(n, t), ok = v >= c.s; return '<span class="chip' + (ok ? " ok" : "") + '">' + av(n, 20) + esc(n) + " " + (ok ? "✅" : numFmt(v)) + "</span>"; }).join("") + "</div>" : "") +
@@ -3858,6 +4053,870 @@ $("loginLang").addEventListener("click", e => {
   if (!b) return;
   setLang(b.getAttribute("data-lang"));
 });
+
+/* ================= v3.7: ustawienia, dźwięki, wibracje, świętowanie ================= */
+const prefOn = (k, def) => { try { const v = localStorage.getItem(k); return v === null ? def : v === "1"; } catch (e) { return def; } };
+const vibOn = () => prefOn("pd-vib", true);
+const sndOn = () => prefOn("pd-snd", true);
+function buzz(p) { try { if (vibOn() && navigator.vibrate) navigator.vibrate(p); } catch (e) {} }
+$("setVib").addEventListener("change", () => { try { localStorage.setItem("pd-vib", $("setVib").checked ? "1" : "0"); } catch (e) {} if ($("setVib").checked) buzz(40); });
+$("setSnd").addEventListener("change", () => { try { localStorage.setItem("pd-snd", $("setSnd").checked ? "1" : "0"); } catch (e) {} sndApplyMute(); });
+
+/* silnik dźwięku (WebAudio, wszystko generowane) */
+const SND = { ctx: null, master: null, mus: null, timer: null, bpm: 116, step: 0, next: 0, noiseBuf: null };
+function sctx() {
+  try {
+    if (!SND.ctx) {
+      const C = window.AudioContext || window.webkitAudioContext;
+      if (!C) return null;
+      SND.ctx = new C();
+      SND.master = SND.ctx.createGain(); SND.master.gain.value = sndOn() ? 0.55 : 0; SND.master.connect(SND.ctx.destination);
+    }
+    if (SND.ctx.state === "suspended") SND.ctx.resume();
+    return SND.ctx;
+  } catch (e) { return null; }
+}
+function sndApplyMute(force) {
+  if (!SND.ctx) return;
+  const on = force == null ? sndOn() : force;
+  SND.master.gain.setTargetAtTime(on ? 0.55 : 0, SND.ctx.currentTime, 0.05);
+}
+function tone(freq, t, dur, type, vol, dest) {
+  const c = SND.ctx; if (!c) return;
+  const o = c.createOscillator(), g = c.createGain();
+  o.type = type || "sine"; o.frequency.setValueAtTime(freq, t);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.012); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g); g.connect(dest || SND.master); o.start(t); o.stop(t + dur + 0.03);
+}
+function noise(t, dur, vol, type, f1, f2, dest) {
+  const c = SND.ctx; if (!c) return;
+  if (!SND.noiseBuf) { const b = c.createBuffer(1, c.sampleRate, c.sampleRate), d = b.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; SND.noiseBuf = b; }
+  const s = c.createBufferSource(), f = c.createBiquadFilter(), g = c.createGain();
+  s.buffer = SND.noiseBuf; f.type = type || "highpass"; f.frequency.setValueAtTime(f1 || 6000, t);
+  if (f2) f.frequency.exponentialRampToValueAtTime(f2, t + dur);
+  g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol || 0.15, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  s.connect(f); f.connect(g); g.connect(dest || SND.master); s.start(t); s.stop(t + dur + 0.05);
+}
+function sfx(kind) {
+  try { sfx0(kind); } catch (e) { console.warn(e); }
+}
+function sfx0(kind) {
+  if (!sndOn() || !sctx()) return;
+  const t = SND.ctx.currentTime + 0.02;
+  if (kind === "beep") tone(660, t, 0.18, "square", 0.12);
+  else if (kind === "go") { tone(990, t, 0.35, "square", 0.14); tone(1320, t + 0.05, 0.3, "triangle", 0.08); }
+  else if (kind === "whoosh") { noise(t, 0.55, 0.22, "bandpass", 300, 3200); tone(520, t + 0.05, 0.25, "triangle", 0.06); tone(780, t + 0.15, 0.25, "triangle", 0.06); }
+  else if (kind === "fanfare") { [523, 659, 784, 1047].forEach((f, i) => tone(f, t + i * 0.14, 0.32, "triangle", 0.16)); [523, 659, 784].forEach(f => tone(f, t + 0.62, 0.9, "sawtooth", 0.05)); tone(1047, t + 0.62, 0.9, "triangle", 0.12); }
+  else if (kind === "record") { [784, 988, 1175, 1568, 1976].forEach((f, i) => tone(f, t + i * 0.07, 0.25, "sine", 0.12)); noise(t + 0.35, 0.4, 0.05, "highpass", 7000); }
+  else if (kind === "pop") tone(880, t, 0.09, "sine", 0.1);
+  else if (kind === "city") { [659, 784, 988].forEach((f, i) => tone(f, t + i * 0.1, 0.3, "triangle", 0.14)); }
+}
+/* muzyka: prosty podkład elektroniczny w a-moll, tempo zmienne */
+const CHORDS = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]];
+const midi = m => 440 * Math.pow(2, (m - 69) / 12);
+function musicStep(t) {
+  const s = SND.step % 16, bar = Math.floor(SND.step / 16) % 4, ch = CHORDS[bar], d = SND.mus;
+  if (s % 4 === 0) { const c = SND.ctx, o = c.createOscillator(), g = c.createGain(); o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(42, t + 0.14); g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.18); o.connect(g); g.connect(d); o.start(t); o.stop(t + 0.2); }
+  if (s === 4 || s === 12) noise(t, 0.16, 0.16, "bandpass", 1800, 900, d);
+  if (s % 4 === 2) noise(t, 0.05, 0.07, "highpass", 8000, null, d);
+  if (s % 2 === 0) tone(midi(ch[0] - 24), t, 0.2, "sawtooth", 0.09, d);
+  tone(midi(ch[s % 3] + 12 + (s % 8 >= 4 ? 12 : 0)), t, 0.12, "triangle", 0.045, d);
+  SND.step++;
+}
+function musicStart() {
+  if (!sctx() || SND.timer) return;
+  SND.mus = SND.ctx.createGain(); SND.mus.gain.value = 0.0001; SND.mus.connect(SND.master);
+  SND.mus.gain.exponentialRampToValueAtTime(0.9, SND.ctx.currentTime + 1.2);
+  SND.step = 0; SND.next = SND.ctx.currentTime + 0.1;
+  SND.timer = setInterval(() => {
+    const c = SND.ctx; if (!c) return;
+    try { while (SND.next < c.currentTime + 0.14) { musicStep(SND.next); SND.next += 60 / SND.bpm / 4; } } catch (e) { console.warn(e); clearInterval(SND.timer); SND.timer = null; }
+  }, 25);
+}
+function musicStop(fade) {
+  if (!SND.timer) return;
+  const m = SND.mus, c = SND.ctx;
+  clearInterval(SND.timer); SND.timer = null;
+  try { m.gain.setTargetAtTime(0.0001, c.currentTime, (fade || 0.3) / 3); setTimeout(() => { try { m.disconnect(); } catch (e) {} }, (fade || 0.3) * 1000 + 300); } catch (e) {}
+}
+
+/* świętowanie: nakładka z fajerwerkami */
+let celebQ = Promise.resolve();
+function fireworks(box, n) {
+  for (let b = 0; b < (n || 4); b++) {
+    const x = 15 + Math.random() * 70, y = 15 + Math.random() * 45, hue = Math.floor(Math.random() * 360);
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement("i"), a = i / 18 * Math.PI * 2, r = 60 + Math.random() * 50;
+      p.className = "fwp"; p.style.left = x + "%"; p.style.top = y + "%";
+      p.style.setProperty("--dx", Math.cos(a) * r + "px"); p.style.setProperty("--dy", Math.sin(a) * r + "px");
+      p.style.background = "hsl(" + (hue + i * 7) + ",90%,60%)"; p.style.animationDelay = (b * 0.35) + "s";
+      box.appendChild(p);
+      setTimeout(() => p.remove(), 2200 + b * 350);
+    }
+  }
+}
+function celebrate(emoji, title, sub, opt) {
+  opt = opt || {};
+  celebQ = celebQ.then(() => new Promise(res => {
+    const el = $("celeb");
+    $("celebE").textContent = emoji; $("celebT").textContent = title; $("celebS").textContent = sub || "";
+    el.hidden = false; el.classList.remove("in"); void el.offsetWidth; el.classList.add("in");
+    if (opt.fw && animOn()) fireworks($("celebFw"), 5);
+    if (opt.sound) sfx(opt.sound);
+    if (opt.vib) buzz(opt.vib);
+    let done = false;
+    const close = () => { if (done) return; done = true; el.classList.remove("in"); setTimeout(() => { el.hidden = true; $("celebFw").innerHTML = ""; res(); }, 280); };
+    el.onclick = close;
+    setTimeout(close, opt.ms || 3200);
+  }));
+  return celebQ;
+}
+function sparksAt(x, y, n) {
+  if (!animOn()) return;
+  for (let i = 0; i < (n || 14); i++) {
+    const s = document.createElement("i"), a = Math.random() * Math.PI * 2, r = 28 + Math.random() * 40;
+    s.className = "spark"; s.style.left = x + "px"; s.style.top = y + "px";
+    s.style.setProperty("--dx", Math.cos(a) * r + "px"); s.style.setProperty("--dy", Math.sin(a) * r + "px");
+    s.style.background = "hsl(" + Math.floor(30 + Math.random() * 40) + ",95%,55%)";
+    document.body.appendChild(s); setTimeout(() => s.remove(), 800);
+  }
+}
+function floatEmoji(e, x, y) {
+  if (!animOn()) return;
+  const s = document.createElement("span");
+  s.className = "floatemo"; s.textContent = e; s.style.left = x + "px"; s.style.top = y + "px";
+  s.style.setProperty("--sx", (Math.random() * 40 - 20) + "px");
+  document.body.appendChild(s); setTimeout(() => s.remove(), 1600);
+}
+/* reakcje lecą w górę jak balony */
+$("chatBox").addEventListener("click", e => {
+  const t = e.target.closest ? e.target.closest("[data-rx]") : null;
+  if (!t) return;
+  const r = t.getBoundingClientRect();
+  for (let i = 0; i < 3; i++) setTimeout(() => floatEmoji(t.getAttribute("data-rx"), r.left + r.width / 2, r.top), i * 120);
+  sfx("pop");
+}, true);
+
+/* płynne przestawianie wierszy w tabelach (FLIP) */
+const flipPrev = {};
+function flipRows() {
+  ["board", "wBoard", "raceBoard", "challenge", "points", "grTable"].forEach(id => {
+    const el = $(id);
+    if (!el || el.offsetParent === null) return;
+    const now = {}, old = flipPrev[id];
+    Array.prototype.forEach.call(el.querySelectorAll("tbody tr"), r => {
+      const w = r.querySelector(".who"), k = (w ? w.textContent : (r.cells[1] || r.cells[0] || {}).textContent) || "";
+      const top = r.offsetTop; now[k] = top;
+      if (!animOn() || !old || old[k] == null || old[k] === top) return;
+      r.style.transition = "none"; r.style.transform = "translateY(" + (old[k] - top) + "px)";
+      r.classList.add("flipping");
+      requestAnimationFrame(() => requestAnimationFrame(() => { r.style.transition = "transform .7s cubic-bezier(.2,.8,.2,1)"; r.style.transform = ""; setTimeout(() => r.classList.remove("flipping"), 800); }));
+    });
+    flipPrev[id] = now;
+  });
+}
+
+/* ---------- pogoda według języka ---------- */
+const WXL = {
+  pl: { lat: 50.2649, lon: 19.0238, lab: "🇵🇱 Polska" },
+  en: { lat: 51.5074, lon: -0.1278, lab: "🇬🇧 United Kingdom" },
+  fa: { lat: 35.6892, lon: 51.389, lab: "🇮🇷 ایران" }
+};
+const wxKey = () => FA ? "fa" : LANG;
+let wxFor = wxKey();
+const WMO_FA = { "Sunny": "آفتابی", "Mostly clear": "تقریباً صاف", "Partly cloudy": "نیمه‌ابری", "Overcast": "ابری", "Fog": "مه", "Drizzle": "نم‌نم باران", "Rain": "باران", "Snow": "برف", "Showers": "رگبار", "Thunderstorm": "رعد و برق", "—": "—" };
+const wdesc = w => LANG === "en" ? (FA ? (WMO_FA[w[3]] || w[3]) : w[3]) : w[2];
+function wxLangChanged() {
+  const k = wxKey();
+  if (k === wxFor) { renderWeather(); return; }
+  wxFor = k; WX = null; wxFail = false; renderWeather(); loadWeather();
+}
+
+/* ---------- historia: zapis wyników AI i obliczeń ---------- */
+const AIH_KIND = {
+  aiPlanOut: ["🏋️", "Plan treningu", "Workout plan"], aiMealOut: ["🥗", "Pomysł na posiłek", "Meal idea"], aiPhotoOut: ["📷", "Zdjęcie jedzenia", "Food photo"],
+  aiTxtOut: ["✍️", "Wpis tekstem", "Text entry"], aiTipOut: ["💡", "Porada", "Advice"], grAiOut: ["🧠", "Analiza grupy", "Group analysis"],
+  fdAiOut: ["🍽", "Opis posiłku (AI)", "Meal description (AI)"], dch: ["🎯", "Wyzwanie dnia", "Challenge of the day"], steps: ["👟", "Kroki ze zrzutu", "Steps from a screenshot"]
+};
+async function aiHistAdd(kind, text) {
+  const me = state.me;
+  text = String(text || "").replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  if (!me || !text || !AIH_KIND[kind]) return;
+  const it = { id: uid2(), ts: Date.now(), k: kind, t: text.slice(0, 2000) };
+  try { await mutate(me, d => { d.aih = (d.aih || []).concat([it]).slice(-60); return d; }); } catch (e) { console.error(e); }
+}
+function aiHistFromOut(outId) {
+  if (!AIH_KIND[outId]) return;
+  const out = $(outId); if (!out) return;
+  const clone = out.cloneNode(true);
+  Array.prototype.forEach.call(clone.querySelectorAll("button, .tools, input"), x => x.remove());
+  aiHistAdd(outId, clone.innerText || clone.textContent);
+}
+let calcTimer = null;
+async function calcSave(force) {
+  const me = state.me; if (!me) return;
+  const o = tdeeInput(); if (!tdeeValid(o)) return;
+  const r = tdeeCalc(o), list = state.users[me].calc || [], last = list[list.length - 1];
+  const sig = [o.sex, o.age, o.h, o.w, o.act, r.goal, r.target].join("|");
+  if (!force && last && last.sig === sig) return;
+  const it = { id: uid2(), ts: Date.now(), sig: sig, sex: o.sex, age: o.age, h: o.h, w: o.w, act: o.act, goal: r.goal, k: r.target, p: r.p, c: r.c, f: r.f, bmr: r.bmr, tdee: r.tdee };
+  try { await mutate(me, d => { const a = d.calc || []; if (!force && a.length && a[a.length - 1].sig === sig) return d; d.calc = a.concat([it]).slice(-30); return d; }); } catch (e) { console.error(e); }
+}
+["tdSex", "tdAge", "tdH", "tdW", "tdAct", "tdGoal"].forEach(id => $(id).addEventListener("input", () => { clearTimeout(calcTimer); calcTimer = setTimeout(() => calcSave(false), 5000); }));
+
+/* ---------- zakładka Historia ---------- */
+let hiTab = "chat", hiCtlSig = "", hiChat = [], hiLast = null, hiDone = false, hiLoading = false, hiErr = false, hiMonth = today().slice(0, 7), hiDaySel = null, hiOpen = {};
+function visMsg(m) {
+  return m.name === COACH ? (!m.for || ALLN.some(n => IDS[n] === m.for && NAMES.indexOf(n) >= 0)) : NAMES.indexOf(m.name) >= 0;
+}
+async function hiLoadMore() {
+  if (hiLoading || hiDone) return;
+  hiLoading = true; hiErr = false; renderHistTab();
+  try {
+    const base = collection(db, "chat");
+    const q = hiLast ? query(base, orderBy("ts", "desc"), startAfter(hiLast), limit(100)) : query(base, orderBy("ts", "desc"), limit(100));
+    const s = await getDocs(q);
+    s.docs.forEach(d => { if (!hiChat.some(x => x.id === d.id)) hiChat.push(Object.assign({ id: d.id }, d.data())); });
+    if (s.docs.length) hiLast = s.docs[s.docs.length - 1];
+    if (s.docs.length < 100) hiDone = true;
+  } catch (e) { console.error(e); hiErr = true; }
+  hiLoading = false; renderHistTab();
+}
+const tsDay = ts => ts && ts.toDate ? ymd(ts.toDate()) : (typeof ts === "number" ? ymd(new Date(ts)) : today());
+function hiCtl() {
+  if (hiTab === "chat") return '<div class="row"><label style="flex:2 1 180px">' + esc(L("Szukaj w rozmowach", "Search conversations")) + '<input type="text" id="hiQ" maxlength="60"></label><label>' + esc(L("Dzień", "Day")) + '<input type="date" id="hiD"></label></div>';
+  if (hiTab === "diet") return '<div class="hinav"><button class="ghost" data-hm="-1">‹</button><b id="hiMonthLbl"></b><button class="ghost" data-hm="1">›</button></div>';
+  return "";
+}
+function renderHistTab() {
+  const seg = $("hiSeg"), ctl = $("hiCtl"), res = $("hiRes");
+  if (!seg || !state.me) return;
+  seg.innerHTML = segHtml([["chat", L("💬 Rozmowy", "💬 Chats")], ["diet", L("🍽 Dieta", "🍽 Diet")], ["calc", L("🧮 Obliczenia", "🧮 Calculations")], ["ai", L("🤖 Wyniki AI", "🤖 AI results")]], hiTab, "data-hi");
+  const sig = hiTab + "|" + LANG + FA;
+  if (sig !== hiCtlSig) { hiCtlSig = sig; ctl.innerHTML = hiCtl(); wireHiCtl(); }
+  const u = state.users[state.me];
+  if (hiTab === "chat") res.innerHTML = hiChatHtml();
+  else if (hiTab === "diet") res.innerHTML = hiDietHtml(u);
+  else if (hiTab === "calc") res.innerHTML = hiCalcHtml(u);
+  else res.innerHTML = hiAiHtml(u);
+}
+function wireHiCtl() {
+  const q = $("hiQ"), d = $("hiD");
+  if (q) q.addEventListener("input", () => { $("hiRes").innerHTML = hiChatHtml(); });
+  if (d) d.addEventListener("change", async () => {
+    let guard = 0;
+    while (d.value && !hiDone && guard++ < 20 && (!hiChat.length || tsDay(hiChat[hiChat.length - 1].ts) > d.value)) await hiLoadMore();
+    $("hiRes").innerHTML = hiChatHtml();
+  });
+}
+function hiChatHtml() {
+  if (!hiChat.length && !hiDone && !hiLoading && !hiErr) { if (curPage === "history") setTimeout(hiLoadMore, 0); return '<div class="msg">' + esc(L("Wczytuję…", "Loading…")) + "</div>"; }
+  const q = ($("hiQ") && $("hiQ").value || "").trim().toLowerCase(), day = $("hiD") && $("hiD").value;
+  const ids = {}, all = [];
+  chat.slice().reverse().concat(hiChat).forEach(m => { if (m && m.id && !ids[m.id]) { ids[m.id] = 1; all.push(m); } });
+  const tsv = m => m.ts && m.ts.toMillis ? m.ts.toMillis() : (typeof m.ts === "number" ? m.ts : Date.now());
+  all.sort((a, b) => tsv(b) - tsv(a));
+  const list = all.filter(visMsg).filter(m => (!q || String(m.text || "").toLowerCase().indexOf(q) >= 0 || String(m.name).toLowerCase().indexOf(q) >= 0) && (!day || tsDay(m.ts) === day));
+  let h = "", lastD = null;
+  list.slice().reverse().forEach(m => {
+    const d = tsDay(m.ts);
+    if (d !== lastD) { lastD = d; h += '<div class="wfday">' + esc(dayLabel(d)) + " · " + esc(d) + "</div>"; }
+    h += '<div class="hiMsg' + (m.name === COACH ? " coach" : "") + '"><b>' + esc(m.name) + (m.name === COACH ? " 🤖" : "") + '</b> <small>' + esc(fmtTime(m.ts)) + "</small><div>" + linkify(m.text || "") + (m.img ? " 📷" : "") + "</div></div>";
+  });
+  if (!list.length) h = '<div class="empty">' + esc(hiLoading ? L("Wczytuję…", "Loading…") : L("Brak wiadomości dla tych filtrów.", "No messages for these filters.")) + "</div>";
+  h += '<div class="tools">' + (hiDone ? '<span class="msg">' + esc(L("To już wszystkie wiadomości.", "That is all the messages.")) + "</span>" : '<button class="ghost" id="hiMore"' + (hiLoading ? " disabled" : "") + ">" + esc(L("Wczytaj starsze", "Load older")) + "</button>") + "</div>";
+  if (hiErr) h += '<div class="msg" style="color:var(--bad)">' + esc(L("Nie udało się wczytać archiwum.", "Could not load the archive.")) + "</div>";
+  return h;
+}
+function foodTone(k, t) { if (!k) return ""; if (!t) return "lg"; const r = k / t; return r < 0.6 ? "lo" : r <= 1.1 ? "ok" : r <= 1.25 ? "hi" : "ov"; }
+function hiDietHtml(u) {
+  const ym = hiMonth, y = +ym.slice(0, 4), m = +ym.slice(5, 7), days = new Date(y, m, 0).getDate(), first = (new Date(y, m - 1, 1).getDay() + 6) % 7;
+  const lbl = $("hiMonthLbl"); if (lbl) lbl.textContent = new Date(y, m - 1, 1).toLocaleDateString(LOC(), { month: "long", year: "numeric" });
+  const t = u.tgt && u.tgt.k;
+  let h = '<div class="hical">';
+  ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"].forEach((d, i) => { h += '<div class="hihd">' + esc(L(d, ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"][i])) + "</div>"; });
+  for (let i = 0; i < first; i++) h += "<div></div>";
+  let sumK = 0, nDays = 0;
+  for (let d = 1; d <= days; d++) {
+    const ds = ym + "-" + pad(d), k = Math.round(sumF(foodDay(u, ds)).k);
+    if (k) { sumK += k; nDays++; }
+    h += '<button class="hiday ' + foodTone(k, t) + (ds === hiDaySel ? " sel" : "") + (ds === today() ? " tdy" : "") + '" data-hday="' + ds + '" style="--i:' + d + '"><b>' + d + "</b>" + (k ? "<small>" + k + "</small>" : "") + "</button>";
+  }
+  h += "</div>";
+  const wk = []; for (let i = 0; i < 7; i++) { const k = sumF(foodDay(u, addDays(today(), -i))).k; if (k) wk.push(k); }
+  h += '<div class="stats" style="margin-top:10px"><div class="stat small"><div class="v">' + (nDays ? Math.round(sumK / nDays) : "—") + '</div><div class="l">' + esc(L("Śr. kcal / dzień (miesiąc)", "Avg kcal / day (month)")) + '</div></div><div class="stat small"><div class="v">' + nDays + '</div><div class="l">' + esc(L("Dni z wpisami", "Days logged")) + '</div></div><div class="stat small"><div class="v">' + (wk.length ? Math.round(wk.reduce((a, b) => a + b, 0) / wk.length) : "—") + '</div><div class="l">' + esc(L("Śr. kcal (7 dni)", "Avg kcal (7 days)")) + "</div></div></div>";
+  if (t) h += '<div class="msg">' + esc(L("Kolor dnia: zielony blisko celu " + t + " kcal, żółty trochę powyżej, czerwony dużo powyżej, szary mało wpisów.", "Day colour: green near the " + t + " kcal target, yellow a bit above, red well above, grey few entries.")) + "</div>";
+  if (hiDaySel) {
+    const list = foodDay(u, hiDaySel), s = sumF(list);
+    h += '<h3>' + esc(dayLabel(hiDaySel)) + " · " + esc(hiDaySel) + "</h3>";
+    if (!list.length) h += '<div class="empty">' + esc(L("Brak wpisów tego dnia.", "No entries on this day.")) + "</div>";
+    else {
+      MEALS.forEach(ml => {
+        const it = list.filter(x => x.m === ml[0]); if (!it.length) return;
+        h += '<div class="himeal"><b>' + ml[3] + " " + esc(L(ml[1], ml[2])) + "</b>" + it.map(x => "<div><span>" + esc(x.n) + "</span><span>" + Math.round(x.k || 0) + " kcal</span></div>").join("") + "</div>";
+      });
+      h += '<div class="chips" style="margin-top:8px"><span>' + Math.round(s.k) + ' kcal</span><span>B ' + Math.round(s.p) + ' g</span><span>W ' + Math.round(s.c) + ' g</span><span>T ' + Math.round(s.f) + " g</span></div>";
+    }
+  }
+  return h;
+}
+const GOAL_L = { keep: ["utrzymanie", "maintain"], cut: ["chudnięcie", "weight loss"], bulk: ["masa", "muscle gain"] };
+function hiCalcHtml(u) {
+  const list = (u.calc || []).slice().reverse();
+  if (!list.length) return '<div class="empty">' + esc(L("Brak zapisanych obliczeń. Użyj kalkulatora, a wynik zapisze się sam.", "No saved calculations yet. Use the calculator and the result saves itself.")) + "</div>";
+  return list.map((c, i) => '<div class="hicalc" style="--i:' + i + '"><div><b>' + c.k + " kcal</b> <small>" + esc(new Date(c.ts).toLocaleString(LOC(), { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })) + "</small></div>" +
+    '<div class="msg" style="margin-top:2px">' + esc((c.sex === "f" ? L("K", "F") : L("M", "M")) + ", " + c.age + " " + L("lat", "y") + ", " + c.h + " cm, " + fmt(c.w) + " kg, " + L("aktywność ", "activity ") + c.act + ", " + L((GOAL_L[c.goal] || GOAL_L.keep)[0], (GOAL_L[c.goal] || GOAL_L.keep)[1])) + "</div>" +
+    '<div class="chips"><span>BMR ' + c.bmr + "</span><span>TDEE " + c.tdee + "</span><span>B " + c.p + " g</span><span>W " + c.c + " g</span><span>T " + c.f + ' g</span></div><button class="linkbtn" data-hload="' + esc(c.id) + '">' + esc(L("↺ Wczytaj do kalkulatora", "↺ Load into the calculator")) + "</button></div>").join("");
+}
+function hiAiHtml(u) {
+  const list = (u.aih || []).slice().reverse();
+  if (!list.length) return '<div class="empty">' + esc(L("Wyniki narzędzi AI będą się tu zapisywać same.", "AI tool results will be saved here automatically.")) + "</div>";
+  return '<div class="msg" style="margin-top:0">' + esc(L("Zapisuje się 60 ostatnich wyników, najstarsze są nadpisywane.", "The last 60 results are kept; the oldest are overwritten.")) + "</div>" + list.map((a, i) => {
+    const k = AIH_KIND[a.k] || ["🤖", "AI", "AI"];
+    return '<details class="hiai" style="--i:' + i + '"' + (hiOpen[a.id] ? " open" : "") + ' data-hid="' + esc(a.id) + '"><summary><span>' + k[0] + " <b>" + esc(L(k[1], k[2])) + "</b></span><small>" + esc(new Date(a.ts).toLocaleString(LOC(), { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" })) + "</small></summary>" +
+      '<div class="hiaitxt">' + esc(a.t) + '</div><button class="linkbtn" data-hdel="' + esc(a.id) + '">' + esc(L("Usuń", "Delete")) + "</button></details>";
+  }).join("");
+}
+$("hiSeg").addEventListener("click", e => { const b = e.target.closest ? e.target.closest("[data-hi]") : null; if (!b) return; hiTab = b.getAttribute("data-hi"); renderHistTab(); });
+$("hiCtl").addEventListener("click", e => {
+  const b = e.target.closest ? e.target.closest("[data-hm]") : null; if (!b) return;
+  const y = +hiMonth.slice(0, 4), m = +hiMonth.slice(5, 7) + parseInt(b.getAttribute("data-hm"), 10), d = new Date(y, m - 1, 1);
+  hiMonth = d.getFullYear() + "-" + pad(d.getMonth() + 1); hiDaySel = null; renderHistTab();
+});
+$("hiRes").addEventListener("toggle", e => { const d = e.target; if (d && d.getAttribute && d.getAttribute("data-hid")) hiOpen[d.getAttribute("data-hid")] = d.open; }, true);
+$("hiRes").addEventListener("click", async e => {
+  const t = e.target.closest ? e.target : null; if (!t) return;
+  const day = t.closest("[data-hday]"), more = t.closest("#hiMore"), del = t.closest("[data-hdel]"), ld = t.closest("[data-hload]");
+  if (day) { hiDaySel = day.getAttribute("data-hday"); renderHistTab(); return; }
+  if (more) { hiLoadMore(); return; }
+  if (del) { const id = del.getAttribute("data-hdel"); try { await mutate(state.me, d => { d.aih = (d.aih || []).filter(x => x.id !== id); return d; }); } catch (err) { console.error(err); } return; }
+  if (ld) {
+    const c = (state.users[state.me].calc || []).find(x => x.id === ld.getAttribute("data-hload")); if (!c) return;
+    $("tdSex").value = c.sex; $("tdAge").value = c.age; $("tdH").value = c.h; $("tdW").value = c.w; $("tdAct").value = String(c.act); $("tdGoal").value = c.goal || "keep";
+    renderTdeeOut(); showPage("tdee");
+  }
+});
+$("hiExport").addEventListener("click", () => {
+  const me = state.me; if (!me) return;
+  const u = state.users[me];
+  const data = { app: "Progress dietowy", version: VER, exported: new Date().toISOString(), user: me, measurements: u.entries, workouts: u.workouts, steps: u.stp, food: u.food, calculations: u.calc, aiResults: u.aih, gym: u.gym,
+    chat: hiChat.filter(visMsg).map(m => ({ name: m.name, text: m.text || "", date: m.ts && m.ts.toDate ? m.ts.toDate().toISOString() : null })) };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" }), a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "historia-" + me.replace(/\s+/g, "-") + "-" + today() + ".json";
+  document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  toast(L("Plik z historią pobrany.", "History file downloaded."));
+});
+
+/* ---------- kroki ze zrzutu ekranu ---------- */
+function shotQuota() { try { const q = JSON.parse(localStorage.getItem("pd-shot") || "null"); return q && q.d === today() ? q.n : 0; } catch (e) { return 0; } }
+$("stShotBtn").addEventListener("click", () => { if (!aiKey()) { $("stMsg").textContent = L("Najpierw wpisz klucz Gemini w menu (Trener AI).", "Enter the Gemini key in the menu first (AI coach)."); return; } $("stShot").click(); });
+$("stShot").addEventListener("change", async function () {
+  const f = this.files && this.files[0], box = $("stShotBox"), inp = this;
+  if (!f) return;
+  if (shotQuota() >= 10) { $("stMsg").textContent = L("Dzienny limit odczytów (10) wykorzystany.", "Daily limit of reads (10) reached."); inp.value = ""; return; }
+  let img;
+  try { img = await fileToJpeg(f, 1024); } catch (e) { $("stMsg").textContent = e.message; inp.value = ""; return; }
+  box.hidden = false;
+  box.innerHTML = '<div class="scanwrap scanning"><img src="data:image/jpeg;base64,' + img + '" alt=""><i class="scanline"></i></div><div class="msg">' + esc(L("Czytam zrzut ekranu…", "Reading the screenshot…")) + "</div>";
+  try { localStorage.setItem("pd-shot", JSON.stringify({ d: today(), n: shotQuota() + 1 })); } catch (e) {}
+  try {
+    const p = parseJson(await aiAsk("To zrzut ekranu z aplikacji liczącej kroki (np. Zdrowie, Google Fit, zegarek). Odczytaj liczbę kroków za dzień widoczny na zrzucie. Dziś jest " + today() + " (" + parseD(today()).toLocaleDateString("pl-PL", { weekday: "long" }) + "). " +
+      "Jeśli na zrzucie jest napisane dziś/today albo nie ma daty, użyj dzisiejszej daty; wczoraj to " + addDays(today(), -1) + ". Jeśli to nie jest licznik kroków, zwróć steps: null. " +
+      "Zwróć wyłącznie JSON: {\"steps\":liczba całkowita lub null,\"date\":\"RRRR-MM-DD\" lub null,\"confidence\":\"high\" lub \"low\"}", { json: true, img: img, max: 200, temp: 0 }));
+    const n = Math.round(Number(p.steps));
+    if (!(n > 0 && n <= 100000)) throw new Error(L("Nie widzę liczby kroków na tym zrzucie.", "I cannot see a step count on this screenshot."));
+    let d = typeof p.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(p.date) ? p.date : today();
+    if (d > today() || d < addDays(today(), -30)) d = today();
+    $("stVal").value = n; $("stDate").value = d;
+    box.innerHTML = '<div class="scanwrap done"><img src="data:image/jpeg;base64,' + img + '" alt=""></div><div class="shotres"><span class="bignum" id="shotNum">0</span> ' + esc(L("kroków", "steps")) + " · " + esc(dayLabel(d)) +
+      (p.confidence === "low" ? '<div class="msg" style="color:var(--warn)">' + esc(L("Odczyt niepewny: sprawdź liczbę przed zapisem.", "Uncertain read: check the number before saving.")) + "</div>" : "") +
+      '<div class="msg">' + esc(L("Sprawdź i dotknij „Zapisz kroki”. Zdjęcie nie jest zapisywane.", "Check it and tap “Save steps”. The photo is not saved.")) + "</div></div>";
+    countUp($("shotNum"), n, 900);
+    $("stSave").classList.add("pulse"); setTimeout(() => $("stSave").classList.remove("pulse"), 3000);
+    if (animOn()) confetti();
+    sfx("pop"); buzz(30);
+    aiHistAdd("steps", L("Odczytano ", "Read ") + n + L(" kroków za ", " steps for ") + d);
+  } catch (e) {
+    console.error(e);
+    box.innerHTML = '<div class="msg" style="color:var(--bad)">' + esc(aiFriendly(e)) + "</div>";
+  }
+  inp.value = "";
+});
+function countUp(el, to, ms) {
+  if (!el) return;
+  if (!animOn()) { el.textContent = numFmt(to); return; }
+  const t0 = performance.now();
+  const f = now => { const p = Math.min(1, (now - t0) / ms), e = 1 - Math.pow(1 - p, 3); el.textContent = numFmt(to * e); if (p < 1) requestAnimationFrame(f); };
+  requestAnimationFrame(f);
+}
+
+/* ---------- po zapisaniu kroków: animacja, wyprzedzenie, rekord ---------- */
+function raceTotals() { const mi = monthInfo(), o = {}; NAMES.forEach(n => { o[n] = cumSteps(n, mi)[mi.dom]; }); return o; }
+function myBestDay(me, exceptDay) { const s = (state.users[me] || {}).stp || {}; let b = 0; Object.keys(s).forEach(k => { if (k !== exceptDay && s[k] > b) b = s[k]; }); return b; }
+const waitFor = (fn, ms) => new Promise(res => { const t0 = Date.now(); const tick = () => { if (fn() || Date.now() - t0 > ms) res(); else setTimeout(tick, 100); }; tick(); });
+function raceTransition(prev) {
+  return new Promise(res => {
+    stopRace(); raceSig = ""; buildRace();
+    const mi = monthInfo(), fin = raceTotals();
+    if (!animOn()) { setRace(mi.dom); renderRaceBoard(false); res(); return; }
+    $("raceBox").classList.add("playing");
+    const st = { id: 0 }; raceAnim = st; raceLastPct = {};
+    const t0 = performance.now(), dur = 1600;
+    const tick = now => {
+      if (raceAnim !== st) { res(); return; }
+      const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3), ov = {};
+      NAMES.forEach(n => { const a = prev[n] || 0; ov[n] = a + ((fin[n] || 0) - a) * e; });
+      setRace(mi.dom, ov);
+      if (p < 1) st.id = requestAnimationFrame(tick);
+      else { stopRace(); setRace(mi.dom); renderRaceBoard(true); flipRows(); res(); }
+    };
+    st.id = requestAnimationFrame(tick);
+  });
+}
+async function afterStepsSaved(prev, prevBest, me, d, n) {
+  await waitFor(() => stepsOf(me, d) === n, 4000);
+  if (curPage === "race") await raceTransition(prev); else renderRace(false);
+  const now = raceTotals();
+  const passed = NAMES.filter(x => x !== me && (prev[x] || 0) > 0 && (prev[x] || 0) >= (prev[me] || 0) && (now[x] || 0) < (now[me] || 0));
+  if (passed.length) celebrate("🔥", L("Wyprzedzasz " + passed.join(", ") + "!", "You overtake " + passed.join(", ") + "!"), L("Tak trzymaj, wyścig trwa.", "Keep it up, the race is on."), { sound: "whoosh", vib: [60, 40, 60], ms: 2600 });
+  if (prevBest > 0 && n > prevBest) celebrate("🏆", L("Nowy rekord!", "New record!"), numFmt(n) + L(" kroków w jeden dzień", " steps in one day"), { fw: true, sound: "fanfare", vib: [100, 50, 100, 50, 200], ms: 3600 });
+  renderJourney(true);
+}
+
+/* ================= v3.7: wspólna podróż ================= */
+const CITY = {
+  kat: [50.2649, 19.0238, "Katowice", "Katowice", "کاتوویتسه", "Katowice to serce Śląska. Spodek, hala w kształcie latającego talerza, stoi tu od 1971 roku.", "Katowice is the heart of Silesia. The Spodek, an arena shaped like a flying saucer, has stood here since 1971."],
+  bud: [47.4979, 19.0402, "Budapeszt", "Budapest", "بوداپست", "Budapeszt powstał w 1873 roku z połączenia Budy, Óbudy i Pesztu. Słynie z łaźni termalnych.", "Budapest was formed in 1873 by joining Buda, Óbuda and Pest. It is famous for its thermal baths."],
+  beg: [44.7866, 20.4489, "Belgrad", "Belgrade", "بلگراد", "Belgrad leży u zbiegu Sawy i Dunaju, a nad rzekami góruje twierdza Kalemegdan.", "Belgrade sits where the Sava meets the Danube, with Kalemegdan fortress above the rivers."],
+  sof: [42.6977, 23.3219, "Sofia", "Sofia", "صوفیه", "Sofia leży u stóp góry Witosza, na którą można wyjść prosto z miasta.", "Sofia lies at the foot of Mount Vitosha, which you can hike straight from the city."],
+  ist: [41.0082, 28.9784, "Stambuł", "Istanbul", "استانبول", "Stambuł leży na dwóch kontynentach, Europie i Azji, rozdzielonych cieśniną Bosfor.", "Istanbul spans two continents, Europe and Asia, split by the Bosphorus strait."],
+  ank: [39.9334, 32.8597, "Ankara", "Ankara", "آنکارا", "Ankara jest stolicą Turcji od 1923 roku.", "Ankara has been the capital of Turkey since 1923."],
+  erz: [39.9055, 41.2658, "Erzurum", "Erzurum", "ارزروم", "Erzurum leży wysoko w górach, na około 1900 m n.p.m., i słynie ze sportów zimowych.", "Erzurum sits high in the mountains, at about 1,900 m, and is known for winter sports."],
+  tbz: [38.0962, 46.2738, "Tebriz", "Tabriz", "تبریز", "W Tebrizie jest jeden z najstarszych krytych bazarów świata, wpisany na listę UNESCO.", "Tabriz has one of the oldest covered bazaars in the world, a UNESCO World Heritage site."],
+  thr: [35.6892, 51.389, "Teheran", "Tehran", "تهران", "Teheran leży u stóp gór Elburs, a nad miastem góruje wieża Milad.", "Tehran lies at the foot of the Alborz mountains, with the Milad Tower rising above the city."],
+  waw: [52.2297, 21.0122, "Warszawa", "Warsaw", "ورشو", "Warszawska Starówka została odbudowana po wojnie i jest na liście UNESCO.", "Warsaw's Old Town was rebuilt after the war and is a UNESCO site."],
+  krk: [50.0647, 19.945, "Kraków", "Krakow", "کراکوف", "Rynek Główny w Krakowie to jeden z największych średniowiecznych placów w Europie.", "Krakow's Main Square is one of the largest medieval squares in Europe."],
+  gda: [54.352, 18.6466, "Gdańsk", "Gdansk", "گدانسک", "Żuraw w Gdańsku to średniowieczny dźwig portowy.", "The Crane in Gdansk is a medieval port crane."],
+  wro: [51.1079, 17.0385, "Wrocław", "Wroclaw", "وروتسواف", "We Wrocławiu ukryło się kilkaset małych krasnali z brązu.", "Hundreds of small bronze dwarfs are hidden around Wroclaw."],
+  poz: [52.4064, 16.9252, "Poznań", "Poznan", "پوزنان", "Na poznańskim ratuszu w południe trykają się koziołki.", "At noon, two mechanical goats butt heads on Poznan's town hall."],
+  ber: [52.52, 13.405, "Berlin", "Berlin", "برلین", "Brama Brandenburska w Berlinie stoi od końca XVIII wieku.", "Berlin's Brandenburg Gate has stood since the late 18th century."],
+  prg: [50.0755, 14.4378, "Praga", "Prague", "پراگ", "Praski zegar astronomiczny działa od 1410 roku.", "Prague's astronomical clock has been running since 1410."],
+  vie: [48.2082, 16.3738, "Wiedeń", "Vienna", "وین", "Wiedeń słynie z kawiarni i muzyki klasycznej, mieszkał tu m.in. Mozart.", "Vienna is famous for its cafés and classical music; Mozart lived here."],
+  rom: [41.9028, 12.4964, "Rzym", "Rome", "رم", "W Rzymie leży Watykan, najmniejsze państwo świata.", "Rome surrounds the Vatican, the smallest country in the world."],
+  par: [48.8566, 2.3522, "Paryż", "Paris", "پاریس", "Wieża Eiffla miała stać tylko 20 lat, a stoi od 1889 roku.", "The Eiffel Tower was meant to stand for 20 years; it has stood since 1889."],
+  lon: [51.5074, -0.1278, "Londyn", "London", "لندن", "Big Ben to nazwa dzwonu, a nie samej wieży zegarowej.", "Big Ben is the name of the bell, not the clock tower itself."],
+  mad: [40.4168, -3.7038, "Madryt", "Madrid", "مادرید", "Madryt to jedna z najwyżej położonych stolic Europy.", "Madrid is one of the highest capitals in Europe."],
+  lis: [38.7223, -9.1393, "Lizbona", "Lisbon", "لیسبون", "Lizbona słynie z żółtych tramwajów i stromych wzgórz.", "Lisbon is famous for its yellow trams and steep hills."],
+  ath: [37.9838, 23.7275, "Ateny", "Athens", "آتن", "Akropol góruje nad Atenami od około 2500 lat.", "The Acropolis has towered over Athens for about 2,500 years."],
+  ams: [52.3676, 4.9041, "Amsterdam", "Amsterdam", "آمستردام", "Amsterdam ma ponad 100 km kanałów.", "Amsterdam has over 100 km of canals."],
+  cph: [55.6761, 12.5683, "Kopenhaga", "Copenhagen", "کپنهاگ", "W Kopenhadze siedzi Mała Syrenka z baśni Andersena.", "Copenhagen is home to the Little Mermaid from Andersen's fairy tale."],
+  osl: [59.9139, 10.7522, "Oslo", "Oslo", "اسلو", "W Oslo co roku wręcza się Pokojową Nagrodę Nobla.", "The Nobel Peace Prize is awarded in Oslo every year."],
+  bcn: [41.3874, 2.1686, "Barcelona", "Barcelona", "بارسلونا", "Sagrada Família w Barcelonie jest budowana od 1882 roku.", "Barcelona's Sagrada Família has been under construction since 1882."]
+};
+const JR_OCT = ["kat", "bud", "beg", "sof", "ist", "ank", "erz", "tbz", "thr"];
+const cityName = id => { const c = CITY[id]; return !c ? id : LANG === "en" ? (FA ? c[4] : c[3]) : c[2]; };
+const cityFact = id => { const c = CITY[id]; return c ? L(c[5], c[6]) : ""; };
+function hav(a, b) {
+  const R = 6371, r = Math.PI / 180, dLa = (b[0] - a[0]) * r, dLo = (b[1] - a[1]) * r;
+  const x = Math.sin(dLa / 2) ** 2 + Math.cos(a[0] * r) * Math.cos(b[0] * r) * Math.sin(dLo / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(x));
+}
+function routeKm(ids) { const km = [0]; for (let i = 1; i < ids.length; i++) km.push(km[i - 1] + hav(CITY[ids[i - 1]], CITY[ids[i]]) * 1.2); return km; }
+function autoRoute(a, b) {
+  const A = CITY[a], B = CITY[b], c0 = Math.cos((A[0] + B[0]) / 2 * Math.PI / 180);
+  const P = c => [c[1] * c0 * 111, c[0] * 111], pa = P(A), pb = P(B), vx = pb[0] - pa[0], vy = pb[1] - pa[1], L2 = vx * vx + vy * vy || 1;
+  const cand = Object.keys(CITY).filter(id => id !== a && id !== b).map(id => {
+    const p = P(CITY[id]), t = ((p[0] - pa[0]) * vx + (p[1] - pa[1]) * vy) / L2, qx = pa[0] + vx * t, qy = pa[1] + vy * t;
+    return { id: id, t: t, dist: Math.hypot(p[0] - qx, p[1] - qy) };
+  }).filter(x => x.t > 0.06 && x.t < 0.94 && x.dist < 320).sort((x, y) => x.t - y.t);
+  const out = [a]; let last = A;
+  cand.forEach(x => { if (out.length < 7 && hav(last, CITY[x.id]) > 180) { out.push(x.id); last = CITY[x.id]; } });
+  out.push(b);
+  return out;
+}
+const nextYm = ym => { const y = +ym.slice(0, 4), m = +ym.slice(5, 7); return m === 12 ? (y + 1) + "-01" : y + "-" + pad(m + 1); };
+const ymLabel = ym => new Date(+ym.slice(0, 4), +ym.slice(5, 7) - 1, 1).toLocaleDateString(LOC(), { month: "long", year: "numeric" });
+function monthStepsOf(n, ym) { const s = (state.users[n] || {}).stp || {}; return Object.keys(s).filter(k => k.slice(0, 7) === ym).reduce((a, k) => a + (s[k] || 0), 0); }
+function jrRec() { const r = (((state.group || {}).jr) || {})[groupKey()]; return r && r.ym === monthInfo().ym && Array.isArray(r.route) ? r : null; }
+let jrBusy = false, jrTried = "";
+async function ensureJourney() {
+  if (!state.me || jrBusy) return;
+  const mi = monthInfo(), key = groupKey(), mark = mi.ym + "|" + key;
+  if (jrRec() || jrTried === mark) return;
+  jrTried = mark; jrBusy = true;
+  try {
+    await mutateDoc("group", d => {
+      const all = Object.assign({}, d.jr || {}), cur = all[key];
+      if (cur && cur.ym === mi.ym) return d;
+      if (cur && cur.ym && Array.isArray(cur.route)) {
+        const jh = Object.assign({}, d.jh || {}), arr = (jh[key] || []).slice();
+        if (!arr.some(x => x.ym === cur.ym)) arr.push({ ym: cur.ym, a: cur.route[0], b: cur.route[cur.route.length - 1], D: cur.D, km: Math.round(NAMES.reduce((s, n) => s + monthStepsOf(n, cur.ym), 0) * cur.mps / 1000), done: cur.done || null });
+        jh[key] = arr.slice(-24); d.jh = jh;
+      }
+      let ids = null;
+      if (mi.ym === "2026-10") ids = JR_OCT.slice();
+      else {
+        const v = ((((d.jv || {})[key]) || {})[mi.ym]) || {}, tally = {};
+        Object.keys(v).forEach(u => { const x = v[u]; if (x && CITY[x.a] && CITY[x.b] && x.a !== x.b) tally[x.a + ">" + x.b] = (tally[x.a + ">" + x.b] || 0) + 1; });
+        const best = Object.keys(tally).sort((p, q) => tally[q] - tally[p] || (p < q ? -1 : 1))[0];
+        if (best) { const ab = best.split(">"); ids = autoRoute(ab[0], ab[1]); }
+        else if (cur && Array.isArray(cur.route)) ids = cur.route.slice().reverse();
+        else ids = autoRoute("kat", "lon");
+      }
+      const km = routeKm(ids), D = km[km.length - 1], n = Math.max(1, NAMES.length);
+      const mps = Math.max(0.75, Math.round(D * 1000 / (n * 8000 * mi.days) * 10) / 10);
+      all[key] = { ym: mi.ym, route: ids, D: Math.round(D), mps: mps, n: n, hit: [], done: null };
+      d.jr = all; return d;
+    });
+  } catch (e) { console.error(e); }
+  finally { jrBusy = false; }
+}
+function jrProgress(r) {
+  const mi = monthInfo(), steps = NAMES.reduce((s, n) => s + cumSteps(n, mi)[mi.dom], 0), km = routeKm(r.route), D = km[km.length - 1];
+  const done = Math.min(D, steps * r.mps / 1000);
+  let leg = 0; while (leg < km.length - 2 && km[leg + 1] <= done) leg++;
+  const fr = km[leg + 1] > km[leg] ? Math.min(1, (done - km[leg]) / (km[leg + 1] - km[leg])) : 1;
+  const reached = km.filter((k, i) => i > 0 && k <= done + 1e-6).length;
+  return { steps: steps, done: done, D: D, km: km, leg: leg, fr: fr, reached: reached };
+}
+function jrProject(ids) {
+  const pts = ids.map(id => CITY[id]), lat0 = pts.reduce((s, p) => s + p[0], 0) / pts.length, c0 = Math.cos(lat0 * Math.PI / 180);
+  const xy = pts.map(p => [p[1] * c0, -p[0]]), xs = xy.map(p => p[0]), ys = xy.map(p => p[1]);
+  const W = 340, H = 200, pd = 30, mnx = Math.min.apply(null, xs), mxx = Math.max.apply(null, xs), mny = Math.min.apply(null, ys), mxy = Math.max.apply(null, ys);
+  const s = Math.min((W - 2 * pd) / ((mxx - mnx) || 1), (H - 2 * pd) / ((mxy - mny) || 1));
+  const ox = pd + ((W - 2 * pd) - s * (mxx - mnx)) / 2, oy = pd + ((H - 2 * pd) - s * (mxy - mny)) / 2;
+  return xy.map(p => [ox + (p[0] - mnx) * s, oy + (p[1] - mny) * s]);
+}
+let jrLastPos = null, jrLastPct = 0, jrSeenInit = {};
+function jrMapSvg(r, pr) {
+  const P = jrProject(r.route), cur = [P[pr.leg][0] + (P[pr.leg + 1] ? (P[pr.leg + 1][0] - P[pr.leg][0]) * pr.fr : 0), P[pr.leg][1] + (P[pr.leg + 1] ? (P[pr.leg + 1][1] - P[pr.leg][1]) * pr.fr : 0)];
+  const full = P.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  const trav = P.slice(0, pr.leg + 1).concat([cur]).map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  let g = '<svg class="jrmap" viewBox="0 0 340 200" role="img" aria-label="' + esc(L("Mapa wspólnej podróży", "Shared journey map")) + '"><defs><linearGradient id="jrbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#cfe8ff"/><stop offset="1" stop-color="#e8f3d6"/></linearGradient></defs>' +
+    '<rect width="340" height="200" rx="14" fill="url(#jrbg)"/>';
+  for (let x = 20; x < 340; x += 40) g += '<line x1="' + x + '" y1="0" x2="' + x + '" y2="200" class="jrgrid"/>';
+  for (let y = 20; y < 200; y += 40) g += '<line x1="0" y1="' + y + '" x2="340" y2="' + y + '" class="jrgrid"/>';
+  g += '<path d="' + full + '" class="jrfull"/><path d="' + trav + '" class="jrtrav" id="jrTrav"/>';
+  const boxes = P.map(p => [p[0] - 7, p[1] - 7, p[0] + 7, p[1] + 7]);
+  const hit = b => boxes.some(x => b[0] < x[2] && b[2] > x[0] && b[1] < x[3] && b[3] > x[1]) || b[0] < 2 || b[2] > 338 || b[1] < 2 || b[3] > 198;
+  P.forEach((p, i) => {
+    const ok = i < pr.reached + 1, lab = cityName(r.route[i]), w = lab.length * 5.6 + 4;
+    const opts = [[0, -10, "middle"], [0, 18, "middle"], [10, 4, "start"], [-10, 4, "end"], [0, -20, "middle"], [0, 28, "middle"]];
+    let pick = opts[0], bx = null;
+    for (const o of opts) {
+      const x0 = o[2] === "middle" ? p[0] + o[0] - w / 2 : o[2] === "start" ? p[0] + o[0] : p[0] + o[0] - w;
+      const b = [x0, p[1] + o[1] - 9, x0 + w, p[1] + o[1] + 2];
+      if (!hit(b)) { pick = o; bx = b; break; }
+    }
+    if (bx) boxes.push(bx);
+    g += '<circle cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" r="' + (i === 0 || i === P.length - 1 ? 6 : 4.5) + '" class="jrcity' + (ok ? " ok" : "") + '"/>' +
+      '<text x="' + (p[0] + pick[0]).toFixed(1) + '" y="' + (p[1] + pick[1]).toFixed(1) + '" text-anchor="' + pick[2] + '" class="jrlab' + (ok ? " ok" : "") + '">' + esc(lab) + "</text>";
+  });
+  g += '<text x="' + P[0][0] + '" y="' + (P[0][1] + 4) + '" class="jrflag" dx="-20">🚩</text><text x="' + P[P.length - 1][0] + '" y="' + (P[P.length - 1][1] + 4) + '" class="jrflag" dx="8">🏁</text>';
+  const from = jrLastPos || cur;
+  g += '<g class="jrmark" id="jrMark" style="transform:translate(' + from[0].toFixed(1) + "px," + from[1].toFixed(1) + 'px)"><circle r="11" class="jrpulse"/><circle r="9" class="jrdot"/><text class="jrwalk" y="5">🚶</text></g></svg>';
+  return { svg: g, cur: cur };
+}
+function renderJourney(anim) {
+  const box = $("jrMain");
+  if (!box || !state.me) return;
+  const r = jrRec();
+  if (!r) { box.innerHTML = '<div class="msg">' + esc(L("Przygotowuję trasę…", "Preparing the route…")) + "</div>"; if (curPage === "race") ensureJourney(); return; }
+  const pr = jrProgress(r), pct = pr.D ? pr.done / pr.D * 100 : 0, m = jrMapSvg(r, pr), last = r.route.length - 1;
+  const from = cityName(r.route[0]), to = cityName(r.route[last]);
+  let h = '<div class="jrhead"><b>🚩 ' + esc(from) + " → 🏁 " + esc(to) + '</b><small>' + esc(L("Tryb turbo: 1 krok = ", "Turbo mode: 1 step = ") + fmt(r.mps) + L(" m w podróży", " m on the journey")) + "</small></div>" + m.svg;
+  h += '<div class="jrstat"><b>' + numFmt(pr.done) + " km</b> / " + numFmt(pr.D) + " km · " + Math.floor(pct) + '%</div><div class="jrbar"><i style="width:' + (anim && animOn() ? jrLastPct : pct) + '%"></i></div>';
+  if (pr.reached >= last) h += '<div class="jrnext done">🎉 ' + esc(L("Dotarliście do celu: ", "You reached the destination: ") + to + "!") + "</div>";
+  else h += '<div class="jrnext">' + esc(L("Następny przystanek: ", "Next stop: ") + cityName(r.route[pr.reached + 1]) + L(" za ", " in ") + numFmt(pr.km[pr.reached + 1] - pr.done) + " km") + "</div>";
+  const lastCity = pr.reached > 0 ? r.route[pr.reached] : r.route[0];
+  h += '<div class="jrfact"><b>📍 ' + esc(cityName(lastCity)) + "</b> " + esc(cityFact(lastCity)) + "</div>";
+  const mi = monthInfo(), con = NAMES.map(n => ({ n: n, km: cumSteps(n, mi)[mi.dom] * r.mps / 1000 })).sort((a, b) => b.km - a.km), mx = con[0] && con[0].km || 1;
+  h += "<h3>" + esc(L("Kto ile dołożył", "Who added how much")) + "</h3>" + con.map(c => '<div class="jrcon"><span class="who">' + av(c.n, 22) + esc(c.n) + '</span><i style="width:' + Math.max(2, c.km / mx * 100) + "%;background:" + userColor(c.n) + '"></i><b>' + numFmt(c.km) + " km</b></div>").join("");
+  const hist = ((((state.group || {}).jh) || {})[groupKey()]) || [];
+  if (hist.length) h += "<h3>" + esc(L("Poprzednie podróże", "Previous journeys")) + "</h3>" + hist.slice().reverse().map(x => '<div class="strow"><span>' + esc(ymLabel(x.ym) + ": " + cityName(x.a) + " → " + cityName(x.b)) + "</span><b>" + (x.done ? "✅ " : "") + numFmt(x.km) + " / " + numFmt(x.D) + " km</b></div>").join("");
+  box.innerHTML = h;
+  const mark = $("jrMark"), trav = $("jrTrav"), bar = box.querySelector(".jrbar i");
+  if (animOn() && trav && trav.getTotalLength) {
+    const len = trav.getTotalLength(), prevLen = anim && pct > jrLastPct ? len * (jrLastPct / Math.max(pct, 0.0001)) : len;
+    trav.style.strokeDasharray = len; trav.style.strokeDashoffset = len - prevLen;
+    requestAnimationFrame(() => requestAnimationFrame(() => { trav.style.transition = "stroke-dashoffset 1.8s ease"; trav.style.strokeDashoffset = 0; if (mark) mark.style.transform = "translate(" + m.cur[0].toFixed(1) + "px," + m.cur[1].toFixed(1) + "px)"; if (bar) bar.style.width = pct + "%"; }));
+  } else if (mark) mark.style.transform = "translate(" + m.cur[0].toFixed(1) + "px," + m.cur[1].toFixed(1) + "px)";
+  jrLastPos = m.cur; jrLastPct = pct;
+  /* nowe przystanki */
+  const sk = "pd-jr|" + groupKey() + "|" + r.ym;
+  let seen = null; try { seen = localStorage.getItem(sk); } catch (e) {}
+  if (seen === null || !jrSeenInit[sk]) { jrSeenInit[sk] = 1; if (seen === null) { try { localStorage.setItem(sk, String(pr.reached)); } catch (e) {} return; } }
+  if (pr.reached > +seen) {
+    try { localStorage.setItem(sk, String(pr.reached)); } catch (e) {}
+    const id = r.route[pr.reached], fin = pr.reached >= last;
+    if (curPage === "race") celebrate(fin ? "🎉" : "📍", fin ? L("Dotarliście do celu: " + cityName(id) + "!", "You reached " + cityName(id) + "!") : L("Dotarliście do: " + cityName(id) + "!", "You reached " + cityName(id) + "!"), cityFact(id), { fw: fin, sound: fin ? "fanfare" : "city", vib: [80, 40, 80], ms: 4200 });
+    jrHit(pr.reached, r.ym);
+  }
+  void anim;
+}
+async function jrHit(idx, ym) {
+  const key = groupKey(); let claimed = false, rec = null;
+  try {
+    await mutateDoc("group", d => {
+      claimed = false;
+      const all = Object.assign({}, d.jr || {}), r = all[key];
+      if (!r || r.ym !== ym) return d;
+      const hit = (r.hit || []).slice();
+      if (hit.indexOf(idx) >= 0) return d;
+      hit.push(idx);
+      const nr = Object.assign({}, r, { hit: hit });
+      if (idx >= r.route.length - 1) nr.done = today();
+      all[key] = nr; d.jr = all; claimed = true; rec = nr; return d;
+    });
+  } catch (e) { console.error(e); return; }
+  if (!claimed || !rec) return;
+  const id = rec.route[idx], fin = idx >= rec.route.length - 1;
+  coachSay(fin ? L("🎉 Ekipa dotarła do celu podróży: " + cityName(id) + "! " + cityFact(id) + " Brawo wszyscy!", "🎉 The crew reached the end of the journey: " + cityName(id) + "! " + cityFact(id) + " Well done everyone!")
+    : L("📍 Wspólna podróż: dotarliśmy do miasta " + cityName(id) + "! " + cityFact(id), "📍 Shared journey: we reached " + cityName(id) + "! " + cityFact(id)));
+}
+let jrVoteSig = "";
+function renderJrVote() {
+  const box = $("jrVote");
+  if (!box || !state.me) return;
+  const mi = monthInfo(), ny = nextYm(mi.ym), key = groupKey(), v = ((((state.group || {}).jv || {})[key]) || {})[ny] || {}, mine = v[IDS[state.me]];
+  const ids = Object.keys(CITY).sort((a, b) => cityName(a).localeCompare(cityName(b), LOC()));
+  const tally = {}; Object.keys(v).forEach(u => { const x = v[u]; if (x && CITY[x.a] && CITY[x.b]) { const k = x.a + ">" + x.b; tally[k] = (tally[k] || 0) + 1; } });
+  const sig = LANG + FA + "|" + ny + "|" + JSON.stringify(tally) + "|" + JSON.stringify(mine || null);
+  if (sig === jrVoteSig) return;
+  jrVoteSig = sig;
+  const opts = sel => ids.map(id => '<option value="' + id + '"' + (id === sel ? " selected" : "") + ">" + esc(cityName(id)) + "</option>").join("");
+  let h = "<h3>" + esc(L("Trasa na ", "Route for ") + ymLabel(ny)) + '</h3><div class="msg" style="margin-top:0">' + esc(L("Zagłosuj, skąd i dokąd idziecie w następnym miesiącu. Wygrywa trasa z największą liczbą głosów.", "Vote where the group walks next month. The route with the most votes wins.")) + "</div>" +
+    '<div class="row"><label>' + esc(L("Skąd", "From")) + '<select id="jrA">' + opts(mine ? mine.a : "thr") + "</select></label><label>" + esc(L("Dokąd", "To")) + '<select id="jrB">' + opts(mine ? mine.b : "kat") + '</select></label><button class="primary" id="jrGo">' + esc(mine ? L("Zmień głos", "Change vote") : L("Zagłosuj", "Vote")) + "</button></div>";
+  const ks = Object.keys(tally).sort((a, b) => tally[b] - tally[a]);
+  if (ks.length) h += ks.map(k => { const ab = k.split(">"); return '<div class="strow"><span>' + esc(cityName(ab[0]) + " → " + cityName(ab[1])) + " <small>(" + numFmt(routeKm(autoRoute(ab[0], ab[1])).pop()) + " km)</small></span><b>" + tally[k] + " 🗳</b></div>"; }).join("");
+  h += '<div class="msg" id="jrMsg"></div>';
+  box.innerHTML = h;
+  $("jrGo").addEventListener("click", async () => {
+    const a = $("jrA").value, b = $("jrB").value;
+    if (a === b) { $("jrMsg").textContent = L("Wybierz dwa różne miasta.", "Pick two different cities."); return; }
+    try {
+      await mutateDoc("group", d => { const jv = Object.assign({}, d.jv || {}), g = Object.assign({}, jv[key] || {}), m = Object.assign({}, g[ny] || {}); m[IDS[state.me]] = { a: a, b: b }; g[ny] = m; jv[key] = g; d.jv = jv; return d; });
+      toast(L("Głos zapisany 🗳", "Vote saved 🗳")); buzz(30);
+    } catch (e) { console.error(e); $("jrMsg").textContent = L("Nie udało się zapisać.", "Could not save."); }
+  });
+}
+
+/* ================= v3.7: tryb kino ================= */
+let CINE = null;
+function cineVoiceOn() { return prefOn("pd-cinevoice", false); }
+function cineLaneHtml() {
+  const tk = niceTick(raceScaleV);
+  let ticks = ""; for (let v = tk; v < raceScaleV; v += tk) ticks += '<i class="tick" style="left:' + (v / raceScaleV * 100) + '%"><u>' + (v / 1000) + "k</u></i>";
+  return '<div class="sun"></div><div class="clouds"></div>' + NAMES.map(n => '<div class="lane"><div class="lhead"><span class="lname">' + esc(n) + '</span><span class="lcnt" data-cc="' + esc(n) + '">0</span></div><div class="track">' + ticks +
+    '<i class="trail" style="--c:' + userColor(n) + '"></i><span class="flag">🏁</span><div class="runner" data-cr="' + esc(n) + '"><span class="crown">👑</span><span class="rav">' + av(n, 44) + "</span></div></div></div>").join("") + '<div class="hills"></div>';
+}
+function cinePaint(f) {
+  const box = $("cineTrack"), G = raceScaleV, now = performance.now();
+  const vals = NAMES.map(n => ({ n: n, v: interp(raceCum[n] || [0], f) })), top = vals.reduce((m, x) => Math.max(m, x.v), 0);
+  let lp = 0, leader = null;
+  vals.forEach(x => {
+    const pct = Math.min(1, x.v / G), run = box.querySelector('[data-cr="' + CSS.escape(x.n) + '"]'), cnt = box.querySelector('[data-cc="' + CSS.escape(x.n) + '"]');
+    if (!run) return;
+    run.style.left = "calc(" + (pct * 100) + "% - " + (pct * 52) + "px)";
+    run.parentNode.querySelector(".trail").style.width = "calc(" + (pct * 100) + "% - " + (pct * 52 - 22) + "px)";
+    cnt.textContent = numFmt(x.v);
+    const lead = top > 0 && x.v >= top; run.classList.toggle("lead", lead);
+    if (lead) { lp = pct; leader = x.n; }
+    if (pct - (CINE.lastPct[x.n] || 0) > 0.001 && now - (CINE.lastPuff[x.n] || 0) > 120) { CINE.lastPuff[x.n] = now; puff(run.parentNode, "calc(" + (pct * 100) + "% - " + (pct * 52 - 8) + "px)", userColor(x.n)); }
+    CINE.lastPct[x.n] = pct;
+  });
+  $("cineCam").style.transform = "scale(1.04) translateX(" + ((0.5 - lp) * 5).toFixed(2) + "%)";
+  const mi = monthInfo(), day = Math.max(1, Math.min(mi.dom, Math.ceil(f)));
+  $("cineDay").textContent = L("Dzień ", "Day ") + day + " / " + mi.days;
+  return leader;
+}
+function cineEvents() {
+  const mi = monthInfo(), D = mi.dom, ev = [], crossed = {}, MS = [10000, 25000, 50000, 100000, 150000, 200000, 300000, 400000, 500000, 750000, 1000000];
+  let lead = null;
+  for (let i = 1; i <= D; i++) {
+    const tot = NAMES.map(n => ({ n: n, v: raceCum[n][i], s: raceCum[n][i] - raceCum[n][i - 1] })).sort((a, b) => b.v - a.v);
+    if (tot[0] && tot[0].v > 0 && tot[0].n !== lead && !(tot[1] && tot[1].v === tot[0].v)) { ev.push(lead ? { d: i, t: "over", a: tot[0].n, b: lead, p: 4 } : { d: i, t: "lead", a: tot[0].n, p: 3 }); lead = tot[0].n; }
+    const best = tot.slice().sort((a, b) => b.s - a.s)[0];
+    if (best && best.s >= 12000) ev.push({ d: i, t: "big", a: best.n, v: best.s, p: 1 });
+    MS.forEach(m => { if (!crossed[m]) { const c = tot.find(x => x.v >= m); if (c) { crossed[m] = 1; ev.push({ d: i, t: "mile", a: c.n, v: m, p: 2 }); } } });
+  }
+  const byDay = {};
+  ev.forEach(e => { if (!byDay[e.d] || byDay[e.d].p < e.p) byDay[e.d] = e; });
+  let list = Object.keys(byDay).map(k => byDay[k]).sort((a, b) => a.d - b.d);
+  if (list.length > 11) list = list.slice().sort((a, b) => b.p - a.p).slice(0, 11).sort((a, b) => a.d - b.d);
+  const rows = raceRows();
+  list.push({ d: D, t: "final", a: rows[0] ? rows[0].n : "", v: rows[0] ? rows[0].tot : 0, b: rows[1] ? rows[1].n : "", w: rows[1] ? rows[0].tot - rows[1].tot : 0, p: 9 });
+  return list;
+}
+function cineTemplate(e) {
+  if (e.t === "lead") return L(e.a + " wychodzi na prowadzenie!", e.a + " takes the lead!");
+  if (e.t === "over") return L(e.a + " wyprzedza " + e.b + "! Co za zwrot akcji!", e.a + " overtakes " + e.b + "! What a twist!");
+  if (e.t === "big") return L(e.a + " robi " + numFmt(e.v) + " kroków w jeden dzień. Petarda!", e.a + " smashes " + numFmt(e.v) + " steps in one day!");
+  if (e.t === "mile") return L(e.a + " jako pierwszy przekracza " + numFmt(e.v) + " kroków!", e.a + " is the first to pass " + numFmt(e.v) + " steps!");
+  if (!e.a) return L("Wyścig dopiero się zaczyna!", "The race is just getting started!");
+  return L("Na dziś prowadzi " + e.a + " z wynikiem " + numFmt(e.v) + " kroków" + (e.b ? ", " + numFmt(e.w) + " przed " + e.b : "") + "!", e.a + " leads today with " + numFmt(e.v) + " steps" + (e.b ? ", " + numFmt(e.w) + " ahead of " + e.b : "") + "!");
+}
+async function cineLines(ev) {
+  const tpl = ev.map(cineTemplate);
+  if (!aiKey()) return tpl;
+  try {
+    const desc = ev.map((e, i) => (i + 1) + ". dzień " + e.d + ": " + cineTemplate(e)).join("\n");
+    const p = parseJson(await aiAsk("Jesteś energicznym komentatorem sportowym na żywo. Komentujesz animowany wyścig kroków grupy znajomych w tym miesiącu. Wydarzenia po kolei:\n" + desc +
+      "\nNapisz dokładnie " + ev.length + " krótkich, emocjonujących linijek komentarza (każda do 110 znaków), po jednej na każde wydarzenie, w tej samej kolejności. Używaj imion, bądź życzliwy i zabawny, maksymalnie jedno emoji na linijkę. Zwróć wyłącznie JSON: {\"lines\":[\"...\"]}",
+      { json: true, max: 1200, temp: 0.95 }));
+    const ls = (Array.isArray(p.lines) ? p.lines : []).map(x => String(x).replace(/[*_#`]+/g, "").trim().slice(0, 140));
+    return tpl.map((t, i) => ls[i] || t);
+  } catch (e) { console.error(e); return tpl; }
+}
+function cineSay(t) {
+  const s = $("cineSub");
+  s.classList.remove("show"); void s.offsetWidth; s.textContent = t; s.classList.add("show");
+  if (cineVoiceOn() && window.speechSynthesis) {
+    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(t.replace(/[\u{1F300}-\u{1FAFF}☀-➿]/gu, "")); u.lang = FA ? "fa-IR" : LANG === "en" ? "en-GB" : "pl-PL"; u.rate = 1.08; speechSynthesis.speak(u); } catch (e) {}
+  }
+}
+function openCine() {
+  if (!state.me) return;
+  stopRace(); raceSig = ""; buildRace();
+  const el = $("cine");
+  el.hidden = false; el.classList.remove("in"); void el.offsetWidth; el.classList.add("in");
+  $("cineTitle").textContent = "🎬 " + L("Wyścig kroków", "Step race") + " · " + ymLabel(monthInfo().ym);
+  $("cineTrack").innerHTML = cineLaneHtml();
+  $("cineStart").hidden = false; $("cineEnd").hidden = true; $("cineSub").textContent = ""; $("cineSub").classList.remove("show"); $("cineCount").textContent = "";
+  $("cineMute").textContent = sndOn() ? "🔊" : "🔇"; $("cineVoice").classList.toggle("off", !cineVoiceOn());
+  CINE = { id: 0, lastPct: {}, lastPuff: {} };
+  cinePaint(0);
+  try { document.body.style.overflow = "hidden"; } catch (e) {}
+}
+function closeCine() {
+  if (CINE) cancelAnimationFrame(CINE.id);
+  CINE = null; musicStop(0.4);
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
+  $("cine").hidden = true; document.body.style.overflow = "";
+  renderRace(false);
+}
+async function cineGo() {
+  if (!CINE) openCine();
+  const me = CINE;
+  sctx();
+  $("cineStart").hidden = true; $("cineEnd").hidden = true;
+  const ev = cineEvents(), linesP = cineLines(ev);
+  $("cineSub").textContent = aiKey() ? L("Trener przygotowuje komentarz…", "The coach is preparing the commentary…") : ""; $("cineSub").classList.add("show");
+  for (const c of ["3", "2", "1"]) {
+    if (CINE !== me) return;
+    const ce = $("cineCount"); ce.textContent = c; ce.classList.remove("pop"); void ce.offsetWidth; ce.classList.add("pop"); sfx("beep"); buzz(20);
+    await sleep(850);
+  }
+  if (CINE !== me) return;
+  $("cineCount").textContent = "START!"; $("cineCount").classList.remove("pop"); void $("cineCount").offsetWidth; $("cineCount").classList.add("pop"); sfx("go");
+  const lines = await Promise.race([linesP, sleep(3500).then(() => ev.map(cineTemplate))]);
+  if (CINE !== me) return;
+  setTimeout(() => { $("cineCount").textContent = ""; }, 700);
+  cineSay(L("Startujemy! Wyścig kroków: " + ymLabel(monthInfo().ym) + ".", "And they're off! Step race: " + ymLabel(monthInfo().ym) + "."));
+  if (sndOn()) { SND.bpm = 112; musicStart(); }
+  const mi = monthInfo(), D = Math.max(1, mi.dom), dur = Math.max(16000, Math.min(36000, D * 1100)), t0 = performance.now(), shown = {};
+  let prevLead = null;
+  $("cineTrack").classList.add("playing");
+  await new Promise(res => {
+    const tick = now => {
+      if (CINE !== me) { res(); return; }
+      const p = Math.min(1, (now - t0) / dur), f = D * p;
+      const lead = cinePaint(f);
+      if (prevLead && lead && lead !== prevLead) { sfx("whoosh"); buzz([40, 30, 40]); const st = $("cineStage"); st.classList.remove("flash"); void st.offsetWidth; st.classList.add("flash"); }
+      if (lead) prevLead = lead;
+      SND.bpm = 112 + 40 * p;
+      ev.forEach((e, i) => { if (!shown[i] && f >= Math.max(0.3, e.d - 0.6) && e.t !== "final") { shown[i] = 1; cineSay(lines[i]); } });
+      if (p < 1) me.id = requestAnimationFrame(tick); else res();
+    };
+    me.id = requestAnimationFrame(tick);
+  });
+  if (CINE !== me) return;
+  $("cineTrack").classList.remove("playing");
+  musicStop(1.6);
+  cineSay(lines[lines.length - 1]);
+  await sleep(1200);
+  if (CINE !== me) return;
+  sfx("fanfare"); buzz([100, 50, 100, 50, 200]);
+  if (animOn()) { confetti(); fireworks($("cineFw"), 4); setTimeout(() => { $("cineFw").innerHTML = ""; }, 3500); }
+  const rows = raceRows(), medals = ["🥇", "🥈", "🥉"], lead = rows[0] ? rows[0].tot : 0, pod = rows.slice(0, 3).map((r, i) => ({ r: r, i: i }));
+  const order = pod.length === 3 ? [pod[1], pod[0], pod[2]] : pod.length === 2 ? [pod[1], pod[0]] : pod;
+  $("cineSub").classList.remove("show");
+  $("cineEnd").innerHTML = '<div class="cineFinal">' + esc(lines[lines.length - 1]) + "</div>" + (lead > 0 ? '<div class="pod rise">' + order.map(x => '<div class="pcol p' + (x.i + 1) + '"><span class="pav">' + av(x.r.n, 40) + "</span><b>" + esc(x.r.n) + "</b><small>" + numFmt(x.r.tot) + '</small><i style="height:' + Math.max(18, Math.round(x.r.tot / lead * 90)) + 'px">' + medals[x.i] + "</i></div>").join("") + "</div>" : "") +
+    '<div class="tools" style="justify-content:center"><button class="primary" id="cineShare">' + esc(L("📤 Udostępnij wynik", "📤 Share the result")) + '</button><button class="ghost" id="cineAgain">' + esc(L("↺ Jeszcze raz", "↺ Again")) + '</button><button class="ghost" id="cineDone">' + esc(L("Zamknij", "Close")) + "</button></div>";
+  $("cineEnd").hidden = false;
+}
+$("cineOpen").addEventListener("click", openCine);
+$("cineGo").addEventListener("click", cineGo);
+$("cineClose").addEventListener("click", closeCine);
+$("cineMute").addEventListener("click", () => {
+  const on = !sndOn();
+  try { localStorage.setItem("pd-snd", on ? "1" : "0"); } catch (e) {}
+  if ($("setSnd")) $("setSnd").checked = on;
+  sndApplyMute(); $("cineMute").textContent = on ? "🔊" : "🔇";
+  if (on && CINE && $("cineTrack").classList.contains("playing")) musicStart();
+  if (!on) musicStop(0.2);
+});
+$("cineVoice").addEventListener("click", () => {
+  const on = !cineVoiceOn();
+  try { localStorage.setItem("pd-cinevoice", on ? "1" : "0"); } catch (e) {}
+  $("cineVoice").classList.toggle("off", !on);
+  if (!on) { try { speechSynthesis.cancel(); } catch (e) {} }
+  toast(on ? L("Komentarz czytany na głos 🗣", "Commentary read aloud 🗣") : L("Głos wyłączony", "Voice off"));
+});
+$("cineEnd").addEventListener("click", async e => {
+  const t = e.target;
+  if (t.id === "cineDone") closeCine();
+  else if (t.id === "cineAgain") { openCine(); cineGo(); }
+  else if (t.id === "cineShare") {
+    const rows = raceRows().slice(0, 5), txt = "🏁 " + L("Wyścig kroków", "Step race") + " · " + ymLabel(monthInfo().ym) + "\n" + rows.map((r, i) => (i + 1) + ". " + r.n + ": " + numFmt(r.tot)).join("\n") + "\n" + inviteUrl();
+    try { if (navigator.share) { await navigator.share({ title: "Progress dietowy", text: txt }); return; } } catch (err) { if (err && err.name === "AbortError") return; }
+    const ok = await copyText(txt); toast(ok ? L("Wynik skopiowany ✅", "Result copied ✅") : txt);
+  }
+});
+
+/* ================= v3.7: wprowadzenie i skróty ================= */
+const TOUR = [
+  ["👋", "Witaj w Progress dietowy!", "Welcome to Progress dietowy!", "Na górze jest menu. Przesuń je palcem i wybierz zakładkę.", "The menu is at the top. Swipe it and pick a tab.", "🏠🏁🏋️🍽🧮🛠🤖🗂👥"],
+  ["🏁", "Wyzwanie i kroki", "Challenge & steps", "Wpisuj kroki (także ze zrzutu ekranu) i ścigaj się z przyjaciółmi. Razem idziecie też we wspólną podróż.", "Log your steps (even from a screenshot) and race your friends. Together you also go on a shared journey.", "👟📷🏃🗺"],
+  ["👥", "Przyjaciele i czat", "Friends & chat", "Zaproś znajomych, oglądajcie nawzajem postępy i piszcie na czacie. Przycisk 🌐 tłumaczy wiadomości.", "Invite friends, follow each other's progress and chat. The 🌐 button translates messages.", "💬🤝🌐🎉"],
+  ["🤖", "Trener AI i historia", "AI coach & history", "Trener podpowiada i analizuje grupę. Wszystko, co policzysz i dostaniesz od AI, zapisuje się w Historii.", "The coach gives tips and analyses the group. Everything you calculate or get from the AI is saved in History.", "🧠📊🗂✨"]
+];
+let tourI = 0;
+const tourSeen = () => { try { return localStorage.getItem("pd-tour") === "1"; } catch (e) { return true; } };
+function paintTour() {
+  const s = TOUR[tourI];
+  $("tourBody").innerHTML = '<div class="tourE">' + s[0] + '</div><h2>' + esc(L(s[1], s[2])) + "</h2><p>" + esc(L(s[3], s[4])) + '</p><div class="tourIcons">' + Array.from(s[5]).filter(c => c.trim() && c !== "️").map((c, i) => '<span style="--i:' + i + '">' + c + "</span>").join("") + "</div>";
+  $("tourDots").innerHTML = TOUR.map((x, i) => '<i class="' + (i === tourI ? "on" : "") + '"></i>').join("");
+  $("tourNext").textContent = tourI === TOUR.length - 1 ? L("Zaczynamy 💪", "Let's go 💪") : L("Dalej", "Next");
+  $("tourSkip").textContent = L("Pomiń", "Skip");
+  const b = $("tourBody"); b.classList.remove("slide"); void b.offsetWidth; b.classList.add("slide");
+}
+function openTour() { tourI = 0; $("tour").hidden = false; paintTour(); }
+function closeTour() { $("tour").hidden = true; try { localStorage.setItem("pd-tour", "1"); } catch (e) {} applyGo(); }
+$("tourNext").addEventListener("click", () => { if (tourI >= TOUR.length - 1) closeTour(); else { tourI++; paintTour(); buzz(15); } });
+$("tourSkip").addEventListener("click", closeTour);
+(() => {
+  let x0 = null;
+  $("tour").addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  $("tour").addEventListener("touchend", e => {
+    if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) < 50) return;
+    const fwd = FA ? dx > 0 : dx < 0;
+    if (fwd && tourI < TOUR.length - 1) { tourI++; paintTour(); } else if (!fwd && tourI > 0) { tourI--; paintTour(); }
+  }, { passive: true });
+})();
+$("tourAgain").addEventListener("click", () => { closeMenu(true); openTour(); });
+let pendingGo = null;
+try { pendingGo = new URLSearchParams(location.search).get("go"); } catch (e) {}
+function applyGo() {
+  if (!pendingGo || !state.me) return;
+  const g = pendingGo; pendingGo = null;
+  try { history.replaceState(null, "", location.pathname); } catch (e) {}
+  if (g === "steps") { showPage("race"); setTimeout(() => { const v = $("stVal"); v.scrollIntoView({ block: "center", behavior: "smooth" }); v.focus(); }, 450); }
+  else if (g === "chat") { showPage("home"); setTimeout(() => { $("chatCard").scrollIntoView({ block: "start", behavior: "smooth" }); $("chatText").focus(); }, 450); }
+  else if (g === "race") showPage("race");
+}
+function postEnter() { setTimeout(() => { if (!state.me) return; if (!tourSeen()) openTour(); else applyGo(); }, 1100); }
 
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
@@ -4175,6 +5234,7 @@ async function runTool(btn, outId, fn) {
     const r = await fn();
     out.innerHTML = r.html;
     if (r.wire) r.wire(out);
+    aiHistFromOut(outId);
   } catch (e) {
     console.error(e);
     out.innerHTML = '<div class="msg" style="color:var(--bad)">' + esc(aiFriendly(e)) + "</div>";
@@ -4500,6 +5560,7 @@ $("tdSave").addEventListener("click", async () => {
   const r = tdeeCalc(o);
   try {
     await mutate(me, d => { d.prof = { sex: o.sex, age: o.age, act: o.act, goal: r.goal }; d.tgt = { k: r.target, p: r.p, c: r.c, f: r.f }; return d; });
+    calcSave(true);
     $("tdMsg").textContent = L("Zapisano cel: " + r.target + " kcal dziennie. Widać go w dzienniku jedzenia.", "Saved target: " + r.target + " kcal per day. It shows in the food log.");
   } catch (e) { console.error(e); $("tdMsg").textContent = L("Nie udało się zapisać.", "Could not save."); }
 });
@@ -5324,6 +6385,8 @@ Object.assign(EN, {
   "Tłumaczenie wiadomości na czacie (przycisk 🌐 lub automatycznie)": "Chat message translation (🌐 button or automatic)"
 });
 Object.assign(FAD, {"Poland": "لهستان", "Home": "خانه", "Gym": "باشگاه", "Food & calories": "غذا و کالری", "Calculator": "ماشین‌حساب", "Helpful tools": "ابزارهای مفید", "Coach": "مربی", "Friends": "دوستان", "Challenge & steps": "چالش و قدم‌ها", "Invitations for you": "دعوت‌ها برای شما", "Accept": "پذیرفتن", "Decline": "رد کردن", "wants to share data": "می‌خواهد داده‌ها را به اشتراک بگذارد", "My friends": "دوستان من", "Remove": "حذف", "Nobody yet. Invite someone below.": "فعلاً کسی نیست. پایین کسی را دعوت کنید.", "Cancel": "لغو", "waiting for acceptance": "منتظر پذیرش", "Sent invitations": "دعوت‌های ارسال‌شده", "Other people in the app": "دیگر افراد برنامه", "Invite": "دعوت", "No more people.": "فرد دیگری نیست.", "View": "مشاهده", "Yesterday": "دیروز", "7 days": "۷ روز", "30 days": "۳۰ روز", "Min": "دقیقه", "kcal burned": "کیلوکالری سوخته", "kcal/day": "کیلوکالری در روز", "Active days": "روزهای فعال", "Weight Δ": "تغییر وزن", "Steps": "قدم", "Avg/day": "میانگین در روز", "Behind": "تا پیشتاز", "Day ": "روز ", " of ": " از ", "Saved ✅": "ذخیره شد ✅", "Link copied ✅": "لینک کپی شد ✅", "Copied. Paste it in Messenger.": "کپی شد. در مسنجر بچسبانید.", "Pick a day from the last 30 days.": "یک روز از ۳۰ روز اخیر انتخاب کنید.", "Enter a step count (0–100000).": "تعداد قدم را وارد کنید (۰ تا ۱۰۰۰۰۰).", "Daily goal: ": "هدف روز: ", " steps": " قدم", "A new AI coach challenge every day.": "هر روز یک چالش تازه از مربی هوش مصنوعی.", "Today's challenge. With a Gemini key the AI coach invents a new one daily.": "چالش امروز. با کلید Gemini مربی هوش مصنوعی هر روز یکی تازه می‌سازد.", "Added to friends 🎉": "به دوستان اضافه شد 🎉", "Nobody here yet. Add friends in the “Friends” tab.": "هنوز کسی اینجا نیست. در بخش «دوستان» دوست اضافه کنید.", "No workout: ": "بدون تمرین: ", "Nobody has logged anything yet.": "هنوز کسی چیزی ثبت نکرده است.", "Nobody logged a workout in the last 7 days.": "در ۷ روز اخیر کسی تمرینی ثبت نکرده است.", "exercises": "حرکت", "Best set": "بهترین ست", "Exercise": "حرکت ورزشی", "Records will show up after your first workout.": "رکوردها بعد از اولین تمرین نمایش داده می‌شوند.", "No gym workouts yet. Start your first one!": "هنوز تمرین باشگاهی نیست. اولین را شروع کنید!", "Summary": "خلاصه", "Group tasks": "وظایف گروه", "Person of the period: ": "فرد برتر دوره: ", "Post a short version to chat": "ارسال نسخه کوتاه در گفتگو", "Posted ✅": "ارسال شد ✅", "overtakes": "سبقت می‌گیرد از", "Leading: ": "پیشتاز: ", "steps ahead": "قدم اختلاف", "Who ": "چه کسی ", "Weight": "وزن", "Today": "امروز", "Workouts": "تمرین‌ها", "No limits: whoever makes more steps this month wins. Runners move at the pace of their steps, and the marks on the track show thousands.": "بدون محدودیت: هر که در این ماه قدم بیشتری بردارد برنده است. دونده‌ها با سرعت قدم‌هایشان می‌دوند و نشانه‌های روی مسیر هزارتا را نشان می‌دهند.", "Send the link. Your friend opens it, adds themselves on the login screen, and then you invite them here in the Friends tab.": "لینک را بفرستید. دوستتان آن را باز می‌کند، خودش را در صفحه ورود اضافه می‌کند و بعد شما او را از همین‌جا در بخش دوستان دعوت می‌کنید.", "You only see yourself and your friends. Friends see each other's progress (weight, BMI, workouts, food, steps), the ranking and the group chat. A friendship works when both people accept. Tap “View” to open someone's profile.": "شما فقط خودتان و دوستانتان را می‌بینید. دوستان پیشرفت یکدیگر (وزن، شاخص توده بدنی، تمرین، غذا، قدم)، رتبه‌بندی و گفتگوی گروه را می‌بینند. دوستی زمانی برقرار می‌شود که هر دو نفر بپذیرند. روی «مشاهده» بزنید تا نمایه کسی را باز کنید.", "🌐 Translate": "🌐 ترجمه", "Translating…": "در حال ترجمه…", "Could not translate.": "ترجمه ممکن نشد.", "🌐 Auto-translate chat messages": "🌐 ترجمه خودکار پیام‌های گفتگو", "Diet Progress": "پیشرفت رژیمی", "Who are you?": "شما کی هستید؟", "Connecting to the database…": "در حال اتصال به پایگاه داده…", "Settings": "تنظیمات", "Profile": "نمایه", "Avatar: pick an emoji or upload a photo": "آواتار: یک ایموجی انتخاب کنید یا عکس بارگذاری کنید", "Upload photo": "بارگذاری عکس", "Default avatar": "آواتار پیش‌فرض", "My data": "اطلاعات من", "Height (cm)": "قد (سانتی‌متر)", "Goal weight (kg)": "وزن هدف (کیلوگرم)", "Save": "ذخیره", "Current weight (kg)": "وزن فعلی (کیلوگرم)", "Save for today": "ذخیره برای امروز", "Appearance": "ظاهر", "Theme": "پوسته", "Automatic": "خودکار", "Light": "روشن", "Dark": "تیره", "Text size": "اندازه متن", "Smaller": "کوچک‌تر", "Normal": "معمولی", "Larger": "بزرگ‌تر", "Largest": "بزرگ‌ترین", "App colour": "رنگ برنامه", "Default": "پیش‌فرض", "Preferences": "ترجیحات", "🎉 Confetti on a new badge": "🎉 کاغذرنگی برای نشان جدید", "🤖 Coach posts on its own after my entries": "🤖 مربی بعد از ثبت‌های من خودش پیام می‌دهد", "✨ Animations": "✨ انیمیشن‌ها", "These settings apply to this device only.": "این تنظیمات فقط برای همین دستگاه اعمال می‌شود.", "Language / Język": "زبان / Language / Język", "Show welcome screen": "نمایش صفحه خوش‌آمدگویی", "AI Coach (Gemini)": "مربی هوش مصنوعی (Gemini)", "Gemini API key": "کلید API جمینای", "Test AI": "آزمایش هوش مصنوعی", "Turn AI off": "خاموش کردن هوش مصنوعی", "Data & account": "داده‌ها و حساب", "Send ranking to WhatsApp": "ارسال رتبه‌بندی به واتس‌اپ", "Export data to a file": "خروجی داده‌ها در فایل", "Switch user": "تغییر کاربر", "Let's go 💪": "بزن بریم 💪", "Not me: switch user": "من نیستم: تغییر کاربر", "Add measurement": "افزودن اندازه‌گیری", "Date": "تاریخ", "Weight (kg)": "وزن (کیلوگرم)", "Add": "افزودن", "Weight chart": "نمودار وزن", "Combined chart": "نمودار مشترک", "BMI ranking": "رتبه‌بندی شاخص توده بدنی", "Weekly challenge": "چالش هفته", "Group goal & progress": "هدف و پیشرفت گروه", "Bet": "شرط دوستانه", "Set or change the bet": "تنظیم یا تغییر شرط", "Stake": "جایزه شرط", "Bet end date": "تاریخ پایان شرط", "Save bet": "ذخیره شرط", "Delete bet": "حذف شرط", "Workout & calories": "تمرین و کالری", "Day": "روز", "Type": "نوع", "Time (min)": "زمان (دقیقه)", "Calories (optional)": "کالری (اختیاری)", "Add workout": "افزودن تمرین", "This week": "این هفته", "Activity ranking (this week)": "رتبه‌بندی فعالیت (این هفته)", "Recent workouts": "تمرین‌های اخیر", "Daily points": "امتیازهای روز", "💧 Water": "💧 آب", "🏃 Workout": "🏃 تمرین", "👟 Steps": "👟 قدم", "Points are saved to your profile.": "امتیازها در نمایه شما ذخیره می‌شوند.", "Calendar & achievements": "تقویم و دستاوردها", "Badges": "نشان‌ها", "Chat": "گفتگو", "Message": "پیام", "Send": "ارسال", "Measurement history": "تاریخچه اندازه‌گیری‌ها", "Close settings": "بستن تنظیمات", "Menu and settings": "منو و تنظیمات", "e.g. 84.5": "مثلاً 84.5", "e.g. 45": "مثلاً 45", "from your watch": "از ساعت شما", "Write something…": "چیزی بنویسید…", "Connected. Data is shared with everyone.": "متصل شد. داده‌ها بین همه مشترک است.", "now": "اکنون", "No messages yet. Write the first one.": "هنوز پیامی نیست. اولین پیام را بنویسید.", "No measurements yet. Add the first one above.": "هنوز اندازه‌گیری‌ای نیست. اولی را در بالا اضافه کنید.", "No workouts yet. Add the first one above.": "هنوز تمرینی نیست. اولی را در بالا اضافه کنید.", "Delete": "حذف", "Who": "چه کسی", "Rating": "رتبه", "Goal": "هدف", "Total": "مجموع", "Minutes": "دقیقه", "Time": "زمان", "Progress this week": "پیشرفت این هفته", "Progress since start": "پیشرفت از ابتدا", "7-day average": "میانگین ۷ روز", "Measurement streak": "تداوم اندازه‌گیری", "Goal forecast": "پیش‌بینی رسیدن به هدف", "kcal (est.)": "کیلوکالری (تخمینی)", "normal": "نرمال", "overweight": "اضافه وزن", "underweight": "کم‌وزنی", "obese": "چاقی", "missing height or measurement": "قد یا اندازه‌گیری موجود نیست", "Everyone's progress to goal": "پیشرفت همه تا هدف", "Together you got closer to your goals by": "با هم به هدف‌هایتان نزدیک‌تر شدید به میزان", "Add at least two measurements to see the chart.": "برای دیدن نمودار حداقل دو اندازه‌گیری اضافه کنید.", "Goal reached": "به هدف رسیدید", "No activity on this day.": "در این روز فعالیتی نبود.", "Previous month": "ماه قبل", "Next month": "ماه بعد", "Mo": "دو", "Tu": "سه", "We": "چهار", "Th": "پنج", "Fr": "جمعه", "Sa": "شنبه", "Su": "یک", "My profile": "نمایه من", "Viewing:": "در حال مشاهده:", "(read-only)": "(فقط خواندنی)", "A small step today beats a big plan for tomorrow.": "یک قدم کوچک امروز بهتر از یک برنامه بزرگ برای فرداست.", "Consistency beats intensity.": "پایداری از شدت مهم‌تر است.", "You don't have to be perfect, just don't give up.": "لازم نیست بی‌نقص باشید، فقط تسلیم نشوید.", "Starting is the hardest part, then it's downhill.": "شروع کردن سخت‌ترین بخش است، بعدش آسان می‌شود.", "Every healthy choice counts.": "هر انتخاب سالم ارزش دارد.", "It's easier together, keep each other on track.": "با هم آسان‌تر است، همدیگر را در مسیر نگه دارید.", "Sleep, water and movement do half the work.": "خواب، آب و حرکت نیمی از کار را انجام می‌دهند.", "Hi! Add your first measurements and I'll cheer you on.": "سلام! اولین اندازه‌گیری‌هایتان را وارد کنید تا من تشویقتان کنم.", "Saving…": "در حال ذخیره…", "Measurement added.": "اندازه‌گیری اضافه شد.", "Pick a date.": "یک تاریخ انتخاب کنید.", "Pick a day.": "یک روز انتخاب کنید.", "Enter your weight in kilograms (20–400).": "وزن خود را به کیلوگرم وارد کنید (۲۰ تا ۴۰۰).", "Enter your height in cm (100–250).": "قد خود را به سانتی‌متر وارد کنید (۱۰۰ تا ۲۵۰).", "Saved.": "ذخیره شد.", "Could not save.": "ذخیره نشد.", "Could not delete the measurement.": "حذف اندازه‌گیری ممکن نشد.", "Could not delete the workout.": "حذف تمرین ممکن نشد.", "Running": "دویدن", "Cycling": "دوچرخه‌سواری", "Walking / hiking": "پیاده‌روی / کوهنوردی", "Swimming": "شنا", "Ball / team sports": "ورزش‌های توپی / تیمی", "HIIT / CrossFit": "هایت / کراس‌فیت", "Yoga / stretching": "یوگا / کشش", "Dancing": "رقص", "Other": "سایر", "First measurement": "اولین اندازه‌گیری", "Leader of the week": "پیشتاز هفته", "5 measurements": "۵ اندازه‌گیری", "15 measurements": "۱۵ اندازه‌گیری", "3-week streak": "تداوم ۳ هفته‌ای", "8-week streak": "تداوم ۸ هفته‌ای", "1 kg closer to goal": "۱ کیلو نزدیک‌تر به هدف", "5 kg closer to goal": "۵ کیلو نزدیک‌تر به هدف", "7 days with points": "۷ روز با امتیاز", "First workout": "اولین تمرین", "10 workouts": "۱۰ تمرین", "3 workouts in a week": "۳ تمرین در یک هفته", "1000 kcal in a week": "۱۰۰۰ کیلوکالری در یک هفته", "5000 kcal in total": "۵۰۰۰ کیلوکالری در مجموع", "Activity calendar for the last 12 weeks": "تقویم فعالیت ۱۲ هفته اخیر", "Helpful tools 🛠": "ابزارهای مفید 🛠", "🏋️ Workout plan for today": "🏋️ برنامه تمرین امروز", "Place": "مکان", "Outdoors": "فضای باز", "Build a workout": "برنامه تمرین بساز", "🥗 Meal idea": "🥗 ایده وعده غذایی", "What do you have? (optional)": "چه چیزی دارید؟ (اختیاری)", "e.g. eggs, rice, broccoli": "مثلاً تخم‌مرغ، برنج، بروکلی", "Target kcal (optional)": "کیلوکالری هدف (اختیاری)", "Suggest a meal": "یک وعده پیشنهاد بده", "📷 Food photo (calories)": "📷 عکس غذا (کالری)", "Take a photo or pick from the gallery": "عکس بگیرید یا از گالری انتخاب کنید", "✍️ Text entry": "✍️ ثبت با متن", "Write what you did": "بنویسید چه کردید", "Recognise": "تشخیص بده", "💡 Advice for today": "💡 توصیه امروز", "Give advice": "توصیه بده", "📊 Weekly analysis": "📊 تحلیل هفته", "The coach will post a team summary in the chat.": "مربی خلاصه‌ای از تیم را در گفتگو می‌فرستد.", "Post to chat": "ارسال در گفتگو", "Coach's tips": "نکته‌های مربی", "Coach remembers facts from chats": "مربی واقعیت‌هایی را از گفتگوها به خاطر می‌سپارد", "Add your own tip or fact": "نکته یا واقعیت خودتان را اضافه کنید", "Clear all": "پاک کردن همه", "😈 Coach may tease playfully": "😈 مربی ممکن است با شوخی سربه‌سرتان بگذارد", "Security (PIN)": "امنیت (پین)", "Current PIN": "پین فعلی", "New PIN (4 digits)": "پین جدید (۴ رقم)", "Repeat new PIN": "تکرار پین جدید", "Save new PIN": "ذخیره پین جدید", "New recovery code": "کد بازیابی جدید", "App": "برنامه", "Remember on this phone": "مرا در این گوشی به خاطر بسپار", "I forgot my PIN": "پینم را فراموش کردم", "Saved, continue": "ذخیره شد، ادامه", "Reset PIN": "بازنشانی پین", "Back": "بازگشت", "Delete digit": "حذف رقم", "New user": "کاربر جدید", "➕ New user": "➕ کاربر جدید", "Name or nickname": "نام یا نام مستعار", "e.g. Kate": "مثلاً سارا", "Enlarge chat": "بزرگ کردن گفتگو", "Add photo": "افزودن عکس", "Write something, paste a link or photo…": "چیزی بنویسید، لینک یا عکس بچسبانید…", "Home screen shortcut": "میانبر صفحه اصلی", "🏋️ Gym mode": "🏋️ حالت باشگاه", "Gym mode": "حالت باشگاه", "Food and calories": "غذا و کالری", "Meal": "وعده", "Breakfast": "صبحانه", "Lunch": "ناهار", "Dinner": "شام", "Snack": "میان‌وعده", "Last 7 days": "۷ روز اخیر", "Add food": "افزودن غذا", "🔎 Search": "🔎 جستجو", "📷 Barcode": "📷 بارکد", "✍️ Manual": "✍️ دستی", "🤖 AI description": "🤖 توضیح با هوش مصنوعی", "⭐ Favourites": "⭐ مورد علاقه‌ها", "Product name": "نام محصول", "e.g. plain yogurt": "مثلاً ماست ساده", "Search": "جستجو", "📷 Scan a barcode": "📷 اسکن بارکد", "Or type the code from the package": "یا کد روی بسته را بنویسید", "Look up code": "جستجوی کد", "Name": "نام", "e.g. cheese sandwich": "مثلاً ساندویچ پنیر", "Calories (kcal)": "کالری (کیلوکالری)", "Protein (g)": "پروتئین (گرم)", "Carbs (g)": "کربوهیدرات (گرم)", "Fat (g)": "چربی (گرم)", "Portions (multiplier)": "تعداد وعده (ضریب)", "⭐ Save to favourites": "⭐ ذخیره در مورد علاقه‌ها", "Add to the log": "افزودن به دفتر غذا", "Describe what you ate": "بنویسید چه خوردید", "e.g. 2 eggs, a cheese sandwich and a coffee with milk": "مثلاً ۲ تخم‌مرغ، یک ساندویچ پنیر و یک قهوه با شیر", "Estimate": "تخمین بزن", "Calorie needs calculator": "ماشین‌حساب نیاز کالری", "Sex": "جنسیت", "Male": "مرد", "Female": "زن", "Age": "سن", "Activity": "فعالیت", "Sedentary (no workouts)": "کم‌تحرک (بدون تمرین)", "Light (1–3 workouts/week)": "سبک (۱ تا ۳ تمرین در هفته)", "Moderate (3–5 workouts/week)": "متوسط (۳ تا ۵ تمرین در هفته)", "High (6–7 workouts/week)": "زیاد (۶ تا ۷ تمرین در هفته)", "Very high (physical job + training)": "خیلی زیاد (کار بدنی + تمرین)", "Maintain weight": "حفظ وزن", "Slow weight loss": "کاهش وزن آهسته", "Muscle gain": "افزایش عضله", "Save as my target": "ذخیره به‌عنوان هدف من", "Add reaction": "افزودن واکنش", "Others' workouts": "تمرین‌های دیگران", "Recent gym workouts": "تمرین‌های اخیر باشگاه", "Records": "رکوردها", "Group summary": "خلاصه گروه", "In-depth AI coach analysis": "تحلیل کامل مربی هوش مصنوعی", "Prepare analysis": "تهیه تحلیل", "Challenge of the day": "چالش امروز", "Monthly challenge: step race": "چالش ماه: مسابقه قدم", "▶ Replay the race": "▶ پخش دوباره مسابقه", "My steps": "قدم‌های من", "Number of steps": "تعداد قدم", "Save steps": "ذخیره قدم‌ها", "Invite friends to the app": "دعوت دوستان به برنامه", "📤 Share": "📤 اشتراک‌گذاری", "💬 WhatsApp": "💬 واتس‌اپ", "📘 Messenger": "📘 مسنجر", "✉️ SMS": "✉️ پیامک", "📋 Copy link": "📋 کپی لینک", "What's new in 3.6": "تازه‌ها در نسخه 3.6"});
+Object.assign(EN, {"Co nowego w 3.7": "What's new in 3.7", "Wspólna podróż grupy: Katowice → Teheran": "Shared group journey: Katowice → Tehran", "Tryb kino wyścigu z komentarzem AI i muzyką": "Race cinema mode with AI commentary and music", "Historia: rozmowy, dieta, obliczenia i wyniki AI": "History: chats, diet, calculations and AI results", "Kroki ze zrzutu ekranu": "Steps from a screenshot", "Pogoda zależna od języka (Polska, Wielka Brytania, Iran)": "Weather by language (Poland, United Kingdom, Iran)", "Więcej animacji, wibracje, wprowadzenie i skróty na ikonie": "More animations, vibration, an intro and app icon shortcuts", "🎬 Kino": "🎬 Cinema", "📷 Ze zrzutu ekranu": "📷 From a screenshot", "Wspólna podróż": "Shared journey", "Historia": "History", "⬇️ Eksportuj historię do pliku": "⬇️ Export history to a file", "📳 Wibracje": "📳 Vibration", "🔊 Dźwięki i muzyka": "🔊 Sounds and music", "👋 Pokaż wprowadzenie": "👋 Show the intro", "▶ Start": "▶ Start", "Włącz dźwięk, oprzyj się wygodnie i patrz, jak wyścig ożywa dzień po dniu.": "Turn the sound on, sit back and watch the race come alive day by day.", "Głos komentatora": "Commentator voice", "Dźwięk": "Sound", "Zamknij": "Close"});
+Object.assign(FAD, {"What's new in 3.7": "تازه‌ها در نسخه 3.7", "History": "تاریخچه", "💬 Chats": "💬 گفتگوها", "🍽 Diet": "🍽 رژیم", "🧮 Calculations": "🧮 محاسبه‌ها", "🤖 AI results": "🤖 نتایج هوش مصنوعی", "Search conversations": "جستجو در گفتگوها", "Load older": "بارگذاری قدیمی‌ترها", "Loading…": "در حال بارگذاری…", "Shared journey": "سفر مشترک", "Next stop: ": "ایستگاه بعدی: ", " in ": " تا ", "Who added how much": "چه کسی چقدر اضافه کرد", "Previous journeys": "سفرهای قبلی", "Turbo mode: 1 step = ": "حالت توربو: هر قدم = ", " m on the journey": " متر در سفر", "Route for ": "مسیر برای ", "From": "از", "To": "به", "Vote": "رأی بده", "Change vote": "تغییر رأی", "Vote saved 🗳": "رأی ثبت شد 🗳", "Pick two different cities.": "دو شهر متفاوت انتخاب کنید.", "Vote where the group walks next month. The route with the most votes wins.": "رأی دهید گروه ماه بعد از کجا به کجا برود. مسیری که بیشترین رأی را دارد برنده است.", "You reached the destination: ": "به مقصد رسیدید: ", "Preparing the route…": "در حال آماده‌سازی مسیر…", "🎬 Cinema": "🎬 سینما", "📷 From a screenshot": "📷 از اسکرین‌شات", "⬇️ Export history to a file": "⬇️ خروجی تاریخچه در فایل", "📳 Vibration": "📳 لرزش", "🔊 Sounds and music": "🔊 صدا و موسیقی", "👋 Show the intro": "👋 نمایش راهنما", "▶ Start": "▶ شروع", "Turn the sound on, sit back and watch the race come alive day by day.": "صدا را روشن کنید، راحت بنشینید و ببینید مسابقه روز به روز زنده می‌شود.", "Step race": "مسابقه قدم", "📤 Share the result": "📤 اشتراک‌گذاری نتیجه", "↺ Again": "↺ دوباره", "Close": "بستن", "Next": "بعدی", "Skip": "رد شدن", "Welcome to Progress dietowy!": "به پیشرفت رژیمی خوش آمدید!", "The menu is at the top. Swipe it and pick a tab.": "منو در بالای صفحه است. آن را بکشید و یک بخش را انتخاب کنید.", "Log your steps (even from a screenshot) and race your friends. Together you also go on a shared journey.": "قدم‌هایتان را ثبت کنید (حتی از اسکرین‌شات) و با دوستان مسابقه دهید. با هم به یک سفر مشترک هم می‌روید.", "Friends & chat": "دوستان و گفتگو", "Invite friends, follow each other's progress and chat. The 🌐 button translates messages.": "دوستان را دعوت کنید، پیشرفت یکدیگر را دنبال کنید و گفتگو کنید. دکمه 🌐 پیام‌ها را ترجمه می‌کند.", "AI coach & history": "مربی هوش مصنوعی و تاریخچه", "The coach gives tips and analyses the group. Everything you calculate or get from the AI is saved in History.": "مربی نکته می‌دهد و گروه را تحلیل می‌کند. هر چه محاسبه کنید یا از هوش مصنوعی بگیرید در تاریخچه ذخیره می‌شود.", "New record!": "رکورد جدید!", " steps in one day": " قدم در یک روز", "Keep it up, the race is on.": "ادامه بده، مسابقه ادامه دارد.", "Reading the screenshot…": "در حال خواندن اسکرین‌شات…", "steps": "قدم", "Check it and tap “Save steps”. The photo is not saved.": "بررسی کنید و «ذخیره قدم‌ها» را بزنید. عکس ذخیره نمی‌شود.", "Uncertain read: check the number before saving.": "خواندن مطمئن نیست: پیش از ذخیره عدد را بررسی کنید.", "Workout plan": "برنامه تمرین", "Meal idea": "ایده وعده", "Food photo": "عکس غذا", "Text entry": "ثبت با متن", "Advice": "توصیه", "Group analysis": "تحلیل گروه", "Steps from a screenshot": "قدم از اسکرین‌شات", "↺ Load into the calculator": "↺ بارگذاری در ماشین‌حساب", "Days logged": "روزهای ثبت‌شده", "Avg kcal / day (month)": "میانگین کالری در روز (ماه)", "Avg kcal (7 days)": "میانگین کالری (۷ روز)", "No entries on this day.": "در این روز ثبتی نیست.", "The last 60 results are kept; the oldest are overwritten.": "۶۰ نتیجه آخر نگه داشته می‌شود و قدیمی‌ترها جایگزین می‌شوند.", "AI tool results will be saved here automatically.": "نتایج ابزارهای هوش مصنوعی خودکار اینجا ذخیره می‌شوند.", "No saved calculations yet. Use the calculator and the result saves itself.": "هنوز محاسبه‌ای ذخیره نشده. از ماشین‌حساب استفاده کنید تا نتیجه خودکار ذخیره شود.", "No messages for these filters.": "برای این فیلترها پیامی نیست.", "That is all the messages.": "همه پیام‌ها همین بود.", "History file downloaded.": "فایل تاریخچه دانلود شد.", "Thunderstorm: train at home today, it is safer.": "رعد و برق: امروز در خانه تمرین کنید، امن‌تر است.", "Raining: a good day for a home or gym workout.": "باران می‌بارد: روز خوبی برای تمرین در خانه یا باشگاه است.", "Cold: dress warmly and warm up for longer.": "هوا سرد است: گرم بپوشید و بیشتر گرم کنید.", "Hot: drink more water, train early or late.": "هوا گرم است: آب بیشتری بنوشید و صبح زود یا عصر تمرین کنید.", "Great weather for a run, a ride or a walk!": "هوای عالی برای دویدن، دوچرخه‌سواری یا پیاده‌روی!", "A walk counts too. Keep moving!": "پیاده‌روی هم حساب است. در حرکت بمانید!", "feels like ": "دمای محسوس ", "wind ": "باد ", "rain ": "باران ", "Loading weather…": "در حال بارگذاری آب‌وهوا…", "Weather is temporarily unavailable.": "آب‌وهوا موقتاً در دسترس نیست.", "Commentator voice": "صدای گزارشگر", "Sound": "صدا"});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [
@@ -5484,7 +6547,7 @@ function setLang(l) {
   trTree(document.body);
   render(true);
   markFlags();
-  renderWeather();
+  wxLangChanged();
   renderChat();
 }
 
@@ -5783,6 +6846,7 @@ function resetAnimCaches() { for (const k in numCache) delete numCache[k]; for (
 function enterApp() {
   if (!welcomeOpen) return;
   welcomeOpen = false; clearTimeout(welcomeTimer);
+  postEnter();
   const w = $("welcome");
   loginKeep = false; $("login").hidden = true;
   if (!animOn()) { w.hidden = true; setupReveal(); return; }
@@ -5866,7 +6930,7 @@ function popNew() {
 }
 function afterRender() {
   if (welcomeOpen) return;
-  animateCounts(); animateBars(); animateCharts(); popNew();
+  animateCounts(); animateBars(); animateCharts(); popNew(); flipRows();
   if (viewSwap) {
     viewSwap = false;
     ["summary", "chart", "history", "calendar", "calDetail", "achList", "wStats", "wHistory"].forEach(id => {
@@ -6021,7 +7085,7 @@ function renderSettings() {
   let t = "auto", sz = "100", cf = "1", ca = "1";
   try { t = localStorage.getItem("pd-theme") || "auto"; sz = localStorage.getItem("pd-size") || "100"; cf = localStorage.getItem("pd-confetti") || "1"; ca = localStorage.getItem("pd-coach-auto") || "1"; } catch (e) {}
   $("setTheme").value = t; $("setSize").value = sz; $("setLang").value = FA ? "fa" : LANG; $("setAnim").checked = animOn();
-  $("setConfetti").checked = cf !== "0"; $("setCoachAuto").checked = ca !== "0"; $("setJokes").checked = jokesOn(); $("setAutoTr").checked = autoTrOn();
+  $("setConfetti").checked = cf !== "0"; $("setCoachAuto").checked = ca !== "0"; $("setJokes").checked = jokesOn(); $("setAutoTr").checked = autoTrOn(); $("setVib").checked = vibOn(); $("setSnd").checked = sndOn();
   renderMem(); renderInstall();
   renderSwatches(); renderAi();
 }

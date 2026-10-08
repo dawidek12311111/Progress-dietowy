@@ -922,6 +922,84 @@
   .wcSub { position: absolute; left: 14px; right: 14px; bottom: calc(7vh + 18px); z-index: 7; }
   .wcStart { position: absolute; left: 0; right: 0; bottom: 18vh; display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 8; }
   .wcStart button { font-size: 1.2rem; padding: 14px 34px; border-radius: 999px; }
+
+  /* ===== v3.9: Dzik ===== */
+  .boarSvg { width: 100%; height: 100%; overflow: visible; color: var(--muted); }
+  .boarSvg g { transform-box: fill-box; }
+  .bHead { transform-origin: 20% 80%; } .bArm { transform-origin: 50% 6%; } .bTail { transform-origin: 100% 60%; }
+  .bEarL { transform-origin: 70% 100%; } .bEarR { transform-origin: 30% 100%; } .bEyes { transform-origin: center; }
+  .bThink, .bSpark { opacity: 0; } .mOpen { opacity: 0; }
+  html[data-anim="on"] .boar, html[data-anim="on"] .boarFace .boar { display: inline-block; animation: boarBob 2.6s ease-in-out infinite; }
+  @keyframes boarBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  html[data-anim="on"] .bEyes { animation: blink 4.2s infinite; }
+  @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+  html[data-anim="on"] .bTail { animation: tail 1s ease-in-out infinite alternate; }
+  @keyframes tail { from { transform: rotate(-12deg); } to { transform: rotate(16deg); } }
+  html[data-anim="on"] .bEarR { animation: ear 5s ease-in-out infinite; }
+  @keyframes ear { 0%, 88%, 100% { transform: rotate(0); } 92% { transform: rotate(14deg); } 96% { transform: rotate(-6deg); } }
+  /* nastroje */
+  html[data-anim="on"] .mood-talk .mOpen { animation: talkO .26s steps(1) infinite; }
+  html[data-anim="on"] .mood-talk .mSmile { animation: talkS .26s steps(1) infinite; }
+  @keyframes talkO { 50% { opacity: 1; } } @keyframes talkS { 50% { opacity: 0; } }
+  html[data-anim="on"] .mood-talk .bHead { animation: nod .9s ease-in-out infinite; }
+  @keyframes nod { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-4deg); } }
+  .mood-think .bHead { transform: rotate(8deg); } .mood-think .bArm { transform: rotate(-150deg) translateY(-6px); }
+  .mood-think .bThink { opacity: 1; }
+  html[data-anim="on"] .mood-think .bThink circle { animation: thinkDot 1.2s infinite; } html[data-anim="on"] .mood-think .bThink circle:nth-child(2) { animation-delay: .2s; } html[data-anim="on"] .mood-think .bThink circle:nth-child(3) { animation-delay: .4s; }
+  @keyframes thinkDot { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+  html[data-anim="on"] .mood-wave .bArm { animation: wave .5s ease-in-out infinite alternate; }
+  @keyframes wave { from { transform: rotate(-120deg); } to { transform: rotate(-165deg); } }
+  .mood-thumb .bArm { transform: rotate(-160deg); } .mood-thumb .bSpark, .mood-cheer .bSpark { opacity: 1; }
+  html[data-anim="on"] .mood-thumb .bSpark, html[data-anim="on"] .mood-cheer .bSpark { animation: sparkle .8s ease-in-out infinite alternate; transform-origin: center; }
+  @keyframes sparkle { from { opacity: .3; transform: scale(.8); } to { opacity: 1; transform: scale(1.15); } }
+  html[data-anim="on"] .mood-cheer .boar { animation: cheerJump .6s ease-in-out infinite; }
+  @keyframes cheerJump { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-14px) rotate(-3deg); } }
+  html[data-anim="on"] .mood-cheer .bArm { animation: wave .3s ease-in-out infinite alternate; }
+  .mood-cheer .mOpen { opacity: 1; } .mood-cheer .mSmile { opacity: 0; }
+  .mood-oops .bHead { transform: rotate(10deg) translateY(4px); } .mood-oops .bEarL, .mood-oops .bEarR { transform: rotate(18deg); }
+  /* chmurka */
+  .boarBox { display: flex; align-items: flex-start; gap: 6px; margin-top: 10px; direction: ltr; }
+  .boarBox .boar { flex: none; width: 92px; height: 82px; }
+  .bbl { flex: 1; min-width: 0; position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; box-shadow: 0 6px 18px rgba(0,0,0,.08); margin-top: 6px; text-align: start; }
+  html[dir="rtl"] .bbl { direction: rtl; }
+  .bbl::before { content: ""; position: absolute; left: -9px; top: 22px; width: 16px; height: 16px; background: var(--card); border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); transform: rotate(45deg); }
+  html[data-anim="on"] .bbl { animation: bblIn .5s cubic-bezier(.2,1.5,.4,1) both; transform-origin: 0 30%; }
+  @keyframes bblIn { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: none; } }
+  .btxt { white-space: pre-wrap; line-height: 1.5; }
+  .boarAsk textarea { min-height: 70px; resize: vertical; }
+  .boarMini { display: inline-block; flex: none; border-radius: 50%; background: color-mix(in srgb, var(--accent) 18%, var(--card)); overflow: hidden; vertical-align: middle; }
+  .boarMini .boarSvg { width: 160%; height: 160%; margin: -6% 0 0 -52%; }
+  .mascot .boarFace { width: 104px; height: 92px; padding: 0; }
+  .mascot .boarFace .boar { width: 100%; height: 100%; }
+  /* ===== v3.9: podsumowanie dnia ===== */
+  .dv { --hue: 160; background: radial-gradient(ellipse at 50% 25%, hsl(var(--hue) 45% 22%), #06090c 75%); transition: background .8s; }
+  .dv .wcSub { display: flex; align-items: center; gap: 10px; text-align: start; }
+  .dvStage.kb .filmScene > * { animation: kenburns 5s ease-out both; }
+  @keyframes kenburns { from { transform: scale(1.08); } to { transform: scale(1); } }
+  .dvdate { text-transform: capitalize; font-weight: 700; color: rgba(255,255,255,.8); letter-spacing: .04em; animation: fscIn .6s .1s both; }
+  .glitch { position: relative; font-size: clamp(2.4rem, 12vw, 3.6rem); font-weight: 900; letter-spacing: -.02em; animation: fscIn .5s .2s both; }
+  html[data-anim="on"] .glitch::before, html[data-anim="on"] .glitch::after { content: attr(data-t); position: absolute; inset: 0; }
+  html[data-anim="on"] .glitch::before { color: #5fd3a5; transform: translate(-3px, 0); clip-path: inset(0 0 55% 0); animation: gl1 1.6s infinite steps(2); mix-blend-mode: screen; }
+  html[data-anim="on"] .glitch::after { color: #f2b33d; transform: translate(3px, 0); clip-path: inset(50% 0 0 0); animation: gl2 1.3s infinite steps(2); mix-blend-mode: screen; }
+  @keyframes gl1 { 0%, 80%, 100% { transform: translate(0); } 85% { transform: translate(-5px, -2px); } 90% { transform: translate(4px, 1px); } }
+  @keyframes gl2 { 0%, 70%, 100% { transform: translate(0); } 75% { transform: translate(5px, 2px); } 82% { transform: translate(-4px, -1px); } }
+  .dvav .av { box-shadow: 0 0 0 4px rgba(255,255,255,.4), 0 10px 40px rgba(95,211,165,.45); animation: popIn .7s .5s cubic-bezier(.2,1.6,.4,1) both; }
+  .dvboar .boar { width: 140px; height: 124px; }
+  .dvboar { justify-content: center; margin: 0; }
+  .dvbig { width: 100%; align-items: center; } .dvbig .boar { width: 130px; height: 116px; }
+  .dvbig .bbl { color: var(--ink); font-size: 1.1rem; font-weight: 600; }
+  .dvchips { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .dvchips span { padding: 6px 12px; border-radius: 999px; font-weight: 700; background: rgba(255,255,255,.12); animation: tileIn .5s 1s both; }
+  .dvchips span.g { background: rgba(95,211,165,.25); } .dvchips span.b { background: rgba(242,179,61,.25); }
+  .dvspark { width: 100%; height: auto; }
+  .dvrace .fl { height: 48px; } .dvsn { position: absolute; left: 0; top: 0; font-size: .75rem; color: rgba(255,255,255,.75); }
+  .dvmap svg { width: 100%; height: auto; } .dvmap .jrlab { fill: #26404a; }
+  .dvrx { font-size: .9rem; }
+  .dvnews { display: flex; flex-direction: column; gap: 12px; width: 100%; }
+  .dvnew { display: flex; gap: 12px; align-items: center; text-align: start; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); border-radius: 18px; padding: 14px; opacity: 0; animation: newIn .7s cubic-bezier(.2,1.4,.4,1) forwards; animation-delay: var(--d); }
+  @keyframes newIn { from { opacity: 0; transform: perspective(600px) rotateY(70deg) translateX(40px); } to { opacity: 1; transform: none; } }
+  .dvnew b { font-size: 2.2rem; } .dvnew strong { display: block; font-size: 1.05rem; } .dvnew small { color: rgba(255,255,255,.75); }
+  .wsum { margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -982,7 +1060,7 @@
   </svg>
   <div class="fruits" aria-hidden="true"><span style="--i:0">🍎</span><span style="--i:1">🍌</span><span style="--i:2">🍊</span><span style="--i:3">🍓</span><span style="--i:4">🥝</span><span style="--i:5">🍇</span></div>
   <h1 class="ltitle">Progress dietowy</h1>
-  <div class="ver" style="margin:-6px 0 6px">ver 3.8.1</div>
+  <div class="ver" style="margin:-6px 0 6px">ver 3.9</div>
   <div class="sub">Kim jesteś?</div>
   <div class="loginusers" id="loginUsers"></div>
   <button class="linkbtn" id="filmBtn" type="button">▶ Zobacz, jak to działa</button>
@@ -1006,6 +1084,7 @@
     <h1 id="wlHi" data-notr></h1>
     <p class="wmsg" id="wlMsg" data-notr></p>
     <button class="primary wgo" id="wlGo">Wchodzę 💪</button>
+    <button class="ghost wsum" id="wlSum" type="button">🎬 Chcę obejrzeć dzisiejsze podsumowanie</button>
     <div class="wbar"><i id="wlBarI"></i></div>
     <button class="linkbtn" id="wlSwitch">To nie ja: zmień użytkownika</button>
   </div>
@@ -1055,6 +1134,15 @@
   <div class="wcStart" id="wcStart"><button class="primary" id="wcGo" type="button">▶ Start</button></div>
   <div class="filmBar"><i id="wcBarI"></i></div>
   <div class="filmFw" id="wcFw"></div>
+</div>
+<div class="film wcine dv" id="dv" hidden role="dialog" aria-modal="true" data-notr>
+  <div class="wcStage dvStage" id="dvStage"><div class="filmScene" id="dvScene"></div></div>
+  <div class="filmFx" id="dvFx"></div>
+  <div class="filmTop"><button id="dvMute" type="button">🔊</button><button id="dvSkip" type="button">⏭</button><button id="dvClose" type="button">✕</button></div>
+  <div class="cineSub wcSub" id="dvSub"></div>
+  <div class="wcStart" id="dvStart"><button class="primary" id="dvGo" type="button">▶ Start</button></div>
+  <div class="filmBar"><i id="dvBarI"></i></div>
+  <div class="filmFw" id="dvFw"></div>
 </div>
 <div class="wiz" id="wiz" hidden role="dialog" aria-modal="true">
   <div class="wizTop" data-notr><button id="wizBack" type="button" aria-label="‹">‹</button><div class="wizDots" id="wizDots"></div><button id="wizSkip" type="button"></button><button id="wizClose" type="button" aria-label="✕">✕</button></div>
@@ -1139,6 +1227,7 @@
         <label><input type="checkbox" id="setSnd"> 🔊 Dźwięki i muzyka</label>
         <button class="ghost" id="tourAgain" type="button">👋 Pokaż wprowadzenie</button>
         <button class="ghost" id="previewNew" type="button">👀 Zobacz, jak widzi to nowy użytkownik</button>
+        <button class="ghost" id="dvOpen2" type="button">🎬 Podsumowanie dnia</button>
       </div>
       <div class="msg">Te ustawienia dotyczą tylko tego urządzenia.</div>
     </section>
@@ -1182,8 +1271,10 @@
     <section class="card">
       <h2>Skrót na pulpicie</h2>
       <div id="installBox" data-notr></div>
-      <details class="whatsnew"><summary>Co nowego w 3.8.1</summary>
+      <details class="whatsnew"><summary>Co nowego w 3.9</summary>
         <ul>
+          <li>Dzik: uśmiechnięty asystent AI odpowiadający w chmurce</li>
+          <li>Wideo „Podsumowanie dnia” z ekranu powitalnego</li>
           <li>Kino wagi: historia wagi z basowym bitem i komentarzem AI</li>
           <li>Wybór języka przed filmem powitalnym</li>
           <li>Film powitalny dla nowych osób</li>
@@ -1227,13 +1318,13 @@
         <button class="ghost" id="logout">Zmień użytkownika</button>
       </div>
     </section>
-    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.8.1</div>
+    <div class="verfoot"><svg viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg>Progress dietowy · ver 3.9</div>
   </div>
 </div>
 
 <div class="wrap">
   <div class="hdr">
-    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.8.1</div></div></div>
+    <div class="brand"><svg class="mlogo" viewBox="20 36 320 90" aria-hidden="true"><g class="lg fl"><circle cx="52" cy="84" r="26" fill="#e74c3c"/><path d="M52 58 q2 -12 12 -14" stroke="#6b4423" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="66" cy="50" rx="10" ry="5" fill="#2ecc71" transform="rotate(-25 66 50)"/></g><g class="lg fr"><circle cx="308" cy="84" r="26" fill="#f39c12"/><ellipse cx="318" cy="56" rx="9" ry="4.5" fill="#2ecc71" transform="rotate(-20 318 56)"/></g><g class="lg db"><rect x="104" y="76" width="152" height="16" rx="8" fill="currentColor" opacity="0.85"/><rect x="110" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="90" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/><rect x="228" y="50" width="22" height="68" rx="7" style="fill:var(--accent)"/><rect x="254" y="62" width="16" height="44" rx="5" style="fill:var(--accent)" opacity="0.75"/></g></svg><div><h1>Progress dietowy</h1><div class="ver">ver 3.9</div></div></div>
     <div class="hright"><span class="who" id="hdrUser"></span><button class="iconbtn" id="menuBtn" aria-label="Menu i ustawienia">⚙️</button></div>
   </div>
   <div class="msg" id="status" style="margin:-8px 0 14px">Łączenie z bazą…</div>
@@ -1495,6 +1586,14 @@
   <section class="card">
     <h2>Pomocne narzędzia 🛠</h2>
     <div class="msg" id="aiToolsInfo" data-notr style="margin-top:0"></div>
+
+    <details class="aitool" open><summary>🐗 Zapytaj Dzika</summary>
+      <div class="boarAsk" style="margin-top:10px">
+        <label>Pytanie o zdrowie, sport albo kalorie<textarea id="boarAskQ" maxlength="400" placeholder="np. Ile białka powinienem jeść dziennie?"></textarea></label>
+        <div class="tools"><button class="primary" id="boarAskGo">Zapytaj 🐗</button></div>
+      </div>
+      <div class="aiout" id="boarAskOut" data-notr></div>
+    </details>
 
     <details class="aitool"><summary>🏋️ Plan treningu na dziś</summary>
       <div class="row" style="margin-top:10px">
@@ -2683,7 +2782,8 @@ function renderMascot() {
     if (reached.length) { face = "🎉"; text = "Cel osiągnięty: " + reached.join(", ") + ". Brawo!"; }
     else if (idle.length) { face = "🤔"; text = idle[0] + ", dawno Cię nie było. Zważ się i dodaj wpis."; }
   }
-  $("mascot").innerHTML = '<button class="face" id="face" aria-label="Konfetti">' + face + '</button><div class="bubble">' + esc(text) + "</div>";
+  const bm = { "🎉": "cheer", "🤔": "think", "🏆": "thumb", "🐣": "wave" }[face] || "wave";
+  $("mascot").innerHTML = '<button class="face boarFace mood-' + bm + '" id="face" aria-label="Konfetti"><span class="boar">' + BOAR_SVG + '</span></button><div class="bubble">' + esc(text) + "</div>";
   $("face").addEventListener("click", () => { confetti(); jumpFace(); });
 }
 
@@ -3130,12 +3230,12 @@ function renderChat() {
     const key = base + "|" + count[base];
     const isNew = !prime && chatPrimed && !chatSeen.has(key);
     chatSeen.add(key);
-    const avatar = coach ? '<span class="av" style="width:28px;height:28px;font-size:17px">🤖</span>' : (IDS[m.name] ? av(m.name, 28) : "");
+    const avatar = coach ? '' + boarMini(28) + '' : (IDS[m.name] ? av(m.name, 28) : "");
     const img = typeof m.img === "string" && IMG_RE.test(m.img) ? '<img class="chimg" src="' + m.img + '" alt="" loading="lazy">' : "";
     return '<div class="cm' + (coach ? " coach" : "") + (isNew && animOn() ? " new" : "") + '">' + avatar + '<div><span class="nm" data-notr>' + esc(m.name) + (coach ? " 🤖" : "") + '</span><span class="when">' + esc(fmtTime(m.ts)) + '</span><br><span class="txt" data-notr>' + linkify(m.text || "") + "</span>" + trHtml(m) + img + rxHtml(m) + "</div></div>";
   }).join("");
   if (prime) chatPrimed = true;
-  if (typingFlag) html += '<div class="cm coach typing"><span class="av" style="width:28px;height:28px;font-size:17px">🤖</span><div><span class="nm" data-notr>' + COACH + ' 🤖</span><br><span class="txt"><i class="dots"><b></b><b></b><b></b></i></span></div></div>';
+  if (typingFlag) html += '<div class="cm coach typing">' + boarMini(28) + '<div><span class="nm" data-notr>' + COACH + ' 🤖</span><br><span class="txt"><i class="dots"><b></b><b></b><b></b></i></span></div></div>';
   const keepBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 70, oldTop = box.scrollTop;
   box.innerHTML = html;
   box.scrollTop = keepBottom ? box.scrollHeight : oldTop;
@@ -3190,7 +3290,7 @@ function render(withForm) {
   applyFriends();
   renderLogin(); renderHeader(); renderBanner(); applyAccent(); renderMascot(); renderTabs(); renderSummary(); renderChart(); renderChartAll(); renderBoard();
   renderAi(); renderChallenge(); renderGroup(); renderBet(); renderDaily(); renderWorkouts(); renderCalendar(); renderTrainer(); renderHistory();
-  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); renderRace(false); renderDch(); renderJourney(false); renderJrVote(); renderHistTab(); applyPageVis(false);
+  renderToday(); renderAiTools(); renderFood(); renderTdee(); renderGymBtn(); renderGymPage(); renderFriends(); renderGroupSummary(); renderRace(false); renderDch(); renderJourney(false); renderJrVote(); renderHistTab(); boarGreet(); applyPageVis(false);
   if (withForm) renderUserForm();
   if (!$("menu").hidden) { renderAvatarEditor(); renderSwatches(); renderMem(); }
   renderWelcomeAv(); afterRender();
@@ -3474,7 +3574,7 @@ $("wAdd").addEventListener("click", async () => {
 });
 
 /* ================= v3.1 ================= */
-const VER = "3.8.1";
+const VER = "3.9";
 const langNote = () => LANG === "en" ? (FA ? "\nWAŻNE: odpowiedz po persku (فارسی, Farsi), także wartości tekstowe w JSON." : "\nWAŻNE: odpowiedz po angielsku (reply in English), także wartości tekstowe w JSON.") : "";
 
 /* ---------- pogoda (Katowice, podpisana jako Polska) ---------- */
@@ -4453,7 +4553,7 @@ function wxLangChanged() {
 const AIH_KIND = {
   aiPlanOut: ["🏋️", "Plan treningu", "Workout plan"], aiMealOut: ["🥗", "Pomysł na posiłek", "Meal idea"], aiPhotoOut: ["📷", "Zdjęcie jedzenia", "Food photo"],
   aiTxtOut: ["✍️", "Wpis tekstem", "Text entry"], aiTipOut: ["💡", "Porada", "Advice"], grAiOut: ["🧠", "Analiza grupy", "Group analysis"],
-  fdAiOut: ["🍽", "Opis posiłku (AI)", "Meal description (AI)"], dch: ["🎯", "Wyzwanie dnia", "Challenge of the day"], steps: ["👟", "Kroki ze zrzutu", "Steps from a screenshot"]
+  fdAiOut: ["🍽", "Opis posiłku (AI)", "Meal description (AI)"], boarAskOut: ["🐗", "Pytanie do Dzika", "Question for the Boar"], dch: ["🎯", "Wyzwanie dnia", "Challenge of the day"], steps: ["👟", "Kroki ze zrzutu", "Steps from a screenshot"]
 };
 async function aiHistAdd(kind, text) {
   const me = state.me;
@@ -4463,7 +4563,7 @@ async function aiHistAdd(kind, text) {
   try { await mutate(me, d => { d.aih = (d.aih || []).concat([it]).slice(-60); return d; }); } catch (e) { console.error(e); }
 }
 function aiHistFromOut(outId) {
-  if (!AIH_KIND[outId]) return;
+  if (!AIH_KIND[outId] || outId === "boarAskOut") return;
   const out = $(outId); if (!out) return;
   const clone = out.cloneNode(true);
   Array.prototype.forEach.call(clone.querySelectorAll("button, .tools, input"), x => x.remove());
@@ -5133,7 +5233,7 @@ function applyGo() {
   else if (g === "chat") { showPage("home"); setTimeout(() => { $("chatCard").scrollIntoView({ block: "start", behavior: "smooth" }); $("chatText").focus(); }, 450); }
   else if (g === "race") showPage("race");
 }
-function postEnter() { setTimeout(() => { if (!state.me) return; if (wizPending()) openWizard(false); else if (!tourSeen()) openTour(); else applyGo(); }, 1100); }
+function postEnter() { setTimeout(() => { if (!state.me) return; if (DV) { DV.after = true; return; } if (wizPending()) openWizard(false); else if (!tourSeen()) openTour(); else applyGo(); }, 1100); }
 
 /* ================= v3.8: film powitalny ================= */
 const logoSvg = cls => { const s = document.querySelector(".brand .mlogo"); return s ? s.outerHTML.replace('class="mlogo"', 'class="mlogo ' + (cls || "") + '"') : "💪"; };
@@ -5612,6 +5712,234 @@ $("wcScene").addEventListener("click", async e => {
   }
 });
 
+/* ================= v3.9: Dzik, przyjazny asystent ================= */
+const BOAR_SVG = '<svg class="boarSvg" viewBox="0 0 230 200" aria-hidden="true">' +
+  '<g class="bTail"><path d="M42 118 q-16 -6 -12 -19 q5 -9 13 -2 q6 6 -3 11" fill="none" stroke="#5e3a24" stroke-width="5" stroke-linecap="round"/></g>' +
+  '<g class="bBody"><ellipse cx="100" cy="132" rx="62" ry="44" fill="#8a5a3b"/>' +
+  '<path d="M50 108 l7 -15 l7 12 l7 -17 l7 15 l7 -17 l7 15 l7 -16 l7 15 l7 -14 l6 13" fill="#5e3a24"/>' +
+  '<ellipse cx="104" cy="148" rx="40" ry="21" fill="#a77450"/>' +
+  '<rect x="60" y="160" width="17" height="27" rx="7" fill="#6b4226"/><rect x="84" y="164" width="17" height="25" rx="7" fill="#6b4226"/><rect x="142" y="160" width="17" height="27" rx="7" fill="#6b4226"/>' +
+  '<rect x="59" y="180" width="19" height="9" rx="4" fill="#3d2414"/><rect x="83" y="182" width="19" height="9" rx="4" fill="#3d2414"/><rect x="141" y="180" width="19" height="9" rx="4" fill="#3d2414"/></g>' +
+  '<g class="bArm"><rect x="118" y="124" width="17" height="42" rx="8" fill="#7a4c30"/><rect x="117" y="158" width="19" height="10" rx="4" fill="#3d2414"/></g>' +
+  '<g class="bHead"><g class="bEarL"><path d="M126 70 l-8 -28 l25 15 z" fill="#5e3a24"/><path d="M127 65 l-4 -15 l13 8 z" fill="#d79a7e"/></g>' +
+  '<g class="bEarR"><path d="M178 62 l11 -26 l11 28 z" fill="#5e3a24"/><path d="M182 60 l7 -15 l6 16 z" fill="#d79a7e"/></g>' +
+  '<ellipse cx="160" cy="98" rx="47" ry="41" fill="#96633f"/>' +
+  '<path d="M117 80 q44 -24 88 -2" stroke="var(--accent, #1f9e7a)" stroke-width="9" fill="none" stroke-linecap="round"/>' +
+  '<g class="bEyes"><ellipse cx="146" cy="94" rx="6.5" ry="8" fill="#fff"/><circle cx="147" cy="95" r="3.8" fill="#2b1a10"/><circle cx="148.4" cy="93.4" r="1.3" fill="#fff"/>' +
+  '<ellipse cx="178" cy="94" rx="6.5" ry="8" fill="#fff"/><circle cx="179" cy="95" r="3.8" fill="#2b1a10"/><circle cx="180.4" cy="93.4" r="1.3" fill="#fff"/></g>' +
+  '<path d="M139 83 q7 -4 13 0 M172 83 q7 -4 13 0" stroke="#4a2616" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+  '<ellipse cx="135" cy="112" rx="7" ry="4" fill="#f08a7a" opacity=".55"/><ellipse cx="190" cy="112" rx="7" ry="4" fill="#f08a7a" opacity=".55"/>' +
+  '<ellipse cx="163" cy="116" rx="22" ry="15" fill="#d79a7e"/><ellipse cx="156" cy="115" rx="3" ry="4.2" fill="#7a3f2e"/><ellipse cx="170" cy="115" rx="3" ry="4.2" fill="#7a3f2e"/>' +
+  '<path d="M144 127 q-7 -2 -7 -11" stroke="#fffbe8" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M182 127 q7 -2 7 -11" stroke="#fffbe8" stroke-width="4" fill="none" stroke-linecap="round"/>' +
+  '<g class="bMouth"><path class="mSmile" d="M150 131 q13 11 26 0" stroke="#4a2616" stroke-width="3.5" fill="none" stroke-linecap="round"/><path class="mOpen" d="M150 130 q13 18 26 0 z" fill="#4a2616"/><path class="mOpen" d="M156 136 q7 5 14 0" fill="#e86f6f"/></g></g>' +
+  '<g class="bThink"><circle cx="210" cy="46" r="4" fill="currentColor"/><circle cx="218" cy="30" r="6" fill="currentColor"/><circle cx="222" cy="12" r="8" fill="currentColor"/></g>' +
+  '<g class="bSpark"><path d="M30 40 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4 z" fill="#f2b33d"/><path d="M206 128 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" fill="#f2b33d"/></g></svg>';
+const boarMini = s => '<span class="boarMini" style="width:' + (s || 28) + "px;height:" + (s || 28) + 'px">' + BOAR_SVG + "</span>";
+function boarWrap(mood, inner) {
+  return '<div class="boarBox mood-' + mood + '"><div class="boar">' + BOAR_SVG + '</div><div class="bbl">' + inner + "</div></div>";
+}
+function boarMood(box, mood) {
+  const b = box && box.querySelector ? box.querySelector(".boarBox") : null;
+  if (!b) return;
+  b.className = b.className.replace(/mood-\w+/, "mood-" + mood);
+}
+function boarSettle(out) {
+  const ok = !out.querySelector('[style*="var(--bad)"]');
+  setTimeout(() => boarMood(out, ok ? "thumb" : "oops"), 2600);
+  setTimeout(() => boarMood(out, "idle"), 5200);
+}
+function typeInto(el, text, ms) {
+  if (!el) return;
+  if (!animOn()) { el.textContent = text; return; }
+  const chars = Array.from(text), per = Math.max(8, Math.min(28, (ms || 2200) / Math.max(1, chars.length)));
+  let i = 0; el.textContent = "";
+  const t = setInterval(() => { i += 2; el.textContent = chars.slice(0, i).join(""); if (i >= chars.length) clearInterval(t); }, per * 2);
+}
+/* „Zapytaj Dzika” */
+$("boarAskGo").addEventListener("click", function () {
+  const q = $("boarAskQ").value.trim();
+  if (q.length < 3) { $("boarAskOut").innerHTML = boarWrap("wave", esc(L("Zadaj mi pytanie o zdrowie, sport albo kalorie! 🐗", "Ask me about health, sport or calories! 🐗"))); return; }
+  runTool(this, "boarAskOut", async () => {
+    const me = ME();
+    const t = await aiAsk("Jesteś Dzikiem: uśmiechniętym, przyjaznym dzikiem-trenerem w aplikacji Progress dietowy. Mówisz ciepło, konkretnie i z lekkim humorem, czasem wtrącisz dziczy żart. " +
+      "Odpowiadasz na pytania o zdrowy styl życia, sport, ruch, sen i liczenie kalorii. Nie stawiasz diagnoz; przy objawach chorobowych radzisz kontakt z lekarzem. Nie zachęcaj do chudnięcia przy BMI poniżej 18,5. Odpowiedź do 600 znaków, bez markdownu, maksymalnie 2 emoji.\n" +
+      "Kontekst użytkownika: " + userCtx(me) + "\nPytanie: " + q, { max: 500, temp: 0.8 });
+    const clean = String(t).replace(/[*_#`]+/g, "").trim();
+    return { html: '<div class="btxt"></div>', wire: out => { typeInto(out.querySelector(".btxt"), clean, 2400); out.querySelector(".boarBox").setAttribute("data-t", clean); aiHistAdd("boarAskOut", "❓ " + q + "\n\n" + clean); } };
+  });
+});
+$("boarAskQ").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("boarAskGo").click(); } });
+
+/* ================= v3.9: wideo „podsumowanie dnia” ================= */
+let DV = null;
+const NEWS = () => [["🎬", L("Kino wagi", "Weight cinema"), L("Twoja historia wagi jak film, z basowym bitem i komentarzem AI.", "Your weight story as a film, with a bass beat and AI commentary.")],
+  ["🐗", L("Dzik-asystent", "Boar assistant"), L("Uśmiechnięty dzik odpowiada na pytania o zdrowie, sport i kalorie.", "A smiling boar answers questions about health, sport and calories.")]];
+function dvData() {
+  const me = state.me, u = state.users[me], s = sorted(u), t = today(), l = s[s.length - 1] || null;
+  const prev = l ? s.filter(e => e.date < l.date).pop() : null, wk = l ? s.filter(e => e.date <= addDays(t, -7)).pop() : null;
+  const steps = NAMES.map(n => ({ n: n, v: stepsOf(n, t) })).sort((a, b) => b.v - a.v);
+  const ch = weeklyChallenge().slice(0, 5);
+  const r = jrRec(), pr = r ? jrProgress(r) : null;
+  const score = m => ((m.r ? Object.keys(m.r).reduce((a, k) => a + (m.r[k] || []).length, 0) : 0) * 3) + Math.min(120, String(m.text || "").length) / 40 + (m.img ? 1 : 0);
+  const since = Date.now() - 36 * 3600000, tsv = m => m.ts && m.ts.toMillis ? m.ts.toMillis() : (typeof m.ts === "number" ? m.ts : Date.now());
+  const msgs = vchat().filter(m => m.name !== COACH && (m.text || m.img) && tsv(m) >= since).map(m => ({ m: m, s: score(m) })).sort((a, b) => b.s - a.s).slice(0, 4).map(x => x.m).sort((a, b) => tsv(a) - tsv(b));
+  return { me: me, u: u, l: l, prev: prev, wk: wk, steps: steps, mySteps: stepsOf(me, t), ch: ch, r: r, pr: pr, msgs: msgs, news: NEWS(), streak: streakDays(u).n };
+}
+function dvTemplates(D) {
+  const wl = D.l ? (D.l.date === today() ? L("Dzisiejszy pomiar: " + fmt(D.l.weight) + " kg. Brawo za regularność!", "Today's weigh-in: " + fmt(D.l.weight) + " kg. Great consistency!") : L("Ostatni pomiar " + fmt(D.l.weight) + " kg. Jutro rano szybkie ważenie?", "Last weigh-in " + fmt(D.l.weight) + " kg. Quick weigh-in tomorrow morning?")) : L("Jeszcze bez pomiaru. Wskakuj na wagę!", "No weigh-in yet. Hop on the scale!");
+  return [
+    L("Dzień dobry, " + D.me + "! Oto Twój dzień w pigułce.", "Hey " + D.me + "! Here is your day in a nutshell."),
+    wl,
+    D.ch.length && D.ch[0].pct > 0 ? L("W wyzwaniu tygodnia prowadzi " + D.ch[0].name + ". Gonimy!", D.ch[0].name + " leads the weekly challenge. Let's chase!") : L("Wyzwanie tygodnia jest otwarte. Ruszaj po prowadzenie!", "The weekly challenge is wide open. Go take the lead!"),
+    D.mySteps ? L(numFmt(D.mySteps) + " kroków dziś. Każdy krok się liczy!", numFmt(D.mySteps) + " steps today. Every step counts!") : L("Dziś jeszcze bez kroków. Krótki spacer zrobi robotę!", "No steps yet today. A short walk will do the trick!"),
+    D.pr ? L("Razem przeszliśmy już " + numFmt(D.pr.done) + " km!", "Together we've walked " + numFmt(D.pr.done) + " km!") : L("Wspólna podróż czeka na pierwsze kroki.", "The shared journey awaits the first steps."),
+    D.msgs.length ? L("Na czacie się działo! Oto najważniejsze.", "The chat was buzzing! Here are the highlights.") : L("Na czacie cisza. Napisz coś do ekipy!", "Quiet chat today. Say something to the crew!"),
+    L("Seria aktywnych dni: " + D.streak + ". Pilnuj jej!", "Active-day streak: " + D.streak + ". Keep it going!"),
+    L("Nowości w aplikacji, sprawdź koniecznie!", "New in the app, check them out!"),
+    L("Jutro jest nowa szansa. Do dzieła, mistrzu! 💪", "Tomorrow is a new chance. Let's go, champ! 💪")
+  ];
+}
+async function dvLines(D) {
+  const tpl = dvTemplates(D);
+  if (!aiKey()) return tpl;
+  try {
+    const info = "Osoba: " + D.me + "; " + (D.l ? "ostatnia waga " + fmt(D.l.weight) + " kg (" + D.l.date + ")" + (D.prev ? ", poprzednio " + fmt(D.prev.weight) : "") : "brak pomiarów") +
+      "; kroki dziś " + D.mySteps + "; ranking kroków dziś: " + D.steps.map(x => x.n + " " + x.v).join(", ") + "; wyzwanie tygodnia: " + D.ch.map(x => x.name + " " + Math.round(x.pct) + "%").join(", ") +
+      "; wspólna podróż: " + (D.pr ? Math.round(D.pr.done) + " z " + Math.round(D.pr.D) + " km" : "brak") + "; seria dni " + D.streak + "; ważne wiadomości z czatu: " + D.msgs.map(m => m.name + ": " + String(m.text || "[zdjęcie]").slice(0, 80)).join(" | ");
+    const p = parseJson(await aiAsk("Jesteś Dzikiem, uśmiechniętym dzikiem-trenerem i energicznym komentatorem. Robisz 40-sekundowe dynamiczne wideo z podsumowaniem dnia. Dane: " + info +
+      "\nNapisz dokładnie 9 krótkich linijek (każda do 100 znaków) do scen: 1) powitanie, 2) waga, 3) porównanie z ekipą, 4) kroki, 5) wspólna podróż, 6) czat, 7) komentarz trenera do całego dnia, 8) zapowiedź nowości w aplikacji, 9) motywujące zakończenie. Życzliwie, z humorem, bez oceniania wyglądu, maksymalnie jedno emoji na linijkę. Zwróć wyłącznie JSON: {\"lines\":[\"...\"]}",
+      { json: true, max: 1100, temp: 0.95 }));
+    const ls = (Array.isArray(p.lines) ? p.lines : []).map(x => String(x).replace(/[*_#`]+/g, "").trim().slice(0, 130));
+    return tpl.map((t, i) => ls[i] || t);
+  } catch (e) { console.error(e); return tpl; }
+}
+function dvScenes(D) {
+  const S = [], dayName = parseD(today()).toLocaleDateString(LOC(), { weekday: "long", day: "numeric", month: "long" });
+  S.push({ k: 0, d: 4400, bg: 160, h: '<div class="wcsc dvintro"><div class="dvdate">' + esc(dayName) + '</div><div class="glitch" data-t="' + esc(L("Twój dzień", "Your day")) + '">' + esc(L("Twój dzień", "Your day")) + '</div><div class="dvav">' + av(D.me, 84) + '</div><div class="boarBox mood-wave dvboar"><div class="boar">' + BOAR_SVG + "</div></div></div>" });
+  let wh = '<div class="wcsc">' + words(L("Waga", "Weight"), "ftitle");
+  if (D.l) {
+    const d1 = D.prev ? D.l.weight - D.prev.weight : null, d7 = D.wk ? D.l.weight - D.wk.weight : null;
+    const sp = sorted(D.u).slice(-10), mn = Math.min.apply(null, sp.map(e => e.weight)) - 0.5, mx = Math.max.apply(null, sp.map(e => e.weight)) + 0.5;
+    const path = sp.map((e, i) => (i ? "L" : "M") + (10 + i / Math.max(1, sp.length - 1) * 280).toFixed(1) + " " + (70 - (e.weight - mn) / (mx - mn) * 60).toFixed(1)).join(" ");
+    wh += '<div class="wcbig"><span class="fcount" data-to="' + D.l.weight.toFixed(1) + '">0</span><small>kg</small></div><div class="dvchips">' + (d1 != null ? '<span class="' + (d1 <= 0 ? "g" : "b") + '">' + sgn(d1) + " kg " + esc(L("od poprzedniego", "since last")) + "</span>" : "") + (d7 != null ? '<span class="' + (d7 <= 0 ? "g" : "b") + '">' + sgn(d7) + " kg / 7 " + esc(L("dni", "days")) + "</span>" : "") + "</div>" +
+      '<svg viewBox="0 0 300 80" class="dvspark"><path d="' + path + '" class="fline"/></svg>';
+  } else wh += '<div class="wcbig small">⚖️</div><div class="wcrange">' + esc(L("Brak pomiarów", "No measurements")) + "</div>";
+  S.push({ k: 1, d: 4600, bg: 190, h: wh + "</div>" });
+  if (D.ch.length) S.push({ k: 2, d: 4600, bg: 220, h: '<div class="wcsc">' + words(L("Ty kontra ekipa", "You vs the crew"), "ftitle") + '<div class="wcfr">' + D.ch.map((x, i) => '<div class="wcfrow' + (x.name === D.me ? " me" : "") + '" style="--d:' + (0.3 + i * 0.18) + 's"><span class="who">' + av(x.name, 26) + esc(x.name) + '</span><i style="--w:' + Math.max(4, Math.min(100, x.pct)) + '%"></i><b>' + Math.round(x.pct) + "%</b></div>").join("") + '</div><div class="wcrange">' + esc(L("postęp do celu w tym tygodniu", "progress to goal this week")) + "</div></div>" });
+  const mxs = Math.max(1, D.steps[0] ? D.steps[0].v : 1);
+  S.push({ k: 3, d: 4600, bg: 250, h: '<div class="wcsc">' + words(L("Kroki dziś", "Steps today"), "ftitle") + '<div class="wcbig"><span class="fcount" data-to="' + D.mySteps + '" data-int="1">0</span><small>👟</small></div><div class="fcard frace dvrace">' +
+    D.steps.slice(0, 4).map((x, i) => '<div class="fl"><i class="ftrail" style="--c:' + userColor(x.n) + ";--to:" + Math.max(8, x.v / mxs * 88) + "%;--d:" + i * 0.1 + 's"></i><span class="frun" style="--to:' + Math.max(8, x.v / mxs * 88) + "%;--d:" + i * 0.1 + 's">' + esc((state.users[x.n] && state.users[x.n].avatar && String(state.users[x.n].avatar).indexOf("data:") !== 0) ? state.users[x.n].avatar : "🏃") + (i === 0 && x.v ? "<em>👑</em>" : "") + '</span><span class="dvsn">' + esc(x.n) + " · " + numFmt(x.v) + "</span></div>").join("") + "</div></div>" });
+  if (D.r && D.pr) {
+    const m = jrMapSvg(D.r, D.pr), svg = m.svg.replace(/ id="[^"]+"/g, "").replace(/jrbg/g, "dvbg").replace(/style="transform:translate\([^)]*\)"/, 'style="transform:translate(' + m.cur[0].toFixed(1) + "px," + m.cur[1].toFixed(1) + 'px)"');
+    S.push({ k: 4, d: 5000, bg: 140, h: '<div class="wcsc">' + words(L("Gdzie doszliśmy razem", "How far we've come together"), "ftitle") + '<div class="fcard dvmap">' + svg + '</div><div class="wcbig small"><span class="fcount" data-to="' + Math.round(D.pr.done) + '" data-int="1">0</span><small>/ ' + numFmt(D.pr.D) + " km</small></div></div>" });
+  }
+  if (D.msgs.length) S.push({ k: 5, d: 5200, bg: 280, h: '<div class="wcsc">' + words(L("Z czatu", "From the chat"), "ftitle") + '<div class="fcard fchat">' + D.msgs.map((m, i) => '<div class="fb ' + (m.name === D.me ? "r" : "l") + '" style="--d:' + (0.3 + i * 0.7) + 's"><b>' + esc(m.name) + "</b> " + esc(String(m.text || "📷").slice(0, 110)) + (m.r && Object.keys(m.r).length ? ' <span class="dvrx">' + Object.keys(m.r).slice(0, 3).join("") + "</span>" : "") + "</div>").join("") + "</div></div>" });
+  S.push({ k: 6, d: 5200, bg: 30, h: '<div class="wcsc"><div class="boarBox mood-talk dvbig"><div class="boar">' + BOAR_SVG + '</div><div class="bbl"><div class="btxt" id="dvTalk"></div></div></div></div>' });
+  S.push({ k: 7, d: 5200, bg: 320, h: '<div class="wcsc">' + words(L("Nowości w aplikacji", "New in the app"), "ftitle") + '<div class="dvnews">' + D.news.map((n, i) => '<div class="dvnew" style="--d:' + (0.4 + i * 0.6) + 's"><b>' + n[0] + "</b><div><strong>" + esc(n[1]) + "</strong><small>" + esc(n[2]) + "</small></div></div>").join("") + '</div><div class="wcrange">ver ' + esc(VER) + "</div></div>" });
+  S.push({ k: 8, d: 0, bg: 160, final: true, h: '<div class="wcsc wcfinal"><div class="boarBox mood-cheer dvboar"><div class="boar">' + BOAR_SVG + '</div></div><div class="wcmot" id="dvMot"></div><div class="tools" style="justify-content:center"><button class="primary" id="dvDone">' + esc(L("Do dzieła 💪", "Let's go 💪")) + '</button><button class="ghost" id="dvShare">' + esc(L("📤 Udostępnij", "📤 Share")) + '</button><button class="ghost" id="dvAgain">' + esc(L("↺ Jeszcze raz", "↺ Again")) + "</button></div></div>" });
+  return S;
+}
+async function openDayVid() {
+  if (!state.me) return;
+  if (!jrRec()) { ensureJourney(); await waitFor(() => jrRec(), 1500); }
+  const D = dvData();
+  DV = { D: D, scenes: dvScenes(D), i: -1, timer: 0, lines: null, after: DV && DV.after };
+  const el = $("dv");
+  el.hidden = false; el.classList.remove("in", "beat", "go"); void el.offsetWidth; el.classList.add("in");
+  $("dvScene").innerHTML = '<div class="wcsc dvintro"><div class="boarBox mood-wave dvboar"><div class="boar">' + BOAR_SVG + '</div></div><div class="glitch" data-t="' + esc(L("Podsumowanie dnia", "Daily recap")) + '">' + esc(L("Podsumowanie dnia", "Daily recap")) + "</div></div>";
+  $("dvStart").hidden = false; $("dvGo").textContent = "▶ Start";
+  $("dvSub").textContent = ""; $("dvSub").classList.remove("show"); $("dvBarI").style.width = "0%";
+  $("dvMute").textContent = sndOn() ? "🔊" : "🔇";
+  document.body.style.overflow = "hidden";
+}
+async function dvGo() {
+  if (!DV) return;
+  const me = DV;
+  sctx();
+  $("dvStart").hidden = true; $("dv").classList.add("go", "beat");
+  if (sndOn()) { SND.style = "bass"; SND.bpm = 128; musicStart(); }
+  me.lines = await Promise.race([dvLines(me.D), sleep(2500).then(() => dvTemplates(me.D))]);
+  if (DV !== me) return;
+  const tot = me.scenes.reduce((a, x) => a + x.d, 0), t0 = performance.now();
+  const bar = now => { if (DV !== me) return; const p = Math.min(1, (now - t0) / tot); $("dvBarI").style.width = (p * 100) + "%"; if (p < 1) requestAnimationFrame(bar); };
+  requestAnimationFrame(bar);
+  dvNext();
+}
+function dvNext() {
+  const me = DV; if (!me) return;
+  me.i++;
+  const sc = me.scenes[me.i]; if (!sc) return;
+  const fx = $("dvFx"), kinds = ["zoom", "wipe", "flash", "zoom", "wipe"];
+  fx.className = "filmFx " + kinds[me.i % kinds.length]; void fx.offsetWidth; fx.classList.add("run");
+  const st = $("dvStage"); st.classList.remove("shake", "kb"); void st.offsetWidth; st.classList.add("shake", "kb");
+  $("dv").style.setProperty("--hue", sc.bg);
+  if (me.i > 0) { sfx("whoosh"); buzz([25, 20, 25]); }
+  if (animOn() && me.i > 0) { const r = $("dv").getBoundingClientRect(); sparksAt(r.width / 2, r.height / 2, 22); }
+  setTimeout(() => {
+    if (DV !== me) return;
+    $("dvScene").innerHTML = sc.h;
+    Array.prototype.forEach.call($("dvScene").querySelectorAll(".fcount"), el => {
+      const to = parseFloat(el.getAttribute("data-to")), int = el.hasAttribute("data-int"), t0 = performance.now() + 400;
+      const f = now => { const p = Math.max(0, Math.min(1, (now - t0) / 1300)), v = to * (1 - Math.pow(1 - p, 3)); el.textContent = int ? numFmt(v) : fmt(v); if (p < 1 && DV) requestAnimationFrame(f); };
+      requestAnimationFrame(f);
+    });
+    const line = me.lines && me.lines[sc.k];
+    if (sc.k === 6) typeInto($("dvTalk"), line || "", 2600);
+    if (sc.final) {
+      $("dvSub").classList.remove("show");
+      typeInto($("dvMot"), line || "", 1800);
+      musicStop(2.2); sfx("fanfare"); buzz([100, 50, 100, 50, 220]);
+      if (animOn()) { confetti(); fireworks($("dvFw"), 5); setTimeout(() => { if ($("dvFw")) $("dvFw").innerHTML = ""; }, 3800); }
+      $("dv").classList.remove("beat"); $("dvBarI").style.width = "100%";
+    } else {
+      if (line && sc.k !== 6) { const s = $("dvSub"); s.classList.remove("show"); void s.offsetWidth; s.innerHTML = boarMini(26) + "<span>" + esc(line) + "</span>"; s.classList.add("show"); }
+      else $("dvSub").classList.remove("show");
+      me.timer = setTimeout(dvNext, sc.d);
+    }
+  }, 280);
+}
+function closeDayVid() {
+  if (!DV) return;
+  const after = DV.after;
+  clearTimeout(DV.timer); DV = null; musicStop(0.4); SND.style = "pop";
+  const el = $("dv"); el.classList.remove("in", "beat", "go");
+  setTimeout(() => { el.hidden = true; $("dvScene").innerHTML = ""; }, 300);
+  document.body.style.overflow = "";
+  if (after) setTimeout(() => { if (wizPending()) openWizard(false); else if (!tourSeen()) openTour(); else applyGo(); }, 400);
+}
+$("wlSum").addEventListener("click", e => { e.stopPropagation(); enterApp(); setTimeout(openDayVid, 650); });
+$("dvGo").addEventListener("click", dvGo);
+$("dvClose").addEventListener("click", closeDayVid);
+$("dvSkip").addEventListener("click", () => { if (!DV || DV.i < 0) return; clearTimeout(DV.timer); DV.i = DV.scenes.length - 2; dvNext(); });
+$("dvMute").addEventListener("click", () => {
+  const on = !sndOn();
+  try { localStorage.setItem("pd-snd", on ? "1" : "0"); } catch (e) {}
+  if ($("setSnd")) $("setSnd").checked = on;
+  sndApplyMute(); $("dvMute").textContent = on ? "🔊" : "🔇";
+  if (on && DV && DV.i >= 0 && DV.i < DV.scenes.length - 1) { SND.style = "bass"; SND.bpm = 128; musicStart(); }
+  if (!on) musicStop(0.2);
+});
+$("dvScene").addEventListener("click", async e => {
+  const t = e.target;
+  if (t.id === "dvDone") closeDayVid();
+  else if (t.id === "dvAgain") { const a = DV && DV.after; closeDayVid(); setTimeout(() => { openDayVid(); if (DV) DV.after = a; dvGo(); }, 350); }
+  else if (t.id === "dvShare" && DV) {
+    const D = DV.D, txt = "🎬 " + L("Mój dzień w Progress dietowy", "My day in Progress dietowy") + "\n👟 " + numFmt(D.mySteps) + (D.l ? "\n⚖️ " + fmt(D.l.weight) + " kg" : "") + (D.pr ? "\n🗺 " + numFmt(D.pr.done) + " km" : "") + "\n" + inviteUrl();
+    try { if (navigator.share) { await navigator.share({ title: "Progress dietowy", text: txt }); return; } } catch (err) { if (err && err.name === "AbortError") return; }
+    const ok = await copyText(txt); toast(ok ? L("Skopiowano ✅", "Copied ✅") : txt);
+  }
+});
+$("dvOpen2").addEventListener("click", () => { closeMenu(true); openDayVid(); });
+
+function boarGreet() {
+  const o = $("boarAskOut"); if (!o || aiBusy) return;
+  if (o.innerHTML && !o.querySelector(".greet")) return;
+  const t = L("Cześć! Jestem Dzik 🐗 Pytaj mnie o zdrowie, sport, sen i liczenie kalorii.", "Hi! I'm the Boar 🐗 Ask me about health, sport, sleep and counting calories.");
+  if (o.getAttribute("data-g") === t) return;
+  o.setAttribute("data-g", t);
+  o.innerHTML = boarWrap("wave", '<div class="btxt greet">' + esc(t) + "</div>");
+}
+
 /* ---------- PIN ---------- */
 const hasCrypto = typeof crypto !== "undefined" && crypto.getRandomValues;
 function rnd(n) {
@@ -5923,15 +6251,16 @@ async function runTool(btn, outId, fn) {
   if (aiBusy) return;
   const out = $(outId);
   if (!aiKey()) { out.innerHTML = '<div class="msg">' + L("Najpierw wpisz klucz Gemini w menu (Trener AI).", "Enter the Gemini key in the menu first (AI coach).") + "</div>"; return; }
-  aiBusy = true; btn.disabled = true; out.innerHTML = spin;
+  aiBusy = true; btn.disabled = true; out.innerHTML = boarWrap("think", spin);
   try {
     const r = await fn();
-    out.innerHTML = r.html;
+    out.innerHTML = boarWrap("talk", r.html);
     if (r.wire) r.wire(out);
+    boarSettle(out);
     aiHistFromOut(outId);
   } catch (e) {
     console.error(e);
-    out.innerHTML = '<div class="msg" style="color:var(--bad)">' + esc(aiFriendly(e)) + "</div>";
+    out.innerHTML = boarWrap("oops", '<div class="msg" style="color:var(--bad);margin:0">' + esc(aiFriendly(e)) + "</div>");
   } finally { aiBusy = false; btn.disabled = false; }
 }
 function renderAiTools() {
@@ -7086,6 +7415,8 @@ Object.assign(EN, {"Co nowego w 3.8": "What's new in 3.8", "Film powitalny dla n
 Object.assign(FAD, {"What's new in 3.8": "تازه‌ها در نسخه 3.8", "Your crew. Your shape.": "گروه تو. فرم تو.", "Track weight and BMI": "وزن و شاخص توده بدنی را دنبال کن", "Race your friends on steps": "با دوستانت در قدم‌ها مسابقه بده", "Belgrade": "بلگراد", "Tehran": "تهران", "Go on a journey together": "با هم به سفر بروید", "Chat in any language": "به هر زبانی گفتگو کنید", "Who's running today? 🏃": "امروز کی می‌دود؟ 🏃", "Me! 10 km after work 💪": "من! ۱۰ کیلومتر بعد از کار 💪", "Hi! I'm coming too": "سلام! من هم می‌آیم", "An AI coach always at hand": "مربی هوش مصنوعی همیشه در دسترس", "Great 5-day streak! Today an easy walk and plenty of water 💧": "تداوم ۵ روزه عالی! امروز یک پیاده‌روی آرام و آب زیاد 💧", "Gym, food, calculator and more": "باشگاه، غذا، ماشین‌حساب و بیشتر", "Food": "غذا", "AI photos": "عکس‌های هوش مصنوعی", "Cinema": "سینما", "Weather": "آب‌وهوا", "Everything saved in history": "همه چیز در تاریخچه ذخیره می‌شود", "Join the crew 💪": "به گروه بپیوند 💪", "Signing up takes a few seconds": "ثبت‌نام فقط چند ثانیه طول می‌کشد", "Next: profile setup ▶": "بعدی: تنظیم نمایه ▶", "➕ Join now": "➕ همین حالا بپیوند", "I already have an account": "حساب کاربری دارم", "Tap to watch": "برای تماشا بزنید", "Hi": "سلام", "You": "تو", "Let's set a few things so the coach and calculator work right away.": "بیایید چند چیز را تنظیم کنیم تا مربی و ماشین‌حساب از همین حالا کار کنند.", "You can change everything later in the settings.": "بعداً می‌توانید همه چیز را در تنظیمات تغییر دهید.", "How tall are you?": "قد شما چقدر است؟", "What do you weigh today?": "امروز وزن شما چقدر است؟", "This will be your first measurement.": "این اولین اندازه‌گیری شما خواهد بود.", "What's your goal?": "هدف شما چیست؟", "The weight you want to reach.": "وزنی که می‌خواهید به آن برسید.", "Sex and age": "جنسیت و سن", "Needed to calculate calories.": "برای محاسبه کالری لازم است.", "years": "سال", "How active are you?": "چقدر فعال هستید؟", "Sedentary": "کم‌تحرک", "Light activity": "فعالیت سبک", "Moderate": "متوسط", "High": "زیاد", "Very high": "خیلی زیاد", "no workouts": "بدون تمرین", "1–3 workouts a week": "۱ تا ۳ تمرین در هفته", "3–5 workouts a week": "۳ تا ۵ تمرین در هفته", "6–7 workouts a week": "۶ تا ۷ تمرین در هفته", "physical job and training": "کار بدنی و تمرین", "Pick your avatar": "آواتار خود را انتخاب کنید", "An emoji or your own photo.": "یک ایموجی یا عکس خودتان.", "Your own photo": "عکس خودتان", "All set! 🎉": "همه چیز آماده است! 🎉", "day": "روز", "This is a preview: nothing will be saved.": "این یک پیش‌نمایش است: چیزی ذخیره نمی‌شود.", "I'll save this to your profile. You can change everything in the settings.": "این را در نمایه شما ذخیره می‌کنم. همه چیز را بعداً در تنظیمات تغییر دهید.", "Keep the weight": "حفظ وزن", "below a healthy BMI, pick a higher goal": "زیر شاخص توده بدنی سالم است، هدف بالاتری انتخاب کنید", "Let's start ▶": "شروع کنیم ▶", "Profile saved ✅": "نمایه ذخیره شد ✅", "Could not save the profile.": "ذخیره نمایه ممکن نشد.", "▶ See how it works": "▶ ببینید چطور کار می‌کند", "👀 See it as a new user": "👀 از دید کاربر جدید ببینید", "Cannot read the photo.": "عکس خوانده نشد."});
 Object.assign(EN, {"Co nowego w 3.8.1": "What's new in 3.8.1", "Kino wagi: historia wagi z basowym bitem i komentarzem AI": "Weight cinema: your weight story with a bass beat and AI commentary", "Wybór języka przed filmem powitalnym": "Language choice before the welcome film", "🎬 Kino wagi": "🎬 Weight cinema"});
 Object.assign(FAD, {"What's new in 3.8.1": "تازه‌ها در نسخه 3.8.1", "🎬 Weight cinema": "🎬 سینمای وزن", "Weight cinema": "سینمای وزن", "Weight story": "داستان وزن", "Weight over time": "وزن در طول زمان", "Total change": "تغییر کل", "average ": "میانگین ", " kg / week": " کیلو در هفته", "Records": "رکوردها", "best week": "بهترین هفته", "lowest weight": "کمترین وزن", "measurements": "اندازه‌گیری", "wk": "هفته", "measurement streak": "تداوم اندازه‌گیری", "Movement": "حرکت", "workouts": "تمرین", "minutes": "دقیقه", "kcal burned": "کیلوکالری سوخته", "steps": "قدم", "Against the crew": "در کنار گروه", "Road to the goal": "راه رسیدن به هدف", "Goal reached! 🎉": "به هدف رسیدی! 🎉", "Goal forecast: ": "پیش‌بینی رسیدن به هدف: ", "The trend is off right now, but it can turn around.": "روند فعلاً خلاف جهت است، ولی می‌شود برگرداند.", "The goal is still far, step by step.": "هدف هنوز دور است، قدم به قدم.", "📤 Share": "📤 اشتراک‌گذاری", "↺ Again": "↺ دوباره", "Close": "بستن", "healthy BMI": "شاخص سالم", "At least 2 weight measurements are needed.": "حداقل ۲ اندازه‌گیری وزن لازم است.", "Copied ✅": "کپی شد ✅", "Tap a flag or ▶ to watch": "برای تماشا روی پرچم یا ▶ بزنید"});
+Object.assign(EN, {"Co nowego w 3.9": "What's new in 3.9", "Dzik: uśmiechnięty asystent AI odpowiadający w chmurce": "The Boar: a smiling AI assistant answering in a speech bubble", "Wideo „Podsumowanie dnia” z ekranu powitalnego": "“Daily recap” video from the welcome screen", "🎬 Chcę obejrzeć dzisiejsze podsumowanie": "🎬 I want to watch today's recap", "🎬 Podsumowanie dnia": "🎬 Daily recap", "🐗 Zapytaj Dzika": "🐗 Ask the Boar", "Pytanie o zdrowie, sport albo kalorie": "A question about health, sport or calories", "np. Ile białka powinienem jeść dziennie?": "e.g. How much protein should I eat a day?", "Zapytaj 🐗": "Ask 🐗"});
+Object.assign(FAD, {"What's new in 3.9": "تازه‌ها در نسخه 3.9", "🎬 I want to watch today's recap": "🎬 می‌خواهم خلاصه امروز را ببینم", "🎬 Daily recap": "🎬 خلاصه روز", "🐗 Ask the Boar": "🐗 از گراز بپرس", "A question about health, sport or calories": "سؤالی درباره سلامت، ورزش یا کالری", "e.g. How much protein should I eat a day?": "مثلاً روزی چقدر پروتئین بخورم؟", "Ask 🐗": "بپرس 🐗", "Hi! I'm the Boar 🐗 Ask me about health, sport, sleep and counting calories.": "سلام! من گراز هستم 🐗 درباره سلامت، ورزش، خواب و شمارش کالری از من بپرس.", "Ask me about health, sport or calories! 🐗": "درباره سلامت، ورزش یا کالری از من بپرس! 🐗", "Your day": "روز تو", "Daily recap": "خلاصه روز", "Weight": "وزن", "since last": "از دفعه قبل", "days": "روز", "No measurements": "اندازه‌گیری نیست", "You vs the crew": "تو در برابر گروه", "progress to goal this week": "پیشرفت تا هدف در این هفته", "Steps today": "قدم‌های امروز", "How far we've come together": "با هم تا کجا آمده‌ایم", "From the chat": "از گفتگو", "New in the app": "تازه‌های برنامه", "Weight cinema": "سینمای وزن", "Your weight story as a film, with a bass beat and AI commentary.": "داستان وزن تو مثل یک فیلم، با ریتم باس و گزارش هوش مصنوعی.", "Boar assistant": "دستیار گراز", "A smiling boar answers questions about health, sport and calories.": "یک گراز خندان به سؤالات درباره سلامت، ورزش و کالری پاسخ می‌دهد.", "Let's go 💪": "بزن بریم 💪", "📤 Share": "📤 اشتراک‌گذاری", "↺ Again": "↺ دوباره", "My day in Progress dietowy": "روز من در پیشرفت رژیمی"});
 const EN_LONG = Object.keys(EN).filter(k => k.length >= 22).sort((a, b) => b.length - a.length);
 const fnWord = x => ({ woda: "water", trening: "workout", kroki: "steps" })[x] || x;
 const RULES = [
